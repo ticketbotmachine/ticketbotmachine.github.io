@@ -157,7 +157,7 @@
         <div class="countdown-section">
             <h2>GEM I AM GLORIA 搶票倒數</h2>
             <div class="countdown-timer" id="countdown">
-                <!-- JavaScript 將在這裡插入倒數計時 -->
+           
             </div>
             <a href="https://shows.cityline.com/tc/2025/midlifesingandshine3.html" class="btn">馬上搶飛</a>
         </div>
@@ -190,9 +190,8 @@
                     <div class="countdown-timer" id="concert3-countdown"></div>
                     <a href="https://edproduction.kktix.cc/events/konomisuzuki-hk-2025" class="btn">快達票 馬上搶飛</a>
                 </div>
-            </div>
-        </div>
-
+           </div>
+        </div>                
         <div class="pricing-section">
             <div class="pricing-card">
                 <h3>月費計劃</h3>
@@ -222,14 +221,13 @@
       <div class="video-section">
             <div class="video-box1">
                 <h2 style="color: #d32f2f; text-align: center;">Cityline 搶票實戰</h2>
-                <iframe width="100%" height="600" src="//player.bilibili.com/player.html?isOutside=true&aid=114713862078495&bvid=BV1e3KczxEKG&cid=30594959182&p=1" frameborder="0" allowfullscreen></iframe>
+                <iframe width="100%" height="400" src="//player.bilibili.com/player.html?isOutside=true&aid=114713862078495&bvid=BV1e3KczxEKG&cid=30594959182&p=1" frameborder="0" allowfullscreen></iframe>
 </div>
               <div class="video-section">
             <div class="video-box1">
                 <h2 style="color: #d32f2f; text-align: center;">KKTIX 搶票實戰</h2>
-                <iframe width="100%" height="600" src="//player.bilibili.com/player.html?isOutside=true&aid=114719616665051&bvid=BV1HcNkznE4s&cid=30614487712&p=1" frameborder="0" allowfullscreen></iframe>
-            </div>
-            
+                <iframe width="100%" height="400" src="//player.bilibili.com/player.html?isOutside=true&aid=114719616665051&bvid=BV1HcNkznE4s&cid=30614487712&p=1" frameborder="0" allowfullscreen></iframe>
+  </div>           
 <div class="payment-methods">
             <h2>馬上下載 TicketBot 掃下列二維碼</h2>
             <div class="payment-qr">
@@ -263,9 +261,9 @@
             <div class="payment-qr">
                 <img src="https://img.alicdn.com/imgextra/i4/91924417/O1CN01Vs6j3L1iV2UHWFKuW_!!91924417.png" alt="轉數快（HK）" width="150">
                 <p>轉數快（HK）</p>
-            </div>
+          </div> 
         </div>
- </div>
+                 </div>
         </div>
         <div class="video-section">
             <div class="video-box">
@@ -318,9 +316,9 @@
             <p>服務時間: 24/7 | 客服郵箱: ticketbotmachine@gmail.com</p>
         </footer>
     </div>
-    
-    <script>
-        // 倒數計時功能
+  
+<script>
+         // 主倒數計時器
         function updateCountdown() {
             // 設置下一場演唱會的日期時間 (示例: 2023年12月15日 20:00:00)
             const concertDate = new Date("2025-07-04T12:00:00");
@@ -340,16 +338,44 @@
             document.getElementById('countdown').innerHTML = 
                 `${days}天 ${hours}小時 ${minutes}分鐘 ${seconds}秒`;
         }
-
+        
         // 更新所有演唱會倒數
-        function updateAllCountdowns() {
-            updateCountdown();
-            // 更新其他演唱會倒數...
+        function updateConcertCountdown(id, targetDateStr) {
+            const now = new Date();
+            const targetDate = new Date(targetDateStr);
+            const diff = targetDate - now;
+            
+            if (diff <= 0) {
+                document.getElementById(id).innerHTML = "搶票已開始！";
+                return;
+            }
+            
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+            
+            document.getElementById(id).innerHTML = 
+                `搶票倒數: ${days}天 ${hours}小時 ${minutes}分 ${seconds}秒`;
         }
-
+        
+        // 初始化倒數計時器
+        updateCountdown();
+        updateConcertCountdown("concert1-countdown", "2025-07-04T12:00:00");
+        updateConcertCountdown("concert2-countdown", "2025-06-23T14:00:00");
+        updateConcertCountdown("concert3-countdown", "2025-07-04T12:00:00");
+        updateConcertCountdown("concert4-countdown", "2025-06-23T14:00:00");
+        updateConcertCountdown("concert5-countdown", "2025-06-23T14:00:00");
+        updateConcertCountdown("concert6-countdown", "2025-06-23T14:00:00");
+        
         // 每秒更新一次
-        setInterval(updateAllCountdowns, 1000);
-        updateAllCountdowns(); // 立即執行一次
+        setInterval(updateCountdown, 1000);
+        setInterval(() => updateConcertCountdown("concert1-countdown", "2025-07-04T12:00:00"), 1000);
+        setInterval(() => updateConcertCountdown("concert2-countdown", "2025-06-23T14:00:00"), 1000);
+        setInterval(() => updateConcertCountdown("concert3-countdown", "2025-07-04T12:00:00"), 1000);
+        setInterval(() => updateConcertCountdown("concert4-countdown", "2025-06-23T14:00:00"), 1000);
+        setInterval(() => updateConcertCountdown("concert5-countdown", "2025-06-23T14:00:00"), 1000);
+        setInterval(() => updateConcertCountdown("concert6-countdown", "2025-06-23T14:00:00"), 1000);
     </script>
 </body>
 </html>
