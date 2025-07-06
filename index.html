@@ -155,7 +155,7 @@
 
     <div class="container">
         <div class="countdown-section">
-            <h2>權志龍 [Übermensch] 香港站 搶票倒數</h2>
+            <h2>SEKAI NO OWARI 香港演唱會2025 搶票倒數</h2>
             <div class="countdown-timer" id="countdown">
            
             </div>
@@ -165,10 +165,10 @@
         <h2 style="text-align: center;">即將開搶演唱會</h2>
         <div class="concert-grid">
             <div class="concert-item">
-                <img src="https://img.alicdn.com/imgextra/i1/91924417/O1CN01DoOQ0U1iV2UaP6QYr_!!91924417.png" alt="演唱會1">
+                <img src="https://img.alicdn.com/imgextra/i3/91924417/O1CN01OV6fsp1iV2UfgNVRl_!!91924417.jpg" alt="演唱會1">
                 <div class="concert-info">
-                    <h3>笨蕉大劇院</h3>
-                    <p>開搶日 2025年7月02日 09:00</p>
+                    <h3>SEKAI NO OWARI 香港演唱會2025</h3>
+                    <p>開搶日 2025年7月07日 15:00</p>
                     <div class="countdown-timer" id="concert1-countdown"></div>
                     <a href="https://cultural.cityline.com/tc/2025/letmeentertainyou.html" class="btn">Cityline 馬上搶飛</a>
                 </div>
@@ -321,7 +321,7 @@
          // 主倒數計時器
         function updateCountdown() {
             // 設置下一場演唱會的日期時間 (示例: 2023年12月15日 20:00:00)
-            const concertDate = new Date("2025-06-30T12:00:00");
+            const concertDate = new Date("2025-07-07T15:00:00");
             const now = new Date();
             const diff = concertDate - now;
 
@@ -361,14 +361,14 @@
         
         // 初始化倒數計時器
         updateCountdown();
-        updateConcertCountdown("concert1-countdown", "2025-07-02T09:00:00");
+        updateConcertCountdown("concert1-countdown", "2025-07-07T15:00:00");
         updateConcertCountdown("concert2-countdown", "2025-07-02T12:00:00");
         updateConcertCountdown("concert3-countdown", "2025-07-04T12:00:00");
         
         
         // 每秒更新一次
         setInterval(updateCountdown, 1000);
-        setInterval(() => updateConcertCountdown("concert1-countdown", "2025-07-02T09:00:00"), 1000);
+        setInterval(() => updateConcertCountdown("concert1-countdown", "2025-07-07T15:00:00"), 1000);
         setInterval(() => updateConcertCountdown("concert2-countdown", "2025-07-02T12:00:00"), 1000);
         setInterval(() => updateConcertCountdown("concert3-countdown", "2025-07-04T12:00:00"), 1000);
         
