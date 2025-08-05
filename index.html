@@ -321,7 +321,7 @@
          // 主倒數計時器
         function updateCountdown() {
             // 設置下一場演唱會的日期時間 (示例: 2023年12月15日 20:00:00)
-            const concertDate = new Date("2025-08-05T12:00:00");
+            const concertDate = new Date("2025-08-06T12:00:00");
             const now = new Date();
             const diff = concertDate - now;
 
@@ -361,19 +361,20 @@
         
         // 初始化倒數計時器
         updateCountdown();
-        updateConcertCountdown("concert1-countdown", "2025-08-05T12:00:00");
+        updateConcertCountdown("concert1-countdown", "2025-08-06T12:00:00");
         updateConcertCountdown("concert2-countdown", "2025-07-31T11:00:00");
         updateConcertCountdown("concert3-countdown", "2025-07-04T12:00:00");
         
         
         // 每秒更新一次
         setInterval(updateCountdown, 1000);
-        setInterval(() => updateConcertCountdown("concert1-countdown", "2025-08-05T12:00:00"), 1000);
+        setInterval(() => updateConcertCountdown("concert1-countdown", "2025-08-06T12:00:00"), 1000);
         setInterval(() => updateConcertCountdown("concert2-countdown", "2025-07-31T11:00:00"), 1000);
         setInterval(() => updateConcertCountdown("concert3-countdown", "2025-07-04T12:00:00"), 1000);
         
     </script>
 </body>
 </html>
+
 
 
