@@ -155,7 +155,7 @@
 
     <div class="container">
         <div class="countdown-section">
-            <h2>JACKSON WANG MAGICMAN 2 WORLD TOUR 澳門演唱會 搶票倒數</h2>
+            <h2>TWICE 演唱會 2025 香港站 搶票倒數</h2>
             <div class="countdown-timer" id="countdown">
            
             </div>
@@ -165,30 +165,30 @@
         <h2 style="text-align: center;">即將開搶演唱會</h2>
         <div class="concert-grid">
             <div class="concert-item">
-                <img src="https://img.alicdn.com/imgextra/i2/91924417/O1CN01rYH6Gf1iV2VlkJU1R_!!91924417.jpg" alt="演唱會1">
+                <img src="https://img.alicdn.com/imgextra/i1/91924417/O1CN01EmyNm81iV2VuCkhPQ_!!91924417.jpg" alt="演唱會1">
                 <div class="concert-info">
-                    <h3>JACKSON WANG MAGICMAN 2 澳門演唱會2025</h3>
-                    <p>開搶日 2025年9月9日 17:00</p>
+                    <h3>Aespa 香港演唱會2026</h3>
+                    <p>開搶日 2025年9月25日 11:00</p>
                     <div class="countdown-timer" id="concert1-countdown"></div>
-                    <a href="https://www.fantopia.io/events-tickets?eventsKey=h54qfj88&areaKey=SEs=" class="btn">fantopia 馬上搶飛</a>
+                    <a href="https://www.fantopia.io/events-tickets?eventsKey=h54qfj88&areaKey=SEs=" class="btn">Cityline 馬上搶飛</a>
                 </div>
             </div>
             <div class="concert-item">
                 <img src="https://img.alicdn.com/imgextra/i1/91924417/O1CN01ZjpxE61iV2UINhXca_!!91924417.jpg" alt="演唱會2">
                 <div class="concert-info">
                     <h3>TWICE演唱會2025香港站</h3>
-                    <p>開搶日 2025年7月31日 11:00</p>
+                    <p>開搶日 2025年9月18日 12:00</p>
                     <div class="countdown-timer" id="concert2-countdown"></div>
                     <a href="https://shows.cityline.com/tc/2025/leahdouhk2025.html" class="btn">Cityline 馬上搶飛</a>
                 </div>
             </div>
             <div class="concert-item">
-                <img src="https://img.alicdn.com/imgextra/i2/91924417/O1CN01LNqDwH1iV2UJQMmiA_!!91924417.jpg" alt="演唱會3">
+                <img src="https://img.alicdn.com/imgextra/i3/91924417/O1CN01sXn3k81iV2VtmvGrG_!!91924417.jpg" alt="演唱會3">
                 <div class="concert-info">
-                    <h3>MAMA頒獎禮2025香港</h3>
-                    <p>開搶日 2025年7月4日 12:00</p>
+                    <h3>Zerobaseone 2025香港</h3>
+                    <p>開搶日 2025年9月24日 10:00</p>
                     <div class="countdown-timer" id="concert3-countdown"></div>
-                    <a href="https://hkt.hkticketing.com/gem.html?lang=zh_TW&noredirect=true" class="btn">快達票 馬上搶飛</a>
+                    <a href="https://hkt.hkticketing.com/gem.html?lang=zh_TW&noredirect=true" class="btn">Cityline 馬上搶飛</a>
                 </div>
            </div>
         </div>                
@@ -321,7 +321,7 @@
          // 主倒數計時器
         function updateCountdown() {
             // 設置下一場演唱會的日期時間 (示例: 2023年12月15日 20:00:00)
-            const concertDate = new Date("2025-09-09T17:00:00");
+            const concertDate = new Date("2025-09-18T12:00:00");
             const now = new Date();
             const diff = concertDate - now;
 
@@ -361,20 +361,21 @@
         
         // 初始化倒數計時器
         updateCountdown();
-        updateConcertCountdown("concert1-countdown", "2025-09-09T17:00:00");
-        updateConcertCountdown("concert2-countdown", "2025-07-31T11:00:00");
-        updateConcertCountdown("concert3-countdown", "2025-07-04T12:00:00");
+        updateConcertCountdown("concert1-countdown", "2025-09-25T11:00:00");
+        updateConcertCountdown("concert2-countdown", "2025-09-18T12:00:00");
+        updateConcertCountdown("concert3-countdown", "2025-09-24T10:00:00");
         
         
         // 每秒更新一次
         setInterval(updateCountdown, 1000);
-        setInterval(() => updateConcertCountdown("concert1-countdown", "2025-09-09T17:00:00"), 1000);
-        setInterval(() => updateConcertCountdown("concert2-countdown", "2025-07-31T11:00:00"), 1000);
-        setInterval(() => updateConcertCountdown("concert3-countdown", "2025-07-04T12:00:00"), 1000);
+        setInterval(() => updateConcertCountdown("concert1-countdown", "2025-09-25T11:00:00"), 1000);
+        setInterval(() => updateConcertCountdown("concert2-countdown", "2025-09-18T12:00:00"), 1000);
+        setInterval(() => updateConcertCountdown("concert3-countdown", "2025-09-24T10:00:00"), 1000);
         
     </script>
 </body>
 </html>
+
 
 
 
