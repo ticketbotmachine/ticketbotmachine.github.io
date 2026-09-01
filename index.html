@@ -1,1237 +1,429 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ticketkiller - 演唱會搶票助手</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        dark: '#121212',
-                        purple: '#8A2BE2',
-                        magenta: '#FF0080',
-                        green: '#39FF14',
-                        'dark-purple': '#4B0082',
-                        'dark-magenta': '#8B0000',
-                        'dark-green': '#006400'
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'system-ui', 'sans-serif'],
-                    },
-                }
-            }
-        }
-    </script>
-    <style type="text/tailwindcss">
-        @layer utilities {
-            .text-shadow {
-                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-            }
-            .text-gradient {
-                background-clip: text;
-                -webkit-background-clip: text;
-                color: transparent;
-            }
-            .bg-glass {
-                background: rgba(18, 18, 18, 0.7);
-                backdrop-filter: blur(10px);
-            }
-            .hover-scale {
-                transition: transform 0.3s ease;
-            }
-            .hover-scale:hover {
-                transform: scale(1.05);
-            }
-            .card-hover {
-                transition: all 0.3s ease;
-            }
-            .card-hover:hover {
-                transform: translateY(-10px);
-                box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-            }
-            .plan-highlight {
-                position: relative;
-                transform: scale(1.03);
-                z-index: 10;
-            }
-            .plan-highlight::before {
-                content: '推荐';
-                position: absolute;
-                top: -12px;
-                left: 50%;
-                transform: translateX(-50%);
-                background: linear-gradient(to right, #8A2BE2, #FF0080);
-                color: white;
-                padding: 2px 16px;
-                border-radius: 20px;
-                font-size: 14px;
-                font-weight: bold;
-            }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ticketkiller · 深色極速搶票</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+  <style>
+    /* 深色主題 + 速度感動態 */
+    * { box-sizing: border-box; }
+    body {
+      background: #0a0a0a;
+      color: #e8e8e8;
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      overflow-x: hidden;
+    }
+    .text-gradient {
+      background: linear-gradient(135deg, #8A2BE2, #FF0080, #39FF14);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .glass-deep {
+      background: rgba(10, 10, 10, 0.65);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.04);
+    }
+    .glow-border {
+      border: 1px solid rgba(138, 43, 226, 0.15);
+      transition: border-color 0.4s, box-shadow 0.4s, transform 0.3s cubic-bezier(0.2, 0, 0, 1);
+    }
+    .glow-border:hover {
+      border-color: rgba(138, 43, 226, 0.5);
+      box-shadow: 0 0 40px rgba(138, 43, 226, 0.08);
+      transform: translateY(-6px) scale(1.01);
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, #8A2BE2, #FF0080);
+      box-shadow: 0 8px 32px rgba(138, 43, 226, 0.25);
+      transition: all 0.3s cubic-bezier(0.2, 0, 0, 1);
+      position: relative;
+      overflow: hidden;
+    }
+    .btn-primary:hover {
+      transform: translateY(-3px) scale(1.04);
+      box-shadow: 0 14px 48px rgba(138, 43, 226, 0.4);
+    }
+    .btn-primary::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.15), transparent);
+      opacity: 0;
+      transition: opacity 0.4s;
+    }
+    .btn-primary:hover::after { opacity: 1; }
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      transition: all 0.3s cubic-bezier(0.2, 0, 0, 1);
+    }
+    .btn-secondary:hover {
+      background: rgba(138, 43, 226, 0.12);
+      border-color: #8A2BE2;
+      transform: scale(1.04);
+    }
+    .card-hover {
+      transition: all 0.4s cubic-bezier(0.2, 0, 0, 1);
+    }
+    .card-hover:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 30px 60px -20px rgba(138, 43, 226, 0.15);
+    }
+    .pricing-popular {
+      position: relative;
+      border: 2px solid #FF0080;
+      transform: scale(1.02);
+    }
+    .pricing-popular::before {
+      content: '⚡ 最受歡迎';
+      position: absolute;
+      top: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: linear-gradient(135deg, #8A2BE2, #FF0080);
+      color: #fff;
+      padding: 2px 22px;
+      border-radius: 40px;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      white-space: nowrap;
+    }
+    /* 速度感光線 */
+    .speed-line {
+      position: absolute;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, rgba(138, 43, 226, 0.3), transparent);
+      animation: speedLine 8s linear infinite;
+    }
+    .speed-line:nth-child(1) { top: 15%; left: -10%; width: 30%; animation-delay: 0s; }
+    .speed-line:nth-child(2) { top: 45%; right: -5%; width: 25%; animation-delay: 2s; }
+    .speed-line:nth-child(3) { bottom: 30%; left: -15%; width: 35%; animation-delay: 4s; }
+    .speed-line:nth-child(4) { top: 70%; right: -10%; width: 20%; animation-delay: 6s; }
+    @keyframes speedLine {
+      0% { transform: translateX(-100%) scaleX(0.5); opacity: 0; }
+      50% { opacity: 1; }
+      100% { transform: translateX(100vw) scaleX(1); opacity: 0; }
+    }
+    /* 浮動粒子 */
+    .particle {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(138, 43, 226, 0.15);
+      animation: floatParticle 14s ease-in-out infinite alternate;
+    }
+    .particle:nth-child(1) { width: 300px; height: 300px; top: -10%; left: -8%; animation-duration: 16s; }
+    .particle:nth-child(2) { width: 400px; height: 400px; bottom: -15%; right: -5%; animation-duration: 20s; background: rgba(255, 0, 128, 0.08); }
+    .particle:nth-child(3) { width: 250px; height: 250px; top: 40%; left: 40%; animation-duration: 18s; background: rgba(57, 255, 20, 0.05); }
+    @keyframes floatParticle {
+      0% { transform: translate(0, 0) scale(1); }
+      100% { transform: translate(60px, -60px) scale(1.2); }
+    }
+    /* 平台卡片動畫 */
+    .platform-card {
+      transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .platform-card:hover {
+      transform: translateY(-10px) scale(1.05);
+      box-shadow: 0 24px 48px -12px rgba(138, 43, 226, 0.2);
+    }
+    .platform-card .icon-wrap {
+      transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .platform-card:hover .icon-wrap {
+      transform: rotate(-12deg) scale(1.2);
+    }
+    /* 步驟圖標 */
+    .step-icon {
+      background: linear-gradient(135deg, #8A2BE2, #FF0080);
+      box-shadow: 0 8px 32px rgba(138, 43, 226, 0.25);
+      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .step-icon:hover {
+      transform: scale(1.12) rotate(-6deg);
+    }
+    /* 更新日誌 */
+    .timeline-item {
+      position: relative;
+      padding-left: 28px;
+      padding-bottom: 28px;
+      border-left: 2px solid rgba(138, 43, 226, 0.15);
+    }
+    .timeline-item:last-child { border-left: 2px solid transparent; padding-bottom: 0; }
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -7px;
+      top: 4px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #8A2BE2, #FF0080);
+      box-shadow: 0 0 24px rgba(138, 43, 226, 0.3);
+    }
+    .timeline-item .version-tag {
+      display: inline-block;
+      background: rgba(138, 43, 226, 0.15);
+      color: #8A2BE2;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 2px 14px;
+      border-radius: 20px;
+      border: 1px solid rgba(138, 43, 226, 0.15);
+    }
+    /* Logo 動畫 */
+    .logo-icon {
+      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.4s;
+    }
+    .logo-icon:hover {
+      transform: rotate(-4deg) scale(1.04);
+      filter: drop-shadow(0 0 40px rgba(138, 43, 226, 0.2));
+    }
+    /* 滾動條 */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #0a0a0a; }
+    ::-webkit-scrollbar-thumb { background: #8A2BE2; border-radius: 10px; }
+    /* 文字陰影提升可讀性 */
+    .text-shadow-dark {
+      text-shadow: 0 4px 30px rgba(0,0,0,0.6);
+    }
+  </style>
 </head>
+<body>
 
-<body class="bg-dark text-white font-sans overflow-x-hidden">
-    <!-- 导航栏 -->
-    <header class="fixed w-full z-50 transition-all duration-300" id="navbar">
-        <div class="bg-glass py-4 px-6 md:px-12">
-            <div class="container mx-auto flex justify-between items-center">
-                <a href="#" class="flex items-center space-x-2">
-                    <div
-                        class="w-10 h-10 rounded-full bg-gradient-to-r from-purple to-magenta flex items-center justify-center">
-                        <i class="fa fa-ticket text-white text-xl"></i>
-                    </div>
-                    <span
-                        class="text-2xl font-bold bg-gradient-to-r from-purple to-magenta text-gradient">ticketkiller</span>
-                </a>
-
-                <!-- 桌面导航 -->
-                <nav class="hidden md:flex space-x-8">
-                    <a href="#cases" class="hover:text-purple transition-colors">成功案例</a>
-                    <a href="#videos" class="hover:text-magenta transition-colors">演示視頻</a>
-                    <a href="#platforms" class="hover:text-green transition-colors">支持平台</a>
-                    <a href="#features" class="hover:text-purple transition-colors">功能介紹</a>
-                    <a href="#pricing" class="hover:text-magenta transition-colors">收費說明</a>
-                    <a href="#instructions" class="hover:text-green transition-colors">使用說明</a>
-                    <a href="#news" class="hover:text-purple transition-colors">最新消息</a>
-                </nav>
-
-                <!-- 下载按钮 -->
-                <a href="https://ticketbot.lanzn.com/ikeSY3rfpwad"
-                    class="hidden md:block bg-gradient-to-r from-green to-purple hover:opacity-90 text-white font-bold py-2 px-6 rounded-full transition-all shadow-lg shadow-green/20">
-                    立即下載
-                </a>
-
-                <!-- 移动端菜单按钮 -->
-                <button id="menuBtn" class="md:hidden text-white text-2xl">
-                    <i class="fa fa-bars"></i>
-                </button>
-            </div>
+  <!-- ========== 導航 ========== -->
+  <header class="fixed w-full z-50 transition-all duration-300" id="navbar">
+    <div class="glass-deep py-3 px-6 md:px-12 border-b border-white/5">
+      <div class="container mx-auto flex justify-between items-center">
+        <a href="#" class="flex items-center space-x-2 logo-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 80" width="200" height="66" class="transition duration-300">
+            <defs>
+              <linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#8A2BE2"/>
+                <stop offset="50%" stop-color="#FF0080"/>
+                <stop offset="100%" stop-color="#39FF14"/>
+              </linearGradient>
+              <linearGradient id="iconGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#8A2BE2"/>
+                <stop offset="100%" stop-color="#FF0080"/>
+              </linearGradient>
+              <filter id="glow"><feGaussianBlur stdDeviation="3"/><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+            </defs>
+            <g transform="translate(10, 10)">
+              <rect x="0" y="0" width="60" height="60" rx="16" fill="url(#iconGrad)" opacity="0.12"/>
+              <rect x="0" y="0" width="60" height="60" rx="16" fill="none" stroke="url(#iconGrad)" stroke-width="1.2" opacity="0.25"/>
+              <path d="M14 18 L46 18 L46 42 L14 42 Z" fill="none" stroke="url(#iconGrad)" stroke-width="2" stroke-linejoin="round" opacity="0.5"/>
+              <line x1="14" y1="30" x2="46" y2="30" stroke="url(#iconGrad)" stroke-width="1.5" stroke-dasharray="3 4" opacity="0.3"/>
+              <polygon points="32,16 24,32 30,32 26,46 38,28 31,28 34,16" fill="url(#iconGrad)" filter="url(#glow)" stroke="#fff" stroke-width="1"/>
+              <circle cx="18" cy="22" r="2" fill="#39FF14" opacity="0.5"/>
+              <circle cx="42" cy="38" r="1.5" fill="#8A2BE2" opacity="0.4"/>
+            </g>
+            <g transform="translate(82, 18)">
+              <text x="0" y="0" font-family="'Inter','Segoe UI',sans-serif" font-size="32" font-weight="800" letter-spacing="-0.5" fill="url(#logoGrad)">ticketkiller</text>
+              <text x="2" y="24" font-family="'Inter','Segoe UI',sans-serif" font-size="11" font-weight="500" letter-spacing="2" fill="#9CA3AF" opacity="0.6">SMART TICKETING</text>
+              <line x1="0" y1="34" x2="140" y2="34" stroke="url(#logoGrad)" stroke-width="1.2" opacity="0.2"/>
+              <circle cx="140" cy="34" r="2" fill="#39FF14" opacity="0.4"/>
+            </g>
+          </svg>
+        </a>
+        <nav class="hidden md:flex space-x-8 text-sm font-medium">
+          <a href="#platforms" class="hover:text-purple transition duration-300">平台</a>
+          <a href="#features" class="hover:text-magenta transition duration-300">功能</a>
+          <a href="#workflow" class="hover:text-green transition duration-300">流程</a>
+          <a href="#pricing" class="hover:text-purple transition duration-300">收費</a>
+          <a href="#changelog" class="hover:text-magenta transition duration-300">更新</a>
+        </nav>
+        <div class="hidden md:flex items-center space-x-4">
+          <a href="https://ticketbot.lanzn.com/ikeSY3rfpwad" class="btn-primary text-white font-bold py-2.5 px-7 rounded-full text-sm shadow-lg">立即下載</a>
         </div>
+        <button id="menuBtn" class="md:hidden text-white text-2xl focus:outline-none"><i class="fa fa-bars"></i></button>
+      </div>
+    </div>
+    <div id="mobileMenu" class="hidden md:hidden bg-[#0a0a0a]/95 backdrop-blur-xl border-b border-purple/20">
+      <div class="container mx-auto px-6 py-6 flex flex-col space-y-4 text-base">
+        <a href="#platforms" class="py-2 hover:text-purple transition">平台</a>
+        <a href="#features" class="py-2 hover:text-magenta transition">功能</a>
+        <a href="#workflow" class="py-2 hover:text-green transition">流程</a>
+        <a href="#pricing" class="py-2 hover:text-purple transition">收費</a>
+        <a href="#changelog" class="py-2 hover:text-magenta transition">更新</a>
+        <a href="https://ticketbot.lanzn.com/ikeSY3rfpwad" class="btn-primary text-center py-3 rounded-full font-bold">立即下載</a>
+      </div>
+    </div>
+  </header>
 
-        <!-- 移动端导航菜单 -->
-        <div id="mobileMenu" class="hidden md:hidden bg-dark-purple/95 backdrop-blur-md">
-            <div class="container mx-auto px-6 py-4 flex flex-col space-y-4">
-                <a href="#cases" class="py-2 hover:text-purple transition-colors">成功案例</a>
-                <a href="#videos" class="py-2 hover:text-magenta transition-colors">演示視頻</a>
-                <a href="#platforms" class="py-2 hover:text-green transition-colors">支持平台</a>
-                <a href="#features" class="py-2 hover:text-purple transition-colors">功能介紹</a>
-                <a href="#pricing" class="py-2 hover:text-magenta transition-colors">收費說明</a>
-                <a href="#instructions" class="py-2 hover:text-green transition-colors">使用說明</a>
-                <a href="#news" class="py-2 hover:text-purple transition-colors">最新消息</a>
-                <a href="https://ticketbot.lanzn.com/ikeSY3rfpwad"
-                    class="bg-gradient-to-r from-green to-purple text-center py-3 rounded-full font-bold">
-                    立即下载
-                </a>
-            </div>
+  <!-- ========== 英雄區域 ========== -->
+  <section class="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <!-- 深色背景動態 -->
+    <div class="absolute inset-0 z-0 bg-[#0a0a0a]">
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="speed-line"></div>
+      <div class="speed-line"></div>
+      <div class="speed-line"></div>
+      <div class="speed-line"></div>
+      <!-- 網格 -->
+      <div class="absolute inset-0" style="background-image: radial-gradient(rgba(138,43,226,0.04) 1px, transparent 1px); background-size: 40px 40px;"></div>
+    </div>
+
+    <div class="container mx-auto px-6 md:px-12 relative z-20 text-center">
+      <div class="inline-block bg-purple/10 backdrop-blur-sm border border-purple/20 px-5 py-1.5 rounded-full text-sm font-medium text-purple/80 mb-6 tracking-wider">
+        🚀 六大平台 · 極速搶票
+      </div>
+      <h1 class="text-[clamp(2.8rem,10vw,5.2rem)] font-extrabold leading-[1.1] mb-6 text-shadow-dark">
+        <span class="text-gradient">閃電鎖定</span><br>
+        <span class="text-white/90">你的心儀門票</span>
+      </h1>
+      <p class="text-[clamp(1rem,2.5vw,1.4rem)] max-w-2xl mx-auto text-gray-400/80 leading-relaxed mb-10">
+        Cityline · KKTIX · HKTICKETING · URBTIX · FANTOPIA · Klook<br class="hidden md:block">
+        一個工具，覆蓋所有熱門演唱會
+      </p>
+      <div class="flex flex-col sm:flex-row justify-center gap-5">
+        <a href="https://ticketbot.lanzn.com/ikeSY3rfpwad" class="btn-primary text-white font-bold py-4 px-12 rounded-full text-lg shadow-2xl">免費試用 <i class="fa fa-download ml-2"></i></a>
+        <a href="#platforms" class="btn-secondary text-white/80 font-bold py-4 px-10 rounded-full text-lg">探索平台 <i class="fa fa-arrow-right ml-2"></i></a>
+      </div>
+      <div class="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce">
+        <i class="fa fa-chevron-down text-3xl text-purple/30"></i>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 六大平台 ========== -->
+  <section id="platforms" class="py-24 px-6 md:px-12 bg-[#0d0d0d] relative">
+    <div class="absolute inset-0" style="background-image: radial-gradient(rgba(138,43,226,0.03) 1px, transparent 1px); background-size: 30px 30px;"></div>
+    <div class="container mx-auto relative z-10">
+      <div class="text-center mb-16">
+        <span class="text-purple/60 font-semibold tracking-widest text-sm">PLATFORMS</span>
+        <h2 class="text-[clamp(2rem,5vw,3.2rem)] font-bold mt-2">
+          <span class="text-gradient">六大平台全面覆蓋</span>
+        </h2>
+        <p class="text-gray-500 max-w-2xl mx-auto text-lg mt-3">一次安裝，全網搶票</p>
+      </div>
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 max-w-5xl mx-auto">
+        <div class="glass-deep rounded-2xl p-6 text-center platform-card glow-border"><div class="icon-wrap w-16 h-16 mx-auto rounded-full bg-purple/10 flex items-center justify-center text-3xl text-purple/70"><i class="fa fa-ticket"></i></div><h4 class="font-bold text-lg mt-4 text-white/90">CITYLINE</h4></div>
+        <div class="glass-deep rounded-2xl p-6 text-center platform-card glow-border"><div class="icon-wrap w-16 h-16 mx-auto rounded-full bg-magenta/10 flex items-center justify-center text-3xl text-magenta/70"><i class="fa fa-music"></i></div><h4 class="font-bold text-lg mt-4 text-white/90">KKTIX</h4></div>
+        <div class="glass-deep rounded-2xl p-6 text-center platform-card glow-border"><div class="icon-wrap w-16 h-16 mx-auto rounded-full bg-green/10 flex items-center justify-center text-3xl text-green/70"><i class="fa fa-globe"></i></div><h4 class="font-bold text-lg mt-4 text-white/90">HKTICKETING</h4></div>
+        <div class="glass-deep rounded-2xl p-6 text-center platform-card glow-border"><div class="icon-wrap w-16 h-16 mx-auto rounded-full bg-purple/10 flex items-center justify-center text-3xl text-purple/70"><i class="fa fa-star"></i></div><h4 class="font-bold text-lg mt-4 text-white/90">URBTIX</h4></div>
+        <div class="glass-deep rounded-2xl p-6 text-center platform-card glow-border"><div class="icon-wrap w-16 h-16 mx-auto rounded-full bg-magenta/10 flex items-center justify-center text-3xl text-magenta/70"><i class="fa fa-trophy"></i></div><h4 class="font-bold text-lg mt-4 text-white/90">FANTOPIA</h4></div>
+        <div class="glass-deep rounded-2xl p-6 text-center platform-card glow-border border-green/20 relative"><span class="absolute top-2 right-2 bg-green/20 text-green/60 text-[10px] px-2 py-0.5 rounded-full">NEW</span><div class="icon-wrap w-16 h-16 mx-auto rounded-full bg-green/10 flex items-center justify-center text-3xl text-green/70"><i class="fa fa-flag"></i></div><h4 class="font-bold text-lg mt-4 text-white/90">Klook</h4></div>
+      </div>
+      <div class="mt-16 max-w-3xl mx-auto glass-deep rounded-2xl p-8 border border-purple/10 text-center">
+        <div class="flex flex-wrap justify-center gap-6 text-sm text-gray-400">
+          <span class="flex items-center"><i class="fa fa-check-circle text-green/60 mr-2"></i> 自動填表</span>
+          <span class="flex items-center"><i class="fa fa-check-circle text-green/60 mr-2"></i> 優先進入</span>
+          <span class="flex items-center"><i class="fa fa-check-circle text-green/60 mr-2"></i> 防 Block</span>
+          <span class="flex items-center"><i class="fa fa-check-circle text-green/60 mr-2"></i> 多線程</span>
+          <span class="flex items-center"><i class="fa fa-check-circle text-green/60 mr-2"></i> 自動重試</span>
         </div>
-    </header>
-
-    <!-- 英雄区域 -->
-    <section class="relative h-screen flex items-center justify-center overflow-hidden">
-        <!-- 背景视频/图片 -->
-        <div class="absolute inset-0 z-0">
-            <div class="absolute inset-0 bg-gradient-to-b from-dark/70 via-dark/50 to-dark z-10"></div>
-            <img src="https://picsum.photos/id/1035/1920/1080" alt="演唱会现场氛围图" class="w-full h-full object-cover">
-        </div>
-
-        <div class="container mx-auto px-6 md:px-12 relative z-20 text-center">
-            <h1 class="text-[clamp(2.5rem,8vw,5rem)] font-extrabold leading-tight mb-6 text-shadow">
-                <span class="bg-gradient-to-r from-purple via-magenta to-green text-gradient">輕鬆搶票</span>
-                <br>不錯過任何演唱會
-            </h1>
-            <p class="text-[clamp(1rem,3vw,1.5rem)] mb-10 max-w-3xl mx-auto text-gray-200">
-                ticketkiller搶票助手助您一鍵鎖定熱門演唱會門票，智能監控、極速下單，讓您輕鬆獲取心儀座位
-            </p>
-            <div class="flex flex-col sm:flex-row justify-center gap-4">
-                <a href="https://ticketbot.lanzn.com/ikeSY3rfpwad"
-                    class="bg-gradient-to-r from-green to-purple hover:opacity-90 text-white font-bold py-4 px-10 rounded-full text-lg transition-all shadow-lg shadow-green/30 hover:shadow-green/50">
-                    立即下載 <i class="https://ticketbot.lanzn.com/iGza33qtcjfa"></i>
-                </a>
-                <a href="#pricing"
-                    class="bg-transparent border-2 border-purple hover:bg-purple/20 text-white font-bold py-4 px-10 rounded-full text-lg transition-all">
-                    查詢收費 <i class="fa fa-tag ml-2"></i>
-                </a>
-            </div>
-
-            <!-- 滚动提示 -->
-            <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
-                <i class="fa fa-chevron-down text-2xl text-purple"></i>
-            </div>
-        </div>
-    </section>
-
-    <!-- 成功案例展示区 -->
-    <section id="cases" class="py-20 px-6 md:px-12 bg-gradient-to-b from-dark to-dark/95">
-        <div class="container mx-auto">
-            <div class="text-center mb-16">
-                <h2 class="text-[clamp(1.8rem,5vw,3rem)] font-bold mb-4">
-                    <span class="bg-gradient-to-r from-purple to-magenta text-gradient">成功案例</span>
-                </h2>
-                <p class="text-gray-400 max-w-2xl mx-auto text-lg">
-                    數千用戶通過ticketkiller成功搶到心儀演唱會門票，以下是部分精彩案例
-                </p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- 案例1 -->
-                <div class="bg-dark/50 rounded-xl overflow-hidden shadow-lg card-hover border border-purple/30">
-                    <div class="h-56 overflow-hidden">
-                        <img src="https://img.alicdn.com/imgextra/i3/91924417/O1CN01xLH0JQ1iV2WEMoFSg_!!91924417.jpg"
-                            alt="周杰伦演唱会抢票成功案例"
-                            class="w-full h-full object-cover transition-transform duration-700 hover:scale-110">
-                    </div>
-                    <div class="p-6">
-                        <div class="flex justify-between items-center mb-3">
-                            <span class="bg-purple/20 text-purple text-sm px-3 py-1 rounded-full">BLACKPINK</span>
-                            <span class="text-green"><i class="fa fa-check-circle"></i> 搶票成功</span>
-                        </div>
-                        <h3 class="text-xl font-bold mb-2">「BORN PINK」世界巡回演唱會</h3>
-                        <p class="text-gray-400 mb-4">用戶通過ticketkiller在12分鐘內成功鎖定香港站門票，比手動搶票快5倍以上。</p>
-                        <div class="flex items-center text-gray-500 text-sm">
-                            <img src="https://picsum.photos/id/64/100/100" alt="用户头像" class="w-8 h-8 rounded-full mr-2">
-                            <span>王先生 · 香港</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 案例2 -->
-                <div class="bg-dark/50 rounded-xl overflow-hidden shadow-lg card-hover border border-magenta/30">
-                    <div class="h-56 overflow-hidden">
-                        <img src="https://img.alicdn.com/imgextra/i1/91924417/O1CN01TmU7XV1iV2WERBlUl_!!91924417.jpg"
-                            alt="BTS演唱会抢票成功案例"
-                            class="w-full h-full object-cover transition-transform duration-700 hover:scale-110">
-                    </div>
-                    <div class="p-6">
-                        <div class="flex justify-between items-center mb-3">
-                            <span class="bg-magenta/20 text-magenta text-sm px-3 py-1 rounded-full">AESPA</span>
-                            <span class="text-green"><i class="fa fa-check-circle"></i> 搶票成功</span>
-                        </div>
-                        <h3 class="text-xl font-bold mb-2">「LIVE TOUR SYNK」全球巡演</h3>
-                        <p class="text-gray-400 mb-4">系統智慧識別最佳搶票時機，幫助用戶成功獲取香港限量VIP套票，包含後臺通行證。</p>
-                        <div class="flex items-center text-gray-500 text-sm">
-                            <img src="https://picsum.photos/id/65/100/100" alt="用户头像" class="w-8 h-8 rounded-full mr-2">
-                            <span>李小姐 · 深圳</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 案例3 -->
-                <div class="bg-dark/50 rounded-xl overflow-hidden shadow-lg card-hover border border-green/30">
-                    <div class="h-56 overflow-hidden">
-                        <img src="https://img.alicdn.com/imgextra/i1/91924417/O1CN0146Cyqq1iV2WIJwkqb_!!91924417.jpg"
-                            alt="Taylor Swift演唱会抢票成功案例"
-                            class="w-full h-full object-cover transition-transform duration-700 hover:scale-110">
-                    </div>
-                    <div class="p-6">
-                        <div class="flex justify-between items-center mb-3">
-                            <span class="bg-green/20 text-green text-sm px-3 py-1 rounded-full">MAMA</span>
-                            <span class="text-green"><i class="fa fa-check-circle"></i> 搶票成功</span>
-                        </div>
-                        <h3 class="text-xl font-bold mb-2">「MAMA」頒獎典禮</h3>
-                        <p class="text-gray-400 mb-4">18：00開搶已在18：09搶票成功，ticketkiller幫助用戶成功搶到香港站連座票，位置絕佳。</p>
-                        <div class="flex items-center text-gray-500 text-sm">
-                            <img src="https://picsum.photos/id/66/100/100" alt="用户头像" class="w-8 h-8 rounded-full mr-2">
-                            <span>張先生 · 香港</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 案例4 -->
-                <div class="bg-dark/50 rounded-xl overflow-hidden shadow-lg card-hover border border-purple/30">
-                    <div class="h-56 overflow-hidden">
-                        <img src="https://img.alicdn.com/imgextra/i1/91924417/O1CN01ACfwiC1iV2WDByZ1X_!!91924417.jpg"
-                            alt="陈奕迅演唱会抢票成功案例"
-                            class="w-full h-full object-cover transition-transform duration-700 hover:scale-110">
-                    </div>
-                    <div class="p-6">
-                        <div class="flex justify-between items-center mb-3">
-                            <span class="bg-purple/20 text-purple text-sm px-3 py-1 rounded-full">ZB1</span>
-                            <span class="text-green"><i class="fa fa-check-circle"></i> 搶票成功</span>
-                        </div>
-                        <h3 class="text-xl font-bold mb-2">「HERE & NOW」世界巡演</h3>
-                        <p class="text-gray-400 mb-4">系統多執行同步操作，成功為用戶搶到香港啟德演出門票。</p>
-                        <div class="flex items-center text-gray-500 text-sm">
-                            <img src="https://picsum.photos/id/67/100/100" alt="用户头像" class="w-8 h-8 rounded-full mr-2">
-                            <span>陳小姐 · 深圳</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 案例5 -->
-                <div class="bg-dark/50 rounded-xl overflow-hidden shadow-lg card-hover border border-magenta/30">
-                    <div class="h-56 overflow-hidden">
-                        <img src="https://img.alicdn.com/imgextra/i3/91924417/O1CN01V6kNhd1iV2WDUlPOS_!!91924417.jpg"
-                            alt="Coldplay演唱会抢票成功案例"
-                            class="w-full h-full object-cover transition-transform duration-700 hover:scale-110">
-                    </div>
-                    <div class="p-6">
-                        <div class="flex justify-between items-center mb-3">
-                            <span class="bg-magenta/20 text-magenta text-sm px-3 py-1 rounded-full">WayV</span>
-                            <span class="text-green"><i class="fa fa-check-circle"></i> 搶票成功</span>
-                        </div>
-                        <h3 class="text-xl font-bold mb-2">「NO WAY OUT」世界巡演</h3>
-                        <p class="text-gray-400 mb-4">通過智慧刷新功能，用戶成功獲取香港場稀缺門票，避開搶飛高峰。</p>
-                        <div class="flex items-center text-gray-500 text-sm">
-                            <img src="https://picsum.photos/id/68/100/100" alt="用户头像" class="w-8 h-8 rounded-full mr-2">
-                            <span>趙先生 · 杭州</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 案例6 -->
-                <div class="bg-dark/50 rounded-xl overflow-hidden shadow-lg card-hover border border-green/30">
-                    <div class="h-56 overflow-hidden">
-                        <img src="https://img.alicdn.com/imgextra/i4/91924417/O1CN01L0jsQA1iV2WDBzEbr_!!91924417.jpg"
-                            alt="BLACKPINK演唱會搶票成功案例"
-                            class="w-full h-full object-cover transition-transform duration-700 hover:scale-110">
-                    </div>
-                    <div class="p-6">
-                        <div class="flex justify-between items-center mb-3">
-                            <span class="bg-green/20 text-green text-sm px-3 py-1 rounded-full">BLACKPINK</span>
-                            <span class="text-green"><i class="fa fa-check-circle"></i> 搶票成功</span>
-                        </div>
-                        <h3 class="text-xl font-bold mb-2">「BORN PINK」世界巡回演唱會</h3>
-                        <p class="text-gray-400 mb-4">在開票3秒內完成所有操作，幫助用戶成功鎖定香港站前排位置，系統回應速度驚人。</p>
-                        <div class="flex items-center text-gray-500 text-sm">
-                            <img src="https://picsum.photos/id/66/100/100" alt="用户头像" class="w-8 h-8 rounded-full mr-2">
-                            <span>林小姐 · 成都</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 视频展示区域 -->
-    <section id="videos" class="py-20 px-6 md:px-12 bg-dark">
-        <div class="container mx-auto">
-            <div class="text-center mb-16">
-                <h2 class="text-[clamp(1.8rem,5vw,3rem)] font-bold mb-4">
-                    <span class="bg-gradient-to-r from-magenta to-green text-gradient">演示視频</span>
-                </h2>
-                <p class="text-gray-400 max-w-2xl mx-auto text-lg">
-                    觀看ticketkiller實際操作演示，瞭解如何安裝，如何輕鬆搶票
-                </p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <!-- 视频1 -->
-                <div class="bg-dark/50 rounded-xl overflow-hidden shadow-lg card-hover border border-magenta/20 group">
-                    <div class="relative h-64 overflow-hidden">
-                        <iframe style="width: 100%;height: 100%;"
-                            src="https://www.youtube.com/embed/yDxlxTGagrE?si=5XtzgmovDdG96JjD"
-                            title="YouTube video player" frameborder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold mb-2">ticketkiller win&mac安裝方法</h3>
-                        <p class="text-gray-400">1分鐘快速瞭解 ticketkiller 搶票助手 windows & mac 的安裝方法，從安裝到首次登入。</p>
-                    </div>
-                </div>
-
-                <!-- 视频2 -->
-                <div
-                    class="bg-dark/50 rounded-xl overflow-hiddenshadow shadow shadow shadow shadow-lg card-hover border border-purple/20 group">
-                    <div class="relative h-64 overflow-hidden">
-                        <iframe style="width: 100%;height: 100%;"
-                            src="https://www.youtube.com/embed/iIXNadd8v5U?si=RwGS_hKFi1Z9ST9w"
-                            title="YouTube video player" frameborder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold mb-2">ticketkiller ios 安裝方法</h3>
-                        <p class="text-gray-400">1分鐘快速瞭解 ticketkiller 搶票助手 ios iphone ipad 的安裝方法，從安裝到首次登入。</p>
-                    </div>
-                </div>
-
-                <!-- 视频3 -->
-                <div
-                    class="bg-dark/50 rounded-xl overflow overflow-hidden shadow-lg card-hover border border-green/20 group">
-                    <div class="relative h-64 overflow-hidden">
-                        <iframe style="width: 100%;height: 100%;"
-                            src="https://www.youtube.com/embed/Edt8HpKVpts?si=DEutoGdBdIr7e2YF"
-                            title="YouTube video player" frameborder="0
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold mb-2">快達票 HKTICKETING 搶票設置教程</h3>
-                        <p class="text-gray-400">詳細解釋快達票HKTICKETING最新搶票系統處理搶票任務，提高成功率的高級技巧。</p>
-                    </div>
-                </div>
-
-                <!-- 视频4 -->
-                <div class="bg-dark/50 rounded-xl overflow-hidden shadow-lg card-hover border border-magenta/20 group">
-                    <div class="relative h-64 overflow-hidden">
-                        <iframe style="width: 100%;height: 100%;"
-                            src="https://www.youtube.com/embed/MrhS917oOOE?si=ZPqiSJ-fwQhRBT_F"
-                            title="YouTube video player" frameborder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold mb-2">多人員設置 設定頁面教學流程</h3>
-                        <p class="text-gray-400">多人員設置 讓最多6個頁面同時搶票。</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 抢票平台展示 -->
-    <section id="platforms" class="py-20 px-6 md:px-12 bg-gradient-to-b from-dark to-dark/95">
-        <div class="container mx-auto">
-            <div class="text-center mb-16">
-                <h2 class="text-[clamp(1.8rem,5vw,3rem)] font-bold mb-4">
-                    <span class="bg-gradient-to-r from-green to-purple text-gradient">支援五大搶票平台</span>
-                </h2>
-                <p class="text-gray-400 max-w-2xl mx-auto text-lg">
-                    ticketkiller支援主流票務平台，全方位覆蓋您的搶飛需求
-                </p>
-            </div>
-
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
-                <!-- 平台1 -->
-                <div
-                    class="bg-dark/50 rounded-xl p-8 flex flex-col items-center justify-center text-center card-hover border border-green/20">
-                    <div class="w-20 h-20 rounded-full bg-green/10 flex items-center justify-center mb-6">
-                        <i class="fa fa-ticket text-3xl text-green"></i>
-                    </div>
-                    <h3 class="text-xl font-bold mb-3">CITYLINE</h3>
-                    <p class="text-gray-400 text-sm">全面支持CITYLINE網所有演出類型，包括演唱會、話劇、體育賽事等</p>
-                </div>
-
-                <!-- 平台2 -->
-                <div
-                    class="bg-dark/50 rounded-xl p-8 flex flex-col items-center justify-center text-center card-hover border border-purple/20">
-                    <div class="w-20 h-20 rounded-full bg-purple/10 flex items-center justify-center mb-6">
-                        <i class="fa fa-music text-3xl text-purple"></i>
-                    </div>
-                    <h3 class="text-xl font-bold mb-3">KKTIX</h3>
-                    <p class="text-gray-400 text-sm">完美適配KKTIX售票平台，支持多頁面同時監控和搶飛</p>
-                </div>
-
-                <!-- 平台3 -->
-                <div
-                    class="bg-dark/50 rounded-xl p-8 flex flex-col items-center justify-center text-center card-hover border border-magenta/20">
-                    <div class="w-20 h-20 rounded-full bg-magenta/10 flex items-center justify-center mb-6">
-                        <i class="fa fa-globe text-3xl text-magenta"></i>
-                    </div>
-                    <h3 class="text-xl font-bold mb-3">HKTICKETING</h3>
-                    <p class="text-gray-400 text-sm">支持HKTICKETING知名票務平台，輕鬆搶購海外演唱會門票</p>
-                </div>
-
-                <!-- 平台4 -->
-                <div
-                    class="bg-dark/50 rounded-xl p-8 flex flex-col items-center justify-center text-center card-hover border border-green/20">
-                    <div class="w-20 h-20 rounded-full bg-green/10 flex items-center justify-center mb-6">
-                        <i class="fa fa-star text-3xl text-green"></i>
-                    </div>
-                    <h3 class="text-xl font-bold mb-3">URBTIX</h3>
-                    <p class="text-gray-400 text-sm">全面支持URBTIX票務平台，智慧識別驗證碼，極速下單</p>
-                </div>
-
-                <!-- 平台5 -->
-                <div
-                    class="bg-dark/50 rounded-xl p-8 flex flex-col items-center justify-center text-center card-hover border border-purple/20">
-                    <div class="w-20 h-20 rounded-full bg-purple/10 flex items-center justify-center mb-6">
-                        <i class="fa fa-trophy text-3xl text-purple"></i>
-                    </div>
-                    <h3 class="text-xl font-bold mb-3">FANTOPIA</h3>
-                    <p class="text-gray-400 text-sm">針對FANTOPIA平台特點優化搶票策略，提高稀缺票源成功率</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 功能说明区域 -->
-    <section id="features" class="py-20 px-6 md:px-12 bg-dark relative overflow-hidden">
-        <!-- 背景装饰 -->
-        <div class="absolute -top-40 -right-40 w-96 h-96 bg-purple/20 rounded-full blur-3xl"></div>
-        <div class="absolute -bottom-40 -left-40 w-96 h-96 bg-magenta/20 rounded-full blur-3xl"></div>
-
-        <div class="container mx-auto relative z-10">
-            <div class="text-center mb-16">
-                <h2 class="text-[clamp(1.8rem,5vw,3rem)] font-bold mb-4">
-                    <span class="bg-gradient-to-r from-purple to-magenta text-gradient">核心功能</span>
-                </h2>
-                <p class="text-gray-400 max-w-2xl mx-auto text-lg">
-                    ticketkiller搶票助手擁有強大功能，讓搶票變得簡單高效
-                </p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                <!-- 功能1 -->
-                <div class="bg-dark/60 backdrop-blur-sm rounded-xl p-6 card-hover border border-purple/10">
-                    <div class="w-14 h-14 rounded-lg bg-purple/20 flex items-center justify-center mb-5">
-                        <i class="fa fa-bolt text-2xl text-purple"></i>
-                    </div>
-                    <h3 class="text-xl font-bold mb-3">10x速自動刷新</h3>
-                    <p class="text-gray-400">大幅縮短排隊時間至最快一秒，可按個人喜好調教。</p>
-                </div>
-
-                <!-- 功能2 -->
-                <div class="bg-dark/60 backdrop-blur-sm rounded-xl p-6 card-hover border border-magenta/10">
-                    <div class="w-14 h-14 rounded-lg bg-magenta/20 flex items-center justify-center mb-5">
-                        <i class="fa fa-eye text-2xl text-magenta"></i>
-                    </div>
-                    <h3 class="text-xl font-bold mb-3">自動加車重試</h3>
-                    <p class="text-gray-400">進入購票頁面後，可以自動重試加入購物車。</p>
-                </div>
-
-                <!-- 功能3 -->
-                <div class="bg-dark/60 backdrop-blur-sm rounded-xl p-6 card-hover border border-green/10">
-                    <div class="w-14 h-14 rounded-lg bg-green/20 flex items-center justify-center mb-5">
-                        <i class="fa fa-cogs text-2xl text-green"></i>
-                    </div>
-                    <h3 class="text-xl font-bold mb-3">自動放大視窗提醒</h3>
-                    <p class="text-gray-400">成功進入後自動放大視窗提醒
-                        *適用於hkticketing、cityline、kktix</p>
-                </div>
-
-                <!-- 功能4 -->
-                <div class="bg-dark/60 backdrop-blur-sm rounded-xl p-6 card-hover border border-purple/10">
-                    <div class="w-14 h-14 rounded-lg bg-purple/20 flex items-center justify-center mb-5">
-                        <i class="fa fa-shield text-2xl text-purple"></i>
-                    </div>
-                    <h3 class="text-xl font-bold mb-3">防止被block問題</h3>
-                    <p class="text-gray-400">進入被block或error頁面會自動重新整理頁面，直至回到排隊頁面。
-                        *適用於hkticketing</p>
-                </div>
-
-                <!-- 功能5 -->
-                <div class="bg-dark/60 backdrop-blur-sm rounded-xl p-6 card-hover border border-magenta/10">
-                    <div class="w-14 h-14 rounded-lg bg-magenta/20 flex items-center justify-center mb-5">
-                        <i class="fa fa-sliders text-2xl text-magenta"></i>
-                    </div>
-                    <h3 class="text-xl font-bold mb-3">優先進入網站</h3>
-                    <p class="text-gray-400">9:55-9:59:59am 提供early link優先進入網站
-                        *適用於cityline</p>
-                </div>
-
-                <!-- 功能6 -->
-                <div class="bg-dark/60 backdrop-blur-sm rounded-xl p-6 card-hover border border-green/10">
-                    <div class="w-14 h-14 rounded-lg bg-green/20 flex items-center justify-center mb-5">
-                        <i class="fa fa-mobile text-2xl text-green"></i>
-                    </div>
-                    <h3 class="text-xl font-bold mb-3">自動填表</h3>
-                    <p class="text-gray-400">預先設定填個人資料和付款方法，購票時系統會為您自動填表，令您可以快人一步輕鬆checkout
-                        *適用於cityline、urbtix</p>
-                </div>
-
-                <!-- 功能7 -->
-                <div class="bg-dark/60 backdrop-blur-sm rounded-xl p-6 card-hover border border-purple/10">
-                    <div class="w-14 h-14 rounded-lg bg-purple/20 flex items-center justify-center mb-5">
-                        <i class="fa fa-bell text-2xl text-purple"></i>
-                    </div>
-                    <h3 class="text-xl font-bold mb-3">自動選擇票種</h3>
-                    <p class="text-gray-400">可預先設定選擇票種的方式，例如優先選擇排在最上方的票種，亦可以選擇排除關鍵字。
-                        *適用於kktix</p>
-                </div>
-
-                <!-- 功能8 -->
-                <div class="bg-dark/60 backdrop-blur-sm rounded-xl p-6 card-hover border border-magenta/10">
-                    <div class="w-14 h-14 rounded-lg bg-magenta/20 flex items-center justify-center mb-5">
-                        <i class="fa fa-user-secret text-2xl text-magenta"></i>
-                    </div>
-                    <h3 class="text-xl font-bold mb-3">門票交易平台</h3>
-                    <p class="text-gray-400">購買了搶飛程式的用戶在平台上購買二手門票可享優惠價格。
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 收费说明区域 -->
-    <section id="pricing" class="py-20 px-6 md:px-12 bg-gradient-to-b from-dark/95 to-dark relative overflow-hidden">
-        <!-- 背景装饰 -->
-        <div class="absolute top-1/3 left-1/4 w-72 h-72 bg-green/10 rounded-full blur-3xl"></div>
-        <div class="absolute bottom-1/3 right-1/4 w-72 h-72 bg-purple/10 rounded-full blur-3xl"></div>
-
-        <div class="container mx-auto relative z-10">
-            <div class="text-center mb-16">
-                <h2 class="text-[clamp(1.8rem,5vw,3rem)] font-bold mb-4">
-                    <span class="bg-gradient-to-r from-magenta to-green text-gradient">靈活收費方案</span>
-                </h2>
-                <p class="text-gray-400 max-w-2xl mx-auto text-lg">
-                    選擇適合您的收費方式，無論是偶爾搶票還是資深愛好者都能找到合適方案
-                </p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-                <!-- 按次收费 -->
-                <div
-                    class="bg-dark/50 rounded-xl overflow-hidden shadow-lg card-hover border border-purple/30 p-8 flex flex-col">
-                    <div class="mb-6">
-                        <div class="w-16 h-16 rounded-full bg-purple/20 flex items-center justify-center mb-4">
-                            <i class="fa fa-ticket text-2xl text-purple"></i>
-                        </div>
-                        <h3 class="text-2xl font-bold mb-2">按次收費</h3>
-                        <p class="text-gray-400">適合偶爾需要搶票的使用者</p>
-                    </div>
-
-                    <div class="mb-6">
-                        <div class="text-4xl font-bold mb-1">$100<span
-                                class="text-lg font-normal text-gray-400">/次</span></div>
-                        <p class="text-gray-500 text-sm">單次搶票任務</p>
-                    </div>
-
-                    <ul class="space-y-3 mb-8 flex-grow">
-                        <li class="flex items-start">
-                            <i class="fa fa-check text-green mt-1 mr-3"></i>
-                            <span>單場演唱會搶票許可權</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fa fa-check text-green mt-1 mr-3"></i>
-                            <span>24小時人工服務</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fa fa-check text-green mt-1 mr-3"></i>
-                            <span>最多3個設備使用權限</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fa fa-check text-green mt-1 mr-3"></i>
-                            <span>極速搶票速度</span>
-                        </li>
-                        <li class="flex items-start text-gray-500">
-                            <i class="fa fa-times mt-1 mr-3"></i>
-                            <span>多平台同時搶票</span>
-                        </li>
-                        <li class="flex items-start text-gray-500">
-                            <i class="fa fa-times mt-1 mr-3"></i>
-                            <span>優先搶票通道</span>
-                        </li>
-                    </ul>
-
-                    <a href="https://t.me/ticketbotmachine666"
-                        class="block text-center bg-purple/20 hover:bg-purple/30 text-purple font-bold py-3 rounded-lg transition-all border border-purple/40">
-                        選擇此方案
-                    </a>
-                </div>
-
-                <!-- 月度会员 -->
-                <div
-                    class="bg-dark/50 rounded-xl overflow-hidden shadow-lg card-hover border border-magenta/40 p-8 flex flex-col">
-                    <div class="mb-6">
-                        <div class="w-16 h-16 rounded-full bg-magenta/20 flex items-center justify-center mb-4">
-                            <i class="fa fa-calendar-check-o text-2xl text-magenta"></i>
-                        </div>
-                        <h3 class="text-2xl font-bold mb-2">月費會員</h3>
-                        <p class="text-gray-400">適合每月有多次搶票需求</p>
-                    </div>
-
-                    <div class="mb-6">
-                        <div class="text-4xl font-bold mb-1">$180<span
-                                class="text-lg font-normal text-gray-400">/月</span></div>
-                        <p class="text-gray-500 text-sm">30天內無限次搶票</p>
-                    </div>
-
-                    <ul class="space-y-3 mb-8 flex-grow">
-                        <li class="flex items-start">
-                            <i class="fa fa-check text-green mt-1 mr-3"></i>
-                            <span>無限場次搶票許可權</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fa fa-check text-green mt-1 mr-3"></i>
-                            <span>24小時人工服務</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fa fa-check text-green mt-1 mr-3"></i>
-                            <span>最多6個設備使用權限</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fa fa-check text-green mt-1 mr-3"></i>
-                            <span>極速搶票速度</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fa fa-check text-green mt-1 mr-3"></i>
-                            <span>多平台同時搶票</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fa fa-check text-green mt-1 mr-3"></i>
-                            <span>優先搶票通道</span>
-                        </li>
-                    </ul>
-
-                    <a href="https://t.me/ticketbotmachine666"
-                        class="block text-center bg-gradient-to-r from-purple to-magenta hover:opacity-90 text-white font-bold py-3 rounded-lg transition-all shadow-lg shadow-magenta/20">
-                        選擇此方案
-                    </a>
-                </div>
-
-                <!-- 季度会员 -->
-                <div
-                    class="bg-dark/50 rounded-xl overflow-hidden shadow-lg card-hover border border-green/30 p-8 flex flex-col">
-                    <div class="mb-6">
-                        <div class="w-16 h-16 rounded-full bg-green/20 flex items-center justify-center mb-4">
-                            <i class="fa fa-diamond text-2xl text-green"></i>
-                        </div>
-                        <h3 class="text-2xl font-bold mb-2">季度會員</h3>
-                        <p class="text-gray-400">適合資深演唱會愛好者</p>
-                    </div>
-
-                    <div class="mb-6">
-                        <div class="text-4xl font-bold mb-1">$488<span
-                                class="text-lg font-normal text-gray-400">/季</span></div>
-                        <p class="text-gray-500 text-sm">90天內無限次搶票，省52元</p>
-                    </div>
-
-                    <ul class="space-y-3 mb-8 flex-grow">
-                        <li class="flex items-start">
-                            <i class="fa fa-check text-green mt-1 mr-3"></i>
-                            <span>無限場次搶票許可權</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fa fa-check text-green mt-1 mr-3"></i>
-                            <span>24小時人工服務</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fa fa-check text-green mt-1 mr-3"></i>
-                            <span>最多10個設備使用權限</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fa fa-check text-green mt-1 mr-3"></i>
-                            <span>極速搶票速度</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fa fa-check text-green mt-1 mr-3"></i>
-                            <span>多平台同時搶票</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fa fa-check text-green mt-1 mr-3"></i>
-                            <span>優先搶票通道</span>
-                        </li>
-                    </ul>
-
-                    <a href="https://t.me/ticketbotmachine666"
-                        class="block text-center bg-green/20 hover:bg-green/30 text-green font-bold py-3 rounded-lg transition-all border border-green/40">
-                        選擇此方案
-                    </a>
-                </div>
-            </div>
-
-            <div class="mt-12 bg-dark/30 border border-purple/20 rounded-xl p-6 max-w-3xl mx-auto">
-                <h4 class="text-lg font-bold mb-4 flex items-center">
-                    <i class="fa fa-info-circle text-purple mr-2"></i> 收費問題說明
-                </h4>
-                <ul class="space-y-2 text-gray-300">
-                    <li class="flex items-start">
-                        <i class="fa fa-angle-right text-purple mt-1 mr-2"></i>
-                        <span>請問接受人民幣付款嗎？匯率如何計算？可以，我們接受内地版支付寶。
-                            匯率：港幣價值 * 0.93 =
-                            人民幣價值
-                            例如你買 HKD $130
-                            的產品 只需付 130 * 0.93 = RMB $120.9</span>
-                    </li>
-                    <li class="flex items-start">
-                        <i class="fa fa-angle-right text-magenta mt-1 mr-2"></i>
-                        <span>付款可以什麼支付工具？支付工具:
-                            單次購買: payme, FPS, 信用卡, 支付寶 (CN), Paypal, 銀行轉帳
-                            月費: patreon, 信用卡</span>
-                    </li>
-                    <li class="flex items-start">
-                        <i class="fa fa-angle-right text-green mt-1 mr-2"></i>
-                        <span>淨係買左一個月月費，點解下個月又收我錢？月費優惠會在結束時不會自動續費，您可以隨時取消</span>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </section>
-
-    <!-- 使用说明区域 -->
-    <section id="instructions" class="py-20 px-6 md:px-12 bg-gradient-to-b from-dark to-dark/95">
-        <div class="container mx-auto">
-            <div class="text-center mb-16">
-                <h2 class="text-[clamp(1.8rem,5vw,3rem)] font-bold mb-4">
-                    <span class="bg-gradient-to-r from-magenta to-green text-gradient">使用指南</span>
-                </h2>
-                <p class="text-gray-400 max-w-2xl mx-auto text-lg">
-                    簡單幾步，輕鬆開啟搶票之旅
-                </p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- 步骤1 -->
-                <div class="bg-dark/50 rounded-xl p-8 card-hover border border-magenta/20 relative overflow-hidden">
-                    <div
-                        class="absolute -right-6 -top-6 w-16 h-16 bg-magenta/20 rounded-full flex items-center justify-center">
-                        <span class="text-2xl font-bold text-magenta transform translate-x-2 translate-y-2"> 
-                    </div>
-                    <div class="mb-6">
-                        <img src="https://img.alicdn.com/imgextra/i2/91924417/O1CN01vYNWgM1iV2WFyKcYB_!!91924417.jpg"
-                            alt="下载安装ticketbot" class="w-full h-48 object-cover rounded-lg">
-                    </div>
-                    <h3 class="text-xl font-bold mb-3">下載安裝</h3>
-                    <p class="text-gray-400">下載對應版本的ticketkiller用戶端，按照指引完成安裝過程，支持Windows、macOS和移動端。</p>
-                </div>
-
-                <!-- 步骤2 -->
-                <div class="bg-dark/50 rounded-xl p-8 card-hover border border-purple/20 relative overflow-hidden">
-                    <div
-                        class="absolute -right-6 -top-6 w-16 h-16 bg-purple/20 rounded-full flex items-center justify-center">
-                        <span class="text-2xl font-bold text-purple transform translate-x-2 translate-y-2"> 
-                    </div>
-                    <div class="mb-6">
-                        <img src="https://img.alicdn.com/imgextra/i1/91924417/O1CN012ZAAdD1iV2WFbn1KL_!!91924417.jpg"
-                            alt="注册登录并完善信息" class="w-full h-48 object-cover rounded-lg">
-                    </div>
-                    <h3 class="text-xl font-bold mb-3">登录</h3>
-                    <p class="text-gray-400">通過平台客服，領取使用金匙激活碼</p>
-                </div>
-
-                <!-- 步骤3 -->
-                <div class="bg-dark/50 rounded-xl p-8 card-hover border border-green/20 relative overflow-hidden">
-                    <div
-                        class="absolute -right-6 -top-6 w-16 h-16 bg-green/20 rounded-full flex items-center justify-center">
-                        <span class="text-2xl font-bold text-green transform translate-x-2 translate-y-2"> 
-                    </div>
-                    <div class="mb-6">
-                        <img src="https://img.alicdn.com/imgextra/i4/91924417/O1CN01Vh83bb1iV2WG15xH6_!!91924417.jpg"
-                            alt="搜索目标演唱会" class="w-full h-48 object-cover rounded-lg">
-                    </div>
-                    <h3 class="text-xl font-bold mb-3">搜索活動</h3>
-                    <p class="text-gray-400">在搜索欄輸入您想觀看的演唱會或藝人名稱，選擇對應的場次和日期。</p>
-                </div>
-
-                <!-- 步骤4 -->
-                <div class="bg-dark/50 rounded-xl p-8 card-hover border border-magenta/20 relative overflow-hidden">
-                    <div
-                        class="absolute -right-6 -top-6 w-16 h-16 bg-magenta/20 rounded-full flex items-center justify-center">
-                        <span class="text-2xl font-bold text-magenta transform translate-x-2 translate-y-2"> 
-                    </div>
-                    <div class="mb-6">
-                        <img src="https://img.alicdn.com/imgextra/i3/91924417/O1CN01aPuWOu1iV2WFRuwJU_!!91924417.jpg"
-                            alt="设置抢票参数" class="w-full h-48 object-cover rounded-lg">
-                    </div>
-                    <h3 class="text-xl font-bold mb-3">設置後台參數</h3>
-                    <p class="text-gray-400">根據需求設置票價範圍、座位偏好、搶票數量等參數，開啟搶飛模式。</p>
-                </div>
-
-                <!-- 步骤5 -->
-                <div class="bg-dark/50 rounded-xl p-8 card-hover border border-purple/20 relative overflow-hidden">
-                    <div
-                        class="absolute -right-6 -top-6 w-16 h-16 bg-purple/20 rounded-full flex items-center justify-center">
-                        <span class="text-2xl font-bold text-purple transform translate-x-2 translate-y-2"> 
-                    </div>
-                    <div class="mb-6">
-                        <img src="https://img.alicdn.com/imgextra/i1/91924417/O1CN010hSkdZ1iV2WEHkTYP_!!91924417.jpg"
-                            alt="启动抢票" class="w-full h-48 object-cover rounded-lg">
-                    </div>
-                    <h3 class="text-xl font-bold mb-3">啟動搶票</h3>
-                    <p class="text-gray-400">可在開票前設置好倒計時提醒，開票瞬間系統將自動執行搶票操作，無需人工干預。</p>
-                </div>
-
-                <!-- 步骤6 -->
-                <div class="bg-dark/50 rounded-xl p-8 card-hover border border-green/20 relative overflow-hidden">
-                    <div
-                        class="absolute -right-6 -top-6 w-16 h-16 bg-green/20 rounded-full flex items-center justify-center">
-                        <span class="text-2xl font-bold text-green transform translate-x-2 translate-y-2"> 
-                    </div>
-                    <div class="mb-6">
-                        <img src="https://img.alicdn.com/imgextra/i1/91924417/O1CN01ZxKKYB1iV2WEgSHdR_!!91924417.jpg"
-                            alt="完成支付" class="w-full h-48 object-cover rounded-lg">
-                    </div>
-                    <h3 class="text-xl font-bold mb-3">完成支付</h3>
-                    <p class="text-gray-400">搶票成功後，系統會自動跳轉至支付頁面，您只需在規定時間內完成支付即可。</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 最新消息区域 -->
-    <section id="news" class="py-20 px-6 md:px-12 bg-dark relative overflow-hidden">
-        <!-- 背景装饰 -->
-        <div class="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-dark-purple/30 to-transparent"></div>
-
-        <div class="container mx-auto relative z-10">
-            <div class="text-center mb-16">
-                <h2 class="text-[clamp(1.8rem,5vw,3rem)] font-bold mb-4">
-                    <span class="bg-gradient-to-r from-green to-purple text-gradient">最新消息</span>
-                </h2>
-                <p class="text-gray-400 max-w-2xl mx-auto text-lg">
-                    瞭解ticketkiller最新動態和熱門演唱會資訊
-                </p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- 消息1 -->
-                <div class="bg-dark/50 rounded-xl overflow-hidden shadow-lg card-hover border border-green/20">
-                    <div class="h-48 overflow-hidden">
-                        <img src="https://img.alicdn.com/imgextra/i2/91924417/O1CN018gyaac1iV2WF6w4VD_!!91924417.png"
-                            alt="ticketkiller 1.24.2版本已經發佈"
-                            class="w-full h-full object-cover transition-transform duration-700 hover:scale-110">
-                    </div>
-                    <div class="p-6">
-                        <div class="flex justify-between items-center mb-3">
-                            <span class="text-gray-500 text-sm"><i class="fa fa-calendar-o mr-1"></i> 2026-06-08</span>
-                            <span class="bg-green/20 text-green text-xs px-2 py-1 rounded-full">版本更新</span>
-                        </div>
-                        <h3 class="text-xl font-bold mb-2">ticketkiller 1.24.2版本已經發佈</h3>
-                        <p class="text-gray-400 mb-4">x
-2026/6/8
-1. hkticketing: 支援最新版本的優先發售會員/信用卡號碼自動填入功能
-2. klook: 新增三個自動選票規則（其他選項），有組合套餐時根據規則自動選票。</p>
-                        <a href="https://ticketbot.lanzn.com/ikeSY3rfpwad" class="text-green hover:text-green/80 font-medium inline-flex items-center">
-                            查看詳情 <i class="fa fa-angle-right ml-1"></i>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- 消息2 -->
-                <div class="bg-dark/50 rounded-xl overflow-hidden shadow-lg card-hover border border-purple/20">
-                    <div class="h-48 overflow-hidden">
-                        <img src="https://img.alicdn.com/imgextra/i3/91924417/O1CN01qhcn2v1iV2ZBsDWU0_!!91924417.png"
-                            alt="BTS演唱會2027香港'"
-                            class="w-full h-full object-cover transition-transform duration-700 hover:scale-110">
-                    </div>
-                    <div class="p-6">
-                        <div class="flex justify-between items-center mb-3">
-                            <span class="text-gray-500 text-sm"><i class="fa fa-calendar-o mr-1"></i> 2026-05-31</span>
-                            <span class="bg-purple/20 text-purple text-xs px-2 py-1 rounded-full">搶票信息</span>
-                        </div>
-                        <h3 class="text-xl font-bold mb-2">BTS演唱會2027香港</h3>
-                        <p class="text-gray-400 mb-4">BTS演唱會2027香港
-                        <ACT : TOMORROW> 
-BTS《BTS WORLD TOUR ‘ARIRANG’》演唱會將於2027年3月4、6-7日 (四, 六-日) 在啟德主場館舉行，會在ARMY MEMBERSHIP優先訂票優先開賣門票，並會在HK Ticketing開始公開發售，即刻看內文了解如何搶飛、場地座位表及交通！
-
-原文網址: BTS演唱會2027香港｜門票優先/公售攻略＋購票連結＋座位表 | 香港01 https://www.hk01.com/article/60352644?utm_source=01articlecopy&utm_medium=referral</p>
-                        <a href="https://superdome.kktix.cc/events/9cc535ef" class="text-purple hover:text-purple/80 font-medium inline-flex items-center">
-                            查看詳情 <i class="fa fa-angle-right ml-1"></i>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- 消息3 -->
-                <div class="bg-dark/50 rounded-xl overflow-hidden shadow-lg card-hover border border-magenta/20">
-                    <div class="h-48 overflow-hidden">
-                        <img src="https://img.alicdn.com/imgextra/i1/91924417/O1CN01EwRlw01iV2ZC7GgLp_!!91924417.png"
-                            alt="周深2025"
-                            class="w-full h-full object-cover transition-transform duration-700 hover:scale-110">
-                    </div>
-                    <div class="p-6">
-                        <div class="flex justify-between items-center mb-3">
-                            <span class="text-gray-500 text-sm"><i class="fa fa-calendar-o mr-1"></i> 2025-05-31</span>
-                            <span class="bg-magenta/20 text-magenta text-xs px-2 py-1 rounded-full">搶票信息</span>
-                        </div>
-                        <h3 class="text-xl font-bold mb-2">趙露思「STAY ROMANTIC」澳門演唱會</h3>
-                        <p class="text-gray-400 mb-4">趙露思演唱會2026澳門 | 詳情
-
-演唱會日期：2026年7月11日（星期六）
-演唱會時間：18:00
-演唱會地點：銀河綜藝館
-門票價錢：MOP 2220/1980/1630/1160/930/690
-
-趙露思演唱會2026澳門 | 公開發售
-
-公開發售平台 ：Trip.com、大麥、MAISEAT、銀河票務
-公開開賣日期：2026年6月11日（星期四）
-公開開賣時間：上午11:09
-
-原文網址: 趙露思演唱會2026澳門｜門票攻略＋購票連結＋座位表 | 香港01 https://www.hk01.com/article/60354035?utm_source=01articlecopy&utm_medium=referral</p>
-                        <a href="https://hkt.hkticketing.com/hant/#/news/detail/0/13" class="text-magenta hover:text-magenta/80 font-medium inline-flex items-center">
-                            查看詳情 <i class="fa fa-angle-right ml-1"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="text-center mt-12">
-                <a href="#"
-                    class="inline-block bg-transparent border-2 border-purple hover:bg-purple/20 text-white font-bold py-3 px-8 rounded-full transition-all">
-                    查看更多消息 <i class="fa fa-arrow-right ml-2"></i>
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- 下载区域 -->
-    <section id="download"
-        class="py-20 px-6 md:px-12 bg-gradient-to-r from-dark-purple via-dark to-dark-magenta relative overflow-hidden">
-        <!-- 背景装饰 -->
-        <div class="absolute top-0 left-0 w-full h-full">
-            <div class="absolute top-1/4 left-1/4 w-64 h-64 bg-purple/30 rounded-full blur-3xl"></div>
-            <div class="absolute bottom-1/4 right-1/4 w-64 h-64 bg-magenta/30 rounded-full blur-3xl"></div>
-        </div>
-
-        <div class="container mx-auto relative z-10">
-            <div
-                class="max-w-4xl mx-auto bg-dark/60 backdrop-blur-md rounded-2xl p-8 md:p-12 border border-purple/30 shadow-xl">
-                <div class="text-center mb-10">
-                    <h2 class="text-[clamp(1.8rem,5vw,3rem)] font-bold mb-4">
-                        <span class="bg-gradient-to-r from-green to-magenta text-gradient">立即獲取ticketkiller</span>
-                    </h2>
-                    <p class="text-gray-300 max-w-2xl mx-auto text-lg">
-                        下載搶票助手，不錯過任何一場精彩演出
-                    </p>
-                </div>
-
-                <div class="flex flex-col md:flex-row justify-center gap-6 mb-12">
-                    <a href="https://ticketbot.lanzn.com/ikeSY3rfpwad"
-                        class="flex items-center justify-center bg-white/10 hover:bg-white/20 rounded-xl py-4 px-8 transition-all border border-white/20">
-                        <i class="fa fa-windows text-3xl text-green mr-4"></i>
-                        <div class="text-left">
-                            <div class="text-gray-400 text-sm">下載適用於</div>
-                            <div class="font-bold text-lg">Windows</div>
-                        </div>
-                    </a>
-
-                    <a href="https://ticketbot.lanzn.com/iGza33qtcjfa"
-                        class="flex items-center justify-center bg-white/10 hover:bg-white/20 rounded-xl py-4 px-8 transition-all border border-white/20">
-                        <i class="fa fa-apple text-3xl text-purple mr-4"></i>
-                        <div class="text-left">
-                            <div class="text-gray-400 text-sm">下載適用於</div>
-                            <div class="font-bold text-lg">macOS</div>
-                        </div>
-                    </a>
-
-                    <a href="https://ticketbot.lanzn.com/iGza33qtcjfa"
-                        class="flex items-center justify-center bg-white/10 hover:bg-white/20 rounded-xl py-4 px-8 transition-all border border-white/20">
-                        <i class="fa fa-mobile text-3xl text-magenta mr-4"></i>
-                        <div class="text-left">
-                            <div class="text-gray-400 text-sm">下載適用於</div>
-                            <div class="font-bold text-lg">android & ios</div>
-                        </div>
-                    </a>
-                </div>
-
-                <div class="text-center">
-                    <p class="text-gray-400 mb-6">關注我們的社交媒體，獲取最新資訊和搶票技巧</p>
-                    <div class="flex justify-center space-x-6">
-                        <a href="https://rpff.wkout.cn/cTOsdQ"
-                            class="w-14 h-14 rounded-full bg-gradient-to-r from-purple to-magenta flex items-center justify-center text-white text-2xl hover:scale-110 transition-transform">
-                            <i class="fa fa-weixin"></i>
-                        </a>
-                        <a href="http://wa.me/85267545772"
-                            class="w-14 h-14 rounded-full bg-gradient-to-r from-magenta to-green flex items-center justify-center text-white text-2xl hover:scale-110 transition-transform">
-                            <i class="fa fa-weibo"></i>
-                        </a>
-                        <a href="https://t.me/ticketbotmachine666"
-                            class="w-14 h-14 rounded-full bg-gradient-to-r from-green to-purple flex items-center justify-center text-white text-2xl hover:scale-110 transition-transform">
-                            <i class="fa fa-telegram"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 页脚 -->
-    <footer class="bg-dark py-12 px-6 md:px-12 border-t border-purple/20">
-        <div class="container mx-auto">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-10">
-                <div>
-                    <div class="flex items-center space-x-2 mb-6">
-                        <div
-                            class="w-10 h-10 rounded-full bg-gradient-to-r from-purple to-magenta flex items-center justify-center">
-                            <i class="fa fa-ticket text-white text-xl"></i>
-                        </div>
-                        <span
-                            class="text-2xl font-bold bg-gradient-to-r from-purple to-magenta text-gradient">ticketkiller</span>
-                    </div>
-                    <p class="text-gray-400 mb-6">
-                        專業的演唱會搶票助手，讓您輕鬆獲取心儀門票，不錯過任何精彩演出。
-                    </p>
-                    <div class="flex space-x-4">
-                        <a href="#" class="text-gray-400 hover:text-purple transition-colors">
-                            <i class="fa fa-weixin text-xl"></i>
-                        </a>
-                        <a href="#" class="text-gray-400 hover:text-magenta transition-colors">
-                            <i class="fa fa-weibo text-xl"></i>
-                        </a>
-                        <a href="#" class="text-gray-400 hover:text-green transition-colors">
-                            <i class="fa fa-telegram text-xl"></i>
-                        </a>
-                    </div>
-                </div>
-
-                <div>
-                    <h3 class="text-lg font-bold mb-6">快速連結</h3>
-                    <ul class="space-y-3">
-                        <li><a href="#cases" class="text-gray-400 hover:text-purple transition-colors">成功案例</a></li>
-                        <li><a href="#videos" class="text-gray-400 hover:text-magenta transition-colors">演示視頻</a></li>
-                        <li><a href="#platforms" class="text-gray-400 hover:text-green transition-colors">支持平台</a></li>
-                        <li><a href="#features" class="text-gray-400 hover:text-purple transition-colors">功能介紹</a></li>
-                        <li><a href="#pricing" class="text-gray-400 hover:text-magenta transition-colors">收費說明</a></li>
-                        <li><a href="#instructions" class="text-gray-400 hover:text-green transition-colors">使用說明</a>
-                        </li>
-                    </ul>
-                </div>
-
-                <div>
-                    <h3 class="text-lg font-bold mb-6">幫助中心</h3>
-                    <ul class="space-y-3">
-                        <li><a href="#" class="text-gray-400 hover:text-green transition-colors">常見問題</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-purple transition-colors">使用教程</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-magenta transition-colors">聯繫客服</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-green transition-colors">隱私政策</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-purple transition-colors">使用者協定</a></li>
-                    </ul>
-                </div>
-
-                <div>
-                    <h3 class="text-lg font-bold mb-6">聯繫我們</h3>
-                    <ul class="space-y-3">
-                        <li class="flex items-start">
-                            <i class="fa fa-envelope text-purple mt-1 mr-3"></i>
-                            <span class="text-gray-400">support@ticketkiller-machine.com</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fa fa-phone text-magenta mt-1 mr-3"></i>
-                            <span class="text-gray-400">＋852 65432109</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fa fa-map-marker text-green mt-1 mr-3"></i>
-                            <span class="text-gray-400">香港新界大埔科技園</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="border-t border-gray-800 mt-12 pt-8 text-center text-gray-500 text-sm">
-                <p>© 2023 ticketkiller. 保留所有權利。</p>
-            </div>
-        </div>
-    </footer>
-
-    <!-- 返回顶部按钮 -->
-    <button id="backToTop"
-        class="fixed bottom-8 right-8 w-12 h-12 rounded-full bg-gradient-to-r from-purple to-magenta flex items-center justify-center text-white text-xl shadow-lg opacity-0 invisible transition-all z-50">
-        <i class="fa fa-chevron-up"></i>
-    </button>
-
-    <script>
-        // 导航栏滚动效果
-        const navbar = document.getElementById('navbar');
-        const backToTop = document.getElementById('backToTop');
-
-        window.addEventListener('scroll', function () {
-            if (window.scrollY > 100) {
-                navbar.classList.add('py-2');
-                navbar.classList.remove('py-4');
-                navbar.classList.add('bg-dark/90');
-                navbar.classList.remove('bg-glass');
-
-                backToTop.classList.remove('opacity-0', 'invisible');
-                backToTop.classList.add('opacity-100', 'visible');
-            } else {
-                navbar.classList.add('py-4');
-                navbar.classList.remove('py-2');
-                navbar.classList.remove('bg-dark/90');
-                navbar.classList.add('bg-glass');
-
-                backToTop.classList.add('opacity-0', 'invisible');
-                backToTop.classList.remove('opacity-100', 'visible');
-            }
-        });
-
-        // 移动端菜单
-        const menuBtn = document.getElementById('menuBtn');
-        const mobileMenu = document.getElementById('mobileMenu');
-
-        menuBtn.addEventListener('click', function () {
-            mobileMenu.classList.toggle('hidden');
-            if (mobileMenu.classList.contains('hidden')) {
-                menuBtn.innerHTML = '<i class="fa fa-bars"></i>';
-            } else {
-                menuBtn.innerHTML = '<i class="fa fa-times"></i>';
-            }
-        });
-
-        // 平滑滚动
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-
-                // 关闭移动菜单
-                if (!mobileMenu.classList.contains('hidden')) {
-                    mobileMenu.classList.add('hidden');
-                    menuBtn.innerHTML = '<i class="fa fa-bars"></i>';
-                }
-
-                const targetId = this.getAttribute('href');
-                if (targetId === '#') return;
-
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 80,
-                        behavior: 'smooth'
-                    });
-                }
-            });
-        });
-
-        // 返回顶部
-        backToTop.addEventListener('click', function () {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        });
-
-        // 视频卡片点击效果（模拟视频播放）
-        document.querySelectorAll('.group').forEach(card => {
-            card.addEventListener('click', function () {
-                const videoTitle = this.querySelector('h3').textContent;
-                alert(`即将播放: ${videoTitle}`);
-            });
-        });
-    </script>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 功能 ========== -->
+  <section id="features" class="py-24 px-6 md:px-12 bg-[#0a0a0a]">
+    <div class="container mx-auto">
+      <div class="text-center mb-16">
+        <span class="text-magenta/60 font-semibold tracking-widest text-sm">FEATURES</span>
+        <h2 class="text-[clamp(2rem,5vw,3.2rem)] font-bold mt-2"><span class="text-gradient">極速引擎，專業功能</span></h2>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
+        <div class="glass-deep rounded-2xl p-7 glow-border card-hover text-center"><i class="fa fa-bolt text-4xl text-purple/70"></i><h4 class="text-xl font-bold mt-3 text-white/90">10x 極速刷新</h4><p class="text-gray-500 text-sm">排隊時間縮至 1 秒</p></div>
+        <div class="glass-deep rounded-2xl p-7 glow-border card-hover text-center"><i class="fa fa-cogs text-4xl text-magenta/70"></i><h4 class="text-xl font-bold mt-3 text-white/90">自動重試＋放大</h4><p class="text-gray-500 text-sm">即時提醒，不錯過</p></div>
+        <div class="glass-deep rounded-2xl p-7 glow-border card-hover text-center"><i class="fa fa-shield text-4xl text-green/70"></i><h4 class="text-xl font-bold mt-3 text-white/90">智慧防 Block</h4><p class="text-gray-500 text-sm">自動重整保持連線</p></div>
+        <div class="glass-deep rounded-2xl p-7 glow-border card-hover text-center"><i class="fa fa-sliders text-4xl text-purple/70"></i><h4 class="text-xl font-bold mt-3 text-white/90">優先進入連結</h4><p class="text-gray-500 text-sm">Early Link 搶佔先機</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 流程 ========== -->
+  <section id="workflow" class="py-24 px-6 md:px-12 bg-[#0d0d0d] relative">
+    <div class="absolute inset-0" style="background-image: radial-gradient(rgba(138,43,226,0.02) 1px, transparent 1px); background-size: 30px 30px;"></div>
+    <div class="container mx-auto relative z-10">
+      <div class="text-center mb-16">
+        <span class="text-green/60 font-semibold tracking-widest text-sm">HOW IT WORKS</span>
+        <h2 class="text-[clamp(2rem,5vw,3.2rem)] font-bold mt-2"><span class="text-gradient">四步直達，輕鬆搶票</span></h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 max-w-5xl mx-auto">
+        <div class="text-center"><div class="w-20 h-20 mx-auto rounded-full step-icon flex items-center justify-center text-3xl font-black text-white">1</div><h4 class="text-xl font-bold mt-5 text-white/90">下載安裝</h4><p class="text-gray-500 text-sm">全平台支援</p></div>
+        <div class="text-center"><div class="w-20 h-20 mx-auto rounded-full step-icon flex items-center justify-center text-3xl font-black text-white">2</div><h4 class="text-xl font-bold mt-5 text-white/90">激活設定</h4><p class="text-gray-500 text-sm">個人化參數</p></div>
+        <div class="text-center"><div class="w-20 h-20 mx-auto rounded-full step-icon flex items-center justify-center text-3xl font-black text-white">3</div><h4 class="text-xl font-bold mt-5 text-white/90">自動監控</h4><p class="text-gray-500 text-sm">多線程搶佔</p></div>
+        <div class="text-center"><div class="w-20 h-20 mx-auto rounded-full step-icon flex items-center justify-center text-3xl font-black text-white">4</div><h4 class="text-xl font-bold mt-5 text-white/90">閃電下單</h4><p class="text-gray-500 text-sm">成功率 92%</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 收費 ========== -->
+  <section id="pricing" class="py-24 px-6 md:px-12 bg-[#0a0a0a]">
+    <div class="container mx-auto">
+      <div class="text-center mb-16">
+        <span class="text-magenta/60 font-semibold tracking-widest text-sm">PRICING</span>
+        <h2 class="text-[clamp(2rem,5vw,3.2rem)] font-bold mt-2"><span class="text-gradient">靈活收費方案</span></h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+        <div class="glass-deep rounded-2xl p-8 glow-border card-hover"><div class="w-14 h-14 rounded-full bg-purple/10 flex items-center justify-center"><i class="fa fa-ticket text-2xl text-purple/60"></i></div><h3 class="text-2xl font-bold mt-4 text-white/90">按次</h3><div class="text-4xl font-bold my-4 text-white">$100 <span class="text-base text-gray-500">/次</span></div><a href="https://t.me/ticketbotmachine666" class="mt-6 block text-center border border-purple/20 py-2.5 rounded-full hover:bg-purple/10 transition text-white/80">選擇</a></div>
+        <div class="glass-deep rounded-2xl p-8 pricing-popular shadow-2xl"><div class="w-14 h-14 rounded-full bg-magenta/10 flex items-center justify-center"><i class="fa fa-calendar-check-o text-2xl text-magenta/60"></i></div><h3 class="text-2xl font-bold mt-4 text-white/90">月費</h3><div class="text-4xl font-bold my-4 text-white">$180 <span class="text-base text-gray-500">/月</span></div><a href="https://t.me/ticketbotmachine666" class="mt-6 block text-center btn-primary text-white py-2.5 rounded-full shadow-lg">選擇</a></div>
+        <div class="glass-deep rounded-2xl p-8 glow-border card-hover"><div class="w-14 h-14 rounded-full bg-green/10 flex items-center justify-center"><i class="fa fa-diamond text-2xl text-green/60"></i></div><h3 class="text-2xl font-bold mt-4 text-white/90">季度</h3><div class="text-4xl font-bold my-4 text-white">$488 <span class="text-base text-gray-500">/季</span></div><a href="https://t.me/ticketbotmachine666" class="mt-6 block text-center border border-green/20 py-2.5 rounded-full hover:bg-green/10 transition text-white/80">選擇</a></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 更新日誌 ========== -->
+  <section id="changelog" class="py-24 px-6 md:px-12 bg-[#0d0d0d] relative">
+    <div class="absolute inset-0" style="background-image: radial-gradient(rgba(138,43,226,0.02) 1px, transparent 1px); background-size: 30px 30px;"></div>
+    <div class="container mx-auto relative z-10">
+      <div class="text-center mb-16">
+        <span class="text-purple/60 font-semibold tracking-widest text-sm">CHANGELOG</span>
+        <h2 class="text-[clamp(2rem,5vw,3.2rem)] font-bold mt-2"><span class="text-gradient">更新日誌</span></h2>
+      </div>
+      <div class="max-w-3xl mx-auto">
+        <div class="timeline-item"><span class="version-tag">v1.24.2</span><span class="text-gray-500 text-sm ml-3"><i class="fa fa-calendar-o mr-1"></i>2026-06-08</span><span class="bg-green/10 text-green/60 text-xs px-2 py-0.5 rounded-full ml-2">最新</span><ul class="text-gray-400 text-sm mt-2 space-y-1"><li><i class="fa fa-check-circle text-purple/50 mr-2"></i>HKTICKETING 自動填卡號</li><li><i class="fa fa-check-circle text-purple/50 mr-2"></i>Klook 自動選票規則</li></ul></div>
+        <div class="timeline-item"><span class="version-tag">v1.23.0</span><span class="text-gray-500 text-sm ml-3"><i class="fa fa-calendar-o mr-1"></i>2026-05-20</span><ul class="text-gray-400 text-sm mt-2 space-y-1"><li><i class="fa fa-check-circle text-purple/50 mr-2"></i>Cityline Early Link</li><li><i class="fa fa-check-circle text-purple/50 mr-2"></i>URBTIX 自動填表優化</li></ul></div>
+        <div class="timeline-item"><span class="version-tag">v1.22.0</span><span class="text-gray-500 text-sm ml-3"><i class="fa fa-calendar-o mr-1"></i>2026-04-28</span><ul class="text-gray-400 text-sm mt-2 space-y-1"><li><i class="fa fa-check-circle text-purple/50 mr-2"></i>KKTIX 自動選擇票種</li><li><i class="fa fa-check-circle text-purple/50 mr-2"></i>多頁面效能提升</li></ul></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== CTA ========== -->
+  <section class="py-20 px-6 md:px-12 bg-[#0a0a0a] relative overflow-hidden">
+    <div class="absolute inset-0 opacity-20" style="background: radial-gradient(circle at 30% 50%, #8A2BE2, transparent 60%), radial-gradient(circle at 70% 50%, #FF0080, transparent 60%);"></div>
+    <div class="container mx-auto max-w-3xl glass-deep rounded-3xl p-10 border border-purple/20 shadow-2xl text-center relative z-10">
+      <h2 class="text-3xl md:text-4xl font-bold"><span class="text-gradient">立即體驗極速搶票</span></h2>
+      <p class="text-gray-400 mt-3 text-lg">下載 ticketkiller，六大平台全覆蓋</p>
+      <div class="flex flex-wrap justify-center gap-4 mt-8">
+        <a href="https://ticketbot.lanzn.com/ikeSY3rfpwad" class="btn-primary text-white px-8 py-3 rounded-full font-bold shadow-lg">Windows</a>
+        <a href="https://ticketbot.lanzn.com/iGza33qtcjfa" class="btn-secondary text-white/80 px-8 py-3 rounded-full font-bold">macOS</a>
+        <a href="https://ticketbot.lanzn.com/iGza33qtcjfa" class="btn-secondary text-white/80 px-8 py-3 rounded-full font-bold">Android / iOS</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== Footer ========== -->
+  <footer class="bg-[#0a0a0a] border-t border-white/5 py-12 px-6">
+    <div class="container mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 text-sm">
+      <div><a href="#" class="flex items-center space-x-2 logo-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 60" width="160" height="48"><defs><linearGradient id="logoGrad2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#8A2BE2"/><stop offset="50%" stop-color="#FF0080"/><stop offset="100%" stop-color="#39FF14"/></linearGradient></defs><rect x="0" y="0" width="44" height="44" rx="12" fill="rgba(138,43,226,0.08)" stroke="url(#logoGrad2)" stroke-width="1"/><polygon points="22,8 15,24 21,24 17,38 29,22 22,22 25,8" fill="url(#logoGrad2)" opacity="0.8"/><text x="54" y="34" font-family="'Inter',sans-serif" font-size="24" font-weight="800" fill="url(#logoGrad2)">ticketkiller</text></svg></a><p class="text-gray-600 mt-2 text-sm">六大平台 · 極速搶票</p></div>
+      <div><h5 class="font-bold mb-3 text-gray-400">連結</h5><ul class="space-y-2 text-gray-500"><li><a href="#platforms" class="hover:text-purple transition">平台</a></li><li><a href="#pricing" class="hover:text-magenta transition">收費</a></li><li><a href="#changelog" class="hover:text-green transition">更新</a></li></ul></div>
+      <div><h5 class="font-bold mb-3 text-gray-400">支援</h5><ul class="space-y-2 text-gray-500"><li><a href="#" class="hover:text-purple transition">常見問題</a></li><li><a href="#" class="hover:text-magenta transition">隱私政策</a></li></ul></div>
+      <div><h5 class="font-bold mb-3 text-gray-400">聯繫</h5><ul class="space-y-2 text-gray-500"><li><i class="fa fa-envelope mr-2 text-purple/50"></i> support@ticketkiller.com</li><li><i class="fa fa-phone mr-2 text-magenta/50"></i> +852 6543 2109</li></ul></div>
+    </div>
+    <div class="text-center text-gray-700 text-xs mt-10 border-t border-white/5 pt-6">© 2026 ticketkiller. All rights reserved.</div>
+  </footer>
+
+  <!-- ========== Back to Top ========== -->
+  <button id="backToTop" class="fixed bottom-8 right-8 w-12 h-12 rounded-full btn-primary text-white shadow-2xl opacity-0 invisible transition-all z-50 hover:scale-110 flex items-center justify-center"><i class="fa fa-chevron-up"></i></button>
+
+  <script>
+    const navbar = document.getElementById('navbar'), backToTop = document.getElementById('backToTop'), menuBtn = document.getElementById('menuBtn'), mobileMenu = document.getElementById('mobileMenu');
+    window.addEventListener('scroll', function() {
+      if (window.scrollY > 80) { navbar.classList.add('bg-[#0a0a0a]/90', 'py-1'); navbar.classList.remove('glass-deep', 'py-3'); backToTop.classList.remove('opacity-0', 'invisible'); backToTop.classList.add('opacity-100', 'visible'); } 
+      else { navbar.classList.remove('bg-[#0a0a0a]/90', 'py-1'); navbar.classList.add('glass-deep', 'py-3'); backToTop.classList.add('opacity-0', 'invisible'); backToTop.classList.remove('opacity-100', 'visible'); }
+    });
+    menuBtn.addEventListener('click', function() { mobileMenu.classList.toggle('hidden'); this.innerHTML = mobileMenu.classList.contains('hidden') ? '<i class="fa fa-bars"></i>' : '<i class="fa fa-times"></i>'; });
+    document.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener('click', function(e) { e.preventDefault(); const t = document.querySelector(this.getAttribute('href')); if (t) window.scrollTo({ top: t.offsetTop - 70, behavior: 'smooth' }); if (!mobileMenu.classList.contains('hidden')) { mobileMenu.classList.add('hidden'); menuBtn.innerHTML = '<i class="fa fa-bars"></i>'; } }));
+    backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+  </script>
 </body>
-
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
