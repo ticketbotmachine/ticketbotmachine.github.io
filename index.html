@@ -7,7 +7,6 @@
 <meta name="description" content="ticketkiller — 覆蓋 Cityline、KKTIX、HKTICKETING、URBTIX、FANTOPIA、Klook 六大平台。按演唱會場次購買使用權，一個場次可綁定 6 台設備，不限搶飛次數。">
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
-  // 修復：原本的 purple / magenta / green 並未定義，導致大量樣式失效
   tailwind.config = {
     theme: {
       extend: {
@@ -28,156 +27,76 @@
 <style>
   *{box-sizing:border-box}
   html{scroll-behavior:smooth}
-  body{
-    background:#0a0a0a;color:#e8e8e8;
-    font-family:'Inter',system-ui,-apple-system,sans-serif;
-    overflow-x:hidden;-webkit-font-smoothing:antialiased;
-  }
-  /* ---------- 文字漸變 ---------- */
-  .text-gradient{
-    background:linear-gradient(135deg,#8A2BE2,#FF0080,#39FF14);
-    -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
-  }
-  /* ---------- 玻璃卡片 ---------- */
-  .glass-deep{
-    background:rgba(10,10,10,.65);
-    backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
-    border:1px solid rgba(255,255,255,.04);
-  }
-  .glow-border{
-    border:1px solid rgba(138,43,226,.15);
-    transition:border-color .4s,box-shadow .4s,transform .3s cubic-bezier(.2,0,0,1);
-  }
-  .glow-border:hover{
-    border-color:rgba(138,43,226,.5);
-    box-shadow:0 0 40px rgba(138,43,226,.08);
-    transform:translateY(-6px) scale(1.01);
-  }
-  /* ---------- 按鈕 ---------- */
-  .btn-primary{
-    background:linear-gradient(135deg,#8A2BE2,#FF0080);
-    box-shadow:0 8px 32px rgba(138,43,226,.25);
-    transition:all .3s cubic-bezier(.2,0,0,1);
-    position:relative;overflow:hidden;display:inline-block;
-  }
+  body{background:#0a0a0a;color:#e8e8e8;font-family:'Inter',system-ui,-apple-system,sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+  .text-gradient{background:linear-gradient(135deg,#8A2BE2,#FF0080,#39FF14);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+  .glass-deep{background:rgba(10,10,10,.65);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.04)}
+  .glow-border{border:1px solid rgba(138,43,226,.15);transition:border-color .4s,box-shadow .4s,transform .3s cubic-bezier(.2,0,0,1)}
+  .glow-border:hover{border-color:rgba(138,43,226,.5);box-shadow:0 0 40px rgba(138,43,226,.08);transform:translateY(-6px) scale(1.01)}
+  .btn-primary{background:linear-gradient(135deg,#8A2BE2,#FF0080);box-shadow:0 8px 32px rgba(138,43,226,.25);transition:all .3s cubic-bezier(.2,0,0,1);position:relative;overflow:hidden;display:inline-block}
   .btn-primary:hover{transform:translateY(-3px) scale(1.04);box-shadow:0 14px 48px rgba(138,43,226,.4)}
-  .btn-primary::after{
-    content:'';position:absolute;inset:0;
-    background:linear-gradient(135deg,rgba(255,255,255,.15),transparent);
-    opacity:0;transition:opacity .4s;
-  }
+  .btn-primary::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.15),transparent);opacity:0;transition:opacity .4s}
   .btn-primary:hover::after{opacity:1}
-  .btn-secondary{
-    background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);
-    transition:all .3s cubic-bezier(.2,0,0,1);display:inline-block;
-  }
+  .btn-secondary{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);transition:all .3s cubic-bezier(.2,0,0,1);display:inline-block}
   .btn-secondary:hover{background:rgba(138,43,226,.12);border-color:#8A2BE2;transform:scale(1.04)}
-  /* ---------- 卡片浮起 ---------- */
+  .btn-official{background:rgba(57,255,20,.08);border:1px solid rgba(57,255,20,.3);transition:all .3s cubic-bezier(.2,0,0,1);display:inline-block}
+  .btn-official:hover{background:rgba(57,255,20,.18);border-color:#39FF14;transform:scale(1.03);box-shadow:0 8px 28px rgba(57,255,20,.18)}
   .card-hover{transition:all .4s cubic-bezier(.2,0,0,1)}
   .card-hover:hover{transform:translateY(-10px);box-shadow:0 30px 60px -20px rgba(138,43,226,.15)}
-  /* ---------- 熱門方案 ---------- */
   .pricing-popular{position:relative;border:2px solid #FF0080;transform:scale(1.02)}
-  .pricing-popular::before{
-    content:'⚡ 最受歡迎';position:absolute;top:-14px;left:50%;transform:translateX(-50%);
-    background:linear-gradient(135deg,#8A2BE2,#FF0080);color:#fff;
-    padding:2px 22px;border-radius:40px;font-size:13px;font-weight:700;
-    letter-spacing:.5px;white-space:nowrap;
-  }
-  /* ---------- 速度光線 ---------- */
-  .speed-line{
-    position:absolute;height:2px;
-    background:linear-gradient(90deg,transparent,rgba(138,43,226,.3),transparent);
-    animation:speedLine 8s linear infinite;
-  }
+  .pricing-popular::before{content:'⚡ 最受歡迎';position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#8A2BE2,#FF0080);color:#fff;padding:2px 22px;border-radius:40px;font-size:13px;font-weight:700;letter-spacing:.5px;white-space:nowrap}
+  .speed-line{position:absolute;height:2px;background:linear-gradient(90deg,transparent,rgba(138,43,226,.3),transparent);animation:speedLine 8s linear infinite}
   .speed-line:nth-child(1){top:15%;left:-10%;width:30%;animation-delay:0s}
   .speed-line:nth-child(2){top:45%;right:-5%;width:25%;animation-delay:2s}
   .speed-line:nth-child(3){bottom:30%;left:-15%;width:35%;animation-delay:4s}
   .speed-line:nth-child(4){top:70%;right:-10%;width:20%;animation-delay:6s}
-  @keyframes speedLine{
-    0%{transform:translateX(-100%) scaleX(.5);opacity:0}
-    50%{opacity:1}
-    100%{transform:translateX(100vw) scaleX(1);opacity:0}
-  }
-  /* ---------- 浮動粒子 ---------- */
+  @keyframes speedLine{0%{transform:translateX(-100%) scaleX(.5);opacity:0}50%{opacity:1}100%{transform:translateX(100vw) scaleX(1);opacity:0}}
   .particle{position:absolute;border-radius:50%;background:rgba(138,43,226,.15);animation:floatParticle 14s ease-in-out infinite alternate}
   .particle:nth-child(1){width:300px;height:300px;top:-10%;left:-8%;animation-duration:16s}
   .particle:nth-child(2){width:400px;height:400px;bottom:-15%;right:-5%;animation-duration:20s;background:rgba(255,0,128,.08)}
   .particle:nth-child(3){width:250px;height:250px;top:40%;left:40%;animation-duration:18s;background:rgba(57,255,20,.05)}
-  @keyframes floatParticle{
-    0%{transform:translate(0,0) scale(1)}
-    100%{transform:translate(60px,-60px) scale(1.2)}
-  }
-  /* ---------- 平台卡 ---------- */
+  @keyframes floatParticle{0%{transform:translate(0,0) scale(1)}100%{transform:translate(60px,-60px) scale(1.2)}}
   .platform-card{transition:all .4s cubic-bezier(.34,1.56,.64,1)}
   .platform-card:hover{transform:translateY(-10px) scale(1.05);box-shadow:0 24px 48px -12px rgba(138,43,226,.2)}
   .platform-card .icon-wrap{transition:transform .5s cubic-bezier(.34,1.56,.64,1)}
   .platform-card:hover .icon-wrap{transform:rotate(-12deg) scale(1.2)}
-  /* ---------- 步驟 ---------- */
   .step-card{position:relative}
-  .step-icon{
-    background:linear-gradient(135deg,#8A2BE2,#FF0080);
-    box-shadow:0 8px 32px rgba(138,43,226,.25);
-    transition:transform .4s cubic-bezier(.34,1.56,.64,1);
-  }
+  .step-icon{background:linear-gradient(135deg,#8A2BE2,#FF0080);box-shadow:0 8px 32px rgba(138,43,226,.25);transition:transform .4s cubic-bezier(.34,1.56,.64,1)}
   .step-card:hover .step-icon{transform:scale(1.12) rotate(-6deg)}
-  .step-card::after{
-    content:'\f105';font-family:FontAwesome;position:absolute;right:-18px;top:38px;
-    color:rgba(138,43,226,.35);font-size:22px;
-  }
+  .step-card::after{content:'\f105';font-family:FontAwesome;position:absolute;right:-18px;top:38px;color:rgba(138,43,226,.35);font-size:22px}
   .step-card:last-child::after{display:none}
   @media(max-width:1023px){.step-card::after{display:none}}
-  /* ---------- 更新日誌 ---------- */
   .timeline-item{position:relative;padding-left:28px;padding-bottom:30px;border-left:2px solid rgba(138,43,226,.15)}
   .timeline-item:last-child{border-left:2px solid transparent;padding-bottom:0}
-  .timeline-item::before{
-    content:'';position:absolute;left:-7px;top:6px;width:12px;height:12px;border-radius:50%;
-    background:linear-gradient(135deg,#8A2BE2,#FF0080);
-    box-shadow:0 0 24px rgba(138,43,226,.3);
-  }
-  .version-tag{
-    display:inline-block;background:rgba(138,43,226,.15);color:#B57BFF;
-    font-size:12px;font-weight:700;padding:2px 14px;border-radius:20px;
-    border:1px solid rgba(138,43,226,.25);
-  }
+  .timeline-item::before{content:'';position:absolute;left:-7px;top:6px;width:12px;height:12px;border-radius:50%;background:linear-gradient(135deg,#8A2BE2,#FF0080);box-shadow:0 0 24px rgba(138,43,226,.3)}
+  .version-tag{display:inline-block;background:rgba(138,43,226,.15);color:#B57BFF;font-size:12px;font-weight:700;padding:2px 14px;border-radius:20px;border:1px solid rgba(138,43,226,.25)}
   .tag-pill{font-size:11px;font-weight:700;padding:2px 10px;border-radius:20px;letter-spacing:.3px}
   .tag-new{background:rgba(57,255,20,.12);color:#7DFF5C;border:1px solid rgba(57,255,20,.25)}
   .tag-fix{background:rgba(255,0,128,.12);color:#FF74B8;border:1px solid rgba(255,0,128,.25)}
   .tag-opt{background:rgba(138,43,226,.14);color:#B57BFF;border:1px solid rgba(138,43,226,.28)}
-  /* ---------- Logo ---------- */
   .logo-icon{transition:transform .4s cubic-bezier(.34,1.56,.64,1),filter .4s;display:inline-flex}
   .logo-icon:hover{transform:rotate(-4deg) scale(1.04);filter:drop-shadow(0 0 40px rgba(138,43,226,.2))}
-  /* ---------- 導航收縮 ---------- */
   #navInner{transition:padding .3s ease,background .3s ease,box-shadow .3s ease}
   .nav-shrink{padding-top:.5rem!important;padding-bottom:.5rem!important;background:rgba(10,10,10,.94)!important;box-shadow:0 10px 40px -20px rgba(138,43,226,.35)}
-  /* ---------- WhatsApp ---------- */
-  .wa-btn{
-    background:linear-gradient(135deg,#25D366,#128C7E);
-    box-shadow:0 10px 34px rgba(37,211,102,.28);
-    transition:all .3s cubic-bezier(.2,0,0,1);
-  }
+  .wa-btn{background:linear-gradient(135deg,#25D366,#128C7E);box-shadow:0 10px 34px rgba(37,211,102,.28);transition:all .3s cubic-bezier(.2,0,0,1)}
   .wa-btn:hover{transform:translateY(-3px) scale(1.03);box-shadow:0 16px 46px rgba(37,211,102,.45)}
-  .wa-float{
-    background:linear-gradient(135deg,#25D366,#128C7E);
-    box-shadow:0 8px 30px rgba(37,211,102,.4);
-    transition:transform .3s cubic-bezier(.34,1.56,.64,1);
-  }
+  .wa-float{background:linear-gradient(135deg,#25D366,#128C7E);box-shadow:0 8px 30px rgba(37,211,102,.4);transition:transform .3s cubic-bezier(.34,1.56,.64,1)}
   .wa-float:hover{transform:scale(1.12) rotate(-6deg)}
-  .wa-float::before{
-    content:'';position:absolute;inset:0;border-radius:9999px;
-    background:rgba(37,211,102,.5);animation:waPulse 2.2s ease-out infinite;z-index:-1;
-  }
-  @keyframes waPulse{
-    0%{transform:scale(1);opacity:.7}
-    100%{transform:scale(1.8);opacity:0}
-  }
-  /* ---------- 滾動顯現 ---------- */
+  .wa-float::before{content:'';position:absolute;inset:0;border-radius:9999px;background:rgba(37,211,102,.5);animation:waPulse 2.2s ease-out infinite;z-index:-1}
+  @keyframes waPulse{0%{transform:scale(1);opacity:.7}100%{transform:scale(1.8);opacity:0}}
   .js .reveal{opacity:0;transform:translateY(28px);transition:opacity .75s cubic-bezier(.2,0,0,1),transform .75s cubic-bezier(.2,0,0,1)}
   .js .reveal.visible{opacity:1;transform:none}
-  /* ---------- 滾動條 ---------- */
   ::-webkit-scrollbar{width:6px}
   ::-webkit-scrollbar-track{background:#0a0a0a}
   ::-webkit-scrollbar-thumb{background:#8A2BE2;border-radius:10px}
   .text-shadow-dark{text-shadow:0 4px 30px rgba(0,0,0,.6)}
+  .skeleton{background:linear-gradient(90deg,rgba(255,255,255,.03) 25%,rgba(138,43,226,.08) 37%,rgba(255,255,255,.03) 63%);background-size:400% 100%;animation:skeletonShine 1.4s ease infinite}
+  @keyframes skeletonShine{0%{background-position:100% 50%}100%{background-position:0 50%}}
+  .source-badge{display:inline-flex;align-items:center;gap:6px;font-size:11px;padding:3px 12px;border-radius:20px;font-weight:600;letter-spacing:.3px}
+  .source-live{background:rgba(57,255,20,.1);color:#7DFF5C;border:1px solid rgba(57,255,20,.25)}
+  .source-cache{background:rgba(255,196,0,.1);color:#FFD666;border:1px solid rgba(255,196,0,.25)}
+  .source-fallback{background:rgba(255,0,128,.1);color:#FF74B8;border:1px solid rgba(255,0,128,.25)}
+  .source-dot{width:6px;height:6px;border-radius:50%;background:currentColor;animation:dotPulse 1.6s ease-in-out infinite}
+  @keyframes dotPulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.7)}}
 </style>
 </head>
 <body>
@@ -186,11 +105,8 @@
 <header id="navbar" class="fixed w-full z-50">
   <div id="navInner" class="glass-deep py-3 px-6 md:px-12 border-b border-white/5">
     <div class="container mx-auto flex justify-between items-center gap-4">
-
-      <!-- Logo（已修復尺寸與裁切問題） -->
       <a href="#top" class="logo-icon shrink-0" aria-label="ticketkiller 首頁">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 56"
-             class="h-8 sm:h-9 md:h-10 w-auto" role="img" aria-label="ticketkiller">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 56" class="h-8 sm:h-9 md:h-10 w-auto" role="img" aria-label="ticketkiller">
           <defs>
             <linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
               <stop offset="0%" stop-color="#8A2BE2"/>
@@ -201,37 +117,26 @@
               <stop offset="0%" stop-color="#8A2BE2"/>
               <stop offset="100%" stop-color="#FF0080"/>
             </linearGradient>
-            <filter id="glow">
-              <feGaussianBlur stdDeviation="2"/>
-              <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
-            </filter>
+            <filter id="glow"><feGaussianBlur stdDeviation="2"/><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter>
           </defs>
-
-          <!-- 圖標：44×44，垂直居中於 56 高的畫布 -->
           <g transform="translate(0,6)">
             <rect x="0" y="0" width="44" height="44" rx="12" fill="url(#iconGrad)" opacity="0.12"/>
             <rect x="0" y="0" width="44" height="44" rx="12" fill="none" stroke="url(#iconGrad)" stroke-width="1" opacity="0.28"/>
             <path d="M10 13 L34 13 L34 31 L10 31 Z" fill="none" stroke="url(#iconGrad)" stroke-width="1.5" stroke-linejoin="round" opacity="0.45"/>
             <line x1="10" y1="22" x2="34" y2="22" stroke="url(#iconGrad)" stroke-width="1" stroke-dasharray="2 3" opacity="0.3"/>
-            <polygon points="23,10 17,22 22,22 19,33 28,20 23,20 25.5,10"
-                     fill="url(#iconGrad)" filter="url(#glow)" stroke="#fff" stroke-width="0.6"/>
+            <polygon points="23,10 17,22 22,22 19,33 28,20 23,20 25.5,10" fill="url(#iconGrad)" filter="url(#glow)" stroke="#fff" stroke-width="0.6"/>
             <circle cx="13" cy="17" r="1.5" fill="#39FF14" opacity="0.5"/>
             <circle cx="31" cy="27" r="1.2" fill="#8A2BE2" opacity="0.4"/>
           </g>
-
-          <!-- 文字：從 x=56 開始，22px 字重 800 -->
           <g transform="translate(56,0)">
-            <text x="0" y="31" font-family="'Inter','Segoe UI',sans-serif"
-                  font-size="22" font-weight="800" letter-spacing="-0.5"
-                  fill="url(#logoGrad)">ticketkiller</text>
-            <text x="1" y="44" font-family="'Inter','Segoe UI',sans-serif"
-                  font-size="8" font-weight="500" letter-spacing="1.6"
-                  fill="#9CA3AF" opacity="0.55">SMART TICKETING</text>
+            <text x="0" y="31" font-family="'Inter','Segoe UI',sans-serif" font-size="22" font-weight="800" letter-spacing="-0.5" fill="url(#logoGrad)">ticketkiller</text>
+            <text x="1" y="44" font-family="'Inter','Segoe UI',sans-serif" font-size="8" font-weight="500" letter-spacing="1.6" fill="#9CA3AF" opacity="0.55">SMART TICKETING</text>
           </g>
         </svg>
       </a>
 
       <nav class="hidden md:flex items-center space-x-8 text-sm font-medium">
+        <a href="#shows" class="hover:text-green transition duration-300">場次</a>
         <a href="#platforms" class="hover:text-purple transition duration-300">平台</a>
         <a href="#features" class="hover:text-magenta transition duration-300">功能</a>
         <a href="#workflow" class="hover:text-green transition duration-300">流程</a>
@@ -257,6 +162,7 @@
 
   <div id="mobileMenu" class="hidden md:hidden bg-[#0a0a0a]/97 backdrop-blur-xl border-b border-purple/20">
     <div class="container mx-auto px-6 py-6 flex flex-col space-y-3 text-base">
+      <a href="#shows" class="py-2 hover:text-green transition">最新場次</a>
       <a href="#platforms" class="py-2 hover:text-purple transition">平台</a>
       <a href="#features" class="py-2 hover:text-magenta transition">功能</a>
       <a href="#workflow" class="py-2 hover:text-green transition">流程</a>
@@ -305,8 +211,8 @@
       <a href="https://ticketbot.lanzn.com/ix3og46ghm5g" class="btn-primary text-white font-bold py-4 px-12 rounded-full text-lg shadow-2xl">
         <i class="fa fa-download mr-2"></i>免費下載試用
       </a>
-      <a href="#pricing" class="btn-secondary text-white/85 font-bold py-4 px-10 rounded-full text-lg">
-        查看場次方案 <i class="fa fa-arrow-right ml-2"></i>
+      <a href="#shows" class="btn-secondary text-white/85 font-bold py-4 px-10 rounded-full text-lg">
+        查看最新場次 <i class="fa fa-arrow-right ml-2"></i>
       </a>
     </div>
 
@@ -322,8 +228,128 @@
   </div>
 </section>
 
+<!-- ============ 最新演唱會場次（API 驅動） ============ -->
+<section id="shows" class="py-24 px-6 md:px-12 bg-[#0d0d0d] relative">
+  <div class="absolute inset-0" style="background-image:radial-gradient(rgba(57,255,20,.02) 1px,transparent 1px);background-size:32px 32px;"></div>
+  <div class="container mx-auto relative z-10">
+    <div class="text-center mb-12 reveal">
+      <span class="text-green/70 font-semibold tracking-widest text-sm">LATEST SHOWS</span>
+      <h2 class="text-[clamp(2rem,5vw,3.2rem)] font-bold mt-2"><span class="text-gradient">最新演唱會場次及公售日期</span></h2>
+      <p class="text-gray-500 max-w-2xl mx-auto text-lg mt-3">
+        每日自動更新 · 已開售場次自動移除 · 附官方購票連結 · 即時掌握各大平台公售時間
+      </p>
+
+      <div class="mt-4 flex flex-wrap items-center justify-center gap-3 text-xs text-gray-600">
+        <span class="source-badge source-live" id="sourceBadge">
+          <span class="source-dot"></span>
+          <span id="sourceText">正在連接 API...</span>
+        </span>
+        <span>
+          <i class="fa fa-refresh mr-1"></i>最後更新：<span id="lastUpdated">—</span>
+        </span>
+        <span class="hidden sm:inline text-gray-700">|</span>
+        <span class="hidden sm:inline">
+          <i class="fa fa-clock-o mr-1"></i>每日凌晨 3:00 自動刷新
+        </span>
+      </div>
+    </div>
+
+    <div class="max-w-6xl mx-auto mb-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm reveal">
+      <span class="glass-deep px-4 py-2 rounded-full border border-green/15">
+        <i class="fa fa-fire text-green/80 mr-2"></i>即將公售：<span id="activeCount" class="font-bold text-white">—</span> 場
+      </span>
+      <span class="glass-deep px-4 py-2 rounded-full border border-white/5 text-gray-500">
+        <i class="fa fa-external-link text-green/60 mr-2"></i>每場附官方購票連結
+      </span>
+      <button id="refreshBtn" class="glass-deep px-4 py-2 rounded-full border border-purple/20 text-purple/80 hover:text-white hover:border-purple/50 transition">
+        <i class="fa fa-refresh mr-2"></i>手動刷新
+      </button>
+    </div>
+
+    <!-- 載入骨架屏 -->
+    <div id="showsLoading" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+      <div class="glass-deep rounded-2xl p-6 border border-white/5">
+        <div class="flex items-start justify-between gap-3">
+          <div class="skeleton w-12 h-12 rounded-full"></div>
+          <div class="skeleton w-16 h-5 rounded-full"></div>
+        </div>
+        <div class="skeleton h-5 rounded mt-5 w-4/5"></div>
+        <div class="space-y-3 mt-5">
+          <div class="skeleton h-3 rounded w-full"></div>
+          <div class="skeleton h-3 rounded w-3/4"></div>
+          <div class="skeleton h-3 rounded w-5/6"></div>
+          <div class="skeleton h-3 rounded w-2/3"></div>
+        </div>
+        <div class="skeleton h-10 rounded-full mt-5"></div>
+        <div class="skeleton h-10 rounded-full mt-3"></div>
+      </div>
+      <div class="glass-deep rounded-2xl p-6 border border-white/5 hidden md:block">
+        <div class="flex items-start justify-between gap-3">
+          <div class="skeleton w-12 h-12 rounded-full"></div>
+          <div class="skeleton w-16 h-5 rounded-full"></div>
+        </div>
+        <div class="skeleton h-5 rounded mt-5 w-4/5"></div>
+        <div class="space-y-3 mt-5">
+          <div class="skeleton h-3 rounded w-full"></div>
+          <div class="skeleton h-3 rounded w-3/4"></div>
+          <div class="skeleton h-3 rounded w-5/6"></div>
+          <div class="skeleton h-3 rounded w-2/3"></div>
+        </div>
+        <div class="skeleton h-10 rounded-full mt-5"></div>
+        <div class="skeleton h-10 rounded-full mt-3"></div>
+      </div>
+      <div class="glass-deep rounded-2xl p-6 border border-white/5 hidden lg:block">
+        <div class="flex items-start justify-between gap-3">
+          <div class="skeleton w-12 h-12 rounded-full"></div>
+          <div class="skeleton w-16 h-5 rounded-full"></div>
+        </div>
+        <div class="skeleton h-5 rounded mt-5 w-4/5"></div>
+        <div class="space-y-3 mt-5">
+          <div class="skeleton h-3 rounded w-full"></div>
+          <div class="skeleton h-3 rounded w-3/4"></div>
+          <div class="skeleton h-3 rounded w-5/6"></div>
+          <div class="skeleton h-3 rounded w-2/3"></div>
+        </div>
+        <div class="skeleton h-10 rounded-full mt-5"></div>
+        <div class="skeleton h-10 rounded-full mt-3"></div>
+      </div>
+    </div>
+
+    <!-- 錯誤提示 -->
+    <div id="showsError" class="hidden max-w-2xl mx-auto">
+      <div class="glass-deep rounded-2xl p-8 border border-magenta/25 text-center">
+        <i class="fa fa-exclamation-triangle text-4xl text-magenta/80"></i>
+        <h4 class="text-lg font-bold text-white/90 mt-4">場次資料載入失敗</h4>
+        <p id="errorMsg" class="text-gray-500 text-sm mt-2">無法連接伺服器，請檢查網絡後重試。</p>
+        <div class="flex flex-wrap justify-center gap-3 mt-6">
+          <button id="retryBtn" class="btn-primary text-white font-bold py-2.5 px-7 rounded-full text-sm">
+            <i class="fa fa-refresh mr-2"></i>重新載入
+          </button>
+          <button id="fallbackBtn" class="btn-secondary text-white/80 font-bold py-2.5 px-7 rounded-full text-sm">
+            使用備用資料
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div id="showsGrid" class="hidden grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto"></div>
+
+    <div id="noShows" class="hidden text-center py-16">
+      <i class="fa fa-calendar-o text-5xl text-gray-700"></i>
+      <p class="text-gray-500 mt-4">目前沒有即將公售的場次，請稍後再查看。</p>
+    </div>
+
+    <div class="mt-12 max-w-3xl mx-auto glass-deep rounded-2xl p-6 border border-green/15 text-center reveal">
+      <p class="text-gray-400 text-sm">
+        <i class="fa fa-info-circle text-green/70 mr-2"></i>
+        以上場次資料經 API 每日自動更新，已開售場次會自動移除。實際公售日期及票價以官方公佈為準。「官方購票連結」直達售票平台頁面；「單次購買」則購買 ticketkiller 搶飛權限。
+      </p>
+    </div>
+  </div>
+</section>
+
 <!-- ============ 六大平台 ============ -->
-<section id="platforms" class="py-24 px-6 md:px-12 bg-[#0d0d0d] relative">
+<section id="platforms" class="py-24 px-6 md:px-12 bg-[#0a0a0a] relative">
   <div class="absolute inset-0" style="background-image:radial-gradient(rgba(138,43,226,.03) 1px,transparent 1px);background-size:30px 30px;"></div>
   <div class="container mx-auto relative z-10">
     <div class="text-center mb-16 reveal">
@@ -373,7 +399,7 @@
 </section>
 
 <!-- ============ 功能 ============ -->
-<section id="features" class="py-24 px-6 md:px-12 bg-[#0a0a0a]">
+<section id="features" class="py-24 px-6 md:px-12 bg-[#0d0d0d]">
   <div class="container mx-auto">
     <div class="text-center mb-16 reveal">
       <span class="text-magenta/70 font-semibold tracking-widest text-sm">FEATURES</span>
@@ -416,8 +442,8 @@
   </div>
 </section>
 
-<!-- ============ 使用流程（優化） ============ -->
-<section id="workflow" class="py-24 px-6 md:px-12 bg-[#0d0d0d] relative">
+<!-- ============ 使用流程 ============ -->
+<section id="workflow" class="py-24 px-6 md:px-12 bg-[#0a0a0a] relative">
   <div class="absolute inset-0" style="background-image:radial-gradient(rgba(138,43,226,.02) 1px,transparent 1px);background-size:30px 30px;"></div>
   <div class="container mx-auto relative z-10">
     <div class="text-center mb-16 reveal">
@@ -430,7 +456,7 @@
       <div class="step-card text-center reveal">
         <div class="w-20 h-20 mx-auto rounded-full step-icon flex items-center justify-center text-3xl font-black text-white">1</div>
         <h4 class="text-xl font-bold mt-5 text-white/90">選擇演唱會場次</h4>
-        <p class="text-gray-500 text-sm mt-1 leading-relaxed">在收費區挑選你要搶的<br>演唱會 / 演出場次</p>
+        <p class="text-gray-500 text-sm mt-1 leading-relaxed">在最新場次區挑選你要搶的<br>演唱會 / 演出場次</p>
       </div>
       <div class="step-card text-center reveal">
         <div class="w-20 h-20 mx-auto rounded-full step-icon flex items-center justify-center text-3xl font-black text-white">2</div>
@@ -469,7 +495,7 @@
 </section>
 
 <!-- ============ 收費（按場次） ============ -->
-<section id="pricing" class="py-24 px-6 md:px-12 bg-[#0a0a0a]">
+<section id="pricing" class="py-24 px-6 md:px-12 bg-[#0d0d0d]">
   <div class="container mx-auto">
     <div class="text-center mb-16 reveal">
       <span class="text-magenta/70 font-semibold tracking-widest text-sm">PRICING</span>
@@ -481,7 +507,6 @@
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto items-stretch">
 
-      <!-- 單場 -->
       <div class="glass-deep rounded-2xl p-8 glow-border card-hover flex flex-col reveal">
         <div class="w-14 h-14 rounded-full bg-purple/10 flex items-center justify-center">
           <i class="fa fa-ticket text-2xl text-purple/80"></i>
@@ -501,15 +526,14 @@
         </a>
       </div>
 
-      <!-- 三場（熱門） -->
       <div class="glass-deep rounded-2xl p-8 pricing-popular shadow-2xl flex flex-col reveal">
         <div class="w-14 h-14 rounded-full bg-magenta/10 flex items-center justify-center">
           <i class="fa fa-calendar-check-o text-2xl text-magenta/80"></i>
         </div>
         <h3 class="text-2xl font-bold mt-4 text-white/90">三場組合</h3>
         <p class="text-gray-500 text-sm mt-1">自選 3 個場次，平均每場更抵</p>
-        <div class="text-4xl font-bold my-5 text-white">$248 <span class="text-base font-normal text-gray-500">/ 3 場</span></div>
-        <p class="text-xs text-green mb-4"><i class="fa fa-tag mr-1"></i>平均 $80 / 場，即省 $60</p>
+        <div class="text-4xl font-bold my-5 text-white">$264 <span class="text-base font-normal text-gray-500">/ 3 場</span></div>
+        <p class="text-xs text-green mb-4"><i class="fa fa-tag mr-1"></i>平均 $88 / 場，即省 $34</p>
         <ul class="space-y-3 text-sm text-gray-400 flex-1">
           <li><i class="fa fa-check text-magenta/70 mr-2"></i>3 個場次使用權（可自選）</li>
           <li><i class="fa fa-check text-magenta/70 mr-2"></i><span class="text-white/90 font-semibold">6 台設備</span>同時登入</li>
@@ -523,15 +547,14 @@
         </a>
       </div>
 
-      <!-- 六場 -->
       <div class="glass-deep rounded-2xl p-8 glow-border card-hover flex flex-col reveal">
         <div class="w-14 h-14 rounded-full bg-green/10 flex items-center justify-center">
           <i class="fa fa-diamond text-2xl text-green/80"></i>
         </div>
-        <h3 class="text-2xl font-bold mt-4 text-white/90">十場組合</h3>
+        <h3 class="text-2xl font-bold mt-4 text-white/90">六場組合</h3>
         <p class="text-gray-500 text-sm mt-1">全年追星首選，性價比最高</p>
-        <div class="text-4xl font-bold my-5 text-white">$688 <span class="text-base font-normal text-gray-500">/ 6 場</span></div>
-        <p class="text-xs text-green mb-4"><i class="fa fa-tag mr-1"></i>平均 $68 / 場，即省 $200</p>
+        <div class="text-4xl font-bold my-5 text-white">$480 <span class="text-base font-normal text-gray-500">/ 6 場</span></div>
+        <p class="text-xs text-green mb-4"><i class="fa fa-tag mr-1"></i>平均 $80 / 場，即省 $120</p>
         <ul class="space-y-3 text-sm text-gray-400 flex-1">
           <li><i class="fa fa-check text-green/70 mr-2"></i>6 個場次使用權（可自選）</li>
           <li><i class="fa fa-check text-green/70 mr-2"></i><span class="text-white/90 font-semibold">6 台設備</span>同時登入</li>
@@ -546,7 +569,6 @@
       </div>
     </div>
 
-    <!-- 收費說明 -->
     <div class="mt-12 max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-5 reveal">
       <div class="glass-deep rounded-xl p-5 border border-white/5 text-center">
         <i class="fa fa-mobile text-2xl text-purple/70"></i>
@@ -567,8 +589,8 @@
   </div>
 </section>
 
-<!-- ============ 更新日誌（優化） ============ -->
-<section id="changelog" class="py-24 px-6 md:px-12 bg-[#0d0d0d] relative">
+<!-- ============ 更新日誌 ============ -->
+<section id="changelog" class="py-24 px-6 md:px-12 bg-[#0a0a0a] relative">
   <div class="absolute inset-0" style="background-image:radial-gradient(rgba(138,43,226,.02) 1px,transparent 1px);background-size:30px 30px;"></div>
   <div class="container mx-auto relative z-10">
     <div class="text-center mb-16 reveal">
@@ -579,86 +601,82 @@
 
     <div class="max-w-3xl mx-auto">
 
-      <!-- v1.25.0 -->
       <div class="timeline-item reveal">
         <div class="flex flex-wrap items-center gap-2">
-          <span class="version-tag">v1.25.0</span>
-          <span class="text-gray-500 text-sm"><i class="fa fa-calendar-o mr-1"></i>2026-09-18</span>
+          <span class="version-tag">v1.27.2</span>
+          <span class="text-gray-500 text-sm"><i class="fa fa-calendar-o mr-1"></i>2026-09-24</span>
           <span class="tag-pill tag-new">最新</span>
         </div>
-        <h4 class="text-white/90 font-bold mt-3">按場次授權系統上線</h4>
+        <h4 class="text-white/90 font-bold mt-3">生產環境優化</h4>
         <ul class="text-gray-400 text-sm mt-3 space-y-2">
-          <li><span class="tag-pill tag-new mr-2">新增</span>全新「場次授權」機制，一個場次可綁定 6 台設備</li>
-          <li><span class="tag-pill tag-new mr-2">新增</span>設備管理面板，可自行解綁／更換裝置</li>
-          <li><span class="tag-pill tag-opt mr-2">優化</span>激活流程由 5 步縮短至 2 步，開通時間 &lt; 30 秒</li>
-          <li><span class="tag-pill tag-fix mr-2">修復</span>修正多設備同時登入時的授權衝突問題</li>
+          <li><span class="tag-pill tag-opt mr-2">優化</span>關閉除錯模式（<code class="text-green/80">debug: false</code>），正式上線不洩露 API 端點資訊</li>
+          <li><span class="tag-pill tag-opt mr-2">優化</span>Console 保持乾淨，降低被逆向分析風險</li>
+          <li><span class="tag-pill tag-fix mr-2">修復</span>本機環境自動偵測邏輯，避免開發時被 CORS 錯誤干擾</li>
         </ul>
       </div>
 
-      <!-- v1.24.3 -->
       <div class="timeline-item reveal">
         <div class="flex flex-wrap items-center gap-2">
-          <span class="version-tag">v1.24.3</span>
-          <span class="text-gray-500 text-sm"><i class="fa fa-calendar-o mr-1"></i>2026-09-02</span>
+          <span class="version-tag">v1.27.1</span>
+          <span class="text-gray-500 text-sm"><i class="fa fa-calendar-o mr-1"></i>2026-09-24</span>
         </div>
-        <h4 class="text-white/90 font-bold mt-3">HKTICKETING 搶飛穩定性提升</h4>
+        <h4 class="text-white/90 font-bold mt-3">API 配置層優化</h4>
         <ul class="text-gray-400 text-sm mt-3 space-y-2">
-          <li><span class="tag-pill tag-opt mr-2">優化</span>改善 hkticketing 自動加入購物車系統，命中率提升約 18%</li>
-          <li><span class="tag-pill tag-fix mr-2">修復</span>避免繁忙時段在「取票方式」頁面卡住無法下一步</li>
-          <li><span class="tag-pill tag-fix mr-2">修復</span>修正驗證碼彈窗偶爾遮擋按鈕的問題</li>
+          <li><span class="tag-pill tag-new mr-2">新增</span>全域 <code class="text-green/80">window.TK_CONFIG</code> 配置物件，API 路徑、逾時、快取可集中管理</li>
+          <li><span class="tag-pill tag-new mr-2">新增</span>自動偵測環境（localhost / file:// / 正式網域），智能選擇 API 路徑</li>
+          <li><span class="tag-pill tag-new mr-2">新增</span>支援跨域 API，內置可選 CORS 代理前綴</li>
+          <li><span class="tag-pill tag-opt mr-2">優化</span>API 端點支援完整 URL 或相對路徑</li>
+          <li><span class="tag-pill tag-opt mr-2">優化</span>部署註解更完整，降低接手維護成本</li>
         </ul>
       </div>
 
-      <!-- v1.24.2 -->
       <div class="timeline-item reveal">
         <div class="flex flex-wrap items-center gap-2">
-          <span class="version-tag">v1.24.2</span>
-          <span class="text-gray-500 text-sm"><i class="fa fa-calendar-o mr-1"></i>2026-06-08</span>
+          <span class="version-tag">v1.27.0</span>
+          <span class="text-gray-500 text-sm"><i class="fa fa-calendar-o mr-1"></i>2026-09-24</span>
         </div>
-        <h4 class="text-white/90 font-bold mt-3">URBTIX / Cityline 功能強化</h4>
+        <h4 class="text-white/90 font-bold mt-3">場次資料改由 API 驅動</h4>
         <ul class="text-gray-400 text-sm mt-3 space-y-2">
-          <li><span class="tag-pill tag-opt mr-2">優化</span>URBTIX 自動填表邏輯重寫，支援新版表單欄位</li>
-          <li><span class="tag-pill tag-new mr-2">新增</span>Cityline Early Link 優先進入連結產生器</li>
-          <li><span class="tag-pill tag-opt mr-2">優化</span>整體記憶體佔用降低 25%</li>
+          <li><span class="tag-pill tag-new mr-2">新增</span>場次列表改為從 API 讀取，支援後端自動化</li>
+          <li><span class="tag-pill tag-new mr-2">新增</span>localStorage 快取機制，API 失敗時自動使用上次成功資料</li>
+          <li><span class="tag-pill tag-new mr-2">新增</span>載入骨架屏、錯誤提示與一鍵重試按鈕</li>
+          <li><span class="tag-pill tag-new mr-2">新增</span>內嵌備用資料，API 完全無法連接時仍可展示場次</li>
         </ul>
       </div>
 
-      <!-- v1.24.1 -->
       <div class="timeline-item reveal">
         <div class="flex flex-wrap items-center gap-2">
-          <span class="version-tag">v1.24.1</span>
-          <span class="text-gray-500 text-sm"><i class="fa fa-calendar-o mr-1"></i>2026-04-28</span>
+          <span class="version-tag">v1.26.1</span>
+          <span class="text-gray-500 text-sm"><i class="fa fa-calendar-o mr-1"></i>2026-09-24</span>
         </div>
-        <h4 class="text-white/90 font-bold mt-3">KKTIX 自動選票與效能提升</h4>
+        <h4 class="text-white/90 font-bold mt-3">場次官方購票連結上線</h4>
         <ul class="text-gray-400 text-sm mt-3 space-y-2">
-          <li><span class="tag-pill tag-new mr-2">新增</span>KKTIX 自動選擇票種與數量</li>
-          <li><span class="tag-pill tag-opt mr-2">優化</span>多頁面切換效能提升，反應速度加快 40%</li>
+          <li><span class="tag-pill tag-new mr-2">新增</span>每個場次卡片加入「官方購票連結」按鈕，一鍵直達售票平台</li>
+          <li><span class="tag-pill tag-opt mr-2">優化</span>場次卡片按鈕間距與對齊，提升閱讀體驗</li>
         </ul>
       </div>
 
-      <!-- 更早版本（可展開） -->
       <div id="olderLogs" class="hidden">
         <div class="timeline-item">
           <div class="flex flex-wrap items-center gap-2">
-            <span class="version-tag">v1.24.0</span>
-            <span class="text-gray-500 text-sm"><i class="fa fa-calendar-o mr-1"></i>2026-03-15</span>
+            <span class="version-tag">v1.26.0</span>
+            <span class="text-gray-500 text-sm"><i class="fa fa-calendar-o mr-1"></i>2026-09-24</span>
           </div>
-          <h4 class="text-white/90 font-bold mt-3">多線程引擎 2.0</h4>
+          <h4 class="text-white/90 font-bold mt-3">每日自動更新場次系統</h4>
           <ul class="text-gray-400 text-sm mt-3 space-y-2">
-            <li><span class="tag-pill tag-new mr-2">新增</span>多線程並發搶飛，同時監控多個票檔</li>
-            <li><span class="tag-pill tag-new mr-2">新增</span>搶到票即時彈窗＋音效提醒</li>
-            <li><span class="tag-pill tag-opt mr-2">優化</span>防 Block 機制全面升級</li>
+            <li><span class="tag-pill tag-new mr-2">新增</span>官網場次列表每日自動更新，已開售場次自動移除</li>
+            <li><span class="tag-pill tag-opt mr-2">優化</span>場次卡片加入公售倒數標籤（公售中／本週／下週）</li>
           </ul>
         </div>
         <div class="timeline-item">
           <div class="flex flex-wrap items-center gap-2">
-            <span class="version-tag">v1.23.5</span>
-            <span class="text-gray-500 text-sm"><i class="fa fa-calendar-o mr-1"></i>2026-01-20</span>
+            <span class="version-tag">v1.25.0</span>
+            <span class="text-gray-500 text-sm"><i class="fa fa-calendar-o mr-1"></i>2026-09-18</span>
           </div>
-          <h4 class="text-white/90 font-bold mt-3">FANTOPIA / Klook 支援</h4>
+          <h4 class="text-white/90 font-bold mt-3">按場次授權系統上線</h4>
           <ul class="text-gray-400 text-sm mt-3 space-y-2">
-            <li><span class="tag-pill tag-new mr-2">新增</span>正式支援 FANTOPIA 及 Klook 平台</li>
-            <li><span class="tag-pill tag-opt mr-2">優化</span>介面全面改版，操作更直覺</li>
+            <li><span class="tag-pill tag-new mr-2">新增</span>全新「場次授權」機制，一個場次可綁定 6 台設備</li>
+            <li><span class="tag-pill tag-opt mr-2">優化</span>激活流程由 5 步縮短至 2 步，開通時間 &lt; 30 秒</li>
           </ul>
         </div>
       </div>
@@ -673,14 +691,12 @@
 </section>
 
 <!-- ============ WhatsApp 咨詢 ============ -->
-<section id="contact" class="py-24 px-6 md:px-12 bg-[#0a0a0a] relative overflow-hidden">
+<section id="contact" class="py-24 px-6 md:px-12 bg-[#0d0d0d] relative overflow-hidden">
   <div class="absolute inset-0 opacity-25" style="background:radial-gradient(circle at 20% 40%,rgba(37,211,102,.35),transparent 55%),radial-gradient(circle at 80% 60%,rgba(138,43,226,.35),transparent 55%);"></div>
 
   <div class="container mx-auto max-w-5xl relative z-10">
     <div class="glass-deep rounded-3xl border border-green/15 p-8 md:p-12 reveal">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
-
-        <!-- 左：文案 -->
         <div>
           <span class="text-green/80 font-semibold tracking-widest text-sm">WHATSAPP 咨詢</span>
           <h2 class="text-[clamp(1.8rem,4vw,2.6rem)] font-bold mt-2 leading-tight">
@@ -698,7 +714,6 @@
           </ul>
         </div>
 
-        <!-- 右：CTA -->
         <div class="text-center">
           <div class="w-24 h-24 mx-auto rounded-full bg-green/10 border border-green/25 flex items-center justify-center">
             <i class="fa fa-whatsapp text-5xl text-green"></i>
@@ -745,8 +760,7 @@
   <div class="container mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 text-sm">
     <div>
       <a href="#top" class="logo-icon" aria-label="ticketkiller 首頁">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 56"
-             class="h-8 sm:h-9 md:h-10 w-auto" role="img" aria-label="ticketkiller">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 56" class="h-8 sm:h-9 md:h-10 w-auto" role="img" aria-label="ticketkiller">
           <defs>
             <linearGradient id="logoGradFooter" x1="0%" y1="0%" x2="100%" y2="100%">
               <stop offset="0%" stop-color="#8A2BE2"/>
@@ -757,21 +771,15 @@
               <stop offset="0%" stop-color="#8A2BE2"/>
               <stop offset="100%" stop-color="#FF0080"/>
             </linearGradient>
-            <filter id="glowFooter">
-              <feGaussianBlur stdDeviation="2"/>
-              <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
-            </filter>
+            <filter id="glowFooter"><feGaussianBlur stdDeviation="2"/><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter>
           </defs>
           <g transform="translate(0,6)">
             <rect x="0" y="0" width="44" height="44" rx="12" fill="url(#iconGradFooter)" opacity="0.12"/>
             <rect x="0" y="0" width="44" height="44" rx="12" fill="none" stroke="url(#iconGradFooter)" stroke-width="1" opacity="0.28"/>
-            <polygon points="23,10 17,22 22,22 19,33 28,20 23,20 25.5,10"
-                     fill="url(#iconGradFooter)" filter="url(#glowFooter)" stroke="#fff" stroke-width="0.6"/>
+            <polygon points="23,10 17,22 22,22 19,33 28,20 23,20 25.5,10" fill="url(#iconGradFooter)" filter="url(#glowFooter)" stroke="#fff" stroke-width="0.6"/>
           </g>
           <g transform="translate(56,0)">
-            <text x="0" y="31" font-family="'Inter','Segoe UI',sans-serif"
-                  font-size="22" font-weight="800" letter-spacing="-0.5"
-                  fill="url(#logoGradFooter)">ticketkiller</text>
+            <text x="0" y="31" font-family="'Inter','Segoe UI',sans-serif" font-size="22" font-weight="800" letter-spacing="-0.5" fill="url(#logoGradFooter)">ticketkiller</text>
           </g>
         </svg>
       </a>
@@ -781,6 +789,7 @@
     <div>
       <h5 class="font-bold mb-3 text-gray-400">連結</h5>
       <ul class="space-y-2 text-gray-500">
+        <li><a href="#shows" class="hover:text-green transition">最新場次</a></li>
         <li><a href="#platforms" class="hover:text-purple transition">平台</a></li>
         <li><a href="#workflow" class="hover:text-green transition">使用流程</a></li>
         <li><a href="#pricing" class="hover:text-magenta transition">收費</a></li>
@@ -829,7 +838,89 @@
   <i class="fa fa-chevron-up"></i>
 </button>
 
+
+<!-- ============================================================
+     ★★★ 全域配置區（部署時只需改這裡） ★★★
+     ------------------------------------------------------------
+     在 <script> 載入前定義 window.TK_CONFIG，即可覆蓋預設值。
+
+     常見部署情境：
+     ─────────────────────────────────────────────────────────
+     情境 A｜前後端同網域（推薦）
+       API 路徑：'/api/shows'
+       無需任何設定，直接使用預設值即可。
+
+     情境 B｜API 在子網域
+       apiBase: 'https://api.ticketkiller.com'
+       apiPath: '/shows'
+       → 最終請求：https://api.ticketkiller.com/shows
+       後端需設定 CORS：Access-Control-Allow-Origin
+
+     情境 C｜API 在第三方服務（如 Supabase / Firebase）
+       apiBase: 'https://xxxx.supabase.co/functions/v1'
+       apiPath: '/shows'
+       apiKey: '你的 anon key'（可選）
+       → 系統會自動加上 Authorization: Bearer 標頭
+
+     情境 D｜使用 CORS 代理（僅開發測試）
+       corsProxy: 'https://corsproxy.io/?'
+       apiBase: 'https://api.example.com'
+       → 最終請求：https://corsproxy.io/?https://api.example.com/shows
+       ⚠ 生產環境不建議使用公共代理，請改為自建後端。
+     ============================================================ -->
 <script>
+  window.TK_CONFIG = {
+    // ---------- API 位置 ----------
+    // apiBase：API 網域前綴（空字串 = 同網域）
+    apiBase: '',
+
+    // apiPath：API 路徑（會被 apiBase + corsProxy 組合）
+    apiPath: '/api/shows',
+
+    // corsProxy：CORS 代理前綴（僅開發用，留空 = 不使用）
+    corsProxy: '',
+
+    // apiKey：選填，若後端需要 Bearer Token 驗證
+    apiKey: '',
+
+    // ---------- 請求參數 ----------
+    // API 請求逾時（毫秒）
+    timeout: 8000,
+
+    // ---------- 快取設定 ----------
+    // localStorage 快取有效期（毫秒），預設 24 小時
+    cacheTTL: 24 * 60 * 60 * 1000,
+
+    // localStorage 快取鍵名（多語系 / 多環境時可區分）
+    cacheKey: 'tk_shows_cache_v1',
+
+    // ---------- 行為開關 ----------
+    // 是否在瀏覽器主控台輸出除錯資訊
+    // ★ 生產環境請保持 false，避免洩露 API 端點
+    debug: false,
+
+    // 自動偵測環境：若為 true，localhost 或 file:// 會自動使用備用資料
+    autoDetectEnv: true
+  };
+
+  // 環境偵測：本機開發或直接開啟檔案時，自動標記（僅供內部判斷）
+  (function () {
+    try {
+      var isLocal = location.hostname === 'localhost'
+                 || location.hostname === '127.0.0.1'
+                 || location.protocol === 'file:';
+      window.TK_CONFIG.__isLocal = isLocal;
+    } catch (e) {
+      window.TK_CONFIG.__isLocal = false;
+    }
+  })();
+</script>
+
+
+<script>
+/* ============================================================
+   第一部分：頁面互動
+   ============================================================ */
 (function () {
   'use strict';
 
@@ -840,7 +931,6 @@
   var toggleLogs = document.getElementById('toggleLogs');
   var olderLogs  = document.getElementById('olderLogs');
 
-  /* ---------- 導航收縮 + 回到頂部 ---------- */
   function onScroll() {
     var y = window.scrollY;
     if (y > 80) {
@@ -856,7 +946,6 @@
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
 
-  /* ---------- 手機選單 ---------- */
   menuBtn.addEventListener('click', function () {
     var hidden = mobileMenu.classList.toggle('hidden');
     this.innerHTML = hidden ? '<i class="fa fa-bars"></i>' : '<i class="fa fa-times"></i>';
@@ -869,7 +958,6 @@
     }
   }
 
-  /* ---------- 平滑滾動 ---------- */
   document.querySelectorAll('a[href^="#"]').forEach(function (a) {
     a.addEventListener('click', function (e) {
       var href = this.getAttribute('href');
@@ -883,23 +971,18 @@
     });
   });
 
-  /* ---------- 回到頂部 ---------- */
   backToTop.addEventListener('click', function () {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   });
 
-  /* ---------- 更新日誌展開 ---------- */
   toggleLogs.addEventListener('click', function () {
     var isHidden = olderLogs.classList.toggle('hidden');
     this.innerHTML = isHidden
       ? '<i class="fa fa-history mr-2"></i>查看更早版本'
       : '<i class="fa fa-angle-up mr-2"></i>收起更早版本';
-    if (!isHidden) {
-      revealAll();
-    }
+    if (!isHidden && typeof window.__revealAll === 'function') window.__revealAll();
   });
 
-  /* ---------- 滾動顯現 ---------- */
   var revealEls = Array.prototype.slice.call(document.querySelectorAll('.reveal'));
 
   function revealAll() {
@@ -920,21 +1003,527 @@
         }
       });
     }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
-
     revealEls.forEach(function (el) { io.observe(el); });
   } else {
     revealEls.forEach(function (el) { el.classList.add('visible'); });
   }
 
-  /* 保險：載入後 1.2 秒強制顯示已進入視口的元素 */
-  window.addEventListener('load', function () {
-    setTimeout(revealAll, 1200);
-  });
+  window.addEventListener('load', function () { setTimeout(revealAll, 1200); });
+  window.addEventListener('hashchange', function () { setTimeout(revealAll, 400); });
 
-  /* ---------- 監聽 hash 變化（重新整理時定位） ---------- */
-  window.addEventListener('hashchange', function () {
-    setTimeout(revealAll, 400);
-  });
+  window.__revealAll = revealAll;
+})();
+
+
+/* ============================================================
+   第二部分：演唱會場次系統（API 驅動 + 快取 + 備用資料）
+   ------------------------------------------------------------
+   資料來源優先順序：
+   1. API（讀取 window.TK_CONFIG）       → 標記為「即時」
+   2. localStorage 快取（24 小時內）     → 標記為「快取」
+   3. 內嵌 FALLBACK_SHOWS                → 標記為「備用」
+
+   ★ 部署時只需修改上方 window.TK_CONFIG，無需改動此處邏輯。
+   ============================================================ */
+(function () {
+  'use strict';
+
+  // ========== 讀取全域配置（附預設值） ==========
+  var CFG = window.TK_CONFIG || {};
+  var API_BASE    = CFG.apiBase    != null ? CFG.apiBase    : '';
+  var API_PATH    = CFG.apiPath    != null ? CFG.apiPath    : '/api/shows';
+  var CORS_PROXY  = CFG.corsProxy  != null ? CFG.corsProxy  : '';
+  var API_KEY     = CFG.apiKey     != null ? CFG.apiKey     : '';
+  var TIMEOUT     = CFG.timeout    != null ? CFG.timeout    : 8000;
+  var CACHE_KEY   = CFG.cacheKey   != null ? CFG.cacheKey   : 'tk_shows_cache_v1';
+  var CACHE_TTL   = CFG.cacheTTL   != null ? CFG.cacheTTL   : 24 * 60 * 60 * 1000;
+  var DEBUG       = false;   // ★ 生產環境固定關閉除錯輸出
+
+  // 組合最終 API URL（處理三種情境：完整 URL / 相對路徑 / CORS 代理）
+  function buildApiUrl() {
+    var url;
+
+    // 1) apiPath 本身是完整 URL（http:// 或 https:// 開頭）→ 直接使用
+    if (/^https?:\/\//i.test(API_PATH)) {
+      url = API_PATH;
+    }
+    // 2) 有 apiBase → apiBase + apiPath
+    else if (API_BASE) {
+      url = API_BASE.replace(/\/+$/, '') + '/' + API_PATH.replace(/^\/+/, '');
+    }
+    // 3) 預設：同網域相對路徑
+    else {
+      url = API_PATH;
+    }
+
+    // 若有 CORS 代理前綴，則包裝
+    if (CORS_PROXY) {
+      if (/\?$/.test(CORS_PROXY)) {
+        url = CORS_PROXY + url;
+      } else {
+        url = CORS_PROXY + encodeURIComponent(url);
+      }
+    }
+    return url;
+  }
+
+  var API_ENDPOINT = buildApiUrl();
+
+  // ========== 內嵌備用資料 ==========
+  var FALLBACK_SHOWS = [
+    {
+      id: 'twins-2026',
+      name: 'TWINS SIDE BY SIDE 演唱會',
+      date: '2026年12月18日 – 12月22日（共5場）',
+      venue: '香港會議展覽中心 Hall 5BC',
+      price: 'HK$1,280 / $980 / $680',
+      publicSaleDate: '2026-09-25',
+      publicSaleTime: '中午 12:00',
+      platform: '快達票 HK Ticketing',
+      ticketUrl: 'https://www.hkticketing.com/',
+      icon: 'fa-music',
+      iconColor: 'magenta'
+    },
+    {
+      id: 'bigbang-2026',
+      name: 'BIGBANG WORLD TOUR 〈XX : COSMOS〉',
+      date: '2026年11月13日 – 11月17日（共4場）',
+      venue: '啟德體育園主場館',
+      price: 'HK$3,099（VIP企位）/ 坐位 $699 起',
+      publicSaleDate: '2026-09-29',
+      publicSaleTime: '下午 4:00',
+      platform: '快達票 HK Ticketing',
+      ticketUrl: 'https://www.hkticketing.com/',
+      icon: 'fa-star',
+      iconColor: 'purple'
+    },
+    {
+      id: 'perse-2026',
+      name: 'PER SE《LIFE IN CAPS》演唱會',
+      date: '2026年11月20日（星期五）',
+      venue: 'TIDES',
+      price: 'VIP $980 / GA $680（全企位）',
+      publicSaleDate: '2026-09-30',
+      publicSaleTime: '下午 3:00',
+      platform: 'Cityline',
+      ticketUrl: 'https://www.cityline.com/',
+      icon: 'fa-ticket',
+      iconColor: 'purple'
+    },
+    {
+      id: 'aaron-2026',
+      name: '郭富城 ICONIC MOMENT 啟德跨年演唱會',
+      date: '2026年12月31日 – 2027年1月1日',
+      venue: '啟德體育園主場館',
+      price: 'HK$1,680 / $1,380 / $1,180 / $980 / $680 / $480',
+      publicSaleDate: '2026-10-14',
+      publicSaleTime: '上午 10:00',
+      platform: '快達票 HK Ticketing、大麥',
+      ticketUrl: 'https://www.hkticketing.com/',
+      icon: 'fa-trophy',
+      iconColor: 'green'
+    },
+    {
+      id: 'pentagon-2026',
+      name: 'PENTAGON 10TH ANNIVERSARY TOUR',
+      date: '2026年11月1日（星期日）',
+      venue: '麥花臣場館',
+      price: 'HK$1,799 / $1,399 / $999',
+      publicSaleDate: '2026-10-20',
+      publicSaleTime: '上午 11:00',
+      platform: 'KKTIX',
+      ticketUrl: 'https://kktix.com/',
+      icon: 'fa-globe',
+      iconColor: 'green'
+    },
+    {
+      id: 'mira-2026',
+      name: 'MIRROR WE ARE 演唱會 2026',
+      date: '2026年11月25日 – 11月30日（共6場）',
+      venue: '啟德體育園主場館',
+      price: 'HK$1,880 / $1,280 / $880 / $580',
+      publicSaleDate: '2026-10-08',
+      publicSaleTime: '上午 10:00',
+      platform: 'Cityline / 快達票',
+      ticketUrl: 'https://www.cityline.com/',
+      icon: 'fa-fire',
+      iconColor: 'magenta'
+    }
+  ];
+
+  // ========== DOM 參考 ==========
+  var grid         = document.getElementById('showsGrid');
+  var loadingEl    = document.getElementById('showsLoading');
+  var errorEl      = document.getElementById('showsError');
+  var errorMsgEl   = document.getElementById('errorMsg');
+  var noShows      = document.getElementById('noShows');
+  var lastUpdated  = document.getElementById('lastUpdated');
+  var activeCount  = document.getElementById('activeCount');
+  var sourceText   = document.getElementById('sourceText');
+  var sourceBadge  = document.getElementById('sourceBadge');
+  var retryBtn     = document.getElementById('retryBtn');
+  var fallbackBtn  = document.getElementById('fallbackBtn');
+  var refreshBtn   = document.getElementById('refreshBtn');
+
+  // ========== 工具函式 ==========
+  function getTodayStr() {
+    var d = new Date();
+    return d.getFullYear() + '-' +
+      String(d.getMonth() + 1).padStart(2, '0') + '-' +
+      String(d.getDate()).padStart(2, '0');
+  }
+
+  function formatDate(dateStr) {
+    if (!dateStr) return '';
+    var p = String(dateStr).split('-');
+    if (p.length !== 3) return dateStr;
+    return p[0] + '年' + parseInt(p[1], 10) + '月' + parseInt(p[2], 10) + '日';
+  }
+
+  function formatTime(iso) {
+    var d = iso ? new Date(iso) : new Date();
+    if (isNaN(d.getTime())) d = new Date();
+    return d.getFullYear() + '年' + (d.getMonth() + 1) + '月' + d.getDate() + '日 ' +
+      String(d.getHours()).padStart(2, '0') + ':' +
+      String(d.getMinutes()).padStart(2, '0');
+  }
+
+  function esc(str) {
+    return String(str == null ? '' : str)
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+  }
+
+  function filterActiveShows(shows) {
+    var today = getTodayStr();
+    return (shows || []).filter(function (s) {
+      return s && s.publicSaleDate && s.publicSaleDate >= today;
+    });
+  }
+
+  function sortShows(shows) {
+    return shows.slice().sort(function (a, b) {
+      return String(a.publicSaleDate).localeCompare(String(b.publicSaleDate));
+    });
+  }
+
+  function computeStatus(publicSaleDate) {
+    var today = new Date(); today.setHours(0, 0, 0, 0);
+    var sale = new Date(publicSaleDate + 'T00:00:00');
+    var diff = Math.round((sale - today) / (24 * 60 * 60 * 1000));
+    if (diff <= 0)  return { text: '公售中',   cls: 'tag-new' };
+    if (diff <= 3)  return { text: '本週公售', cls: 'tag-new' };
+    if (diff <= 10) return { text: '下週公售', cls: 'tag-opt' };
+    return { text: '即將公售', cls: 'tag-opt' };
+  }
+
+  function getHostLabel(url) {
+    try {
+      var host = new URL(url).hostname.replace(/^www\./, '');
+      if (host.indexOf('hkticketing') !== -1) return 'HK Ticketing 官網';
+      if (host.indexOf('cityline') !== -1)    return 'Cityline 官網';
+      if (host.indexOf('kktix') !== -1)       return 'KKTIX 官網';
+      if (host.indexOf('urbtix') !== -1)      return 'URBTIX 官網';
+      if (host.indexOf('fantopia') !== -1)    return 'FANTOPIA 官網';
+      if (host.indexOf('klook') !== -1)       return 'Klook 官網';
+      if (host.indexOf('damai') !== -1)       return '大麥網';
+      return host;
+    } catch (e) {
+      return '官方購票平台';
+    }
+  }
+
+  // ========== 狀態切換 ==========
+  function showLoading() {
+    if (loadingEl) loadingEl.classList.remove('hidden');
+    if (errorEl)   errorEl.classList.add('hidden');
+    if (grid)      { grid.classList.add('hidden'); grid.classList.remove('grid'); }
+    if (noShows)   noShows.classList.add('hidden');
+    setSource('loading');
+  }
+
+  function showError(msg) {
+    if (loadingEl) loadingEl.classList.add('hidden');
+    if (grid)      { grid.classList.add('hidden'); grid.classList.remove('grid'); }
+    if (noShows)   noShows.classList.add('hidden');
+    if (errorEl)   errorEl.classList.remove('hidden');
+    if (errorMsgEl) errorMsgEl.textContent = msg || '無法連接伺服器，請檢查網絡後重試。';
+    setSource('error');
+  }
+
+  function showGrid() {
+    if (loadingEl) loadingEl.classList.add('hidden');
+    if (errorEl)   errorEl.classList.add('hidden');
+    if (grid)      { grid.classList.remove('hidden'); grid.classList.add('grid'); }
+  }
+
+  function setSource(state) {
+    if (!sourceBadge || !sourceText) return;
+    sourceBadge.classList.remove('source-live', 'source-cache', 'source-fallback');
+    if (state === 'live') {
+      sourceBadge.classList.add('source-live');
+      sourceText.textContent = 'API 即時資料';
+    } else if (state === 'cache') {
+      sourceBadge.classList.add('source-cache');
+      sourceText.textContent = '快取資料';
+    } else if (state === 'fallback') {
+      sourceBadge.classList.add('source-fallback');
+      sourceText.textContent = '備用資料';
+    } else if (state === 'loading') {
+      sourceBadge.classList.add('source-cache');
+      sourceText.textContent = '正在載入...';
+    } else if (state === 'error') {
+      sourceBadge.classList.add('source-fallback');
+      sourceText.textContent = '載入失敗';
+    }
+  }
+
+  // ========== 渲染 ==========
+  function renderShows(shows) {
+    if (!grid) return;
+    var activeShows = sortShows(filterActiveShows(shows));
+
+    if (activeCount) activeCount.textContent = activeShows.length;
+
+    if (activeShows.length === 0) {
+      grid.innerHTML = '';
+      grid.classList.add('hidden');
+      grid.classList.remove('grid');
+      if (noShows) noShows.classList.remove('hidden');
+      if (loadingEl) loadingEl.classList.add('hidden');
+      if (errorEl)   errorEl.classList.add('hidden');
+      return;
+    }
+    if (noShows) noShows.classList.add('hidden');
+
+    var html = '';
+    activeShows.forEach(function (s) {
+      var status = computeStatus(s.publicSaleDate);
+      var waText = encodeURIComponent('我想單次購買：' + s.name + '（' + s.date + '）');
+      var ticketUrl = s.ticketUrl || '';
+      var hostLabel = ticketUrl ? getHostLabel(ticketUrl) : '';
+      var iconColor = s.iconColor || 'purple';
+      var icon = s.icon || 'fa-ticket';
+
+      html +=
+        '<div class="glass-deep rounded-2xl p-6 glow-border card-hover flex flex-col reveal visible">' +
+          '<div class="flex items-start justify-between gap-3">' +
+            '<div class="icon-wrap w-12 h-12 rounded-full bg-' + esc(iconColor) + '/10 flex items-center justify-center text-xl text-' + esc(iconColor) + '/80 shrink-0">' +
+              '<i class="fa ' + esc(icon) + '"></i>' +
+            '</div>' +
+            '<span class="tag-pill ' + esc(status.cls) + '">' + esc(status.text) + '</span>' +
+          '</div>' +
+          '<h4 class="text-lg font-bold text-white/90 mt-4 leading-snug">' + esc(s.name) + '</h4>' +
+          '<ul class="text-gray-400 text-sm mt-3 space-y-1.5 flex-1">' +
+            '<li><i class="fa fa-calendar-o text-' + esc(iconColor) + '/60 mr-2"></i>' + esc(s.date) + '</li>' +
+            '<li><i class="fa fa-map-marker text-' + esc(iconColor) + '/60 mr-2"></i>' + esc(s.venue) + '</li>' +
+            '<li><i class="fa fa-ticket text-' + esc(iconColor) + '/60 mr-2"></i>' + esc(s.price) + '</li>' +
+            '<li><i class="fa fa-clock-o text-' + esc(iconColor) + '/60 mr-2"></i>公開發售：<span class="text-white/90 font-semibold">' +
+              esc(formatDate(s.publicSaleDate)) + ' ' + esc(s.publicSaleTime || '') + '</span></li>' +
+            '<li><i class="fa fa-globe text-' + esc(iconColor) + '/60 mr-2"></i>售票平台：' + esc(s.platform) + '</li>' +
+          '</ul>' +
+          '<div class="mt-4 flex items-center gap-2">' +
+            '<span class="text-xs text-gray-500">單次購買：</span>' +
+            '<span class="text-sm font-bold text-green">$100 / 場 / 日</span>' +
+          '</div>' +
+          (ticketUrl
+            ? '<a href="' + esc(ticketUrl) + '" target="_blank" rel="noopener" ' +
+              'class="mt-3 block text-center btn-official text-green py-2.5 rounded-full text-sm font-bold">' +
+              '<i class="fa fa-external-link mr-2"></i>' + esc(hostLabel) + '</a>'
+            : '') +
+          '<a href="https://wa.me/85265432109?text=' + waText + '" target="_blank" rel="noopener" ' +
+             'class="mt-3 block text-center btn-primary text-white py-2.5 rounded-full text-sm font-bold">' +
+            '<i class="fa fa-shopping-cart mr-2"></i>單次購買此場次' +
+          '</a>' +
+        '</div>';
+    });
+
+    grid.innerHTML = html;
+    showGrid();
+
+    if (typeof window.__revealAll === 'function') {
+      setTimeout(window.__revealAll, 60);
+    }
+  }
+
+  // ========== localStorage 快取 ==========
+  function saveCache(shows, updatedAt) {
+    try {
+      localStorage.setItem(CACHE_KEY, JSON.stringify({
+        updatedAt: updatedAt || new Date().toISOString(),
+        shows: shows
+      }));
+    } catch (e) { /* 忽略儲存失敗（例如無痕模式） */ }
+  }
+
+  function loadCache() {
+    try {
+      var raw = localStorage.getItem(CACHE_KEY);
+      if (!raw) return null;
+      var obj = JSON.parse(raw);
+      if (!obj || !obj.shows) return null;
+      var age = Date.now() - new Date(obj.updatedAt || 0).getTime();
+      if (age > CACHE_TTL) return null;
+      return obj;
+    } catch (e) { return null; }
+  }
+
+  // ========== API 請求（含逾時、Bearer Token 支援） ==========
+  function fetchFromAPI() {
+    return new Promise(function (resolve, reject) {
+      var controller = ('AbortController' in window) ? new AbortController() : null;
+      var timer = setTimeout(function () {
+        if (controller) controller.abort();
+        reject(new Error('TIMEOUT'));
+      }, TIMEOUT);
+
+      var headers = { 'Accept': 'application/json' };
+      if (API_KEY) headers['Authorization'] = 'Bearer ' + API_KEY;
+
+      var opts = {
+        method: 'GET',
+        headers: headers,
+        cache: 'no-store'
+      };
+      if (controller) opts.signal = controller.signal;
+
+      fetch(API_ENDPOINT, opts)
+        .then(function (res) {
+          clearTimeout(timer);
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          return res.json();
+        })
+        .then(function (data) {
+          var shows = Array.isArray(data) ? data : (data && data.shows);
+          if (!Array.isArray(shows)) throw new Error('INVALID_FORMAT');
+          var updatedAt = (!Array.isArray(data) && data && data.updatedAt) || new Date().toISOString();
+          resolve({ shows: shows, updatedAt: updatedAt });
+        })
+        .catch(function (err) {
+          clearTimeout(timer);
+          reject(err);
+        });
+    });
+  }
+
+  // ========== 主流程 ==========
+  var isLoading = false;
+
+  function loadShows(forceFallback) {
+    if (isLoading) return;
+    isLoading = true;
+    showLoading();
+
+    if (forceFallback) {
+      isLoading = false;
+      renderShows(FALLBACK_SHOWS);
+      if (lastUpdated) lastUpdated.textContent = formatTime(new Date().toISOString()) + '（備用）';
+      setSource('fallback');
+      return;
+    }
+
+    fetchFromAPI()
+      .then(function (result) {
+        isLoading = false;
+        saveCache(result.shows, result.updatedAt);
+        renderShows(result.shows);
+        if (lastUpdated) lastUpdated.textContent = formatTime(result.updatedAt);
+        setSource('live');
+      })
+      .catch(function (err) {
+        isLoading = false;
+
+        var cached = loadCache();
+        if (cached) {
+          renderShows(cached.shows);
+          if (lastUpdated) lastUpdated.textContent = formatTime(cached.updatedAt) + '（快取）';
+          setSource('cache');
+          return;
+        }
+
+        showError(
+          err && err.message === 'TIMEOUT'
+            ? 'API 回應逾時，已切換至備用資料。'
+            : '無法連接 API，已切換至備用資料。'
+        );
+        setTimeout(function () {
+          renderShows(FALLBACK_SHOWS);
+          if (lastUpdated) lastUpdated.textContent = formatTime(new Date().toISOString()) + '（備用）';
+          setSource('fallback');
+        }, 300);
+      });
+  }
+
+  // ========== 按鈕事件 ==========
+  if (retryBtn) {
+    retryBtn.addEventListener('click', function () { loadShows(false); });
+  }
+  if (fallbackBtn) {
+    fallbackBtn.addEventListener('click', function () { loadShows(true); });
+  }
+  if (refreshBtn) {
+    refreshBtn.addEventListener('click', function () {
+      this.innerHTML = '<i class="fa fa-spinner fa-spin mr-2"></i>刷新中...';
+      var self = this;
+      try { localStorage.removeItem(CACHE_KEY); } catch (e) {}
+      loadShows(false);
+      setTimeout(function () {
+        self.innerHTML = '<i class="fa fa-refresh mr-2"></i>手動刷新';
+      }, 1200);
+    });
+  }
+
+  // ========== 每日自動刷新（凌晨 3:00） ==========
+  function scheduleDailyCheck() {
+    var now = new Date();
+    var next3am = new Date(now);
+    next3am.setHours(3, 0, 0, 0);
+    if (next3am <= now) next3am.setDate(next3am.getDate() + 1);
+    var delay = next3am.getTime() - now.getTime();
+
+    setTimeout(function () {
+      try { localStorage.removeItem(CACHE_KEY); } catch (e) {}
+      loadShows(false);
+      scheduleDailyCheck();
+    }, delay);
+  }
+
+  // ========== 初始化 ==========
+  function init() {
+    if (CFG.autoDetectEnv && CFG.__isLocal && !API_BASE) {
+      renderShows(FALLBACK_SHOWS);
+      if (lastUpdated) lastUpdated.textContent = formatTime(new Date().toISOString()) + '（本機）';
+      setSource('fallback');
+      scheduleDailyCheck();
+      return;
+    }
+
+    showLoading();
+    loadShows(false);
+    scheduleDailyCheck();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+
+  // ========== 對外 API ==========
+  window.__showsSystem = {
+    refresh: function () { loadShows(false); },
+    useFallback: function () { loadShows(true); },
+    clearCache: function () { try { localStorage.removeItem(CACHE_KEY); } catch (e) {} },
+    getFallback: function () { return FALLBACK_SHOWS.slice(); },
+    getConfig: function () {
+      return {
+        endpoint: API_ENDPOINT,
+        timeout: TIMEOUT,
+        cacheKey: CACHE_KEY,
+        cacheTTL: CACHE_TTL
+      };
+    }
+  };
 })();
 </script>
 </body>
