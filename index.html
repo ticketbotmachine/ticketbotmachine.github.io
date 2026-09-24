@@ -73,6 +73,8 @@
   .tag-new{background:rgba(57,255,20,.12);color:#7DFF5C;border:1px solid rgba(57,255,20,.25)}
   .tag-fix{background:rgba(255,0,128,.12);color:#FF74B8;border:1px solid rgba(255,0,128,.25)}
   .tag-opt{background:rgba(138,43,226,.14);color:#B57BFF;border:1px solid rgba(138,43,226,.28)}
+  .tag-hot{background:rgba(255,100,0,.15);color:#FF8C42;border:1px solid rgba(255,100,0,.3)}
+  .tag-macau{background:rgba(0,180,255,.12);color:#4FC3F7;border:1px solid rgba(0,180,255,.25)}
   .logo-icon{transition:transform .4s cubic-bezier(.34,1.56,.64,1),filter .4s;display:inline-flex}
   .logo-icon:hover{transform:rotate(-4deg) scale(1.04);filter:drop-shadow(0 0 40px rgba(138,43,226,.2))}
   #navInner{transition:padding .3s ease,background .3s ease,box-shadow .3s ease}
@@ -97,6 +99,25 @@
   .source-fallback{background:rgba(255,0,128,.1);color:#FF74B8;border:1px solid rgba(255,0,128,.25)}
   .source-dot{width:6px;height:6px;border-radius:50%;background:currentColor;animation:dotPulse 1.6s ease-in-out infinite}
   @keyframes dotPulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.7)}}
+  /* 海報容器 */
+  .poster-wrap{position:relative;width:100%;aspect-ratio:3/4;overflow:hidden;border-radius:12px 12px 0 0;background:rgba(0,0,0,.4)}
+  .poster-wrap img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s cubic-bezier(.2,0,0,1)}
+  .glow-border:hover .poster-wrap img{transform:scale(1.06)}
+  .poster-fallback{display:flex;flex-direction:column;align-items:center;justify-content:center;width:100%;height:100%;background:linear-gradient(135deg,rgba(138,43,226,.15),rgba(255,0,128,.1));color:rgba(255,255,255,.3);font-size:13px;text-align:center;padding:20px}
+  .poster-fallback i{font-size:36px;margin-bottom:10px;opacity:.5}
+  /* 搶票時間線 */
+  .sale-timeline{max-height:0;overflow:hidden;transition:max-height .45s cubic-bezier(.2,0,0,1),opacity .35s ease;opacity:0}
+  .sale-timeline.open{max-height:600px;opacity:1}
+  .sale-timeline-inner{padding:12px 0 4px;border-top:1px dashed rgba(138,43,226,.2);margin-top:10px}
+  .sale-row{display:flex;align-items:flex-start;gap:8px;padding:5px 0;font-size:12px;color:#9CA3AF;line-height:1.5}
+  .sale-row .dot{flex-shrink:0;width:6px;height:6px;border-radius:50%;margin-top:5px;background:rgba(138,43,226,.5)}
+  .sale-row .dot.public{background:#FF0080;box-shadow:0 0 8px rgba(255,0,128,.6)}
+  .sale-row .dot.priority{background:#39FF14;box-shadow:0 0 8px rgba(57,255,20,.4)}
+  .sale-row .stage{color:#D1D5DB;font-weight:600;min-width:70px}
+  .toggle-sale{display:inline-flex;align-items:center;gap:4px;font-size:12px;color:#B57BFF;cursor:pointer;background:none;border:none;padding:4px 0;transition:color .3s}
+  .toggle-sale:hover{color:#D8B4FE}
+  .toggle-sale i{transition:transform .3s}
+  .toggle-sale.open i{transform:rotate(180deg)}
 </style>
 </head>
 <body>
@@ -228,7 +249,7 @@
   </div>
 </section>
 
-<!-- ============ 最新演唱會場次（API 驅動） ============ -->
+<!-- ============ 最新演唱會場次 ============ -->
 <section id="shows" class="py-24 px-6 md:px-12 bg-[#0d0d0d] relative">
   <div class="absolute inset-0" style="background-image:radial-gradient(rgba(57,255,20,.02) 1px,transparent 1px);background-size:32px 32px;"></div>
   <div class="container mx-auto relative z-10">
@@ -236,7 +257,10 @@
       <span class="text-green/70 font-semibold tracking-widest text-sm">LATEST SHOWS</span>
       <h2 class="text-[clamp(2rem,5vw,3.2rem)] font-bold mt-2"><span class="text-gradient">最新演唱會場次及公售日期</span></h2>
       <p class="text-gray-500 max-w-2xl mx-auto text-lg mt-3">
-        每日自動更新 · 已開售場次自動移除 · 附官方購票連結 · 即時掌握各大平台公售時間
+        每日自動更新 · 已開售場次自動移除 · 附官方購票連結 · 完整搶票時間線
+      </p>
+      <p class="text-gray-600 max-w-2xl mx-auto text-sm mt-2">
+        🇭🇰 香港 + 🇲🇴 澳門全覆蓋 · 熱門演唱會優先展示
       </p>
 
       <div class="mt-4 flex flex-wrap items-center justify-center gap-3 text-xs text-gray-600">
@@ -258,6 +282,9 @@
       <span class="glass-deep px-4 py-2 rounded-full border border-green/15">
         <i class="fa fa-fire text-green/80 mr-2"></i>即將公售：<span id="activeCount" class="font-bold text-white">—</span> 場
       </span>
+      <span class="glass-deep px-4 py-2 rounded-full border border-orange/15" style="border-color:rgba(255,100,0,.2)">
+        <i class="fa fa-star text-orange-400 mr-2"></i>熱門推薦：<span id="hotCount" class="font-bold text-white">—</span> 場
+      </span>
       <span class="glass-deep px-4 py-2 rounded-full border border-white/5 text-gray-500">
         <i class="fa fa-external-link text-green/60 mr-2"></i>每場附官方購票連結
       </span>
@@ -268,50 +295,39 @@
 
     <!-- 載入骨架屏 -->
     <div id="showsLoading" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-      <div class="glass-deep rounded-2xl p-6 border border-white/5">
-        <div class="flex items-start justify-between gap-3">
-          <div class="skeleton w-12 h-12 rounded-full"></div>
-          <div class="skeleton w-16 h-5 rounded-full"></div>
+      <div class="glass-deep rounded-2xl border border-white/5 overflow-hidden">
+        <div class="skeleton w-full" style="aspect-ratio:3/4"></div>
+        <div class="p-6">
+          <div class="skeleton h-5 rounded w-4/5"></div>
+          <div class="space-y-3 mt-5">
+            <div class="skeleton h-3 rounded w-full"></div>
+            <div class="skeleton h-3 rounded w-3/4"></div>
+            <div class="skeleton h-3 rounded w-5/6"></div>
+          </div>
+          <div class="skeleton h-10 rounded-full mt-5"></div>
         </div>
-        <div class="skeleton h-5 rounded mt-5 w-4/5"></div>
-        <div class="space-y-3 mt-5">
-          <div class="skeleton h-3 rounded w-full"></div>
-          <div class="skeleton h-3 rounded w-3/4"></div>
-          <div class="skeleton h-3 rounded w-5/6"></div>
-          <div class="skeleton h-3 rounded w-2/3"></div>
-        </div>
-        <div class="skeleton h-10 rounded-full mt-5"></div>
-        <div class="skeleton h-10 rounded-full mt-3"></div>
       </div>
-      <div class="glass-deep rounded-2xl p-6 border border-white/5 hidden md:block">
-        <div class="flex items-start justify-between gap-3">
-          <div class="skeleton w-12 h-12 rounded-full"></div>
-          <div class="skeleton w-16 h-5 rounded-full"></div>
+      <div class="glass-deep rounded-2xl border border-white/5 overflow-hidden hidden md:block">
+        <div class="skeleton w-full" style="aspect-ratio:3/4"></div>
+        <div class="p-6">
+          <div class="skeleton h-5 rounded w-4/5"></div>
+          <div class="space-y-3 mt-5">
+            <div class="skeleton h-3 rounded w-full"></div>
+            <div class="skeleton h-3 rounded w-3/4"></div>
+          </div>
+          <div class="skeleton h-10 rounded-full mt-5"></div>
         </div>
-        <div class="skeleton h-5 rounded mt-5 w-4/5"></div>
-        <div class="space-y-3 mt-5">
-          <div class="skeleton h-3 rounded w-full"></div>
-          <div class="skeleton h-3 rounded w-3/4"></div>
-          <div class="skeleton h-3 rounded w-5/6"></div>
-          <div class="skeleton h-3 rounded w-2/3"></div>
-        </div>
-        <div class="skeleton h-10 rounded-full mt-5"></div>
-        <div class="skeleton h-10 rounded-full mt-3"></div>
       </div>
-      <div class="glass-deep rounded-2xl p-6 border border-white/5 hidden lg:block">
-        <div class="flex items-start justify-between gap-3">
-          <div class="skeleton w-12 h-12 rounded-full"></div>
-          <div class="skeleton w-16 h-5 rounded-full"></div>
+      <div class="glass-deep rounded-2xl border border-white/5 overflow-hidden hidden lg:block">
+        <div class="skeleton w-full" style="aspect-ratio:3/4"></div>
+        <div class="p-6">
+          <div class="skeleton h-5 rounded w-4/5"></div>
+          <div class="space-y-3 mt-5">
+            <div class="skeleton h-3 rounded w-full"></div>
+            <div class="skeleton h-3 rounded w-3/4"></div>
+          </div>
+          <div class="skeleton h-10 rounded-full mt-5"></div>
         </div>
-        <div class="skeleton h-5 rounded mt-5 w-4/5"></div>
-        <div class="space-y-3 mt-5">
-          <div class="skeleton h-3 rounded w-full"></div>
-          <div class="skeleton h-3 rounded w-3/4"></div>
-          <div class="skeleton h-3 rounded w-5/6"></div>
-          <div class="skeleton h-3 rounded w-2/3"></div>
-        </div>
-        <div class="skeleton h-10 rounded-full mt-5"></div>
-        <div class="skeleton h-10 rounded-full mt-3"></div>
       </div>
     </div>
 
@@ -513,7 +529,7 @@
         </div>
         <h3 class="text-2xl font-bold mt-4 text-white/90">單場通行證</h3>
         <p class="text-gray-500 text-sm mt-1">適合搶單一熱門場次</p>
-        <div class="text-4xl font-bold my-5 text-white">$100 <span class="text-base font-normal text-gray-500">/ 場</span></div>
+        <div class="text-4xl font-bold my-5 text-white">$388 <span class="text-base font-normal text-gray-500">/ 場</span></div>
         <ul class="space-y-3 text-sm text-gray-400 flex-1">
           <li><i class="fa fa-check text-purple/70 mr-2"></i>1 個演唱會場次使用權</li>
           <li><i class="fa fa-check text-purple/70 mr-2"></i><span class="text-white/90 font-semibold">6 台設備</span>同時登入</li>
@@ -532,8 +548,8 @@
         </div>
         <h3 class="text-2xl font-bold mt-4 text-white/90">三場組合</h3>
         <p class="text-gray-500 text-sm mt-1">自選 3 個場次，平均每場更抵</p>
-        <div class="text-4xl font-bold my-5 text-white">$264 <span class="text-base font-normal text-gray-500">/ 3 場</span></div>
-        <p class="text-xs text-green mb-4"><i class="fa fa-tag mr-1"></i>平均 $88 / 場，即省 $34</p>
+        <div class="text-4xl font-bold my-5 text-white">$988 <span class="text-base font-normal text-gray-500">/ 3 場</span></div>
+        <p class="text-xs text-green mb-4"><i class="fa fa-tag mr-1"></i>平均 $329 / 場，即省 $176</p>
         <ul class="space-y-3 text-sm text-gray-400 flex-1">
           <li><i class="fa fa-check text-magenta/70 mr-2"></i>3 個場次使用權（可自選）</li>
           <li><i class="fa fa-check text-magenta/70 mr-2"></i><span class="text-white/90 font-semibold">6 台設備</span>同時登入</li>
@@ -553,8 +569,8 @@
         </div>
         <h3 class="text-2xl font-bold mt-4 text-white/90">六場組合</h3>
         <p class="text-gray-500 text-sm mt-1">全年追星首選，性價比最高</p>
-        <div class="text-4xl font-bold my-5 text-white">$480 <span class="text-base font-normal text-gray-500">/ 6 場</span></div>
-        <p class="text-xs text-green mb-4"><i class="fa fa-tag mr-1"></i>平均 $80 / 場，即省 $120</p>
+        <div class="text-4xl font-bold my-5 text-white">$1,788 <span class="text-base font-normal text-gray-500">/ 6 場</span></div>
+        <p class="text-xs text-green mb-4"><i class="fa fa-tag mr-1"></i>平均 $298 / 場，即省 $540</p>
         <ul class="space-y-3 text-sm text-gray-400 flex-1">
           <li><i class="fa fa-check text-green/70 mr-2"></i>6 個場次使用權（可自選）</li>
           <li><i class="fa fa-check text-green/70 mr-2"></i><span class="text-white/90 font-semibold">6 台設備</span>同時登入</li>
@@ -603,15 +619,30 @@
 
       <div class="timeline-item reveal">
         <div class="flex flex-wrap items-center gap-2">
-          <span class="version-tag">v1.27.2</span>
+          <span class="version-tag">v1.28.0</span>
           <span class="text-gray-500 text-sm"><i class="fa fa-calendar-o mr-1"></i>2026-09-24</span>
           <span class="tag-pill tag-new">最新</span>
         </div>
+        <h4 class="text-white/90 font-bold mt-3">海報展示 + 完整搶票時間線 + 澳門場次</h4>
+        <ul class="text-gray-400 text-sm mt-3 space-y-2">
+          <li><span class="tag-pill tag-new mr-2">新增</span>每張場次卡片加入演唱會宣傳海報展示區</li>
+          <li><span class="tag-pill tag-new mr-2">新增</span>「查看全部搶票日期」按鈕，展開完整優先購票時間線</li>
+          <li><span class="tag-pill tag-new mr-2">新增</span>澳門演唱會專屬標籤 🇲🇴，與香港場次一併展示</li>
+          <li><span class="tag-pill tag-new mr-2">新增</span>熱門演唱會 🔥 標籤，自動置頂排序</li>
+          <li><span class="tag-pill tag-new mr-2">新增</span>搶票時間線以顏色區分「優先購票」與「公開發售」</li>
+          <li><span class="tag-pill tag-opt mr-2">優化</span>場次統計條新增「熱門推薦」場次數量</li>
+        </ul>
+      </div>
+
+      <div class="timeline-item reveal">
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="version-tag">v1.27.2</span>
+          <span class="text-gray-500 text-sm"><i class="fa fa-calendar-o mr-1"></i>2026-09-24</span>
+        </div>
         <h4 class="text-white/90 font-bold mt-3">生產環境優化</h4>
         <ul class="text-gray-400 text-sm mt-3 space-y-2">
-          <li><span class="tag-pill tag-opt mr-2">優化</span>關閉除錯模式（<code class="text-green/80">debug: false</code>），正式上線不洩露 API 端點資訊</li>
+          <li><span class="tag-pill tag-opt mr-2">優化</span>關閉除錯模式，正式上線不洩露 API 端點資訊</li>
           <li><span class="tag-pill tag-opt mr-2">優化</span>Console 保持乾淨，降低被逆向分析風險</li>
-          <li><span class="tag-pill tag-fix mr-2">修復</span>本機環境自動偵測邏輯，避免開發時被 CORS 錯誤干擾</li>
         </ul>
       </div>
 
@@ -622,11 +653,9 @@
         </div>
         <h4 class="text-white/90 font-bold mt-3">API 配置層優化</h4>
         <ul class="text-gray-400 text-sm mt-3 space-y-2">
-          <li><span class="tag-pill tag-new mr-2">新增</span>全域 <code class="text-green/80">window.TK_CONFIG</code> 配置物件，API 路徑、逾時、快取可集中管理</li>
-          <li><span class="tag-pill tag-new mr-2">新增</span>自動偵測環境（localhost / file:// / 正式網域），智能選擇 API 路徑</li>
+          <li><span class="tag-pill tag-new mr-2">新增</span>全域 <code class="text-green/80">window.TK_CONFIG</code> 配置物件</li>
+          <li><span class="tag-pill tag-new mr-2">新增</span>自動偵測環境，智能選擇 API 路徑</li>
           <li><span class="tag-pill tag-new mr-2">新增</span>支援跨域 API，內置可選 CORS 代理前綴</li>
-          <li><span class="tag-pill tag-opt mr-2">優化</span>API 端點支援完整 URL 或相對路徑</li>
-          <li><span class="tag-pill tag-opt mr-2">優化</span>部署註解更完整，降低接手維護成本</li>
         </ul>
       </div>
 
@@ -640,23 +669,20 @@
           <li><span class="tag-pill tag-new mr-2">新增</span>場次列表改為從 API 讀取，支援後端自動化</li>
           <li><span class="tag-pill tag-new mr-2">新增</span>localStorage 快取機制，API 失敗時自動使用上次成功資料</li>
           <li><span class="tag-pill tag-new mr-2">新增</span>載入骨架屏、錯誤提示與一鍵重試按鈕</li>
-          <li><span class="tag-pill tag-new mr-2">新增</span>內嵌備用資料，API 完全無法連接時仍可展示場次</li>
-        </ul>
-      </div>
-
-      <div class="timeline-item reveal">
-        <div class="flex flex-wrap items-center gap-2">
-          <span class="version-tag">v1.26.1</span>
-          <span class="text-gray-500 text-sm"><i class="fa fa-calendar-o mr-1"></i>2026-09-24</span>
-        </div>
-        <h4 class="text-white/90 font-bold mt-3">場次官方購票連結上線</h4>
-        <ul class="text-gray-400 text-sm mt-3 space-y-2">
-          <li><span class="tag-pill tag-new mr-2">新增</span>每個場次卡片加入「官方購票連結」按鈕，一鍵直達售票平台</li>
-          <li><span class="tag-pill tag-opt mr-2">優化</span>場次卡片按鈕間距與對齊，提升閱讀體驗</li>
         </ul>
       </div>
 
       <div id="olderLogs" class="hidden">
+        <div class="timeline-item">
+          <div class="flex flex-wrap items-center gap-2">
+            <span class="version-tag">v1.26.1</span>
+            <span class="text-gray-500 text-sm"><i class="fa fa-calendar-o mr-1"></i>2026-09-24</span>
+          </div>
+          <h4 class="text-white/90 font-bold mt-3">場次官方購票連結上線</h4>
+          <ul class="text-gray-400 text-sm mt-3 space-y-2">
+            <li><span class="tag-pill tag-new mr-2">新增</span>每個場次卡片加入「官方購票連結」按鈕</li>
+          </ul>
+        </div>
         <div class="timeline-item">
           <div class="flex flex-wrap items-center gap-2">
             <span class="version-tag">v1.26.0</span>
@@ -665,7 +691,6 @@
           <h4 class="text-white/90 font-bold mt-3">每日自動更新場次系統</h4>
           <ul class="text-gray-400 text-sm mt-3 space-y-2">
             <li><span class="tag-pill tag-new mr-2">新增</span>官網場次列表每日自動更新，已開售場次自動移除</li>
-            <li><span class="tag-pill tag-opt mr-2">優化</span>場次卡片加入公售倒數標籤（公售中／本週／下週）</li>
           </ul>
         </div>
         <div class="timeline-item">
@@ -676,7 +701,6 @@
           <h4 class="text-white/90 font-bold mt-3">按場次授權系統上線</h4>
           <ul class="text-gray-400 text-sm mt-3 space-y-2">
             <li><span class="tag-pill tag-new mr-2">新增</span>全新「場次授權」機制，一個場次可綁定 6 台設備</li>
-            <li><span class="tag-pill tag-opt mr-2">優化</span>激活流程由 5 步縮短至 2 步，開通時間 &lt; 30 秒</li>
           </ul>
         </div>
       </div>
@@ -841,69 +865,20 @@
 
 <!-- ============================================================
      ★★★ 全域配置區（部署時只需改這裡） ★★★
-     ------------------------------------------------------------
-     在 <script> 載入前定義 window.TK_CONFIG，即可覆蓋預設值。
-
-     常見部署情境：
-     ─────────────────────────────────────────────────────────
-     情境 A｜前後端同網域（推薦）
-       API 路徑：'/api/shows'
-       無需任何設定，直接使用預設值即可。
-
-     情境 B｜API 在子網域
-       apiBase: 'https://api.ticketkiller.com'
-       apiPath: '/shows'
-       → 最終請求：https://api.ticketkiller.com/shows
-       後端需設定 CORS：Access-Control-Allow-Origin
-
-     情境 C｜API 在第三方服務（如 Supabase / Firebase）
-       apiBase: 'https://xxxx.supabase.co/functions/v1'
-       apiPath: '/shows'
-       apiKey: '你的 anon key'（可選）
-       → 系統會自動加上 Authorization: Bearer 標頭
-
-     情境 D｜使用 CORS 代理（僅開發測試）
-       corsProxy: 'https://corsproxy.io/?'
-       apiBase: 'https://api.example.com'
-       → 最終請求：https://corsproxy.io/?https://api.example.com/shows
-       ⚠ 生產環境不建議使用公共代理，請改為自建後端。
      ============================================================ -->
 <script>
   window.TK_CONFIG = {
-    // ---------- API 位置 ----------
-    // apiBase：API 網域前綴（空字串 = 同網域）
     apiBase: '',
-
-    // apiPath：API 路徑（會被 apiBase + corsProxy 組合）
     apiPath: '/api/shows',
-
-    // corsProxy：CORS 代理前綴（僅開發用，留空 = 不使用）
     corsProxy: '',
-
-    // apiKey：選填，若後端需要 Bearer Token 驗證
     apiKey: '',
-
-    // ---------- 請求參數 ----------
-    // API 請求逾時（毫秒）
     timeout: 8000,
-
-    // ---------- 快取設定 ----------
-    // localStorage 快取有效期（毫秒），預設 24 小時
     cacheTTL: 24 * 60 * 60 * 1000,
-
-    // localStorage 快取鍵名（多語系 / 多環境時可區分）
     cacheKey: 'tk_shows_cache_v1',
-
-    // ---------- 行為開關 ----------
-    // 是否在瀏覽器主控台輸出除錯資訊
-    // ★ 生產環境請保持 false，避免洩露 API 端點
     debug: false,
-
-    // 自動偵測環境：若為 true，localhost 或 file:// 會自動使用備用資料
     autoDetectEnv: true
   };
 
-  // 環境偵測：本機開發或直接開啟檔案時，自動標記（僅供內部判斷）
   (function () {
     try {
       var isLocal = location.hostname === 'localhost'
@@ -1016,19 +991,11 @@
 
 
 /* ============================================================
-   第二部分：演唱會場次系統（API 驅動 + 快取 + 備用資料）
-   ------------------------------------------------------------
-   資料來源優先順序：
-   1. API（讀取 window.TK_CONFIG）       → 標記為「即時」
-   2. localStorage 快取（24 小時內）     → 標記為「快取」
-   3. 內嵌 FALLBACK_SHOWS                → 標記為「備用」
-
-   ★ 部署時只需修改上方 window.TK_CONFIG，無需改動此處邏輯。
+   第二部分：演唱會場次系統
    ============================================================ */
 (function () {
   'use strict';
 
-  // ========== 讀取全域配置（附預設值） ==========
   var CFG = window.TK_CONFIG || {};
   var API_BASE    = CFG.apiBase    != null ? CFG.apiBase    : '';
   var API_PATH    = CFG.apiPath    != null ? CFG.apiPath    : '/api/shows';
@@ -1037,40 +1004,53 @@
   var TIMEOUT     = CFG.timeout    != null ? CFG.timeout    : 8000;
   var CACHE_KEY   = CFG.cacheKey   != null ? CFG.cacheKey   : 'tk_shows_cache_v1';
   var CACHE_TTL   = CFG.cacheTTL   != null ? CFG.cacheTTL   : 24 * 60 * 60 * 1000;
-  var DEBUG       = false;   // ★ 生產環境固定關閉除錯輸出
+  var DEBUG       = false;
 
-  // 組合最終 API URL（處理三種情境：完整 URL / 相對路徑 / CORS 代理）
   function buildApiUrl() {
     var url;
-
-    // 1) apiPath 本身是完整 URL（http:// 或 https:// 開頭）→ 直接使用
-    if (/^https?:\/\//i.test(API_PATH)) {
-      url = API_PATH;
-    }
-    // 2) 有 apiBase → apiBase + apiPath
-    else if (API_BASE) {
-      url = API_BASE.replace(/\/+$/, '') + '/' + API_PATH.replace(/^\/+/, '');
-    }
-    // 3) 預設：同網域相對路徑
-    else {
-      url = API_PATH;
-    }
-
-    // 若有 CORS 代理前綴，則包裝
+    if (/^https?:\/\//i.test(API_PATH)) { url = API_PATH; }
+    else if (API_BASE) { url = API_BASE.replace(/\/+$/, '') + '/' + API_PATH.replace(/^\/+/, ''); }
+    else { url = API_PATH; }
     if (CORS_PROXY) {
-      if (/\?$/.test(CORS_PROXY)) {
-        url = CORS_PROXY + url;
-      } else {
-        url = CORS_PROXY + encodeURIComponent(url);
-      }
+      if (/\?$/.test(CORS_PROXY)) { url = CORS_PROXY + url; }
+      else { url = CORS_PROXY + encodeURIComponent(url); }
     }
     return url;
   }
 
   var API_ENDPOINT = buildApiUrl();
 
-  // ========== 內嵌備用資料 ==========
+  /* ==========================================================
+     備用資料（API 失敗時使用）
+     ----------------------------------------------------------
+     欄位說明：
+     - posterUrl：演唱會宣傳海報連結
+     - prioritySales：優先購票時間線（陣列）
+     - isMacau：是否為澳門場次
+     - isHot：是否為熱門推薦（自動置頂）
+     ========================================================== */
   var FALLBACK_SHOWS = [
+    {
+      id: 'aaron-2026',
+      name: '郭富城 ICONIC MOMENT 啟德跨年演唱會',
+      date: '2026年12月31日 – 2027年1月1日',
+      venue: '啟德體育園主場館',
+      price: 'HK$1,680 / $1,380 / $1,180 / $980 / $680 / $480',
+      publicSaleDate: '2026-10-14',
+      publicSaleTime: '上午 10:00',
+      platform: '快達票 HK Ticketing、大麥',
+      ticketUrl: 'https://www.hkticketing.com/',
+      posterUrl: '',
+      isMacau: false,
+      isHot: true,
+      prioritySales: [
+        { stage: '滙豐Mastercard優先（第一輪）', date: '2026-10-09', time: '上午 10:00 – 晚上 23:59' },
+        { stage: '滙豐Mastercard優先（第二輪）', date: '2026-10-10', time: '上午 10:00 – 晚上 23:59' },
+        { stage: 'Klook 獨家套票預售', date: '2026-10-12', time: '中午 12:00 – 10月13日 23:59' }
+      ],
+      icon: 'fa-trophy',
+      iconColor: 'green'
+    },
     {
       id: 'twins-2026',
       name: 'TWINS SIDE BY SIDE 演唱會',
@@ -1081,6 +1061,13 @@
       publicSaleTime: '中午 12:00',
       platform: '快達票 HK Ticketing',
       ticketUrl: 'https://www.hkticketing.com/',
+      posterUrl: '',
+      isMacau: false,
+      isHot: true,
+      prioritySales: [
+        { stage: '中銀銀聯信用卡優先', date: '2026-09-18', time: '上午 10:00' },
+        { stage: '港澳及內地銀聯卡優先', date: '2026-09-19', time: '待公佈' }
+      ],
       icon: 'fa-music',
       iconColor: 'magenta'
     },
@@ -1094,8 +1081,75 @@
       publicSaleTime: '下午 4:00',
       platform: '快達票 HK Ticketing',
       ticketUrl: 'https://www.hkticketing.com/',
+      posterUrl: '',
+      isMacau: false,
+      isHot: true,
+      prioritySales: [
+        { stage: 'V.I.P Fan Club 優先預售', date: '2026-09-28', time: '上午 10:00 – 晚上 23:59' },
+        { stage: 'TME 音樂平台優先預售', date: '2026-09-29', time: '上午 10:00 – 下午 13:59' },
+        { stage: '旅遊平台優先預售', date: '2026-09-29', time: '下午 14:00 – 15:59' }
+      ],
       icon: 'fa-star',
       iconColor: 'purple'
+    },
+    {
+      id: 'mc-macau-2026',
+      name: 'MC張天賦《E=MC² 演唱會 2026》澳門站',
+      date: '2026年11月27日 – 11月28日（共2場）',
+      venue: '銀河綜藝館',
+      price: 'HKD/MOP $1,588 / $1,288 / $888 / $688',
+      publicSaleDate: '2026-10-07',
+      publicSaleTime: '下午 1:00',
+      platform: '銀河票務、MPay、澳門售票網、大麥、貓眼、uutix、BOOKYAY',
+      ticketUrl: 'https://www.galaxyticketing.com/hant/#/home',
+      posterUrl: '',
+      isMacau: true,
+      isHot: true,
+      prioritySales: [
+        { stage: 'Trip.com 優先訂票', date: '2026-09-30', time: '上午 11:00' }
+      ],
+      icon: 'fa-star',
+      iconColor: 'magenta'
+    },
+    {
+      id: 'serrini-2026',
+      name: 'Serrini《小心女星》香港演唱會',
+      date: '2026年10月30日（星期五）',
+      venue: '麥花臣場館',
+      price: 'VVIP $1,080 / $880 / $720',
+      publicSaleDate: '2026-09-24',
+      publicSaleTime: '上午 11:00',
+      platform: 'KKTIX',
+      ticketUrl: 'https://kktix.com/',
+      posterUrl: '',
+      isMacau: false,
+      isHot: false,
+      prioritySales: [
+        { stage: '私心女星私人預售', date: '2026-09-22', time: '12:00 – 9月23日 18:00' }
+      ],
+      icon: 'fa-music',
+      iconColor: 'magenta'
+    },
+    {
+      id: 'janice-2026',
+      name: '衛蘭 Janice《OUT OF FRAME》世界巡迴演唱會',
+      date: '2026年11月14日、15日、17日',
+      venue: '紅磡香港體育館',
+      price: 'HK$1,180 / $880 / $580',
+      publicSaleDate: '2026-10-08',
+      publicSaleTime: '待公佈',
+      platform: 'URBTIX',
+      ticketUrl: 'https://www.urbtix.hk/',
+      posterUrl: '',
+      isMacau: false,
+      isHot: true,
+      prioritySales: [
+        { stage: '建行(亞洲)信用卡優先（第一輪）', date: '2026-09-28', time: '中午 12:00 – 晚上 20:00' },
+        { stage: '建行(亞洲)信用卡優先（第二輪）', date: '2026-09-29', time: '中午 12:00 – 9月30日 20:00' },
+        { stage: 'Klook 優先購票', date: '2026-09-30', time: '待公佈' }
+      ],
+      icon: 'fa-globe',
+      iconColor: 'green'
     },
     {
       id: 'perse-2026',
@@ -1107,51 +1161,121 @@
       publicSaleTime: '下午 3:00',
       platform: 'Cityline',
       ticketUrl: 'https://www.cityline.com/',
+      posterUrl: '',
+      isMacau: false,
+      isHot: false,
+      prioritySales: [
+        { stage: '滙豐Mastercard優先預售', date: '2026-09-29', time: '下午 15:00 – 23:59' }
+      ],
       icon: 'fa-ticket',
       iconColor: 'purple'
     },
     {
-      id: 'aaron-2026',
-      name: '郭富城 ICONIC MOMENT 啟德跨年演唱會',
-      date: '2026年12月31日 – 2027年1月1日',
-      venue: '啟德體育園主場館',
-      price: 'HK$1,680 / $1,380 / $1,180 / $980 / $680 / $480',
-      publicSaleDate: '2026-10-14',
-      publicSaleTime: '上午 10:00',
-      platform: '快達票 HK Ticketing、大麥',
-      ticketUrl: 'https://www.hkticketing.com/',
+      id: 'andy-2026',
+      name: '劉德華《About Life》巡迴演唱會香港站',
+      date: '2026年12月18日 – 2027年1月10日（共20場）',
+      venue: '紅磡香港體育館',
+      price: 'HK$1,380 / $980 / $680',
+      publicSaleDate: '2026-10-15',
+      publicSaleTime: '待公佈',
+      platform: 'URBTIX',
+      ticketUrl: 'https://www.urbtix.hk/',
+      posterUrl: '',
+      isMacau: false,
+      isHot: true,
+      prioritySales: [
+        { stage: '恒生Mastercard優先購票', date: '2026-09-21', time: '中午 12:00 起' },
+        { stage: 'Klook 獨家套票預售', date: '2026-09-23', time: '中午 12:00 起' },
+        { stage: 'URBTIX 網上抽籤登記', date: '2026-09-28 – 2026-09-30', time: '10:00 – 20:00' }
+      ],
+      icon: 'fa-star',
+      iconColor: 'purple'
+    },
+    {
+      id: 'babymonster-2026',
+      name: 'BABYMONSTER 世界巡迴演唱會香港站',
+      date: '2027年1月9日（星期六）',
+      venue: '亞洲國際博覽館 Arena',
+      price: 'HK$2,299（VIP）/ $1,699 / $1,399 / $999 / $799',
+      publicSaleDate: '2026-09-25',
+      publicSaleTime: '上午 11:00',
+      platform: 'Cityline',
+      ticketUrl: 'https://www.cityline.com/',
+      posterUrl: '',
+      isMacau: false,
+      isHot: true,
+      prioritySales: [
+        { stage: 'MONSTIEZ 會員優先', date: '2026-09-22', time: '中午 12:00' },
+        { stage: '滙豐Mastercard優先', date: '2026-09-23', time: '上午 11:00' },
+        { stage: 'Trip.com 優先', date: '2026-09-23', time: '上午 11:00' },
+        { stage: 'Live Nation 會員優先', date: '2026-09-24', time: '上午 11:00' }
+      ],
+      icon: 'fa-fire',
+      iconColor: 'magenta'
+    },
+    {
+      id: 'grasshopper-macau-2026',
+      name: '草蜢《THREE IN LOVE》演唱會 2026 澳門站',
+      date: '2026年10月24日 – 10月25日（共2場）',
+      venue: '澳門威尼斯人綜藝館',
+      price: 'VIP $1,480 / A區 $880 / B區 $480',
+      publicSaleDate: '2026-08-21',
+      publicSaleTime: '中午 12:00',
+      platform: '金光票務、澳門售票網、大麥、貓眼、UUTIX',
+      ticketUrl: 'https://www.cotaiticketing.com/',
+      posterUrl: '',
+      isMacau: true,
+      isHot: false,
+      prioritySales: [
+        { stage: 'Trip.com 優先預售', date: '2026-08-14', time: '上午 10:00' }
+      ],
       icon: 'fa-trophy',
       iconColor: 'green'
     },
     {
-      id: 'pentagon-2026',
-      name: 'PENTAGON 10TH ANNIVERSARY TOUR',
-      date: '2026年11月1日（星期日）',
-      venue: '麥花臣場館',
-      price: 'HK$1,799 / $1,399 / $999',
-      publicSaleDate: '2026-10-20',
-      publicSaleTime: '上午 11:00',
-      platform: 'KKTIX',
-      ticketUrl: 'https://kktix.com/',
-      icon: 'fa-globe',
-      iconColor: 'green'
+      id: 'txt-macau-2026',
+      name: 'TOMORROW X TOGETHER WORLD TOUR 澳門站',
+      date: '2026年11月21日 – 11月22日',
+      venue: '銀河綜藝館',
+      price: '待公佈',
+      publicSaleDate: '2026-09-22',
+      publicSaleTime: '下午 2:00',
+      platform: '銀河票務',
+      ticketUrl: 'https://www.galaxyticketing.com/hant/#/home',
+      posterUrl: '',
+      isMacau: true,
+      isHot: true,
+      prioritySales: [
+        { stage: 'MOA MEMBERSHIP 預售（GLOBAL ONLY）', date: '2026-09-21', time: '待公佈' }
+      ],
+      icon: 'fa-fire',
+      iconColor: 'purple'
     },
     {
-      id: 'mira-2026',
-      name: 'MIRROR WE ARE 演唱會 2026',
-      date: '2026年11月25日 – 11月30日（共6場）',
-      venue: '啟德體育園主場館',
-      price: 'HK$1,880 / $1,280 / $880 / $580',
-      publicSaleDate: '2026-10-08',
-      publicSaleTime: '上午 10:00',
-      platform: 'Cityline / 快達票',
-      ticketUrl: 'https://www.cityline.com/',
-      icon: 'fa-fire',
-      iconColor: 'magenta'
+      id: 'yesung-macau-2026',
+      name: '藝聲 YESUNG 10TH ANNIVERSARY TOUR 澳門站',
+      date: '2026年11月14日 – 11月15日（共2場）',
+      venue: '澳門百老匯劇院',
+      price: 'VIP（含Sound Check）MOP$1,699 / CAT 1 $1,199 / CAT 2 $899',
+      publicSaleDate: '2026-09-29',
+      publicSaleTime: '中午 12:00',
+      platform: '銀河票務、大麥、FANTOPIA',
+      ticketUrl: 'https://www.galaxyticketing.com/hant/#/home',
+      posterUrl: '',
+      isMacau: true,
+      isHot: false,
+      prioritySales: [
+        { stage: 'E.L.F. 會員優先', date: '2026-09-28', time: '中午 12:00 – 晚上 19:00' }
+      ],
+      icon: 'fa-star',
+      iconColor: 'green'
     }
   ];
 
-  // ========== DOM 參考 ==========
+  /* ==========================================================
+     以上為備用資料，API 成功時會以 API 回傳資料為準
+     ========================================================== */
+
   var grid         = document.getElementById('showsGrid');
   var loadingEl    = document.getElementById('showsLoading');
   var errorEl      = document.getElementById('showsError');
@@ -1159,13 +1283,13 @@
   var noShows      = document.getElementById('noShows');
   var lastUpdated  = document.getElementById('lastUpdated');
   var activeCount  = document.getElementById('activeCount');
+  var hotCount     = document.getElementById('hotCount');
   var sourceText   = document.getElementById('sourceText');
   var sourceBadge  = document.getElementById('sourceBadge');
   var retryBtn     = document.getElementById('retryBtn');
   var fallbackBtn  = document.getElementById('fallbackBtn');
   var refreshBtn   = document.getElementById('refreshBtn');
 
-  // ========== 工具函式 ==========
   function getTodayStr() {
     var d = new Date();
     return d.getFullYear() + '-' +
@@ -1203,6 +1327,10 @@
 
   function sortShows(shows) {
     return shows.slice().sort(function (a, b) {
+      // 熱門演唱會置頂
+      if (a.isHot && !b.isHot) return -1;
+      if (!a.isHot && b.isHot) return 1;
+      // 其次按公售日期排序
       return String(a.publicSaleDate).localeCompare(String(b.publicSaleDate));
     });
   }
@@ -1227,13 +1355,14 @@
       if (host.indexOf('fantopia') !== -1)    return 'FANTOPIA 官網';
       if (host.indexOf('klook') !== -1)       return 'Klook 官網';
       if (host.indexOf('damai') !== -1)       return '大麥網';
+      if (host.indexOf('galaxyticketing') !== -1) return '銀河票務官網';
+      if (host.indexOf('cotaiticketing') !== -1) return '金光票務官網';
       return host;
     } catch (e) {
       return '官方購票平台';
     }
   }
 
-  // ========== 狀態切換 ==========
   function showLoading() {
     if (loadingEl) loadingEl.classList.remove('hidden');
     if (errorEl)   errorEl.classList.add('hidden');
@@ -1278,12 +1407,18 @@
     }
   }
 
-  // ========== 渲染 ==========
+  /* ==========================================================
+     渲染場次卡片（含海報 + 搶票時間線）
+     ========================================================== */
   function renderShows(shows) {
     if (!grid) return;
     var activeShows = sortShows(filterActiveShows(shows));
 
+    var hotTotal = 0;
+    activeShows.forEach(function(s) { if (s.isHot) hotTotal++; });
+
     if (activeCount) activeCount.textContent = activeShows.length;
+    if (hotCount)    hotCount.textContent    = hotTotal;
 
     if (activeShows.length === 0) {
       grid.innerHTML = '';
@@ -1297,63 +1432,152 @@
     if (noShows) noShows.classList.add('hidden');
 
     var html = '';
-    activeShows.forEach(function (s) {
+    activeShows.forEach(function (s, idx) {
       var status = computeStatus(s.publicSaleDate);
       var waText = encodeURIComponent('我想單次購買：' + s.name + '（' + s.date + '）');
       var ticketUrl = s.ticketUrl || '';
       var hostLabel = ticketUrl ? getHostLabel(ticketUrl) : '';
       var iconColor = s.iconColor || 'purple';
       var icon = s.icon || 'fa-ticket';
+      var posterUrl = s.posterUrl || '';
+      var hasPriority = s.prioritySales && s.prioritySales.length > 0;
+      var timelineId = 'timeline-' + idx;
 
-      html +=
-        '<div class="glass-deep rounded-2xl p-6 glow-border card-hover flex flex-col reveal visible">' +
-          '<div class="flex items-start justify-between gap-3">' +
-            '<div class="icon-wrap w-12 h-12 rounded-full bg-' + esc(iconColor) + '/10 flex items-center justify-center text-xl text-' + esc(iconColor) + '/80 shrink-0">' +
-              '<i class="fa ' + esc(icon) + '"></i>' +
+      /* -------- 海報區塊 -------- */
+      var posterHtml;
+      if (posterUrl) {
+        posterHtml =
+          '<div class="poster-wrap">' +
+            '<img src="' + esc(posterUrl) + '" alt="' + esc(s.name) + ' 宣傳海報" loading="lazy" ' +
+                 'onerror="this.parentNode.innerHTML=\'<div class=&quot;poster-fallback&quot;><i class=&quot;fa fa-picture-o&quot;></i><span>' + esc(s.name) + '<br>海報載入失敗</span></div>\'">' +
+          '</div>';
+      } else {
+        posterHtml =
+          '<div class="poster-wrap">' +
+            '<div class="poster-fallback">' +
+              '<i class="fa fa-picture-o"></i>' +
+              '<span>' + esc(s.name) + '<br>暫無海報</span>' +
             '</div>' +
-            '<span class="tag-pill ' + esc(status.cls) + '">' + esc(status.text) + '</span>' +
+          '</div>';
+      }
+
+      /* -------- 搶票時間線 -------- */
+      var timelineHtml = '';
+      if (hasPriority) {
+        var rows = '';
+        s.prioritySales.forEach(function (p) {
+          rows +=
+            '<div class="sale-row">' +
+              '<span class="dot priority"></span>' +
+              '<span class="stage">' + esc(p.stage || '優先購票') + '</span>' +
+              '<span>' + esc(formatDate(p.date)) + (p.time ? ' ' + esc(p.time) : '') + '</span>' +
+            '</div>';
+        });
+        // 加入公開發售行
+        rows +=
+          '<div class="sale-row">' +
+            '<span class="dot public"></span>' +
+            '<span class="stage" style="color:#FF74B8">公開發售</span>' +
+            '<span>' + esc(formatDate(s.publicSaleDate)) + (s.publicSaleTime ? ' ' + esc(s.publicSaleTime) : '') + '</span>' +
+          '</div>';
+
+        timelineHtml =
+          '<div class="sale-timeline" id="' + timelineId + '">' +
+            '<div class="sale-timeline-inner">' +
+              '<p class="text-xs text-gray-500 mb-2"><i class="fa fa-list-ul mr-1"></i>全部搶票日期</p>' +
+              rows +
+            '</div>' +
+          '</div>';
+      }
+
+      /* -------- 標籤區 -------- */
+      var badges = '';
+      if (s.isHot)   badges += '<span class="tag-pill tag-hot">🔥 熱門</span>';
+      if (s.isMacau) badges += '<span class="tag-pill tag-macau">🇲🇴 澳門</span>';
+      badges += '<span class="tag-pill ' + esc(status.cls) + '">' + esc(status.text) + '</span>';
+
+      /* -------- 組合卡片 -------- */
+      html +=
+        '<div class="glass-deep rounded-2xl glow-border card-hover flex flex-col reveal visible overflow-hidden">' +
+
+          posterHtml +
+
+          '<div class="p-6 flex flex-col flex-1">' +
+
+            '<div class="flex items-start justify-between gap-3">' +
+              '<div class="icon-wrap w-12 h-12 rounded-full bg-' + esc(iconColor) + '/10 flex items-center justify-center text-xl text-' + esc(iconColor) + '/80 shrink-0">' +
+                '<i class="fa ' + esc(icon) + '"></i>' +
+              '</div>' +
+              '<div class="flex flex-wrap items-center gap-1.5">' + badges + '</div>' +
+            '</div>' +
+
+            '<h4 class="text-lg font-bold text-white/90 mt-4 leading-snug">' + esc(s.name) + '</h4>' +
+
+            '<ul class="text-gray-400 text-sm mt-3 space-y-1.5 flex-1">' +
+              '<li><i class="fa fa-calendar-o text-' + esc(iconColor) + '/60 mr-2"></i>' + esc(s.date) + '</li>' +
+              '<li><i class="fa fa-map-marker text-' + esc(iconColor) + '/60 mr-2"></i>' + esc(s.venue) + '</li>' +
+              '<li><i class="fa fa-ticket text-' + esc(iconColor) + '/60 mr-2"></i>' + esc(s.price) + '</li>' +
+              '<li><i class="fa fa-clock-o text-' + esc(iconColor) + '/60 mr-2"></i>公開發售：<span class="text-white/90 font-semibold">' +
+                esc(formatDate(s.publicSaleDate)) + ' ' + esc(s.publicSaleTime || '') + '</span></li>' +
+              '<li><i class="fa fa-globe text-' + esc(iconColor) + '/60 mr-2"></i>售票平台：' + esc(s.platform) + '</li>' +
+            '</ul>' +
+
+            (hasPriority
+              ? '<button class="toggle-sale" data-timeline="' + timelineId + '">' +
+                  '<i class="fa fa-chevron-down"></i> 查看全部搶票日期' +
+                '</button>' +
+                timelineHtml
+              : '') +
+
+            '<div class="mt-4 flex items-center gap-2">' +
+              '<span class="text-xs text-gray-500">單次購買：</span>' +
+              '<span class="text-sm font-bold text-green">$388 / 場</span>' +
+            '</div>' +
+
+            (ticketUrl
+              ? '<a href="' + esc(ticketUrl) + '" target="_blank" rel="noopener" ' +
+                'class="mt-3 block text-center btn-official text-green py-2.5 rounded-full text-sm font-bold">' +
+                '<i class="fa fa-external-link mr-2"></i>' + esc(hostLabel) + '</a>'
+              : '') +
+
+            '<a href="https://wa.me/85265432109?text=' + waText + '" target="_blank" rel="noopener" ' +
+               'class="mt-3 block text-center btn-primary text-white py-2.5 rounded-full text-sm font-bold">' +
+              '<i class="fa fa-shopping-cart mr-2"></i>單次購買此場次' +
+            '</a>' +
+
           '</div>' +
-          '<h4 class="text-lg font-bold text-white/90 mt-4 leading-snug">' + esc(s.name) + '</h4>' +
-          '<ul class="text-gray-400 text-sm mt-3 space-y-1.5 flex-1">' +
-            '<li><i class="fa fa-calendar-o text-' + esc(iconColor) + '/60 mr-2"></i>' + esc(s.date) + '</li>' +
-            '<li><i class="fa fa-map-marker text-' + esc(iconColor) + '/60 mr-2"></i>' + esc(s.venue) + '</li>' +
-            '<li><i class="fa fa-ticket text-' + esc(iconColor) + '/60 mr-2"></i>' + esc(s.price) + '</li>' +
-            '<li><i class="fa fa-clock-o text-' + esc(iconColor) + '/60 mr-2"></i>公開發售：<span class="text-white/90 font-semibold">' +
-              esc(formatDate(s.publicSaleDate)) + ' ' + esc(s.publicSaleTime || '') + '</span></li>' +
-            '<li><i class="fa fa-globe text-' + esc(iconColor) + '/60 mr-2"></i>售票平台：' + esc(s.platform) + '</li>' +
-          '</ul>' +
-          '<div class="mt-4 flex items-center gap-2">' +
-            '<span class="text-xs text-gray-500">單次購買：</span>' +
-            '<span class="text-sm font-bold text-green">$100 / 場 / 日</span>' +
-          '</div>' +
-          (ticketUrl
-            ? '<a href="' + esc(ticketUrl) + '" target="_blank" rel="noopener" ' +
-              'class="mt-3 block text-center btn-official text-green py-2.5 rounded-full text-sm font-bold">' +
-              '<i class="fa fa-external-link mr-2"></i>' + esc(hostLabel) + '</a>'
-            : '') +
-          '<a href="https://wa.me/85265432109?text=' + waText + '" target="_blank" rel="noopener" ' +
-             'class="mt-3 block text-center btn-primary text-white py-2.5 rounded-full text-sm font-bold">' +
-            '<i class="fa fa-shopping-cart mr-2"></i>單次購買此場次' +
-          '</a>' +
         '</div>';
     });
 
     grid.innerHTML = html;
     showGrid();
 
+    /* -------- 綁定搶票時間線展開事件 -------- */
+    grid.querySelectorAll('.toggle-sale').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var tid = this.getAttribute('data-timeline');
+        var el = document.getElementById(tid);
+        if (!el) return;
+        var isOpen = el.classList.toggle('open');
+        this.classList.toggle('open', isOpen);
+        this.innerHTML = isOpen
+          ? '<i class="fa fa-chevron-up"></i> 收起搶票日期'
+          : '<i class="fa fa-chevron-down"></i> 查看全部搶票日期';
+      });
+    });
+
     if (typeof window.__revealAll === 'function') {
       setTimeout(window.__revealAll, 60);
     }
   }
 
-  // ========== localStorage 快取 ==========
   function saveCache(shows, updatedAt) {
     try {
       localStorage.setItem(CACHE_KEY, JSON.stringify({
         updatedAt: updatedAt || new Date().toISOString(),
         shows: shows
       }));
-    } catch (e) { /* 忽略儲存失敗（例如無痕模式） */ }
+    } catch (e) {}
   }
 
   function loadCache() {
@@ -1368,7 +1592,6 @@
     } catch (e) { return null; }
   }
 
-  // ========== API 請求（含逾時、Bearer Token 支援） ==========
   function fetchFromAPI() {
     return new Promise(function (resolve, reject) {
       var controller = ('AbortController' in window) ? new AbortController() : null;
@@ -1380,11 +1603,7 @@
       var headers = { 'Accept': 'application/json' };
       if (API_KEY) headers['Authorization'] = 'Bearer ' + API_KEY;
 
-      var opts = {
-        method: 'GET',
-        headers: headers,
-        cache: 'no-store'
-      };
+      var opts = { method: 'GET', headers: headers, cache: 'no-store' };
       if (controller) opts.signal = controller.signal;
 
       fetch(API_ENDPOINT, opts)
@@ -1406,7 +1625,6 @@
     });
   }
 
-  // ========== 主流程 ==========
   var isLoading = false;
 
   function loadShows(forceFallback) {
@@ -1454,7 +1672,6 @@
       });
   }
 
-  // ========== 按鈕事件 ==========
   if (retryBtn) {
     retryBtn.addEventListener('click', function () { loadShows(false); });
   }
@@ -1473,7 +1690,6 @@
     });
   }
 
-  // ========== 每日自動刷新（凌晨 3:00） ==========
   function scheduleDailyCheck() {
     var now = new Date();
     var next3am = new Date(now);
@@ -1488,7 +1704,6 @@
     }, delay);
   }
 
-  // ========== 初始化 ==========
   function init() {
     if (CFG.autoDetectEnv && CFG.__isLocal && !API_BASE) {
       renderShows(FALLBACK_SHOWS);
@@ -1497,7 +1712,6 @@
       scheduleDailyCheck();
       return;
     }
-
     showLoading();
     loadShows(false);
     scheduleDailyCheck();
@@ -1509,7 +1723,6 @@
     init();
   }
 
-  // ========== 對外 API ==========
   window.__showsSystem = {
     refresh: function () { loadShows(false); },
     useFallback: function () { loadShows(true); },
