@@ -112,11 +112,6 @@
   .source-fallback{background:rgba(255,77,157,.12);color:#FF9DC8;border:1px solid rgba(255,77,157,.35)}
   .source-dot{width:6px;height:6px;border-radius:50%;background:currentColor;animation:dotPulse 1.6s ease-in-out infinite}
   @keyframes dotPulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.7)}}
-  .poster-wrap{position:relative;width:100%;aspect-ratio:3/4;overflow:hidden;border-radius:12px 12px 0 0;background:rgba(19,9,23,.6)}
-  .poster-wrap img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s cubic-bezier(.2,0,0,1)}
-  .glow-border:hover .poster-wrap img{transform:scale(1.06)}
-  .poster-fallback{display:flex;flex-direction:column;align-items:center;justify-content:center;width:100%;height:100%;background:linear-gradient(135deg,rgba(255,77,157,.22),rgba(179,136,255,.18),rgba(255,213,79,.12));color:rgba(255,255,255,.6);font-size:13px;text-align:center;padding:20px}
-  .poster-fallback i{font-size:36px;margin-bottom:10px;opacity:.8;color:#FFD54F}
   .sale-timeline{max-height:0;overflow:hidden;transition:max-height .45s cubic-bezier(.2,0,0,1),opacity .35s ease;opacity:0}
   .sale-timeline.open{max-height:600px;opacity:1}
   .sale-timeline-inner{padding:12px 0 4px;border-top:1px dashed rgba(255,77,157,.3);margin-top:10px}
@@ -317,7 +312,6 @@
     <!-- 載入骨架屏 -->
     <div id="showsLoading" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
       <div class="glass-deep rounded-2xl border border-white/5 overflow-hidden">
-        <div class="skeleton w-full" style="aspect-ratio:3/4"></div>
         <div class="p-6">
           <div class="skeleton h-5 rounded w-4/5"></div>
           <div class="space-y-3 mt-5">
@@ -329,7 +323,6 @@
         </div>
       </div>
       <div class="glass-deep rounded-2xl border border-white/5 overflow-hidden hidden md:block">
-        <div class="skeleton w-full" style="aspect-ratio:3/4"></div>
         <div class="p-6">
           <div class="skeleton h-5 rounded w-4/5"></div>
           <div class="space-y-3 mt-5">
@@ -340,7 +333,6 @@
         </div>
       </div>
       <div class="glass-deep rounded-2xl border border-white/5 overflow-hidden hidden lg:block">
-        <div class="skeleton w-full" style="aspect-ratio:3/4"></div>
         <div class="p-6">
           <div class="skeleton h-5 rounded w-4/5"></div>
           <div class="space-y-3 mt-5">
@@ -640,16 +632,41 @@
 
       <div class="timeline-item reveal">
         <div class="flex flex-wrap items-center gap-2">
-          <span class="version-tag">v1.29.0</span>
+          <span class="version-tag">v1.31.0</span>
           <span class="text-blush/65 text-sm"><i class="fa fa-calendar-o mr-1"></i>2026-09-24</span>
           <span class="tag-pill tag-new">最新</span>
         </div>
-        <h4 class="text-white/95 font-bold mt-3">場次擴充至 12 場 + 海報同步更新</h4>
+        <h4 class="text-white/95 font-bold mt-3">精簡場次卡片版面，取消宣傳海報佔位</h4>
+        <ul class="text-blush/80 text-sm mt-3 space-y-2">
+          <li><span class="tag-pill tag-opt mr-2">優化</span>移除場次卡片頂部預留的宣傳海報展示區</li>
+          <li><span class="tag-pill tag-opt mr-2">優化</span>場次資料直接由卡片內文起排，資訊更集中、載入更快</li>
+          <li><span class="tag-pill tag-fix mr-2">修正</span>同步清理海報相關 CSS 與佔位圖樣式</li>
+        </ul>
+      </div>
+
+      <div class="timeline-item reveal">
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="version-tag">v1.30.0</span>
+          <span class="text-blush/65 text-sm"><i class="fa fa-calendar-o mr-1"></i>2026-09-24</span>
+        </div>
+        <h4 class="text-white/95 font-bold mt-3">場次擴充至 21 場 + 港澳門全面覆蓋</h4>
+        <ul class="text-blush/80 text-sm mt-3 space-y-2">
+          <li><span class="tag-pill tag-new mr-2">新增</span>備用場次新增 9 場演唱會：梁詠琪、KARD、Supper Moment、王菀之、張明敏、PLAVE、銀赫、OMEGA X、icyball 冰球樂團</li>
+          <li><span class="tag-pill tag-new mr-2">新增</span>香港場次擴充至紅磡體育館、麥花臣場館、西九自由空間、啟德體藝館、會展等多個場地</li>
+          <li><span class="tag-pill tag-new mr-2">新增</span>澳門場次覆蓋銀河綜藝館、威尼斯人綜藝館、倫敦人劇場、G Box、百老匯劇院</li>
+          <li><span class="tag-pill tag-opt mr-2">優化</span>公售日期橫跨 2026 年 10 月至 2027 年 1 月，已開售場次自動過濾</li>
+        </ul>
+      </div>
+
+      <div class="timeline-item reveal">
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="version-tag">v1.29.0</span>
+          <span class="text-blush/65 text-sm"><i class="fa fa-calendar-o mr-1"></i>2026-09-24</span>
+        </div>
+        <h4 class="text-white/95 font-bold mt-3">場次擴充至 12 場</h4>
         <ul class="text-blush/80 text-sm mt-3 space-y-2">
           <li><span class="tag-pill tag-new mr-2">新增</span>備用場次資料由 12 場演唱會組成，覆蓋香港及澳門</li>
-          <li><span class="tag-pill tag-new mr-2">新增</span>每場演唱會加入宣傳海報展示位，API 更新時同步更新圖片</li>
-          <li><span class="tag-pill tag-new mr-2">新增</span>海報載入失敗自動顯示漸變佔位圖，不影響版面</li>
-          <li><span class="tag-pill tag-opt mr-2">優化</span>海報懸停放大效果，配合卡片浮起更有質感</li>
+          <li><span class="tag-pill tag-opt mr-2">優化</span>卡片懸停浮起效果，閱讀體驗更流暢</li>
         </ul>
       </div>
 
@@ -658,9 +675,8 @@
           <span class="version-tag">v1.28.0</span>
           <span class="text-blush/65 text-sm"><i class="fa fa-calendar-o mr-1"></i>2026-09-24</span>
         </div>
-        <h4 class="text-white/95 font-bold mt-3">海報展示 + 完整搶票時間線 + 澳門場次</h4>
+        <h4 class="text-white/95 font-bold mt-3">完整搶票時間線 + 澳門場次</h4>
         <ul class="text-blush/80 text-sm mt-3 space-y-2">
-          <li><span class="tag-pill tag-new mr-2">新增</span>每張場次卡片加入演唱會宣傳海報展示區</li>
           <li><span class="tag-pill tag-new mr-2">新增</span>「查看全部搶票日期」按鈕，展開完整優先購票時間線</li>
           <li><span class="tag-pill tag-new mr-2">新增</span>澳門演唱會專屬標籤 🇲🇴，與香港場次一併展示</li>
           <li><span class="tag-pill tag-new mr-2">新增</span>熱門演唱會 🔥 標籤，自動置頂排序</li>
@@ -1057,7 +1073,7 @@
   var API_ENDPOINT = buildApiUrl();
 
   /* ==========================================================
-     備用資料（當 JSON 檔案無法讀取時使用）— 共 12 場
+     備用資料（當 JSON 檔案無法讀取時使用）— 共 21 場
      ----------------------------------------------------------
      說明：這些是靜態展示資料，實際運作時應以每日更新的
      concerts.json 為準。你可以將以下內容作為 concerts.json 的初始版本。
@@ -1073,7 +1089,6 @@
       publicSaleTime: '上午 10:00',
       platform: '快達票 HK Ticketing、大麥',
       ticketUrl: 'https://www.hkticketing.com/',
-      posterUrl: '',
       isMacau: false,
       isHot: true,
       prioritySales: [
@@ -1094,7 +1109,6 @@
       publicSaleTime: '中午 12:00',
       platform: '快達票 HK Ticketing',
       ticketUrl: 'https://www.hkticketing.com/',
-      posterUrl: '',
       isMacau: false,
       isHot: true,
       prioritySales: [
@@ -1114,7 +1128,6 @@
       publicSaleTime: '下午 4:00',
       platform: '快達票 HK Ticketing',
       ticketUrl: 'https://www.hkticketing.com/',
-      posterUrl: '',
       isMacau: false,
       isHot: true,
       prioritySales: [
@@ -1135,7 +1148,6 @@
       publicSaleTime: '下午 1:00',
       platform: '銀河票務、MPay、澳門售票網、大麥、貓眼、uutix、BOOKYAY',
       ticketUrl: 'https://www.galaxyticketing.com/hant/#/home',
-      posterUrl: '',
       isMacau: true,
       isHot: true,
       prioritySales: [
@@ -1154,7 +1166,6 @@
       publicSaleTime: '上午 11:00',
       platform: 'KKTIX',
       ticketUrl: 'https://kktix.com/',
-      posterUrl: '',
       isMacau: false,
       isHot: false,
       prioritySales: [
@@ -1173,7 +1184,6 @@
       publicSaleTime: '待公佈',
       platform: 'URBTIX',
       ticketUrl: 'https://www.urbtix.hk/',
-      posterUrl: '',
       isMacau: false,
       isHot: true,
       prioritySales: [
@@ -1194,7 +1204,6 @@
       publicSaleTime: '下午 3:00',
       platform: 'Cityline',
       ticketUrl: 'https://www.cityline.com/',
-      posterUrl: '',
       isMacau: false,
       isHot: false,
       prioritySales: [
@@ -1213,7 +1222,6 @@
       publicSaleTime: '待公佈',
       platform: 'URBTIX',
       ticketUrl: 'https://www.urbtix.hk/',
-      posterUrl: '',
       isMacau: false,
       isHot: true,
       prioritySales: [
@@ -1234,7 +1242,6 @@
       publicSaleTime: '上午 11:00',
       platform: 'Cityline',
       ticketUrl: 'https://www.cityline.com/',
-      posterUrl: '',
       isMacau: false,
       isHot: true,
       prioritySales: [
@@ -1256,7 +1263,6 @@
       publicSaleTime: '中午 12:00',
       platform: '金光票務、澳門售票網、大麥、貓眼、UUTIX',
       ticketUrl: 'https://www.cotaiticketing.com/',
-      posterUrl: '',
       isMacau: true,
       isHot: false,
       prioritySales: [
@@ -1275,7 +1281,6 @@
       publicSaleTime: '下午 2:00',
       platform: '銀河票務',
       ticketUrl: 'https://www.galaxyticketing.com/hant/#/home',
-      posterUrl: '',
       isMacau: true,
       isHot: true,
       prioritySales: [
@@ -1294,7 +1299,6 @@
       publicSaleTime: '中午 12:00',
       platform: '銀河票務、大麥、FANTOPIA',
       ticketUrl: 'https://www.galaxyticketing.com/hant/#/home',
-      posterUrl: '',
       isMacau: true,
       isHot: false,
       prioritySales: [
@@ -1302,6 +1306,154 @@
       ],
       icon: 'fa-star',
       iconColor: 'green'
+    },
+
+    /* ---------- 以下為新增的 9 場演唱會 ---------- */
+    {
+      id: 'gigi-2026',
+      name: '梁詠琪 LOVE GiGi 愛自己世界巡迴演唱會 香港站',
+      date: '2026年11月27日 – 11月29日（共3場）',
+      venue: '紅磡香港體育館',
+      price: 'HK$1,180 / $780 / $480',
+      publicSaleDate: '2026-10-08',
+      publicSaleTime: '上午 10:00',
+      platform: 'URBTIX',
+      ticketUrl: 'https://www.urbtix.hk/',
+      isMacau: false,
+      isHot: true,
+      prioritySales: [
+        { stage: '優先訂票', date: '2026-10-01', time: '上午 10:00' }
+      ],
+      icon: 'fa-globe',
+      iconColor: 'green'
+    },
+    {
+      id: 'kard-2026',
+      name: 'KARD 2026 WORLD TOUR [NOW HERE] in HONG KONG',
+      date: '2026年12月19日（星期六）',
+      venue: '麥花臣場館',
+      price: 'VIP $1,680 / A區 $1,480 / B區 $880',
+      publicSaleDate: '2026-10-06',
+      publicSaleTime: '中午 12:00',
+      platform: '貓眼',
+      ticketUrl: 'https://www.maoyan.com/',
+      isMacau: false,
+      isHot: false,
+      prioritySales: [],
+      icon: 'fa-fire',
+      iconColor: 'magenta'
+    },
+    {
+      id: 'supper-moment-macau-2026',
+      name: 'Supper Moment「謝謝你啊世界」演唱會 澳門限定版',
+      date: '2026年11月21日（星期六）',
+      venue: '威尼斯人綜藝館',
+      price: 'HKD/MOP $1,080 / $1,080(站位) / $880 / $680 / $480',
+      publicSaleDate: '2026-09-29',
+      publicSaleTime: '下午 3:00',
+      platform: '澳門售票網、金光票務',
+      ticketUrl: 'https://www.macauticket.com/',
+      isMacau: true,
+      isHot: false,
+      prioritySales: [],
+      icon: 'fa-music',
+      iconColor: 'green'
+    },
+    {
+      id: 'wang-wan-chi-2026',
+      name: '王菀之《話・說》藝術展音樂會 香港站',
+      date: '2026年12月4日 – 12月13日',
+      venue: '西九文化區 自由空間 留白 Livehouse',
+      price: 'HK$780 起（全企位）',
+      publicSaleDate: '2026-09-23',
+      publicSaleTime: '上午 10:00',
+      platform: 'Cityline',
+      ticketUrl: 'https://www.cityline.com/',
+      isMacau: false,
+      isHot: false,
+      prioritySales: [],
+      icon: 'fa-star',
+      iconColor: 'purple'
+    },
+    {
+      id: 'zhang-mingmin-2026',
+      name: '張明敏《我的中國心》演唱會',
+      date: '2026年11月28日（星期六）',
+      venue: '啟德體藝館·競技場',
+      price: 'HK$1,888 / $1,380 / $980 / $680 / $480',
+      publicSaleDate: '2026-09-22',
+      publicSaleTime: '中午 12:00',
+      platform: '快達票 HK Ticketing、大麥',
+      ticketUrl: 'https://www.hkticketing.com/',
+      isMacau: false,
+      isHot: false,
+      prioritySales: [],
+      icon: 'fa-trophy',
+      iconColor: 'green'
+    },
+    {
+      id: 'plave-macau-2026',
+      name: 'PLAVE 2026 WORLD TOUR [KEEP IT MANIC] in MACAO',
+      date: '2026年10月31日 – 11月1日',
+      venue: '倫敦人綜藝館',
+      price: 'HKD/MOP $1,899 / $1,399 / $999',
+      publicSaleDate: '2026-10-07',
+      publicSaleTime: '下午 3:00',
+      platform: '金光票務、大麥網',
+      ticketUrl: 'https://www.cotaiticketing.com/',
+      isMacau: true,
+      isHot: true,
+      prioritySales: [],
+      icon: 'fa-fire',
+      iconColor: 'purple'
+    },
+    {
+      id: 'eunhyuk-macau-2026',
+      name: '銀赫 EUNHYUK PRE-DEBUT FANCON ‘be: WARE OF THE RABBIT’ in MACAO',
+      date: '2026年10月31日 – 11月1日',
+      venue: '澳門倫敦人，倫敦人劇場',
+      price: 'MOP/HKD $1,699 / $1,199 / $899',
+      publicSaleDate: '2026-09-25',
+      publicSaleTime: '中午 12:00',
+      platform: 'Trip.com、金光票務網、大麥、攜程',
+      ticketUrl: 'https://www.cotaiticketing.com/',
+      isMacau: true,
+      isHot: false,
+      prioritySales: [],
+      icon: 'fa-star',
+      iconColor: 'green'
+    },
+    {
+      id: 'omegax-macau-2026',
+      name: '2026 OMEGA X ASIA TOUR [BEYOND] IN MACAU',
+      date: '2026年12月5日（星期六）',
+      venue: 'G Box',
+      price: 'MOP/HKD $1,588 / $1,288 / $888',
+      publicSaleDate: '2026-09-14',
+      publicSaleTime: '中午 12:00',
+      platform: '銀河票務、大麥、Cityline',
+      ticketUrl: 'https://www.galaxyticketing.com/',
+      isMacau: true,
+      isHot: false,
+      prioritySales: [],
+      icon: 'fa-music',
+      iconColor: 'magenta'
+    },
+    {
+      id: 'icyball-macau-2026',
+      name: 'icyball 冰球樂團《我很抱歉》澳門演唱會',
+      date: '2026年12月26日（星期六）',
+      venue: '澳門倫敦人劇場',
+      price: 'VIP $780 / A區 $680 / B區 $580',
+      publicSaleDate: '2026-09-18',
+      publicSaleTime: '中午 12:00',
+      platform: '金光票務、澳門售票網、大麥網、貓眼、uutix、攜程、MPAY',
+      ticketUrl: 'https://www.cotaiticketing.com/',
+      isMacau: true,
+      isHot: false,
+      prioritySales: [],
+      icon: 'fa-ticket',
+      iconColor: 'purple'
     }
   ];
 
@@ -1386,6 +1538,8 @@
       if (host.indexOf('fantopia') !== -1)    return 'FANTOPIA 官網';
       if (host.indexOf('klook') !== -1)       return 'Klook 官網';
       if (host.indexOf('damai') !== -1)       return '大麥網';
+      if (host.indexOf('maoyan') !== -1)      return '貓眼';
+      if (host.indexOf('macauticket') !== -1) return '澳門售票網';
       if (host.indexOf('galaxyticketing') !== -1) return '銀河票務官網';
       if (host.indexOf('cotaiticketing') !== -1) return '金光票務官網';
       return host;
@@ -1439,7 +1593,7 @@
   }
 
   /* ==========================================================
-     渲染場次卡片（含海報 + 搶票時間線）
+     渲染場次卡片（含搶票時間線，已移除海報佔位）
      ========================================================== */
   function renderShows(shows) {
     if (!grid) return;
@@ -1470,27 +1624,8 @@
       var hostLabel = ticketUrl ? getHostLabel(ticketUrl) : '';
       var iconColor = s.iconColor || 'purple';
       var icon = s.icon || 'fa-ticket';
-      var posterUrl = s.posterUrl || '';
       var hasPriority = s.prioritySales && s.prioritySales.length > 0;
       var timelineId = 'timeline-' + idx;
-
-      /* -------- 海報區塊 -------- */
-      var posterHtml;
-      if (posterUrl) {
-        posterHtml =
-          '<div class="poster-wrap">' +
-            '<img src="' + esc(posterUrl) + '" alt="' + esc(s.name) + ' 宣傳海報" loading="lazy" ' +
-                 'onerror="this.parentNode.innerHTML=\'<div class=&quot;poster-fallback&quot;><i class=&quot;fa fa-picture-o&quot;></i><span>' + esc(s.name) + '<br>海報載入失敗</span></div>\'">' +
-          '</div>';
-      } else {
-        posterHtml =
-          '<div class="poster-wrap">' +
-            '<div class="poster-fallback">' +
-              '<i class="fa fa-picture-o"></i>' +
-              '<span>' + esc(s.name) + '<br>暫無海報</span>' +
-            '</div>' +
-          '</div>';
-      }
 
       /* -------- 搶票時間線 -------- */
       var timelineHtml = '';
@@ -1526,11 +1661,9 @@
       if (s.isMacau) badges += '<span class="tag-pill tag-macau">🇲🇴 澳門</span>';
       badges += '<span class="tag-pill ' + esc(status.cls) + '">' + esc(status.text) + '</span>';
 
-      /* -------- 組合卡片 -------- */
+      /* -------- 組合卡片（無海報區） -------- */
       html +=
         '<div class="glass-deep rounded-2xl glow-border card-hover flex flex-col reveal visible overflow-hidden">' +
-
-          posterHtml +
 
           '<div class="p-6 flex flex-col flex-1">' +
 
