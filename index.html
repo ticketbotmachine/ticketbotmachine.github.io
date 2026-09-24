@@ -127,6 +127,32 @@
   .joy-glow{position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none}
   .lang-toggle{display:inline-flex;align-items:center;justify-content:center;gap:4px;font-weight:700;letter-spacing:.5px;cursor:pointer}
   .lang-toggle i{font-size:15px}
+
+  /* ===== P0 新增：聯絡浮動按鈕與面板 ===== */
+  .contact-fab{background:linear-gradient(135deg,#12B7F5,#B388FF,#FF4D9D);box-shadow:0 8px 30px rgba(179,136,255,.45);transition:transform .3s cubic-bezier(.34,1.56,.64,1),box-shadow .3s,background .3s}
+  .contact-fab:hover{transform:scale(1.12) rotate(-6deg);box-shadow:0 14px 40px rgba(179,136,255,.6)}
+  .contact-fab.active{background:linear-gradient(135deg,#FF4D9D,#B388FF)}
+  .contact-fab::before{content:'';position:absolute;inset:0;border-radius:9999px;background:rgba(179,136,255,.4);animation:contactPulse 2.4s ease-out infinite;z-index:-1}
+  @keyframes contactPulse{0%{transform:scale(1);opacity:.6}100%{transform:scale(1.7);opacity:0}}
+  .contact-panel{opacity:0;transform:translateY(18px) scale(.95);pointer-events:none;transition:opacity .3s cubic-bezier(.2,0,0,1),transform .3s cubic-bezier(.2,0,0,1)}
+  .contact-panel.open{opacity:1;transform:translateY(0) scale(1);pointer-events:auto}
+  .contact-item{transition:background .3s,border-color .3s,transform .25s cubic-bezier(.2,0,0,1)}
+  .contact-item:hover{transform:translateY(-2px)}
+  .contact-copy{transition:background .25s,transform .2s}
+  .contact-copy:active{transform:scale(.96)}
+  .contact-send{transition:transform .25s cubic-bezier(.2,0,0,1),filter .25s,box-shadow .25s}
+  .contact-send:hover{transform:translateY(-2px) scale(1.01);filter:brightness(1.08)}
+  .contact-send:active{transform:scale(.98)}
+  .tk-toast{position:fixed;left:50%;bottom:5.5rem;transform:translate(-50%,16px);background:rgba(19,9,23,.97);border:1px solid rgba(255,77,157,.45);color:#fff;padding:10px 24px;border-radius:999px;font-size:13px;font-weight:600;z-index:9999;opacity:0;transition:opacity .3s ease,transform .3s ease;pointer-events:none;box-shadow:0 10px 40px rgba(255,77,157,.35);max-width:90vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .tk-toast.show{opacity:1;transform:translate(-50%,0)}
+  .contact-panel input:focus,.contact-panel textarea:focus{border-color:rgba(255,77,157,.5);outline:none}
+  .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+  @media(max-width:640px){
+    .contact-panel{left:1rem!important;right:1rem!important;width:auto!important;max-height:calc(100vh - 17rem);overflow-y:auto}
+  }
+  @media (prefers-reduced-motion: reduce){
+    .contact-fab::before{animation:none}
+  }
 </style>
 </head>
 <body>
@@ -298,7 +324,7 @@
         </span>
         <span class="hidden sm:inline text-blush/30">|</span>
         <span class="hidden sm:inline">
-          <i class="fa fa-clock-o mr-1"></i>每日凌晨 3:00 自動刷新
+          <i class="fa fa-clock-o mr-1"></i>每日凌晨 3:00 自動刷新（HKT）
         </span>
       </div>
     </div>
@@ -641,17 +667,55 @@
 
       <div class="timeline-item reveal">
         <div class="flex flex-wrap items-center gap-2">
+          <span class="version-tag">v1.33.2</span>
+          <span class="text-blush/65 text-sm"><i class="fa fa-calendar-o mr-1"></i>2026-09-25</span>
+          <span class="tag-pill tag-new">最新</span>
+        </div>
+        <h4 class="text-white/95 font-bold mt-3">QQ 聯絡號碼更新為 3839562550</h4>
+        <ul class="text-blush/80 text-sm mt-3 space-y-2">
+          <li><span class="tag-pill tag-new mr-2">新增</span>QQ 聯絡號碼由 29132123 更新為 3839562550</li>
+          <li><span class="tag-pill tag-opt mr-2">優化</span>「複製 QQ 號」按鈕、QQ 深鏈、Footer 聯繫資訊同步更新</li>
+          <li><span class="tag-pill tag-opt mr-2">優化</span>釘釘留言提示文字同步更新為新 QQ 號</li>
+        </ul>
+      </div>
+
+      <div class="timeline-item reveal">
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="version-tag">v1.33.1</span>
+          <span class="text-blush/65 text-sm"><i class="fa fa-calendar-o mr-1"></i>2026-09-25</span>
+        </div>
+        <h4 class="text-white/95 font-bold mt-3">釘釘聯絡帳號更新為 ticketkiller</h4>
+        <ul class="text-blush/80 text-sm mt-3 space-y-2">
+          <li><span class="tag-pill tag-new mr-2">新增</span>釘釘聯絡帳號明確標示為 ticketkiller，並加入「複製釘釘 ID」按鈕</li>
+          <li><span class="tag-pill tag-opt mr-2">優化</span>留言提交提示改為「請到釘釘搜尋 ticketkiller 發送」</li>
+        </ul>
+      </div>
+
+      <div class="timeline-item reveal">
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="version-tag">v1.33.0</span>
+          <span class="text-blush/65 text-sm"><i class="fa fa-calendar-o mr-1"></i>2026-09-25</span>
+        </div>
+        <h4 class="text-white/95 font-bold mt-3">HKT 時區過濾 · QQ / 釘釘聯絡面板</h4>
+        <ul class="text-blush/80 text-sm mt-3 space-y-2">
+          <li><span class="tag-pill tag-new mr-2">新增</span>公售日期判斷統一使用 Asia/Hong_Kong 時區，避免海外用戶提早或延遲隱藏場次</li>
+          <li><span class="tag-pill tag-new mr-2">新增</span>整合式「聯絡」浮動按鈕，內含 WhatsApp、QQ、釘釘留言三種聯絡方式</li>
+          <li><span class="tag-pill tag-new mr-2">新增</span>釘釘留言表單：填寫後自動複製到剪貼簿，並附 honeypot 防機器人與 60 秒頻率限制</li>
+          <li><span class="tag-pill tag-opt mr-2">優化</span>每日凌晨 3:00 自動刷新改以 HKT 為基準</li>
+          <li><span class="tag-pill tag-opt mr-2">優化</span>聯絡面板支援 ESC 關閉、點擊外部關閉、焦點陷阱與焦點回歸，改善鍵盤操作體驗</li>
+        </ul>
+      </div>
+
+      <div class="timeline-item reveal">
+        <div class="flex flex-wrap items-center gap-2">
           <span class="version-tag">v1.32.0</span>
           <span class="text-blush/65 text-sm"><i class="fa fa-calendar-o mr-1"></i>2026-09-24</span>
-          <span class="tag-pill tag-new">最新</span>
         </div>
         <h4 class="text-white/95 font-bold mt-3">場次資料收窄至六大平台 · 精選 12 場</h4>
         <ul class="text-blush/80 text-sm mt-3 space-y-2">
           <li><span class="tag-pill tag-opt mr-2">優化</span>備用場次全面重整為 12 場，只保留 ticketkiller 程式直接支援的六大平台場次</li>
-          <li><span class="tag-pill tag-new mr-2">新增</span>納入 Klook 專屬場次，補齊六大平台覆蓋面（Cityline / KKTIX / HK Ticketing / URBTIX / FANTOPIA / Klook）</li>
-          <li><span class="tag-pill tag-fix mr-2">移除</span>剔除銀河票務、金光票務、澳門售票網、大麥、貓眼等非支援平台場次，避免用戶誤購無法搶飛的場次</li>
-          <li><span class="tag-pill tag-opt mr-2">優化</span>場次副標題同步更新為「只收錄六大平台場次 · 共 12 場」</li>
-          <li><span class="tag-pill tag-opt mr-2">優化</span>熱門標籤排序：熱門場次自動置頂，其餘按公售日期先後排列</li>
+          <li><span class="tag-pill tag-new mr-2">新增</span>納入 Klook 專屬場次，補齊六大平台覆蓋面</li>
+          <li><span class="tag-pill tag-fix mr-2">移除</span>剔除銀河票務、金光票務、澳門售票網、大麥、貓眼等非支援平台場次</li>
         </ul>
       </div>
 
@@ -664,85 +728,64 @@
         <ul class="text-blush/80 text-sm mt-3 space-y-2">
           <li><span class="tag-pill tag-opt mr-2">優化</span>移除場次卡片頂部預留的宣傳海報展示區</li>
           <li><span class="tag-pill tag-opt mr-2">優化</span>場次資料直接由卡片內文起排，資訊更集中、載入更快</li>
-          <li><span class="tag-pill tag-fix mr-2">修正</span>同步清理海報相關 CSS 與佔位圖樣式</li>
-        </ul>
-      </div>
-
-      <div class="timeline-item reveal">
-        <div class="flex flex-wrap items-center gap-2">
-          <span class="version-tag">v1.30.0</span>
-          <span class="text-blush/65 text-sm"><i class="fa fa-calendar-o mr-1"></i>2026-09-24</span>
-        </div>
-        <h4 class="text-white/95 font-bold mt-3">場次擴充 + 港澳門全面覆蓋</h4>
-        <ul class="text-blush/80 text-sm mt-3 space-y-2">
-          <li><span class="tag-pill tag-new mr-2">新增</span>備用場次擴充至 21 場，覆蓋香港及澳門多個場地</li>
-          <li><span class="tag-pill tag-new mr-2">新增</span>香港場地涵蓋紅磡體育館、麥花臣場館、西九自由空間、啟德體藝館、會展等</li>
-          <li><span class="tag-pill tag-opt mr-2">優化</span>公售日期橫跨 2026 年 10 月至 2027 年 1 月，已開售場次自動過濾</li>
-        </ul>
-      </div>
-
-      <div class="timeline-item reveal">
-        <div class="flex flex-wrap items-center gap-2">
-          <span class="version-tag">v1.28.0</span>
-          <span class="text-blush/65 text-sm"><i class="fa fa-calendar-o mr-1"></i>2026-09-24</span>
-        </div>
-        <h4 class="text-white/95 font-bold mt-3">完整搶票時間線 + 澳門場次</h4>
-        <ul class="text-blush/80 text-sm mt-3 space-y-2">
-          <li><span class="tag-pill tag-new mr-2">新增</span>「查看全部搶票日期」按鈕，展開完整優先購票時間線</li>
-          <li><span class="tag-pill tag-new mr-2">新增</span>澳門演唱會專屬標籤 🇲🇴，與香港場次一併展示</li>
-          <li><span class="tag-pill tag-new mr-2">新增</span>熱門演唱會 🔥 標籤，自動置頂排序</li>
-          <li><span class="tag-pill tag-new mr-2">新增</span>搶票時間線以顏色區分「優先購票」與「公開發售」</li>
-          <li><span class="tag-pill tag-opt mr-2">優化</span>場次統計條新增「熱門推薦」場次數量</li>
-        </ul>
-      </div>
-
-      <div class="timeline-item reveal">
-        <div class="flex flex-wrap items-center gap-2">
-          <span class="version-tag">v1.27.2</span>
-          <span class="text-blush/65 text-sm"><i class="fa fa-calendar-o mr-1"></i>2026-09-24</span>
-        </div>
-        <h4 class="text-white/95 font-bold mt-3">生產環境優化</h4>
-        <ul class="text-blush/80 text-sm mt-3 space-y-2">
-          <li><span class="tag-pill tag-opt mr-2">優化</span>關閉除錯模式，正式上線不洩露 API 端點資訊</li>
-          <li><span class="tag-pill tag-opt mr-2">優化</span>Console 保持乾淨，降低被逆向分析風險</li>
-        </ul>
-      </div>
-
-      <div class="timeline-item reveal">
-        <div class="flex flex-wrap items-center gap-2">
-          <span class="version-tag">v1.27.1</span>
-          <span class="text-blush/65 text-sm"><i class="fa fa-calendar-o mr-1"></i>2026-09-24</span>
-        </div>
-        <h4 class="text-white/95 font-bold mt-3">API 配置層優化</h4>
-        <ul class="text-blush/80 text-sm mt-3 space-y-2">
-          <li><span class="tag-pill tag-new mr-2">新增</span>全域 <code class="text-green">window.TK_CONFIG</code> 配置物件</li>
-          <li><span class="tag-pill tag-new mr-2">新增</span>自動偵測環境，智能選擇 API 路徑</li>
-          <li><span class="tag-pill tag-new mr-2">新增</span>支援跨域 API，內置可選 CORS 代理前綴</li>
-        </ul>
-      </div>
-
-      <div class="timeline-item reveal">
-        <div class="flex flex-wrap items-center gap-2">
-          <span class="version-tag">v1.27.0</span>
-          <span class="text-blush/65 text-sm"><i class="fa fa-calendar-o mr-1"></i>2026-09-24</span>
-        </div>
-        <h4 class="text-white/95 font-bold mt-3">場次資料改由 API 驅動</h4>
-        <ul class="text-blush/80 text-sm mt-3 space-y-2">
-          <li><span class="tag-pill tag-new mr-2">新增</span>場次列表改為從 API 讀取，支援後端自動化</li>
-          <li><span class="tag-pill tag-new mr-2">新增</span>localStorage 快取機制，API 失敗時自動使用上次成功資料</li>
-          <li><span class="tag-pill tag-new mr-2">新增</span>載入骨架屏、錯誤提示與一鍵重試按鈕</li>
         </ul>
       </div>
 
       <div id="olderLogs" class="hidden">
         <div class="timeline-item">
           <div class="flex flex-wrap items-center gap-2">
-            <span class="version-tag">v1.26.1</span>
+            <span class="version-tag">v1.30.0</span>
             <span class="text-blush/65 text-sm"><i class="fa fa-calendar-o mr-1"></i>2026-09-24</span>
           </div>
-          <h4 class="text-white/95 font-bold mt-3">場次官方購票連結上線</h4>
+          <h4 class="text-white/95 font-bold mt-3">場次擴充 + 港澳門全面覆蓋</h4>
           <ul class="text-blush/80 text-sm mt-3 space-y-2">
-            <li><span class="tag-pill tag-new mr-2">新增</span>每個場次卡片加入「官方購票連結」按鈕</li>
+            <li><span class="tag-pill tag-new mr-2">新增</span>備用場次擴充至 21 場，覆蓋香港及澳門多個場地</li>
+            <li><span class="tag-pill tag-new mr-2">新增</span>香港場地涵蓋紅磡體育館、麥花臣場館、西九自由空間、啟德體藝館、會展等</li>
+          </ul>
+        </div>
+        <div class="timeline-item">
+          <div class="flex flex-wrap items-center gap-2">
+            <span class="version-tag">v1.28.0</span>
+            <span class="text-blush/65 text-sm"><i class="fa fa-calendar-o mr-1"></i>2026-09-24</span>
+          </div>
+          <h4 class="text-white/95 font-bold mt-3">完整搶票時間線 + 澳門場次</h4>
+          <ul class="text-blush/80 text-sm mt-3 space-y-2">
+            <li><span class="tag-pill tag-new mr-2">新增</span>「查看全部搶票日期」按鈕，展開完整優先購票時間線</li>
+            <li><span class="tag-pill tag-new mr-2">新增</span>澳門演唱會專屬標籤 🇲🇴，與香港場次一併展示</li>
+            <li><span class="tag-pill tag-new mr-2">新增</span>熱門演唱會 🔥 標籤，自動置頂排序</li>
+          </ul>
+        </div>
+        <div class="timeline-item">
+          <div class="flex flex-wrap items-center gap-2">
+            <span class="version-tag">v1.27.2</span>
+            <span class="text-blush/65 text-sm"><i class="fa fa-calendar-o mr-1"></i>2026-09-24</span>
+          </div>
+          <h4 class="text-white/95 font-bold mt-3">生產環境優化</h4>
+          <ul class="text-blush/80 text-sm mt-3 space-y-2">
+            <li><span class="tag-pill tag-opt mr-2">優化</span>關閉除錯模式，正式上線不洩露 API 端點資訊</li>
+            <li><span class="tag-pill tag-opt mr-2">優化</span>Console 保持乾淨，降低被逆向分析風險</li>
+          </ul>
+        </div>
+        <div class="timeline-item">
+          <div class="flex flex-wrap items-center gap-2">
+            <span class="version-tag">v1.27.1</span>
+            <span class="text-blush/65 text-sm"><i class="fa fa-calendar-o mr-1"></i>2026-09-24</span>
+          </div>
+          <h4 class="text-white/95 font-bold mt-3">API 配置層優化</h4>
+          <ul class="text-blush/80 text-sm mt-3 space-y-2">
+            <li><span class="tag-pill tag-new mr-2">新增</span>全域 <code class="text-green">window.TK_CONFIG</code> 配置物件</li>
+            <li><span class="tag-pill tag-new mr-2">新增</span>自動偵測環境，智能選擇 API 路徑</li>
+          </ul>
+        </div>
+        <div class="timeline-item">
+          <div class="flex flex-wrap items-center gap-2">
+            <span class="version-tag">v1.27.0</span>
+            <span class="text-blush/65 text-sm"><i class="fa fa-calendar-o mr-1"></i>2026-09-24</span>
+          </div>
+          <h4 class="text-white/95 font-bold mt-3">場次資料改由 API 驅動</h4>
+          <ul class="text-blush/80 text-sm mt-3 space-y-2">
+            <li><span class="tag-pill tag-new mr-2">新增</span>場次列表改為從 API 讀取，支援後端自動化</li>
+            <li><span class="tag-pill tag-new mr-2">新增</span>localStorage 快取機制，API 失敗時自動使用上次成功資料</li>
           </ul>
         </div>
         <div class="timeline-item">
@@ -789,7 +832,7 @@
             <span class="text-gradient">搶飛有疑問？<br>即刻搵我哋</span>
           </h2>
           <p class="text-blush/85 mt-4 leading-relaxed">
-            場次選擇、激活碼開通、程式設定、搶飛策略 —— 全部可以由真人客服即時解答。
+            場次選擇、激活碼開通、程式設定、搶飛策略 —— 全部可以由真人客服即時解答。亦可透過 QQ（3839562550）或釘釘（ID：ticketkiller）留言。
           </p>
 
           <ul class="mt-6 space-y-3 text-sm text-blush/85">
@@ -813,6 +856,11 @@
              class="wa-btn inline-flex items-center justify-center gap-2 text-white font-bold py-4 px-10 rounded-full text-lg mt-6 w-full sm:w-auto">
             <i class="fa fa-whatsapp text-xl"></i> WhatsApp 即時查詢
           </a>
+
+          <button type="button" id="contactOpenBtn"
+                  class="btn-secondary inline-flex items-center justify-center gap-2 text-white/90 font-bold py-3 px-8 rounded-full text-sm mt-3 w-full sm:w-auto">
+            <i class="fa fa-comments"></i> QQ / 釘釘留言
+          </button>
 
           <p class="text-blush/50 text-xs mt-4">服務時間：每日 10:00 – 23:00（HKT）</p>
         </div>
@@ -900,6 +948,8 @@
             <i class="fa fa-whatsapp mr-2 text-green"></i>WhatsApp 查詢
           </a>
         </li>
+        <li><i class="fa fa-qq mr-2 text-rose"></i>QQ 3839562550</li>
+        <li><i class="fa fa-bell mr-2 text-magenta"></i>釘釘 ticketkiller</li>
         <li><i class="fa fa-phone mr-2 text-magenta"></i> +852 6543 2109</li>
         <li><i class="fa fa-envelope mr-2 text-rose"></i> support@ticketkiller.com</li>
       </ul>
@@ -911,12 +961,119 @@
   </div>
 </footer>
 
-<!-- ============ 浮動按鈕 ============ -->
-<a href="https://wa.me/85267545772?text=%E4%BD%A0%E5%A5%BD%EF%BC%8C%E6%88%91%E6%83%B3%E6%9F%A5%E8%A9%A2%20ticketkiller"
-   target="_blank" rel="noopener" aria-label="WhatsApp 查詢"
-   class="wa-float fixed bottom-8 right-6 w-14 h-14 rounded-full text-white z-50 flex items-center justify-center">
-  <i class="fa fa-whatsapp text-3xl"></i>
-</a>
+<!-- ============ 浮動聯絡（WhatsApp / QQ / 釘釘 整合） ============ -->
+<button id="contactFab"
+        type="button"
+        class="contact-fab fixed bottom-8 right-6 w-14 h-14 rounded-full text-white z-50 flex items-center justify-center"
+        aria-label="打開聯絡方式"
+        aria-expanded="false"
+        aria-controls="contactPanel"
+        aria-haspopup="dialog">
+  <i class="fa fa-comments text-2xl" aria-hidden="true"></i>
+</button>
+
+<!-- 聯絡面板（非模態，可點擊外部 / ESC 關閉） -->
+<div id="contactPanel"
+     class="contact-panel fixed bottom-28 right-6 w-80 max-w-[calc(100vw-3rem)] glass-deep rounded-2xl border border-purple/30 p-5 z-50 shadow-2xl"
+     role="dialog"
+     aria-modal="false"
+     aria-label="聯絡方式與留言"
+     hidden>
+  <div class="flex justify-between items-center mb-4">
+    <h3 class="font-bold text-white text-base"><i class="fa fa-headphones text-rose mr-1.5"></i>聯絡我們</h3>
+    <button type="button" id="contactClose"
+            class="text-blush/60 hover:text-white p-1 rounded-full transition"
+            aria-label="關閉聯絡面板">
+      <i class="fa fa-times text-lg" aria-hidden="true"></i>
+    </button>
+  </div>
+
+  <!-- WhatsApp -->
+  <a href="https://wa.me/85267545772?text=%E4%BD%A0%E5%A5%BD%EF%BC%8C%E6%88%91%E6%83%B3%E6%9F%A5%E8%A9%A2%20ticketkiller%20%E6%90%B6%E9%A3%9B%E7%A8%8B%E5%BC%8F"
+     target="_blank" rel="noopener"
+     class="contact-item flex items-center gap-3 p-3 rounded-xl bg-green/10 border border-green/30 hover:bg-green/20 mb-3">
+    <i class="fa fa-whatsapp text-2xl text-green" aria-hidden="true"></i>
+    <div class="flex-1 min-w-0">
+      <div class="font-bold text-white text-sm">WhatsApp</div>
+      <div class="text-xs text-blush/70 truncate">+852 6754 5772</div>
+    </div>
+    <i class="fa fa-external-link text-blush/50 text-xs" aria-hidden="true"></i>
+  </a>
+
+  <!-- QQ -->
+  <div class="contact-item p-3 rounded-xl bg-purple/10 border border-purple/30 mb-3">
+    <div class="flex items-center gap-3 mb-2">
+      <i class="fa fa-qq text-2xl text-rose" aria-hidden="true"></i>
+      <div class="flex-1 min-w-0">
+        <div class="font-bold text-white text-sm">QQ</div>
+        <div class="text-xs text-blush/70">3839562550</div>
+      </div>
+    </div>
+    <div class="flex gap-2">
+      <button type="button"
+              class="contact-copy flex-1 text-xs py-1.5 rounded-lg bg-purple/20 hover:bg-purple/30 text-rose transition"
+              data-copy="3839562550"
+              data-copy-label="QQ 號">
+        <i class="fa fa-copy mr-1" aria-hidden="true"></i>複製 QQ 號
+      </button>
+      <a href="tencent://message/?uin=3839562550&Site=&Menu=yes"
+         class="flex-1 text-xs py-1.5 rounded-lg bg-purple/20 hover:bg-purple/30 text-rose transition text-center">
+        <i class="fa fa-comment mr-1" aria-hidden="true"></i>打開 QQ
+      </a>
+    </div>
+  </div>
+
+  <!-- 釘釘留言 -->
+  <div class="contact-item p-3 rounded-xl bg-magenta/10 border border-magenta/30">
+    <div class="flex items-center gap-3 mb-2">
+      <i class="fa fa-bell text-2xl text-magenta" aria-hidden="true"></i>
+      <div class="flex-1 min-w-0">
+        <div class="font-bold text-white text-sm">釘釘留言</div>
+        <div class="text-xs text-blush/70">釘釘 ID：<span class="text-white font-semibold">ticketkiller</span></div>
+      </div>
+    </div>
+
+    <!-- 複製釘釘 ID -->
+    <div class="flex gap-2 mb-3">
+      <button type="button"
+              class="contact-copy flex-1 text-xs py-1.5 rounded-lg bg-magenta/20 hover:bg-magenta/30 text-magenta transition"
+              data-copy="ticketkiller"
+              data-copy-label="釘釘 ID">
+        <i class="fa fa-copy mr-1" aria-hidden="true"></i>複製釘釘 ID
+      </button>
+      <a href="dingtalk://dingtalkclient/action/sendmsg?dingtalk_id=ticketkiller"
+         class="flex-1 text-xs py-1.5 rounded-lg bg-magenta/20 hover:bg-magenta/30 text-magenta transition text-center">
+        <i class="fa fa-comment mr-1" aria-hidden="true"></i>打開釘釘
+      </a>
+    </div>
+
+    <form id="dingtalkForm" class="space-y-2" novalidate>
+      <label class="sr-only" for="dtName">姓名</label>
+      <input type="text" id="dtName" name="name" placeholder="姓名（可選）" maxlength="30" autocomplete="name"
+             class="w-full bg-black/20 border border-white/10 rounded-lg px-3 py-2 text-sm text-white placeholder-blush/40 focus:border-magenta/50 transition">
+
+      <label class="sr-only" for="dtContact">聯絡方式</label>
+      <input type="text" id="dtContact" name="contact" placeholder="您的聯絡方式（QQ / 微信 / 郵箱）" maxlength="60" required
+             class="w-full bg-black/20 border border-white/10 rounded-lg px-3 py-2 text-sm text-white placeholder-blush/40 focus:border-magenta/50 transition">
+
+      <label class="sr-only" for="dtMessage">留言內容</label>
+      <textarea id="dtMessage" name="message" placeholder="想搶的場次或留言…" maxlength="300" rows="2" required
+                class="w-full bg-black/20 border border-white/10 rounded-lg px-3 py-2 text-sm text-white placeholder-blush/40 focus:border-magenta/50 resize-none transition"></textarea>
+
+      <!-- honeypot 防機器人 -->
+      <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true"
+             style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;">
+
+      <button type="submit"
+              class="contact-send w-full text-sm font-bold py-2 rounded-lg btn-primary text-white">
+        <i class="fa fa-paper-plane mr-1" aria-hidden="true"></i>複製留言內容
+      </button>
+      <p class="text-[10px] text-blush/50 text-center leading-relaxed">
+        留言將複製到剪貼簿，請到 QQ 3839562550 或釘釘搜尋 <span class="text-magenta font-semibold">ticketkiller</span> 粘貼發送
+      </p>
+    </form>
+  </div>
+</div>
 
 <button id="backToTop" aria-label="回到頂部"
         class="fixed right-6 w-12 h-12 rounded-full btn-primary text-white shadow-2xl opacity-0 invisible transition-all z-50 hover:scale-110 flex items-center justify-center"
@@ -962,9 +1119,8 @@
 (function () {
   'use strict';
 
-  /* 繁體 → 简体 字符映射表（覆蓋頁面所有中文字符） */
   var T2S = {
-    '極':'极','搶':'抢','場':'场','費':'费','設':'设','備':'备','數':'数','蓋':'盖','買':'买','個':'个','飛':'飞','諮':'咨','詢':'询','導':'导','頁':'页','選':'选','單':'单','開':'开','關':'关','覽':'览','內':'内','銷':'销','賣':'卖','價':'价','優':'优','證':'证','驗':'验','碼':'码','動':'动','體':'体','隻':'只','銀':'银','網':'网','購':'购','連':'连','結':'结','簡':'简','說':'说','暫':'暂','時':'时','間':'间','線':'线','強':'强','級':'级','專':'专','業':'业','務':'务','館':'馆','區':'区','東':'东','亞':'亚','國':'国','際':'际','樂':'乐','隊':'队','團':'团','週':'周','圍':'围','環':'环','龍':'龙','髮':'发','灣':'湾','華':'华','語':'语','對':'对','話':'话','戶':'户','資':'资','隱':'隐','於':'于','與':'与','將':'将','來':'来','顯':'显','現':'现','觸':'触','發':'发','態':'态','檢':'检','測':'测','錯':'错','誤':'误','確':'确','認':'认','軟':'软','觀':'观','賞':'赏','終':'终','親':'亲','師':'师','傳':'传','訊':'讯','準':'准','權':'权','門':'门','眾':'众','類':'类','離':'离','虛':'虚','擬':'拟','幫':'帮','屬':'属','歸':'归','總':'总','匯':'汇','編':'编','號':'号','歷':'历','譜':'谱','聽':'听','腦':'脑','鍋':'锅','邊':'边','鍵':'键','靈':'灵','靜':'静','頭':'头','願':'愿','風':'风','複':'复','雜':'杂','辦':'办','劃':'划','舉':'举','義':'义','興':'兴','輸':'输','贏':'赢','鬆':'松','點':'点','營':'营','絡':'络','統':'统','維':'维','繽':'缤','紛':'纷','頻':'频','顧':'顾','預':'预','頂':'顶','題':'题','顏':'颜','齊':'齐','齡':'龄','龜':'龟','們':'们','這':'这','麼':'么','過':'过','後':'后','從':'从','會':'会','為':'为','實':'实','藝':'艺','術':'术','節':'节','員':'员','熱':'热','雙':'双','應':'应','該':'该','讓':'让','識':'识','記':'记','帳':'帐','繳':'缴','質':'质','標':'标','嚴':'严','謹':'谨','益':'益','協':'协','議':'议','條':'条','款':'款','贈':'赠','禮':'礼','摺':'折','額':'额','據':'据','鐘':'钟','當':'当','還':'还','進':'进','擇':'择','閉':'闭','續':'续','斷':'断','擊':'击','較':'较','長':'长','詳':'详','細':'细','瀏':'浏','徑':'径','載':'载','讀':'读','寫':'写','刪':'删','響':'响','適':'适','處':'处','羅':'罗','蘭':'兰','麗':'丽','豐':'丰','貴':'贵','鄉':'乡','復':'复','練':'练','習':'习','訓':'训','範':'范','邏':'逻','輯':'辑','籤':'签','紋':'纹','樣':'样','樹':'树','葉':'叶','夢':'梦','電':'电','視':'视','車':'车','輪':'轮','轉':'转','軸':'轴','軌':'轨','輛':'辆','運':'运','遞':'递','達':'达','遠':'远','鎖':'锁','鑰':'钥','匙':'匙','牆':'墙','層':'层','樓':'楼','梯':'梯','廚':'厨','廁':'厕','浴':'浴','櫃':'柜','帶':'带','錶':'表','鏡':'镜','燈':'灯','燭':'烛','焰':'焰','煙':'烟','霧':'雾','雲':'云','凍':'冻','溫':'温','涼':'凉','暖':'暖','寒':'寒','暑':'暑','氣':'气','暴':'暴','閃':'闪','紅':'红','綠':'绿','藍':'蓝','黃':'黄','鹹':'咸','韌':'韧','緊':'紧','輕':'轻','濕':'湿','淨':'净','潔':'洁','髒':'脏','亂':'乱','壞':'坏','彎':'弯','圓':'圆','鈍':'钝','娛':'娱','蹤':'踪','別':'别','樑':'梁','詠':'咏','赫':'赫','園':'园','麥':'麦','啟':'启','綜':'综','威':'威','倫':'伦','敦':'敦','劇':'剧','院':'院','郭':'郭','富':'富','跨':'跨','演':'演','唱':'唱','獨':'独','套':'套','售':'售','旅':'游','遊':'游','貓':'猫','攜':'携','程':'程','衞':'卫','劉':'刘','恒':'恒','抽':'抽','登':'登','策':'策','略':'略','謝':'谢','界':'界','限':'限','定':'定','版':'版','展':'展','音':'音','留':'留','競':'竞','技':'技','張':'张','敏':'敏','球':'球','抱':'歉','兔':'兔','券':'券','扣':'扣','絲':'丝','印':'印','磡':'磡','育':'育','健':'健','康':'康','化':'化','堂':'堂','經':'经','敗':'败','源':'源','即':'即','刷':'刷','薦':'荐','步':'步','清':'清','理':'理','相':'相','式':'式','卡':'卡','片':'片','面':'面','消':'消','宣':'宣','報':'报','佔':'占','位':'位','盡':'尽','無':'无','講':'讲','註':'注','冊':'册','裝':'装','置':'置','並':'并','行':'行','參':'参','入':'入','票':'票','彈':'弹','窗':'窗','秒':'秒','速':'速','付':'付','馬':'马','上':'上','測':'测','試':'试','用':'用','郵':'邮','箱':'箱','聯':'联','繫':'系'
+    '極':'极','搶':'抢','場':'场','費':'费','設':'设','備':'备','數':'数','蓋':'盖','買':'买','個':'个','飛':'飞','諮':'咨','詢':'询','導':'导','頁':'页','選':'选','單':'单','開':'开','關':'关','覽':'览','內':'内','銷':'销','賣':'卖','價':'价','優':'优','證':'证','驗':'验','碼':'码','動':'动','體':'体','隻':'只','銀':'银','網':'网','購':'购','連':'连','結':'结','簡':'简','說':'说','暫':'暂','時':'时','間':'间','線':'线','強':'强','級':'级','專':'专','業':'业','務':'务','館':'馆','區':'区','東':'东','亞':'亚','國':'国','際':'际','樂':'乐','隊':'队','團':'团','週':'周','圍':'围','環':'环','龍':'龙','髮':'发','灣':'湾','華':'华','語':'语','對':'对','話':'话','戶':'户','資':'资','隱':'隐','於':'于','與':'与','將':'将','來':'来','顯':'显','現':'现','觸':'触','發':'发','態':'态','檢':'检','測':'测','錯':'错','誤':'误','確':'确','認':'认','軟':'软','觀':'观','賞':'赏','終':'终','親':'亲','師':'师','傳':'传','訊':'讯','準':'准','權':'权','門':'门','眾':'众','類':'类','離':'离','虛':'虚','擬':'拟','幫':'帮','屬':'属','歸':'归','總':'总','匯':'汇','編':'编','號':'号','歷':'历','譜':'谱','聽':'听','腦':'脑','鍋':'锅','邊':'边','鍵':'键','靈':'灵','靜':'静','頭':'头','願':'愿','風':'风','複':'复','雜':'杂','辦':'办','劃':'划','舉':'举','義':'义','興':'兴','輸':'输','贏':'赢','鬆':'松','點':'点','營':'营','絡':'络','統':'统','維':'维','繽':'缤','紛':'纷','頻':'频','顧':'顾','預':'预','頂':'顶','題':'题','顏':'颜','齊':'齐','齡':'龄','龜':'龟','們':'们','這':'这','麼':'么','過':'过','後':'后','從':'从','會':'会','為':'为','實':'实','藝':'艺','術':'术','節':'节','員':'员','熱':'热','雙':'双','應':'应','該':'该','讓':'让','識':'识','記':'记','帳':'帐','繳':'缴','質':'质','標':'标','嚴':'严','謹':'谨','益':'益','協':'协','議':'议','條':'条','款':'款','贈':'赠','禮':'礼','摺':'折','額':'额','據':'据','鐘':'钟','當':'当','還':'还','進':'进','擇':'择','閉':'闭','續':'续','斷':'断','擊':'击','較':'较','長':'长','詳':'详','細':'细','瀏':'浏','徑':'径','載':'载','讀':'读','寫':'写','刪':'删','響':'响','適':'适','處':'处','羅':'罗','蘭':'兰','麗':'丽','豐':'丰','貴':'贵','鄉':'乡','復':'复','練':'练','習':'习','訓':'训','範':'范','邏':'逻','輯':'辑','籤':'签','紋':'纹','樣':'样','樹':'树','葉':'叶','夢':'梦','電':'电','視':'视','車':'车','輪':'轮','轉':'转','軸':'轴','軌':'轨','輛':'辆','運':'运','遞':'递','達':'达','遠':'远','鎖':'锁','鑰':'钥','匙':'匙','牆':'墙','層':'层','樓':'楼','梯':'梯','廚':'厨','廁':'厕','浴':'浴','櫃':'柜','帶':'带','錶':'表','鏡':'镜','燈':'灯','燭':'烛','焰':'焰','煙':'烟','霧':'雾','雲':'云','凍':'冻','溫':'温','涼':'凉','暖':'暖','寒':'寒','暑':'暑','氣':'气','暴':'暴','閃':'闪','紅':'红','綠':'绿','藍':'蓝','黃':'黄','鹹':'咸','韌':'韧','緊':'紧','輕':'轻','濕':'湿','淨':'净','潔':'洁','髒':'脏','亂':'乱','壞':'坏','彎':'弯','圓':'圆','鈍':'钝','娛':'娱','蹤':'踪','別':'别','樑':'梁','詠':'咏','赫':'赫','園':'园','麥':'麦','啟':'启','綜':'综','威':'威','倫':'伦','敦':'敦','劇':'剧','院':'院','郭':'郭','富':'富','跨':'跨','演':'演','唱':'唱','獨':'独','套':'套','售':'售','旅':'游','遊':'游','貓':'猫','攜':'携','程':'程','衞':'卫','劉':'刘','恒':'恒','抽':'抽','登':'登','策':'策','略':'略','謝':'谢','界':'界','限':'限','定':'定','版':'版','展':'展','音':'音','留':'留','競':'竞','技':'技','張':'张','敏':'敏','球':'球','抱':'歉','兔':'兔','券':'券','扣':'扣','絲':'丝','印':'印','磡':'磡','育':'育','健':'健','康':'康','化':'化','堂':'堂','經':'经','敗':'败','源':'源','即':'即','刷':'刷','薦':'荐','步':'步','清':'清','理':'理','相':'相','式':'式','卡':'卡','片':'片','面':'面','消':'消','宣':'宣','報':'报','佔':'占','位':'位','盡':'尽','無':'无','講':'讲','註':'注','冊':'册','裝':'装','置':'置','並':'并','行':'行','參':'参','入':'入','票':'票','彈':'弹','窗':'窗','秒':'秒','速':'速','付':'付','馬':'马','上':'上','測':'测','試':'试','用':'用','郵':'邮','箱':'箱','聯':'联','繫':'系','微':'微','釘':'钉','貼':'贴','粘':'粘','撕':'撕','簿':'簿','剪':'剪','擷':'撷','制':'制','率':'率','繁':'繁','钮':'钮','成':'成','功':'功'
   };
 
   var currentLang = 'zh-HK';
@@ -1014,25 +1170,21 @@
     currentLang = lang;
     document.documentElement.lang = lang;
 
-    /* 1. 轉換靜態文本 */
     for (var i = 0; i < originalTexts.length; i++) {
       var item = originalTexts[i];
       if (!item.node || !item.node.isConnected) continue;
       item.node.nodeValue = lang === 'zh-CN' ? toSimplified(item.text) : item.text;
     }
 
-    /* 2. 更新切換按鈕標籤 */
     var lbl1 = document.getElementById('langLabelText');
     if (lbl1) lbl1.textContent = lang === 'zh-CN' ? '繁' : '简';
     var lbl2 = document.getElementById('langLabelMobile');
     if (lbl2) lbl2.textContent = lang === 'zh-CN' ? '切換至繁體中文' : '切換至简体中文';
 
-    /* 3. 重新渲染動態場次卡片 */
     if (window.__showsSystem && typeof window.__showsSystem.rerender === 'function') {
       window.__showsSystem.rerender();
     }
 
-    /* 4. 持久化 */
     try { localStorage.setItem('tk_lang', lang); } catch (e) {}
   }
 
@@ -1170,7 +1322,7 @@
 
 
 <!-- ============================================================
-     第二部分：演唱會場次系統（讀取靜態 JSON）
+     第二部分：演唱會場次系統（讀取靜態 JSON · HKT 時區過濾）
      ============================================================ -->
 <script>
 (function () {
@@ -1203,15 +1355,7 @@
 
   var API_ENDPOINT = buildApiUrl();
 
-  /* ==========================================================
-     備用資料（當 JSON 檔案無法讀取時使用）
-     ★ v1.32.0：收窄至 ticketkiller 直接支援的六大平台
-       Cityline / KKTIX / HKTICKETING / URBTIX / FANTOPIA / Klook
-       共 12 場，其餘平台場次一律不收錄
-     ========================================================== */
   var FALLBACK_SHOWS = [
-
-    /* ---------- KKTIX（1 場） ---------- */
     {
       id: 'serrini-2026',
       name: 'Serrini《小心女星》香港演唱會',
@@ -1230,8 +1374,6 @@
       icon: 'fa-music',
       iconColor: 'magenta'
     },
-
-    /* ---------- Cityline（3 場） ---------- */
     {
       id: 'babymonster-2026',
       name: 'BABYMONSTER 世界巡迴演唱會香港站',
@@ -1287,8 +1429,6 @@
       icon: 'fa-star',
       iconColor: 'purple'
     },
-
-    /* ---------- HKTICKETING / 快達票（3 場） ---------- */
     {
       id: 'twins-2026',
       name: 'TWINS SIDE BY SIDE 演唱會',
@@ -1348,8 +1488,6 @@
       icon: 'fa-trophy',
       iconColor: 'green'
     },
-
-    /* ---------- URBTIX（3 場） ---------- */
     {
       id: 'janice-2026',
       name: '衛蘭 Janice《OUT OF FRAME》世界巡迴演唱會',
@@ -1408,8 +1546,6 @@
       icon: 'fa-star',
       iconColor: 'purple'
     },
-
-    /* ---------- FANTOPIA（1 場，澳門） ---------- */
     {
       id: 'yesung-macau-2026',
       name: '藝聲 YESUNG 10TH ANNIVERSARY TOUR 澳門站',
@@ -1428,8 +1564,6 @@
       icon: 'fa-star',
       iconColor: 'green'
     },
-
-    /* ---------- Klook（1 場，澳門套票） ---------- */
     {
       id: 'mc-macau-2026',
       name: 'MC張天賦《E=MC² 演唱會 2026》澳門站',
@@ -1449,14 +1583,7 @@
       icon: 'fa-fire',
       iconColor: 'magenta'
     }
-
   ];
-
-  /* ==========================================================
-     以上為備用資料，JSON 成功時會以 JSON 回傳資料為準
-     共 12 場 · 六大平台：Cityline 3 / KKTIX 1 / HKTICKETING 3
-                    / URBTIX 3 / FANTOPIA 1 / Klook 1
-     ========================================================== */
 
   var grid         = document.getElementById('showsGrid');
   var loadingEl    = document.getElementById('showsLoading');
@@ -1474,12 +1601,26 @@
 
   var currentShows = [];
 
-  function getTodayStr() {
-    var d = new Date();
-    return d.getFullYear() + '-' +
-      String(d.getMonth() + 1).padStart(2, '0') + '-' +
-      String(d.getDate()).padStart(2, '0');
+  function getHKTDateStr() {
+    try {
+      var parts = new Intl.DateTimeFormat('en-CA', {
+        timeZone: 'Asia/Hong_Kong',
+        year: 'numeric', month: '2-digit', day: '2-digit'
+      }).formatToParts(new Date());
+      var y = '', m = '', d = '';
+      for (var i = 0; i < parts.length; i++) {
+        if (parts[i].type === 'year')  y = parts[i].value;
+        if (parts[i].type === 'month') m = parts[i].value;
+        if (parts[i].type === 'day')   d = parts[i].value;
+      }
+      if (y && m && d) return y + '-' + m + '-' + d;
+    } catch (e) {}
+    var now = new Date();
+    return now.getFullYear() + '-' +
+      String(now.getMonth() + 1).padStart(2, '0') + '-' +
+      String(now.getDate()).padStart(2, '0');
   }
+  function getTodayStr() { return getHKTDateStr(); }
 
   function formatDate(dateStr) {
     if (!dateStr) return '';
@@ -1503,7 +1644,7 @@
   }
 
   function filterActiveShows(shows) {
-    var today = getTodayStr();
+    var today = getHKTDateStr();
     return (shows || []).filter(function (s) {
       return s && s.publicSaleDate && s.publicSaleDate >= today;
     });
@@ -1586,9 +1727,6 @@
     }
   }
 
-  /* ==========================================================
-     渲染場次卡片（含搶票時間線，已移除海報佔位）
-     ========================================================== */
   function renderShows(shows) {
     if (shows !== undefined) currentShows = shows;
     if (!grid) return;
@@ -1622,7 +1760,6 @@
       var hasPriority = s.prioritySales && s.prioritySales.length > 0;
       var timelineId = 'timeline-' + idx;
 
-      /* -------- 搶票時間線 -------- */
       var timelineHtml = '';
       if (hasPriority) {
         var rows = '';
@@ -1650,27 +1787,21 @@
           '</div>';
       }
 
-      /* -------- 標籤區 -------- */
       var badges = '';
       if (s.isHot)   badges += '<span class="tag-pill tag-hot">' + tr('🔥 熱門') + '</span>';
       if (s.isMacau) badges += '<span class="tag-pill tag-macau">' + tr('🇲🇴 澳門') + '</span>';
       badges += '<span class="tag-pill ' + esc(status.cls) + '">' + esc(tr(status.text)) + '</span>';
 
-      /* -------- 組合卡片（無海報區） -------- */
       html +=
         '<div class="glass-deep rounded-2xl glow-border card-hover flex flex-col reveal visible overflow-hidden">' +
-
           '<div class="p-6 flex flex-col flex-1">' +
-
             '<div class="flex items-start justify-between gap-3">' +
               '<div class="icon-wrap w-12 h-12 rounded-full bg-' + esc(iconColor) + '/15 flex items-center justify-center text-xl text-' + esc(iconColor) + ' shrink-0">' +
                 '<i class="fa ' + esc(icon) + '"></i>' +
               '</div>' +
               '<div class="flex flex-wrap items-center gap-1.5">' + badges + '</div>' +
             '</div>' +
-
             '<h4 class="text-lg font-bold text-white/95 mt-4 leading-snug">' + esc(tr(s.name)) + '</h4>' +
-
             '<ul class="text-blush/85 text-sm mt-3 space-y-1.5 flex-1">' +
               '<li><i class="fa fa-calendar-o text-' + esc(iconColor) + '/80 mr-2"></i>' + esc(tr(s.date)) + '</li>' +
               '<li><i class="fa fa-map-marker text-' + esc(iconColor) + '/80 mr-2"></i>' + esc(tr(s.venue)) + '</li>' +
@@ -1679,30 +1810,25 @@
                 esc(formatDate(s.publicSaleDate)) + ' ' + esc(tr(s.publicSaleTime || '')) + '</span></li>' +
               '<li><i class="fa fa-globe text-' + esc(iconColor) + '/80 mr-2"></i>' + tr('售票平台：') + esc(tr(s.platform)) + '</li>' +
             '</ul>' +
-
             (hasPriority
               ? '<button class="toggle-sale" data-timeline="' + timelineId + '">' +
                   '<i class="fa fa-chevron-down"></i> ' + tr('查看全部搶票日期') +
                 '</button>' +
                 timelineHtml
               : '') +
-
             '<div class="mt-4 flex items-center gap-2">' +
               '<span class="text-xs text-blush/60">' + tr('單次購買：') + '</span>' +
               '<span class="text-sm font-bold text-green">$100 / ' + tr('場') + ' / ' + tr('日') + '</span>' +
             '</div>' +
-
             (ticketUrl
               ? '<a href="' + esc(ticketUrl) + '" target="_blank" rel="noopener" ' +
                 'class="mt-3 block text-center btn-official text-green py-2.5 rounded-full text-sm font-bold">' +
                 '<i class="fa fa-external-link mr-2"></i>' + esc(tr(hostLabel)) + '</a>'
               : '') +
-
             '<a href="https://wa.me/85265432109?text=' + waText + '" target="_blank" rel="noopener" ' +
                'class="mt-3 block text-center btn-primary text-white py-2.5 rounded-full text-sm font-bold">' +
               '<i class="fa fa-shopping-cart mr-2"></i>' + tr('單次購買此場次') +
             '</a>' +
-
           '</div>' +
         '</div>';
     });
@@ -1710,7 +1836,6 @@
     grid.innerHTML = html;
     showGrid();
 
-    /* -------- 綁定搶票時間線展開事件 -------- */
     grid.querySelectorAll('.toggle-sale').forEach(function (btn) {
       btn.addEventListener('click', function () {
         var tid = this.getAttribute('data-timeline');
@@ -1850,10 +1975,16 @@
 
   function scheduleDailyCheck() {
     var now = new Date();
-    var next3am = new Date(now);
-    next3am.setHours(3, 0, 0, 0);
-    if (next3am <= now) next3am.setDate(next3am.getDate() + 1);
-    var delay = next3am.getTime() - now.getTime();
+    var hktNow;
+    try {
+      hktNow = new Date(now.toLocaleString('en-US', { timeZone: 'Asia/Hong_Kong' }));
+    } catch (e) {
+      hktNow = new Date(now);
+    }
+    var next = new Date(hktNow);
+    next.setHours(3, 0, 0, 0);
+    if (next <= hktNow) next.setDate(next.getDate() + 1);
+    var delay = Math.max(60000, next.getTime() - hktNow.getTime());
 
     setTimeout(function () {
       try { localStorage.removeItem(CACHE_KEY); } catch (e) {}
@@ -1891,5 +2022,249 @@
   };
 })();
 </script>
+
+
+<!-- ============================================================
+     P0：聯絡浮動按鈕 + QQ / 釘釘留言面板
+     ============================================================ -->
+<script>
+(function () {
+  'use strict';
+
+  var tr = window.__tkTr || function (s) { return s; };
+
+  var fab    = document.getElementById('contactFab');
+  var panel  = document.getElementById('contactPanel');
+  var close  = document.getElementById('contactClose');
+  var openBtn = document.getElementById('contactOpenBtn');
+  if (!fab || !panel) return;
+
+  var isOpen = false;
+  var lastFocus = null;
+
+  function getFocusable() {
+    return panel.querySelectorAll(
+      'a[href], button:not([disabled]), input:not([disabled]):not([type="hidden"]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+    );
+  }
+
+  function setHidden(hidden) {
+    if (hidden) panel.setAttribute('hidden', '');
+    else        panel.removeAttribute('hidden');
+  }
+
+  function openPanel() {
+    if (isOpen) return;
+    isOpen = true;
+    lastFocus = document.activeElement;
+    setHidden(false);
+    requestAnimationFrame(function () {
+      panel.classList.add('open');
+    });
+    fab.classList.add('active');
+    fab.setAttribute('aria-expanded', 'true');
+
+    var focusables = getFocusable();
+    if (focusables.length) {
+      setTimeout(function () { focusables[0].focus(); }, 120);
+    }
+
+    document.addEventListener('keydown', onKeydown, true);
+    document.addEventListener('click', onDocClick, true);
+  }
+
+  function closePanel() {
+    if (!isOpen) return;
+    isOpen = false;
+    panel.classList.remove('open');
+    fab.classList.remove('active');
+    fab.setAttribute('aria-expanded', 'false');
+    document.removeEventListener('keydown', onKeydown, true);
+    document.removeEventListener('click', onDocClick, true);
+
+    setTimeout(function () {
+      if (!isOpen) setHidden(true);
+    }, 280);
+
+    if (lastFocus && typeof lastFocus.focus === 'function') {
+      lastFocus.focus();
+    }
+  }
+
+  function onKeydown(e) {
+    if (e.key === 'Escape') {
+      e.preventDefault();
+      closePanel();
+      return;
+    }
+    if (e.key === 'Tab') {
+      var focusables = getFocusable();
+      if (!focusables.length) return;
+      var first = focusables[0];
+      var last  = focusables[focusables.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    }
+  }
+
+  function onDocClick(e) {
+    if (!isOpen) return;
+    if (panel.contains(e.target) || fab.contains(e.target)) return;
+    if (openBtn && openBtn.contains(e.target)) return;
+    closePanel();
+  }
+
+  fab.addEventListener('click', function (e) {
+    e.stopPropagation();
+    isOpen ? closePanel() : openPanel();
+  });
+
+  if (close) close.addEventListener('click', function (e) {
+    e.stopPropagation();
+    closePanel();
+  });
+
+  if (openBtn) openBtn.addEventListener('click', function (e) {
+    e.stopPropagation();
+    openPanel();
+  });
+
+  function copyToClipboard(text, label) {
+    var done = function () {
+      showToast(tr('已複製') + ' ' + (label || '') + (label ? '：' : '') + text);
+    };
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(text).then(done).catch(function () {
+        fallbackCopy(text, done);
+      });
+    } else {
+      fallbackCopy(text, done);
+    }
+  }
+
+  function fallbackCopy(text, cb) {
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    ta.setAttribute('readonly', '');
+    ta.style.position = 'fixed';
+    ta.style.top = '0';
+    ta.style.left = '-9999px';
+    document.body.appendChild(ta);
+    ta.select();
+    ta.setSelectionRange(0, ta.value.length);
+    var ok = false;
+    try { ok = document.execCommand('copy'); } catch (e) { ok = false; }
+    document.body.removeChild(ta);
+    if (ok) cb();
+    else    showToast(tr('複製失敗，請手動複製'));
+  }
+
+  var toastTimer = null;
+  function showToast(msg) {
+    var t = document.getElementById('tkToast');
+    if (!t) {
+      t = document.createElement('div');
+      t.id = 'tkToast';
+      t.className = 'tk-toast';
+      t.setAttribute('role', 'status');
+      t.setAttribute('aria-live', 'polite');
+      document.body.appendChild(t);
+    }
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () { t.classList.remove('show'); }, 2600);
+  }
+  window.__tkToast = showToast;
+
+  panel.querySelectorAll('.contact-copy').forEach(function (btn) {
+    btn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      var text = this.getAttribute('data-copy') || '';
+      var label = this.getAttribute('data-copy-label') || '';
+      if (!text) return;
+      copyToClipboard(text, label);
+    });
+  });
+
+  var dingForm = document.getElementById('dingtalkForm');
+  if (dingForm) {
+    dingForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      var fd = new FormData(dingForm);
+      if (String(fd.get('website') || '').trim()) {
+        dingForm.reset();
+        showToast(tr('已提交'));
+        return;
+      }
+
+      var name    = String(fd.get('name') || '').trim();
+      var contact = String(fd.get('contact') || '').trim();
+      var message = String(fd.get('message') || '').trim();
+
+      if (!contact) {
+        showToast(tr('請填寫您的聯絡方式'));
+        var c = document.getElementById('dtContact');
+        if (c) c.focus();
+        return;
+      }
+      if (contact.length < 2) {
+        showToast(tr('聯絡方式太短'));
+        var c2 = document.getElementById('dtContact');
+        if (c2) c2.focus();
+        return;
+      }
+      if (!message) {
+        showToast(tr('請填寫留言內容'));
+        var m = document.getElementById('dtMessage');
+        if (m) m.focus();
+        return;
+      }
+      if (message.length < 2) {
+        showToast(tr('留言太短，請多寫幾句'));
+        var m2 = document.getElementById('dtMessage');
+        if (m2) m2.focus();
+        return;
+      }
+
+      var now = Date.now();
+      var last = 0;
+      try { last = parseInt(localStorage.getItem('tk_last_dt_submit') || '0', 10); } catch (err) {}
+      if (now - last < 60000) {
+        var wait = Math.ceil((60000 - (now - last)) / 1000);
+        showToast(tr('提交太頻繁，請') + ' ' + wait + ' ' + tr('秒後再試'));
+        return;
+      }
+
+      var content =
+        '【ticketkiller 留言】\n' +
+        '釘釘 ID：ticketkiller\n' +
+        'QQ：3839562550\n' +
+        '姓名：' + (name || '未填寫') + '\n' +
+        '聯絡：' + contact + '\n' +
+        '留言：' + message;
+
+      try { localStorage.setItem('tk_last_dt_submit', String(now)); } catch (err) {}
+
+      copyToClipboard(content, tr('留言內容'));
+      dingForm.reset();
+      showToast(tr('留言已複製，請到釘釘搜尋 ticketkiller 或 QQ 3839562550 粘貼發送'));
+    });
+  }
+
+  window.__contactPanel = {
+    open: openPanel,
+    close: closePanel,
+    isOpen: function () { return isOpen; }
+  };
+})();
+</script>
+
 </body>
 </html>
