@@ -11,9 +11,13 @@
     theme: {
       extend: {
         colors: {
-          purple:  '#8A2BE2',
-          magenta: '#FF0080',
-          green:   '#39FF14',
+          purple:  '#FF4D9D',
+          magenta: '#B388FF',
+          green:   '#FFD54F',
+          rose:    '#FF8FB8',
+          blush:   '#FFC2DC',
+          lilac:   '#E0B6FF',
+          gold:    '#FFD54F',
         },
         fontFamily: {
           sans: ['Inter', 'system-ui', '-apple-system', 'Segoe UI', 'sans-serif'],
@@ -27,58 +31,67 @@
 <style>
   *{box-sizing:border-box}
   html{scroll-behavior:smooth}
-  body{background:#0a0a0a;color:#e8e8e8;font-family:'Inter',system-ui,-apple-system,sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased}
-  .text-gradient{background:linear-gradient(135deg,#8A2BE2,#FF0080,#39FF14);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-  .glass-deep{background:rgba(10,10,10,.65);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.04)}
-  .glow-border{border:1px solid rgba(138,43,226,.15);transition:border-color .4s,box-shadow .4s,transform .3s cubic-bezier(.2,0,0,1)}
-  .glow-border:hover{border-color:rgba(138,43,226,.5);box-shadow:0 0 40px rgba(138,43,226,.08);transform:translateY(-6px) scale(1.01)}
-  .btn-primary{background:linear-gradient(135deg,#8A2BE2,#FF0080);box-shadow:0 8px 32px rgba(138,43,226,.25);transition:all .3s cubic-bezier(.2,0,0,1);position:relative;overflow:hidden;display:inline-block}
-  .btn-primary:hover{transform:translateY(-3px) scale(1.04);box-shadow:0 14px 48px rgba(138,43,226,.4)}
-  .btn-primary::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.15),transparent);opacity:0;transition:opacity .4s}
+  body{background:#130917;color:#f5e9f2;font-family:'Inter',system-ui,-apple-system,sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+  .text-gradient{background:linear-gradient(135deg,#FF4D9D,#B388FF,#FFD54F);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+  .glass-deep{background:rgba(19,9,23,.68);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(255,143,184,.08)}
+  .glow-border{border:1px solid rgba(255,77,157,.18);transition:border-color .4s,box-shadow .4s,transform .3s cubic-bezier(.2,0,0,1)}
+  .glow-border:hover{border-color:rgba(255,77,157,.55);box-shadow:0 0 50px rgba(255,77,157,.18),0 0 90px rgba(179,136,255,.08);transform:translateY(-6px) scale(1.01)}
+  .btn-primary{background:linear-gradient(135deg,#FF4D9D,#B388FF);box-shadow:0 8px 32px rgba(255,77,157,.35);transition:all .3s cubic-bezier(.2,0,0,1);position:relative;overflow:hidden;display:inline-block}
+  .btn-primary:hover{transform:translateY(-3px) scale(1.04);box-shadow:0 14px 48px rgba(255,77,157,.55)}
+  .btn-primary::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.25),transparent);opacity:0;transition:opacity .4s}
   .btn-primary:hover::after{opacity:1}
-  .btn-secondary{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);transition:all .3s cubic-bezier(.2,0,0,1);display:inline-block}
-  .btn-secondary:hover{background:rgba(138,43,226,.12);border-color:#8A2BE2;transform:scale(1.04)}
-  .btn-official{background:rgba(57,255,20,.08);border:1px solid rgba(57,255,20,.3);transition:all .3s cubic-bezier(.2,0,0,1);display:inline-block}
-  .btn-official:hover{background:rgba(57,255,20,.18);border-color:#39FF14;transform:scale(1.03);box-shadow:0 8px 28px rgba(57,255,20,.18)}
+  .btn-secondary{background:rgba(255,143,184,.06);border:1px solid rgba(255,143,184,.18);transition:all .3s cubic-bezier(.2,0,0,1);display:inline-block}
+  .btn-secondary:hover{background:rgba(255,77,157,.15);border-color:#FF4D9D;transform:scale(1.04)}
+  .btn-official{background:rgba(255,213,79,.10);border:1px solid rgba(255,213,79,.4);transition:all .3s cubic-bezier(.2,0,0,1);display:inline-block}
+  .btn-official:hover{background:rgba(255,213,79,.22);border-color:#FFD54F;transform:scale(1.03);box-shadow:0 8px 28px rgba(255,213,79,.25)}
   .card-hover{transition:all .4s cubic-bezier(.2,0,0,1)}
-  .card-hover:hover{transform:translateY(-10px);box-shadow:0 30px 60px -20px rgba(138,43,226,.15)}
-  .pricing-popular{position:relative;border:2px solid #FF0080;transform:scale(1.02)}
-  .pricing-popular::before{content:'⚡ 最受歡迎';position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#8A2BE2,#FF0080);color:#fff;padding:2px 22px;border-radius:40px;font-size:13px;font-weight:700;letter-spacing:.5px;white-space:nowrap}
-  .speed-line{position:absolute;height:2px;background:linear-gradient(90deg,transparent,rgba(138,43,226,.3),transparent);animation:speedLine 8s linear infinite}
+  .card-hover:hover{transform:translateY(-10px);box-shadow:0 30px 60px -20px rgba(255,77,157,.25)}
+  .pricing-popular{position:relative;border:2px solid #B388FF;transform:scale(1.02);box-shadow:0 0 60px rgba(179,136,255,.2)}
+  .pricing-popular::before{content:'⚡ 最受歡迎';position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#FF4D9D,#B388FF,#FFD54F);color:#fff;padding:2px 22px;border-radius:40px;font-size:13px;font-weight:700;letter-spacing:.5px;white-space:nowrap;box-shadow:0 8px 24px rgba(255,77,157,.4)}
+  .speed-line{position:absolute;height:2px;background:linear-gradient(90deg,transparent,rgba(255,77,157,.5),rgba(255,213,79,.4),transparent);animation:speedLine 8s linear infinite}
   .speed-line:nth-child(1){top:15%;left:-10%;width:30%;animation-delay:0s}
   .speed-line:nth-child(2){top:45%;right:-5%;width:25%;animation-delay:2s}
   .speed-line:nth-child(3){bottom:30%;left:-15%;width:35%;animation-delay:4s}
   .speed-line:nth-child(4){top:70%;right:-10%;width:20%;animation-delay:6s}
   @keyframes speedLine{0%{transform:translateX(-100%) scaleX(.5);opacity:0}50%{opacity:1}100%{transform:translateX(100vw) scaleX(1);opacity:0}}
-  .particle{position:absolute;border-radius:50%;background:rgba(138,43,226,.15);animation:floatParticle 14s ease-in-out infinite alternate}
-  .particle:nth-child(1){width:300px;height:300px;top:-10%;left:-8%;animation-duration:16s}
-  .particle:nth-child(2){width:400px;height:400px;bottom:-15%;right:-5%;animation-duration:20s;background:rgba(255,0,128,.08)}
-  .particle:nth-child(3){width:250px;height:250px;top:40%;left:40%;animation-duration:18s;background:rgba(57,255,20,.05)}
+  .particle{position:absolute;border-radius:50%;background:radial-gradient(circle,rgba(255,77,157,.25),transparent 70%);animation:floatParticle 14s ease-in-out infinite alternate}
+  .particle:nth-child(1){width:340px;height:340px;top:-10%;left:-8%;animation-duration:16s}
+  .particle:nth-child(2){width:440px;height:440px;bottom:-15%;right:-5%;animation-duration:20s;background:radial-gradient(circle,rgba(179,136,255,.22),transparent 70%)}
+  .particle:nth-child(3){width:280px;height:280px;top:40%;left:40%;animation-duration:18s;background:radial-gradient(circle,rgba(255,213,79,.14),transparent 70%)}
   @keyframes floatParticle{0%{transform:translate(0,0) scale(1)}100%{transform:translate(60px,-60px) scale(1.2)}}
+  .star-dust{position:absolute;border-radius:50%;background:#fff;box-shadow:0 0 6px 2px rgba(255,213,79,.7),0 0 12px 4px rgba(255,143,184,.4);animation:twinkle 3.5s ease-in-out infinite}
+  @keyframes twinkle{0%,100%{opacity:0;transform:scale(.4)}50%{opacity:1;transform:scale(1)}}
+  .star-dust:nth-child(1){width:3px;height:3px;top:22%;left:14%;animation-delay:0s}
+  .star-dust:nth-child(2){width:2px;height:2px;top:62%;left:82%;animation-delay:.7s}
+  .star-dust:nth-child(3){width:4px;height:4px;top:38%;left:68%;animation-delay:1.4s}
+  .star-dust:nth-child(4){width:2px;height:2px;top:78%;left:28%;animation-delay:2.1s}
+  .star-dust:nth-child(5){width:3px;height:3px;top:12%;left:56%;animation-delay:2.8s}
+  .star-dust:nth-child(6){width:2px;height:2px;top:52%;left:44%;animation-delay:1.1s}
+  .star-dust:nth-child(7){width:3px;height:3px;top:84%;left:62%;animation-delay:1.8s}
   .platform-card{transition:all .4s cubic-bezier(.34,1.56,.64,1)}
-  .platform-card:hover{transform:translateY(-10px) scale(1.05);box-shadow:0 24px 48px -12px rgba(138,43,226,.2)}
+  .platform-card:hover{transform:translateY(-10px) scale(1.05);box-shadow:0 24px 48px -12px rgba(255,77,157,.35)}
   .platform-card .icon-wrap{transition:transform .5s cubic-bezier(.34,1.56,.64,1)}
   .platform-card:hover .icon-wrap{transform:rotate(-12deg) scale(1.2)}
   .step-card{position:relative}
-  .step-icon{background:linear-gradient(135deg,#8A2BE2,#FF0080);box-shadow:0 8px 32px rgba(138,43,226,.25);transition:transform .4s cubic-bezier(.34,1.56,.64,1)}
+  .step-icon{background:linear-gradient(135deg,#FF4D9D,#B388FF,#FFD54F);box-shadow:0 8px 32px rgba(255,77,157,.4);transition:transform .4s cubic-bezier(.34,1.56,.64,1)}
   .step-card:hover .step-icon{transform:scale(1.12) rotate(-6deg)}
-  .step-card::after{content:'\f105';font-family:FontAwesome;position:absolute;right:-18px;top:38px;color:rgba(138,43,226,.35);font-size:22px}
+  .step-card::after{content:'\f105';font-family:FontAwesome;position:absolute;right:-18px;top:38px;color:rgba(255,143,184,.5);font-size:22px}
   .step-card:last-child::after{display:none}
   @media(max-width:1023px){.step-card::after{display:none}}
-  .timeline-item{position:relative;padding-left:28px;padding-bottom:30px;border-left:2px solid rgba(138,43,226,.15)}
+  .timeline-item{position:relative;padding-left:28px;padding-bottom:30px;border-left:2px solid rgba(255,77,157,.2)}
   .timeline-item:last-child{border-left:2px solid transparent;padding-bottom:0}
-  .timeline-item::before{content:'';position:absolute;left:-7px;top:6px;width:12px;height:12px;border-radius:50%;background:linear-gradient(135deg,#8A2BE2,#FF0080);box-shadow:0 0 24px rgba(138,43,226,.3)}
-  .version-tag{display:inline-block;background:rgba(138,43,226,.15);color:#B57BFF;font-size:12px;font-weight:700;padding:2px 14px;border-radius:20px;border:1px solid rgba(138,43,226,.25)}
+  .timeline-item::before{content:'';position:absolute;left:-7px;top:6px;width:12px;height:12px;border-radius:50%;background:linear-gradient(135deg,#FF4D9D,#FFD54F);box-shadow:0 0 24px rgba(255,77,157,.6)}
+  .version-tag{display:inline-block;background:rgba(255,77,157,.18);color:#FF9DC8;font-size:12px;font-weight:700;padding:2px 14px;border-radius:20px;border:1px solid rgba(255,77,157,.35)}
   .tag-pill{font-size:11px;font-weight:700;padding:2px 10px;border-radius:20px;letter-spacing:.3px}
-  .tag-new{background:rgba(57,255,20,.12);color:#7DFF5C;border:1px solid rgba(57,255,20,.25)}
-  .tag-fix{background:rgba(255,0,128,.12);color:#FF74B8;border:1px solid rgba(255,0,128,.25)}
-  .tag-opt{background:rgba(138,43,226,.14);color:#B57BFF;border:1px solid rgba(138,43,226,.28)}
-  .tag-hot{background:rgba(255,100,0,.15);color:#FF8C42;border:1px solid rgba(255,100,0,.3)}
-  .tag-macau{background:rgba(0,180,255,.12);color:#4FC3F7;border:1px solid rgba(0,180,255,.25)}
+  .tag-new{background:rgba(255,213,79,.14);color:#FFE082;border:1px solid rgba(255,213,79,.35)}
+  .tag-fix{background:rgba(179,136,255,.16);color:#D3B8FF;border:1px solid rgba(179,136,255,.35)}
+  .tag-opt{background:rgba(255,77,157,.16);color:#FF9DC8;border:1px solid rgba(255,77,157,.35)}
+  .tag-hot{background:rgba(255,120,120,.16);color:#FF9F9F;border:1px solid rgba(255,120,120,.35)}
+  .tag-macau{background:rgba(140,180,255,.14);color:#A8C4FF;border:1px solid rgba(140,180,255,.3)}
   .logo-icon{transition:transform .4s cubic-bezier(.34,1.56,.64,1),filter .4s;display:inline-flex}
-  .logo-icon:hover{transform:rotate(-4deg) scale(1.04);filter:drop-shadow(0 0 40px rgba(138,43,226,.2))}
+  .logo-icon:hover{transform:rotate(-4deg) scale(1.04);filter:drop-shadow(0 0 40px rgba(255,77,157,.35))}
   #navInner{transition:padding .3s ease,background .3s ease,box-shadow .3s ease}
-  .nav-shrink{padding-top:.5rem!important;padding-bottom:.5rem!important;background:rgba(10,10,10,.94)!important;box-shadow:0 10px 40px -20px rgba(138,43,226,.35)}
+  .nav-shrink{padding-top:.5rem!important;padding-bottom:.5rem!important;background:rgba(19,9,23,.95)!important;box-shadow:0 10px 40px -20px rgba(255,77,157,.5)}
   .wa-btn{background:linear-gradient(135deg,#25D366,#128C7E);box-shadow:0 10px 34px rgba(37,211,102,.28);transition:all .3s cubic-bezier(.2,0,0,1)}
   .wa-btn:hover{transform:translateY(-3px) scale(1.03);box-shadow:0 16px 46px rgba(37,211,102,.45)}
   .wa-float{background:linear-gradient(135deg,#25D366,#128C7E);box-shadow:0 8px 30px rgba(37,211,102,.4);transition:transform .3s cubic-bezier(.34,1.56,.64,1)}
@@ -88,36 +101,35 @@
   .js .reveal{opacity:0;transform:translateY(28px);transition:opacity .75s cubic-bezier(.2,0,0,1),transform .75s cubic-bezier(.2,0,0,1)}
   .js .reveal.visible{opacity:1;transform:none}
   ::-webkit-scrollbar{width:6px}
-  ::-webkit-scrollbar-track{background:#0a0a0a}
-  ::-webkit-scrollbar-thumb{background:#8A2BE2;border-radius:10px}
+  ::-webkit-scrollbar-track{background:#130917}
+  ::-webkit-scrollbar-thumb{background:linear-gradient(180deg,#FF4D9D,#B388FF);border-radius:10px}
   .text-shadow-dark{text-shadow:0 4px 30px rgba(0,0,0,.6)}
-  .skeleton{background:linear-gradient(90deg,rgba(255,255,255,.03) 25%,rgba(138,43,226,.08) 37%,rgba(255,255,255,.03) 63%);background-size:400% 100%;animation:skeletonShine 1.4s ease infinite}
+  .skeleton{background:linear-gradient(90deg,rgba(255,143,184,.05) 25%,rgba(255,77,157,.16) 37%,rgba(255,143,184,.05) 63%);background-size:400% 100%;animation:skeletonShine 1.4s ease infinite}
   @keyframes skeletonShine{0%{background-position:100% 50%}100%{background-position:0 50%}}
   .source-badge{display:inline-flex;align-items:center;gap:6px;font-size:11px;padding:3px 12px;border-radius:20px;font-weight:600;letter-spacing:.3px}
-  .source-live{background:rgba(57,255,20,.1);color:#7DFF5C;border:1px solid rgba(57,255,20,.25)}
-  .source-cache{background:rgba(255,196,0,.1);color:#FFD666;border:1px solid rgba(255,196,0,.25)}
-  .source-fallback{background:rgba(255,0,128,.1);color:#FF74B8;border:1px solid rgba(255,0,128,.25)}
+  .source-live{background:rgba(255,213,79,.12);color:#FFE082;border:1px solid rgba(255,213,79,.35)}
+  .source-cache{background:rgba(255,150,120,.12);color:#FFB59B;border:1px solid rgba(255,150,120,.3)}
+  .source-fallback{background:rgba(255,77,157,.12);color:#FF9DC8;border:1px solid rgba(255,77,157,.35)}
   .source-dot{width:6px;height:6px;border-radius:50%;background:currentColor;animation:dotPulse 1.6s ease-in-out infinite}
   @keyframes dotPulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.7)}}
-  /* 海報容器 */
-  .poster-wrap{position:relative;width:100%;aspect-ratio:3/4;overflow:hidden;border-radius:12px 12px 0 0;background:rgba(0,0,0,.4)}
+  .poster-wrap{position:relative;width:100%;aspect-ratio:3/4;overflow:hidden;border-radius:12px 12px 0 0;background:rgba(19,9,23,.6)}
   .poster-wrap img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s cubic-bezier(.2,0,0,1)}
   .glow-border:hover .poster-wrap img{transform:scale(1.06)}
-  .poster-fallback{display:flex;flex-direction:column;align-items:center;justify-content:center;width:100%;height:100%;background:linear-gradient(135deg,rgba(138,43,226,.15),rgba(255,0,128,.1));color:rgba(255,255,255,.3);font-size:13px;text-align:center;padding:20px}
-  .poster-fallback i{font-size:36px;margin-bottom:10px;opacity:.5}
-  /* 搶票時間線 */
+  .poster-fallback{display:flex;flex-direction:column;align-items:center;justify-content:center;width:100%;height:100%;background:linear-gradient(135deg,rgba(255,77,157,.22),rgba(179,136,255,.18),rgba(255,213,79,.12));color:rgba(255,255,255,.6);font-size:13px;text-align:center;padding:20px}
+  .poster-fallback i{font-size:36px;margin-bottom:10px;opacity:.8;color:#FFD54F}
   .sale-timeline{max-height:0;overflow:hidden;transition:max-height .45s cubic-bezier(.2,0,0,1),opacity .35s ease;opacity:0}
   .sale-timeline.open{max-height:600px;opacity:1}
-  .sale-timeline-inner{padding:12px 0 4px;border-top:1px dashed rgba(138,43,226,.2);margin-top:10px}
-  .sale-row{display:flex;align-items:flex-start;gap:8px;padding:5px 0;font-size:12px;color:#9CA3AF;line-height:1.5}
-  .sale-row .dot{flex-shrink:0;width:6px;height:6px;border-radius:50%;margin-top:5px;background:rgba(138,43,226,.5)}
-  .sale-row .dot.public{background:#FF0080;box-shadow:0 0 8px rgba(255,0,128,.6)}
-  .sale-row .dot.priority{background:#39FF14;box-shadow:0 0 8px rgba(57,255,20,.4)}
-  .sale-row .stage{color:#D1D5DB;font-weight:600;min-width:70px}
-  .toggle-sale{display:inline-flex;align-items:center;gap:4px;font-size:12px;color:#B57BFF;cursor:pointer;background:none;border:none;padding:4px 0;transition:color .3s}
-  .toggle-sale:hover{color:#D8B4FE}
+  .sale-timeline-inner{padding:12px 0 4px;border-top:1px dashed rgba(255,77,157,.3);margin-top:10px}
+  .sale-row{display:flex;align-items:flex-start;gap:8px;padding:5px 0;font-size:12px;color:#C9A8C0;line-height:1.5}
+  .sale-row .dot{flex-shrink:0;width:6px;height:6px;border-radius:50%;margin-top:5px;background:rgba(255,77,157,.6)}
+  .sale-row .dot.public{background:#FF4D9D;box-shadow:0 0 8px rgba(255,77,157,.8)}
+  .sale-row .dot.priority{background:#FFD54F;box-shadow:0 0 8px rgba(255,213,79,.7)}
+  .sale-row .stage{color:#F5D9EC;font-weight:600;min-width:70px}
+  .toggle-sale{display:inline-flex;align-items:center;gap:4px;font-size:12px;color:#FF9DC8;cursor:pointer;background:none;border:none;padding:4px 0;transition:color .3s}
+  .toggle-sale:hover{color:#FFD54F}
   .toggle-sale i{transition:transform .3s}
   .toggle-sale.open i{transform:rotate(180deg)}
+  .joy-glow{position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none}
 </style>
 </head>
 <body>
@@ -130,28 +142,28 @@
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 56" class="h-8 sm:h-9 md:h-10 w-auto" role="img" aria-label="ticketkiller">
           <defs>
             <linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stop-color="#8A2BE2"/>
-              <stop offset="50%" stop-color="#FF0080"/>
-              <stop offset="100%" stop-color="#39FF14"/>
+              <stop offset="0%" stop-color="#FF4D9D"/>
+              <stop offset="50%" stop-color="#B388FF"/>
+              <stop offset="100%" stop-color="#FFD54F"/>
             </linearGradient>
             <linearGradient id="iconGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stop-color="#8A2BE2"/>
-              <stop offset="100%" stop-color="#FF0080"/>
+              <stop offset="0%" stop-color="#FF4D9D"/>
+              <stop offset="100%" stop-color="#B388FF"/>
             </linearGradient>
             <filter id="glow"><feGaussianBlur stdDeviation="2"/><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter>
           </defs>
           <g transform="translate(0,6)">
-            <rect x="0" y="0" width="44" height="44" rx="12" fill="url(#iconGrad)" opacity="0.12"/>
-            <rect x="0" y="0" width="44" height="44" rx="12" fill="none" stroke="url(#iconGrad)" stroke-width="1" opacity="0.28"/>
-            <path d="M10 13 L34 13 L34 31 L10 31 Z" fill="none" stroke="url(#iconGrad)" stroke-width="1.5" stroke-linejoin="round" opacity="0.45"/>
-            <line x1="10" y1="22" x2="34" y2="22" stroke="url(#iconGrad)" stroke-width="1" stroke-dasharray="2 3" opacity="0.3"/>
+            <rect x="0" y="0" width="44" height="44" rx="12" fill="url(#iconGrad)" opacity="0.15"/>
+            <rect x="0" y="0" width="44" height="44" rx="12" fill="none" stroke="url(#iconGrad)" stroke-width="1" opacity="0.4"/>
+            <path d="M10 13 L34 13 L34 31 L10 31 Z" fill="none" stroke="url(#iconGrad)" stroke-width="1.5" stroke-linejoin="round" opacity="0.55"/>
+            <line x1="10" y1="22" x2="34" y2="22" stroke="url(#iconGrad)" stroke-width="1" stroke-dasharray="2 3" opacity="0.4"/>
             <polygon points="23,10 17,22 22,22 19,33 28,20 23,20 25.5,10" fill="url(#iconGrad)" filter="url(#glow)" stroke="#fff" stroke-width="0.6"/>
-            <circle cx="13" cy="17" r="1.5" fill="#39FF14" opacity="0.5"/>
-            <circle cx="31" cy="27" r="1.2" fill="#8A2BE2" opacity="0.4"/>
+            <circle cx="13" cy="17" r="1.5" fill="#FFD54F" opacity="0.8"/>
+            <circle cx="31" cy="27" r="1.2" fill="#FF4D9D" opacity="0.7"/>
           </g>
           <g transform="translate(56,0)">
             <text x="0" y="31" font-family="'Inter','Segoe UI',sans-serif" font-size="22" font-weight="800" letter-spacing="-0.5" fill="url(#logoGrad)">ticketkiller</text>
-            <text x="1" y="44" font-family="'Inter','Segoe UI',sans-serif" font-size="8" font-weight="500" letter-spacing="1.6" fill="#9CA3AF" opacity="0.55">SMART TICKETING</text>
+            <text x="1" y="44" font-family="'Inter','Segoe UI',sans-serif" font-size="8" font-weight="500" letter-spacing="1.6" fill="#C9A8C0" opacity="0.65">SMART TICKETING</text>
           </g>
         </svg>
       </a>
@@ -181,7 +193,7 @@
     </div>
   </div>
 
-  <div id="mobileMenu" class="hidden md:hidden bg-[#0a0a0a]/97 backdrop-blur-xl border-b border-purple/20">
+  <div id="mobileMenu" class="hidden md:hidden bg-[#130917]/97 backdrop-blur-xl border-b border-purple/25">
     <div class="container mx-auto px-6 py-6 flex flex-col space-y-3 text-base">
       <a href="#shows" class="py-2 hover:text-green transition">最新場次</a>
       <a href="#platforms" class="py-2 hover:text-purple transition">平台</a>
@@ -200,7 +212,7 @@
 
 <!-- ============ 英雄區 ============ -->
 <section id="top" class="relative min-h-screen flex items-center justify-center overflow-hidden">
-  <div class="absolute inset-0 z-0 bg-[#0a0a0a]">
+  <div class="absolute inset-0 z-0 bg-[#130917]">
     <div class="particle"></div>
     <div class="particle"></div>
     <div class="particle"></div>
@@ -208,23 +220,30 @@
     <div class="speed-line"></div>
     <div class="speed-line"></div>
     <div class="speed-line"></div>
-    <div class="absolute inset-0" style="background-image:radial-gradient(rgba(138,43,226,.04) 1px,transparent 1px);background-size:40px 40px;"></div>
+    <div class="star-dust"></div>
+    <div class="star-dust"></div>
+    <div class="star-dust"></div>
+    <div class="star-dust"></div>
+    <div class="star-dust"></div>
+    <div class="star-dust"></div>
+    <div class="star-dust"></div>
+    <div class="absolute inset-0" style="background-image:radial-gradient(rgba(255,77,157,.07) 1px,transparent 1px);background-size:40px 40px;"></div>
   </div>
 
   <div class="container mx-auto px-6 md:px-12 relative z-20 text-center pt-28 pb-20">
-    <div class="inline-flex items-center gap-2 bg-purple/10 backdrop-blur-sm border border-purple/20 px-5 py-1.5 rounded-full text-sm font-medium text-purple/90 mb-6 tracking-wider">
-      🚀 六大平台 · 按場次收費 · 6 台設備不限次數
+    <div class="inline-flex items-center gap-2 bg-purple/15 backdrop-blur-sm border border-purple/35 px-5 py-1.5 rounded-full text-sm font-medium text-rose mb-6 tracking-wider">
+      💖 六大平台 · 按場次收費 · 6 台設備不限次數
     </div>
 
     <h1 class="text-[clamp(2.8rem,10vw,5.2rem)] font-extrabold leading-[1.1] mb-6 text-shadow-dark">
       <span class="text-gradient">閃電鎖定</span><br>
-      <span class="text-white/90">你的心儀門票</span>
+      <span class="text-white/95">你的心儀門票</span>
     </h1>
 
-    <p class="text-[clamp(1rem,2.5vw,1.4rem)] max-w-2xl mx-auto text-gray-400/85 leading-relaxed mb-4">
+    <p class="text-[clamp(1rem,2.5vw,1.4rem)] max-w-2xl mx-auto text-blush/85 leading-relaxed mb-4">
       Cityline · KKTIX · HKTICKETING · URBTIX · FANTOPIA · Klook
     </p>
-    <p class="text-base md:text-lg max-w-2xl mx-auto text-gray-500 mb-10">
+    <p class="text-base md:text-lg max-w-2xl mx-auto text-blush/70 mb-10">
       買一場，搶一場 —— 一個場次可綁定 <span class="text-green font-bold">6 台設備</span>，<span class="text-green font-bold">不限搶飛次數</span>
     </p>
 
@@ -232,46 +251,48 @@
       <a href="https://ticketbot.lanzn.com/ix3og46ghm5g" class="btn-primary text-white font-bold py-4 px-12 rounded-full text-lg shadow-2xl">
         <i class="fa fa-download mr-2"></i>免費下載試用
       </a>
-      <a href="#shows" class="btn-secondary text-white/85 font-bold py-4 px-10 rounded-full text-lg">
+      <a href="#shows" class="btn-secondary text-white/90 font-bold py-4 px-10 rounded-full text-lg">
         查看最新場次 <i class="fa fa-arrow-right ml-2"></i>
       </a>
     </div>
 
-    <div class="mt-12 flex flex-wrap justify-center gap-x-8 gap-y-3 text-sm text-gray-500">
-      <span><i class="fa fa-check-circle text-green/70 mr-2"></i>按場次收費，無月費綁定</span>
-      <span><i class="fa fa-check-circle text-green/70 mr-2"></i>6 台設備同時登入</span>
-      <span><i class="fa fa-check-circle text-green/70 mr-2"></i>不限搶飛次數</span>
+    <div class="mt-12 flex flex-wrap justify-center gap-x-8 gap-y-3 text-sm text-blush/70">
+      <span><i class="fa fa-check-circle text-green/80 mr-2"></i>按場次收費，無月費綁定</span>
+      <span><i class="fa fa-check-circle text-green/80 mr-2"></i>6 台設備同時登入</span>
+      <span><i class="fa fa-check-circle text-green/80 mr-2"></i>不限搶飛次數</span>
     </div>
   </div>
 
   <div class="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce">
-    <i class="fa fa-chevron-down text-3xl text-purple/30"></i>
+    <i class="fa fa-chevron-down text-3xl text-purple/45"></i>
   </div>
 </section>
 
 <!-- ============ 最新演唱會場次 ============ -->
-<section id="shows" class="py-24 px-6 md:px-12 bg-[#0d0d0d] relative">
-  <div class="absolute inset-0" style="background-image:radial-gradient(rgba(57,255,20,.02) 1px,transparent 1px);background-size:32px 32px;"></div>
+<section id="shows" class="py-24 px-6 md:px-12 bg-[#180C1D] relative">
+  <div class="joy-glow" style="width:500px;height:500px;background:rgba(255,77,157,.08);top:-100px;left:-100px"></div>
+  <div class="joy-glow" style="width:500px;height:500px;background:rgba(179,136,255,.07);bottom:-100px;right:-100px"></div>
+  <div class="absolute inset-0" style="background-image:radial-gradient(rgba(255,213,79,.04) 1px,transparent 1px);background-size:32px 32px;"></div>
   <div class="container mx-auto relative z-10">
     <div class="text-center mb-12 reveal">
-      <span class="text-green/70 font-semibold tracking-widest text-sm">LATEST SHOWS</span>
+      <span class="text-green/85 font-semibold tracking-widest text-sm">LATEST SHOWS</span>
       <h2 class="text-[clamp(2rem,5vw,3.2rem)] font-bold mt-2"><span class="text-gradient">最新演唱會場次及公售日期</span></h2>
-      <p class="text-gray-500 max-w-2xl mx-auto text-lg mt-3">
+      <p class="text-blush/75 max-w-2xl mx-auto text-lg mt-3">
         每日自動更新 · 已開售場次自動移除 · 附官方購票連結 · 完整搶票時間線
       </p>
-      <p class="text-gray-600 max-w-2xl mx-auto text-sm mt-2">
+      <p class="text-blush/50 max-w-2xl mx-auto text-sm mt-2">
         🇭🇰 香港 + 🇲🇴 澳門全覆蓋 · 熱門演唱會優先展示
       </p>
 
-      <div class="mt-4 flex flex-wrap items-center justify-center gap-3 text-xs text-gray-600">
+      <div class="mt-4 flex flex-wrap items-center justify-center gap-3 text-xs text-blush/50">
         <span class="source-badge source-live" id="sourceBadge">
           <span class="source-dot"></span>
-          <span id="sourceText">正在連接 API...</span>
+          <span id="sourceText">正在載入...</span>
         </span>
         <span>
           <i class="fa fa-refresh mr-1"></i>最後更新：<span id="lastUpdated">—</span>
         </span>
-        <span class="hidden sm:inline text-gray-700">|</span>
+        <span class="hidden sm:inline text-blush/30">|</span>
         <span class="hidden sm:inline">
           <i class="fa fa-clock-o mr-1"></i>每日凌晨 3:00 自動刷新
         </span>
@@ -279,16 +300,16 @@
     </div>
 
     <div class="max-w-6xl mx-auto mb-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm reveal">
-      <span class="glass-deep px-4 py-2 rounded-full border border-green/15">
-        <i class="fa fa-fire text-green/80 mr-2"></i>即將公售：<span id="activeCount" class="font-bold text-white">—</span> 場
+      <span class="glass-deep px-4 py-2 rounded-full border border-green/25">
+        <i class="fa fa-fire text-green/90 mr-2"></i>即將公售：<span id="activeCount" class="font-bold text-white">—</span> 場
       </span>
-      <span class="glass-deep px-4 py-2 rounded-full border border-orange/15" style="border-color:rgba(255,100,0,.2)">
+      <span class="glass-deep px-4 py-2 rounded-full border border-orange/25" style="border-color:rgba(255,120,120,.3)">
         <i class="fa fa-star text-orange-400 mr-2"></i>熱門推薦：<span id="hotCount" class="font-bold text-white">—</span> 場
       </span>
-      <span class="glass-deep px-4 py-2 rounded-full border border-white/5 text-gray-500">
-        <i class="fa fa-external-link text-green/60 mr-2"></i>每場附官方購票連結
+      <span class="glass-deep px-4 py-2 rounded-full border border-white/10 text-blush/70">
+        <i class="fa fa-external-link text-green/70 mr-2"></i>每場附官方購票連結
       </span>
-      <button id="refreshBtn" class="glass-deep px-4 py-2 rounded-full border border-purple/20 text-purple/80 hover:text-white hover:border-purple/50 transition">
+      <button id="refreshBtn" class="glass-deep px-4 py-2 rounded-full border border-purple/35 text-rose hover:text-white hover:border-purple/70 transition">
         <i class="fa fa-refresh mr-2"></i>手動刷新
       </button>
     </div>
@@ -333,15 +354,15 @@
 
     <!-- 錯誤提示 -->
     <div id="showsError" class="hidden max-w-2xl mx-auto">
-      <div class="glass-deep rounded-2xl p-8 border border-magenta/25 text-center">
-        <i class="fa fa-exclamation-triangle text-4xl text-magenta/80"></i>
-        <h4 class="text-lg font-bold text-white/90 mt-4">場次資料載入失敗</h4>
-        <p id="errorMsg" class="text-gray-500 text-sm mt-2">無法連接伺服器，請檢查網絡後重試。</p>
+      <div class="glass-deep rounded-2xl p-8 border border-magenta/40 text-center">
+        <i class="fa fa-exclamation-triangle text-4xl text-magenta/90"></i>
+        <h4 class="text-lg font-bold text-white/95 mt-4">場次資料載入失敗</h4>
+        <p id="errorMsg" class="text-blush/70 text-sm mt-2">無法讀取資料，請檢查網絡後重試。</p>
         <div class="flex flex-wrap justify-center gap-3 mt-6">
           <button id="retryBtn" class="btn-primary text-white font-bold py-2.5 px-7 rounded-full text-sm">
             <i class="fa fa-refresh mr-2"></i>重新載入
           </button>
-          <button id="fallbackBtn" class="btn-secondary text-white/80 font-bold py-2.5 px-7 rounded-full text-sm">
+          <button id="fallbackBtn" class="btn-secondary text-white/90 font-bold py-2.5 px-7 rounded-full text-sm">
             使用備用資料
           </button>
         </div>
@@ -351,159 +372,159 @@
     <div id="showsGrid" class="hidden grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto"></div>
 
     <div id="noShows" class="hidden text-center py-16">
-      <i class="fa fa-calendar-o text-5xl text-gray-700"></i>
-      <p class="text-gray-500 mt-4">目前沒有即將公售的場次，請稍後再查看。</p>
+      <i class="fa fa-calendar-o text-5xl text-blush/30"></i>
+      <p class="text-blush/70 mt-4">目前沒有即將公售的場次，請稍後再查看。</p>
     </div>
 
-    <div class="mt-12 max-w-3xl mx-auto glass-deep rounded-2xl p-6 border border-green/15 text-center reveal">
-      <p class="text-gray-400 text-sm">
-        <i class="fa fa-info-circle text-green/70 mr-2"></i>
-        以上場次資料經 API 每日自動更新，已開售場次會自動移除。實際公售日期及票價以官方公佈為準。「官方購票連結」直達售票平台頁面；「單次購買」則購買 ticketkiller 搶飛權限。
+    <div class="mt-12 max-w-3xl mx-auto glass-deep rounded-2xl p-6 border border-green/25 text-center reveal">
+      <p class="text-blush/80 text-sm">
+        <i class="fa fa-info-circle text-green/80 mr-2"></i>
+        以上場次資料每日自動更新，已開售場次會自動移除。實際公售日期及票價以官方公佈為準。「官方購票連結」直達售票平台頁面；「單次購買」則購買 ticketkiller 搶飛權限。
       </p>
     </div>
   </div>
 </section>
 
 <!-- ============ 六大平台 ============ -->
-<section id="platforms" class="py-24 px-6 md:px-12 bg-[#0a0a0a] relative">
-  <div class="absolute inset-0" style="background-image:radial-gradient(rgba(138,43,226,.03) 1px,transparent 1px);background-size:30px 30px;"></div>
+<section id="platforms" class="py-24 px-6 md:px-12 bg-[#130917] relative">
+  <div class="absolute inset-0" style="background-image:radial-gradient(rgba(255,77,157,.05) 1px,transparent 1px);background-size:30px 30px;"></div>
   <div class="container mx-auto relative z-10">
     <div class="text-center mb-16 reveal">
-      <span class="text-purple/70 font-semibold tracking-widest text-sm">PLATFORMS</span>
+      <span class="text-purple/85 font-semibold tracking-widest text-sm">PLATFORMS</span>
       <h2 class="text-[clamp(2rem,5vw,3.2rem)] font-bold mt-2"><span class="text-gradient">六大平台全面覆蓋</span></h2>
-      <p class="text-gray-500 max-w-2xl mx-auto text-lg mt-3">一次安裝，全網搶票，買一個場次即可通行六大平台</p>
+      <p class="text-blush/75 max-w-2xl mx-auto text-lg mt-3">一次安裝，全網搶票，買一個場次即可通行六大平台</p>
     </div>
 
     <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 max-w-5xl mx-auto">
       <div class="glass-deep rounded-2xl p-6 text-center platform-card glow-border reveal">
-        <div class="icon-wrap w-16 h-16 mx-auto rounded-full bg-purple/10 flex items-center justify-center text-3xl text-purple/80"><i class="fa fa-ticket"></i></div>
-        <h4 class="font-bold text-base mt-4 text-white/90">CITYLINE</h4>
+        <div class="icon-wrap w-16 h-16 mx-auto rounded-full bg-purple/15 flex items-center justify-center text-3xl text-rose"><i class="fa fa-ticket"></i></div>
+        <h4 class="font-bold text-base mt-4 text-white/95">CITYLINE</h4>
       </div>
       <div class="glass-deep rounded-2xl p-6 text-center platform-card glow-border reveal">
-        <div class="icon-wrap w-16 h-16 mx-auto rounded-full bg-magenta/10 flex items-center justify-center text-3xl text-magenta/80"><i class="fa fa-music"></i></div>
-        <h4 class="font-bold text-base mt-4 text-white/90">KKTIX</h4>
+        <div class="icon-wrap w-16 h-16 mx-auto rounded-full bg-magenta/15 flex items-center justify-center text-3xl text-magenta"><i class="fa fa-music"></i></div>
+        <h4 class="font-bold text-base mt-4 text-white/95">KKTIX</h4>
       </div>
       <div class="glass-deep rounded-2xl p-6 text-center platform-card glow-border reveal">
-        <div class="icon-wrap w-16 h-16 mx-auto rounded-full bg-green/10 flex items-center justify-center text-3xl text-green/80"><i class="fa fa-globe"></i></div>
-        <h4 class="font-bold text-base mt-4 text-white/90">HKTICKETING</h4>
+        <div class="icon-wrap w-16 h-16 mx-auto rounded-full bg-green/15 flex items-center justify-center text-3xl text-green"><i class="fa fa-globe"></i></div>
+        <h4 class="font-bold text-base mt-4 text-white/95">HKTICKETING</h4>
       </div>
       <div class="glass-deep rounded-2xl p-6 text-center platform-card glow-border reveal">
-        <div class="icon-wrap w-16 h-16 mx-auto rounded-full bg-purple/10 flex items-center justify-center text-3xl text-purple/80"><i class="fa fa-star"></i></div>
-        <h4 class="font-bold text-base mt-4 text-white/90">URBTIX</h4>
+        <div class="icon-wrap w-16 h-16 mx-auto rounded-full bg-purple/15 flex items-center justify-center text-3xl text-rose"><i class="fa fa-star"></i></div>
+        <h4 class="font-bold text-base mt-4 text-white/95">URBTIX</h4>
       </div>
       <div class="glass-deep rounded-2xl p-6 text-center platform-card glow-border reveal">
-        <div class="icon-wrap w-16 h-16 mx-auto rounded-full bg-magenta/10 flex items-center justify-center text-3xl text-magenta/80"><i class="fa fa-trophy"></i></div>
-        <h4 class="font-bold text-base mt-4 text-white/90">FANTOPIA</h4>
+        <div class="icon-wrap w-16 h-16 mx-auto rounded-full bg-magenta/15 flex items-center justify-center text-3xl text-magenta"><i class="fa fa-trophy"></i></div>
+        <h4 class="font-bold text-base mt-4 text-white/95">FANTOPIA</h4>
       </div>
-      <div class="glass-deep rounded-2xl p-6 text-center platform-card glow-border border-green/20 relative reveal">
-        <span class="absolute top-2 right-2 bg-green/20 text-green/80 text-[10px] px-2 py-0.5 rounded-full">NEW</span>
-        <div class="icon-wrap w-16 h-16 mx-auto rounded-full bg-green/10 flex items-center justify-center text-3xl text-green/80"><i class="fa fa-flag"></i></div>
-        <h4 class="font-bold text-base mt-4 text-white/90">Klook</h4>
+      <div class="glass-deep rounded-2xl p-6 text-center platform-card glow-border border-green/35 relative reveal">
+        <span class="absolute top-2 right-2 bg-green/25 text-green text-[10px] px-2 py-0.5 rounded-full font-bold">NEW</span>
+        <div class="icon-wrap w-16 h-16 mx-auto rounded-full bg-green/15 flex items-center justify-center text-3xl text-green"><i class="fa fa-flag"></i></div>
+        <h4 class="font-bold text-base mt-4 text-white/95">Klook</h4>
       </div>
     </div>
 
-    <div class="mt-16 max-w-3xl mx-auto glass-deep rounded-2xl p-8 border border-purple/10 reveal">
-      <div class="flex flex-wrap justify-center gap-x-8 gap-y-4 text-sm text-gray-400">
-        <span class="flex items-center"><i class="fa fa-check-circle text-green/70 mr-2"></i> 自動填表</span>
-        <span class="flex items-center"><i class="fa fa-check-circle text-green/70 mr-2"></i> 優先進入</span>
-        <span class="flex items-center"><i class="fa fa-check-circle text-green/70 mr-2"></i> 防 Block</span>
-        <span class="flex items-center"><i class="fa fa-check-circle text-green/70 mr-2"></i> 多線程</span>
-        <span class="flex items-center"><i class="fa fa-check-circle text-green/70 mr-2"></i> 自動重試</span>
+    <div class="mt-16 max-w-3xl mx-auto glass-deep rounded-2xl p-8 border border-purple/20 reveal">
+      <div class="flex flex-wrap justify-center gap-x-8 gap-y-4 text-sm text-blush/80">
+        <span class="flex items-center"><i class="fa fa-check-circle text-green/90 mr-2"></i> 自動填表</span>
+        <span class="flex items-center"><i class="fa fa-check-circle text-green/90 mr-2"></i> 優先進入</span>
+        <span class="flex items-center"><i class="fa fa-check-circle text-green/90 mr-2"></i> 防 Block</span>
+        <span class="flex items-center"><i class="fa fa-check-circle text-green/90 mr-2"></i> 多線程</span>
+        <span class="flex items-center"><i class="fa fa-check-circle text-green/90 mr-2"></i> 自動重試</span>
       </div>
     </div>
   </div>
 </section>
 
 <!-- ============ 功能 ============ -->
-<section id="features" class="py-24 px-6 md:px-12 bg-[#0d0d0d]">
+<section id="features" class="py-24 px-6 md:px-12 bg-[#180C1D]">
   <div class="container mx-auto">
     <div class="text-center mb-16 reveal">
-      <span class="text-magenta/70 font-semibold tracking-widest text-sm">FEATURES</span>
+      <span class="text-magenta/90 font-semibold tracking-widest text-sm">FEATURES</span>
       <h2 class="text-[clamp(2rem,5vw,3.2rem)] font-bold mt-2"><span class="text-gradient">極速引擎，專業功能</span></h2>
-      <p class="text-gray-500 max-w-2xl mx-auto text-lg mt-3">為香港演唱會搶飛場景深度調校</p>
+      <p class="text-blush/75 max-w-2xl mx-auto text-lg mt-3">為香港演唱會搶飛場景深度調校</p>
     </div>
 
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
       <div class="glass-deep rounded-2xl p-7 glow-border card-hover text-center reveal">
-        <i class="fa fa-bolt text-4xl text-purple/80"></i>
-        <h4 class="text-xl font-bold mt-3 text-white/90">10x 極速刷新</h4>
-        <p class="text-gray-500 text-sm mt-1">排隊時間壓縮至 1 秒內</p>
+        <i class="fa fa-bolt text-4xl text-rose"></i>
+        <h4 class="text-xl font-bold mt-3 text-white/95">10x 極速刷新</h4>
+        <p class="text-blush/70 text-sm mt-1">排隊時間壓縮至 1 秒內</p>
       </div>
       <div class="glass-deep rounded-2xl p-7 glow-border card-hover text-center reveal">
-        <i class="fa fa-cogs text-4xl text-magenta/80"></i>
-        <h4 class="text-xl font-bold mt-3 text-white/90">自動填表選票</h4>
-        <p class="text-gray-500 text-sm mt-1">票種、數量、日期全自動</p>
+        <i class="fa fa-cogs text-4xl text-magenta"></i>
+        <h4 class="text-xl font-bold mt-3 text-white/95">自動填表選票</h4>
+        <p class="text-blush/70 text-sm mt-1">票種、數量、日期全自動</p>
       </div>
       <div class="glass-deep rounded-2xl p-7 glow-border card-hover text-center reveal">
-        <i class="fa fa-shield text-4xl text-green/80"></i>
-        <h4 class="text-xl font-bold mt-3 text-white/90">智慧防 Block</h4>
-        <p class="text-gray-500 text-sm mt-1">自動重整，保持連線不被踢</p>
+        <i class="fa fa-shield text-4xl text-green"></i>
+        <h4 class="text-xl font-bold mt-3 text-white/95">智慧防 Block</h4>
+        <p class="text-blush/70 text-sm mt-1">自動重整，保持連線不被踢</p>
       </div>
       <div class="glass-deep rounded-2xl p-7 glow-border card-hover text-center reveal">
-        <i class="fa fa-sliders text-4xl text-purple/80"></i>
-        <h4 class="text-xl font-bold mt-3 text-white/90">Early Link 優先進入</h4>
-        <p class="text-gray-500 text-sm mt-1">開賣前搶佔隊列前排</p>
+        <i class="fa fa-sliders text-4xl text-rose"></i>
+        <h4 class="text-xl font-bold mt-3 text-white/95">Early Link 優先進入</h4>
+        <p class="text-blush/70 text-sm mt-1">開賣前搶佔隊列前排</p>
       </div>
       <div class="glass-deep rounded-2xl p-7 glow-border card-hover text-center reveal">
-        <i class="fa fa-server text-4xl text-magenta/80"></i>
-        <h4 class="text-xl font-bold mt-3 text-white/90">多線程並發</h4>
-        <p class="text-gray-500 text-sm mt-1">同時搶多個票檔，命中率翻倍</p>
+        <i class="fa fa-server text-4xl text-magenta"></i>
+        <h4 class="text-xl font-bold mt-3 text-white/95">多線程並發</h4>
+        <p class="text-blush/70 text-sm mt-1">同時搶多個票檔，命中率翻倍</p>
       </div>
       <div class="glass-deep rounded-2xl p-7 glow-border card-hover text-center reveal">
-        <i class="fa fa-bell text-4xl text-green/80"></i>
-        <h4 class="text-xl font-bold mt-3 text-white/90">自動重試＋即時提醒</h4>
-        <p class="text-gray-500 text-sm mt-1">搶到即彈窗通知，秒速付款</p>
+        <i class="fa fa-bell text-4xl text-green"></i>
+        <h4 class="text-xl font-bold mt-3 text-white/95">自動重試＋即時提醒</h4>
+        <p class="text-blush/70 text-sm mt-1">搶到即彈窗通知，秒速付款</p>
       </div>
     </div>
   </div>
 </section>
 
 <!-- ============ 使用流程 ============ -->
-<section id="workflow" class="py-24 px-6 md:px-12 bg-[#0a0a0a] relative">
-  <div class="absolute inset-0" style="background-image:radial-gradient(rgba(138,43,226,.02) 1px,transparent 1px);background-size:30px 30px;"></div>
+<section id="workflow" class="py-24 px-6 md:px-12 bg-[#130917] relative">
+  <div class="absolute inset-0" style="background-image:radial-gradient(rgba(255,77,157,.04) 1px,transparent 1px);background-size:30px 30px;"></div>
   <div class="container mx-auto relative z-10">
     <div class="text-center mb-16 reveal">
-      <span class="text-green/70 font-semibold tracking-widest text-sm">HOW IT WORKS</span>
+      <span class="text-green/85 font-semibold tracking-widest text-sm">HOW IT WORKS</span>
       <h2 class="text-[clamp(2rem,5vw,3.2rem)] font-bold mt-2"><span class="text-gradient">六步上手，輕鬆搶飛</span></h2>
-      <p class="text-gray-500 max-w-2xl mx-auto text-lg mt-3">由購買場次到成功落單，全程最快 5 分鐘完成設定</p>
+      <p class="text-blush/75 max-w-2xl mx-auto text-lg mt-3">由購買場次到成功落單，全程最快 5 分鐘完成設定</p>
     </div>
 
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-y-12 gap-x-10 max-w-5xl mx-auto">
       <div class="step-card text-center reveal">
         <div class="w-20 h-20 mx-auto rounded-full step-icon flex items-center justify-center text-3xl font-black text-white">1</div>
-        <h4 class="text-xl font-bold mt-5 text-white/90">選擇演唱會場次</h4>
-        <p class="text-gray-500 text-sm mt-1 leading-relaxed">在最新場次區挑選你要搶的<br>演唱會 / 演出場次</p>
+        <h4 class="text-xl font-bold mt-5 text-white/95">選擇演唱會場次</h4>
+        <p class="text-blush/70 text-sm mt-1 leading-relaxed">在最新場次區挑選你要搶的<br>演唱會 / 演出場次</p>
       </div>
       <div class="step-card text-center reveal">
         <div class="w-20 h-20 mx-auto rounded-full step-icon flex items-center justify-center text-3xl font-black text-white">2</div>
-        <h4 class="text-xl font-bold mt-5 text-white/90">付款並開通權限</h4>
-        <p class="text-gray-500 text-sm mt-1 leading-relaxed">WhatsApp 確認場次<br>即時發送專屬激活碼</p>
+        <h4 class="text-xl font-bold mt-5 text-white/95">付款並開通權限</h4>
+        <p class="text-blush/70 text-sm mt-1 leading-relaxed">WhatsApp 確認場次<br>即時發送專屬激活碼</p>
       </div>
       <div class="step-card text-center reveal">
         <div class="w-20 h-20 mx-auto rounded-full step-icon flex items-center justify-center text-3xl font-black text-white">3</div>
-        <h4 class="text-xl font-bold mt-5 text-white/90">下載安裝程式</h4>
-        <p class="text-gray-500 text-sm mt-1 leading-relaxed">Windows / macOS<br>一鍵安裝，無需設定</p>
+        <h4 class="text-xl font-bold mt-5 text-white/95">下載安裝程式</h4>
+        <p class="text-blush/70 text-sm mt-1 leading-relaxed">Windows / macOS<br>一鍵安裝，無需設定</p>
       </div>
       <div class="step-card text-center reveal">
         <div class="w-20 h-20 mx-auto rounded-full step-icon flex items-center justify-center text-3xl font-black text-white">4</div>
-        <h4 class="text-xl font-bold mt-5 text-white/90">綁定 6 台設備</h4>
-        <p class="text-gray-500 text-sm mt-1 leading-relaxed">一個場次可同時登入<br>最多 6 台裝置並行搶飛</p>
+        <h4 class="text-xl font-bold mt-5 text-white/95">綁定 6 台設備</h4>
+        <p class="text-blush/70 text-sm mt-1 leading-relaxed">一個場次可同時登入<br>最多 6 台裝置並行搶飛</p>
       </div>
       <div class="step-card text-center reveal">
         <div class="w-20 h-20 mx-auto rounded-full step-icon flex items-center justify-center text-3xl font-black text-white">5</div>
-        <h4 class="text-xl font-bold mt-5 text-white/90">設定搶飛參數</h4>
-        <p class="text-gray-500 text-sm mt-1 leading-relaxed">平台、場次、票檔、數量<br>Early Link 一鍵匯入</p>
+        <h4 class="text-xl font-bold mt-5 text-white/95">設定搶飛參數</h4>
+        <p class="text-blush/70 text-sm mt-1 leading-relaxed">平台、場次、票檔、數量<br>Early Link 一鍵匯入</p>
       </div>
       <div class="step-card text-center reveal">
         <div class="w-20 h-20 mx-auto rounded-full step-icon flex items-center justify-center text-3xl font-black text-white">6</div>
-        <h4 class="text-xl font-bold mt-5 text-white/90">自動搶飛落單</h4>
-        <p class="text-gray-500 text-sm mt-1 leading-relaxed">開賣自動鎖票<br>不限次數，搶到為止</p>
+        <h4 class="text-xl font-bold mt-5 text-white/95">自動搶飛落單</h4>
+        <p class="text-blush/70 text-sm mt-1 leading-relaxed">開賣自動鎖票<br>不限次數，搶到為止</p>
       </div>
     </div>
 
-    <div class="mt-16 max-w-3xl mx-auto glass-deep rounded-2xl p-6 border border-green/15 text-center reveal">
-      <p class="text-gray-400 text-sm">
-        <i class="fa fa-info-circle text-green/70 mr-2"></i>
+    <div class="mt-16 max-w-3xl mx-auto glass-deep rounded-2xl p-6 border border-green/25 text-center reveal">
+      <p class="text-blush/80 text-sm">
+        <i class="fa fa-info-circle text-green/80 mr-2"></i>
         首次使用建議提前 <span class="text-white font-bold">24 小時</span> 完成安裝與參數設定，並於開賣前 <span class="text-white font-bold">10 分鐘</span> 啟動程式。
       </p>
     </div>
@@ -511,12 +532,12 @@
 </section>
 
 <!-- ============ 收費（按場次） ============ -->
-<section id="pricing" class="py-24 px-6 md:px-12 bg-[#0d0d0d]">
+<section id="pricing" class="py-24 px-6 md:px-12 bg-[#180C1D]">
   <div class="container mx-auto">
     <div class="text-center mb-16 reveal">
-      <span class="text-magenta/70 font-semibold tracking-widest text-sm">PRICING</span>
+      <span class="text-magenta/90 font-semibold tracking-widest text-sm">PRICING</span>
       <h2 class="text-[clamp(2rem,5vw,3.2rem)] font-bold mt-2"><span class="text-gradient">按演唱會場次收費</span></h2>
-      <p class="text-gray-500 max-w-2xl mx-auto text-lg mt-3">
+      <p class="text-blush/75 max-w-2xl mx-auto text-lg mt-3">
         買一場，用一場。每個場次可綁定 <span class="text-green font-bold">6 台設備</span>，<span class="text-green font-bold">不限搶飛次數</span>，無月費、無隱藏收費。
       </p>
     </div>
@@ -524,39 +545,39 @@
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto items-stretch">
 
       <div class="glass-deep rounded-2xl p-8 glow-border card-hover flex flex-col reveal">
-        <div class="w-14 h-14 rounded-full bg-purple/10 flex items-center justify-center">
-          <i class="fa fa-ticket text-2xl text-purple/80"></i>
+        <div class="w-14 h-14 rounded-full bg-purple/15 flex items-center justify-center">
+          <i class="fa fa-ticket text-2xl text-rose"></i>
         </div>
-        <h3 class="text-2xl font-bold mt-4 text-white/90">單場通行證</h3>
-        <p class="text-gray-500 text-sm mt-1">適合搶單一熱門場次</p>
-        <div class="text-4xl font-bold my-5 text-white">$388 <span class="text-base font-normal text-gray-500">/ 場</span></div>
-        <ul class="space-y-3 text-sm text-gray-400 flex-1">
-          <li><i class="fa fa-check text-purple/70 mr-2"></i>1 個演唱會場次使用權</li>
-          <li><i class="fa fa-check text-purple/70 mr-2"></i><span class="text-white/90 font-semibold">6 台設備</span>同時登入</li>
-          <li><i class="fa fa-check text-purple/70 mr-2"></i><span class="text-white/90 font-semibold">不限搶飛次數</span></li>
-          <li><i class="fa fa-check text-purple/70 mr-2"></i>六大平台全覆蓋</li>
-          <li><i class="fa fa-check text-purple/70 mr-2"></i>購買後 12 個月內有效</li>
+        <h3 class="text-2xl font-bold mt-4 text-white/95">單場通行證</h3>
+        <p class="text-blush/70 text-sm mt-1">適合搶單一熱門場次</p>
+        <div class="text-4xl font-bold my-5 text-white">$388 <span class="text-base font-normal text-blush/60">/ 場</span></div>
+        <ul class="space-y-3 text-sm text-blush/85 flex-1">
+          <li><i class="fa fa-check text-rose mr-2"></i>1 個演唱會場次使用權</li>
+          <li><i class="fa fa-check text-rose mr-2"></i><span class="text-white font-semibold">6 台設備</span>同時登入</li>
+          <li><i class="fa fa-check text-rose mr-2"></i><span class="text-white font-semibold">不限搶飛次數</span></li>
+          <li><i class="fa fa-check text-rose mr-2"></i>六大平台全覆蓋</li>
+          <li><i class="fa fa-check text-rose mr-2"></i>購買後 12 個月內有效</li>
         </ul>
-        <a href="https://wa.me/85265432109?text=%E6%88%91%E6%83%B3%E8%B3%BC%E8%B2%B7%EF%BC%9A%E5%96%AE%E5%A0%B4%E9%80%9A%E8%A1%8C%E8%AD%89" class="mt-8 block text-center border border-purple/25 py-3 rounded-full hover:bg-purple/10 transition text-white/85 font-bold">
+        <a href="https://wa.me/85265432109?text=%E6%88%91%E6%83%B3%E8%B3%BC%E8%B2%B7%EF%BC%9A%E5%96%AE%E5%A0%B4%E9%80%9A%E8%A1%8C%E8%AD%89" class="mt-8 block text-center border border-purple/40 py-3 rounded-full hover:bg-purple/15 transition text-white/90 font-bold">
           選擇此方案
         </a>
       </div>
 
       <div class="glass-deep rounded-2xl p-8 pricing-popular shadow-2xl flex flex-col reveal">
-        <div class="w-14 h-14 rounded-full bg-magenta/10 flex items-center justify-center">
-          <i class="fa fa-calendar-check-o text-2xl text-magenta/80"></i>
+        <div class="w-14 h-14 rounded-full bg-magenta/15 flex items-center justify-center">
+          <i class="fa fa-calendar-check-o text-2xl text-magenta"></i>
         </div>
-        <h3 class="text-2xl font-bold mt-4 text-white/90">三場組合</h3>
-        <p class="text-gray-500 text-sm mt-1">自選 3 個場次，平均每場更抵</p>
-        <div class="text-4xl font-bold my-5 text-white">$988 <span class="text-base font-normal text-gray-500">/ 3 場</span></div>
+        <h3 class="text-2xl font-bold mt-4 text-white/95">三場組合</h3>
+        <p class="text-blush/70 text-sm mt-1">自選 3 個場次，平均每場更抵</p>
+        <div class="text-4xl font-bold my-5 text-white">$988 <span class="text-base font-normal text-blush/60">/ 3 場</span></div>
         <p class="text-xs text-green mb-4"><i class="fa fa-tag mr-1"></i>平均 $329 / 場，即省 $176</p>
-        <ul class="space-y-3 text-sm text-gray-400 flex-1">
-          <li><i class="fa fa-check text-magenta/70 mr-2"></i>3 個場次使用權（可自選）</li>
-          <li><i class="fa fa-check text-magenta/70 mr-2"></i><span class="text-white/90 font-semibold">6 台設備</span>同時登入</li>
-          <li><i class="fa fa-check text-magenta/70 mr-2"></i><span class="text-white/90 font-semibold">不限搶飛次數</span></li>
-          <li><i class="fa fa-check text-magenta/70 mr-2"></i>六大平台全覆蓋</li>
-          <li><i class="fa fa-check text-magenta/70 mr-2"></i>優先客戶支援</li>
-          <li><i class="fa fa-check text-magenta/70 mr-2"></i>新版本優先體驗</li>
+        <ul class="space-y-3 text-sm text-blush/85 flex-1">
+          <li><i class="fa fa-check text-magenta mr-2"></i>3 個場次使用權（可自選）</li>
+          <li><i class="fa fa-check text-magenta mr-2"></i><span class="text-white font-semibold">6 台設備</span>同時登入</li>
+          <li><i class="fa fa-check text-magenta mr-2"></i><span class="text-white font-semibold">不限搶飛次數</span></li>
+          <li><i class="fa fa-check text-magenta mr-2"></i>六大平台全覆蓋</li>
+          <li><i class="fa fa-check text-magenta mr-2"></i>優先客戶支援</li>
+          <li><i class="fa fa-check text-magenta mr-2"></i>新版本優先體驗</li>
         </ul>
         <a href="https://wa.me/85265432109?text=%E6%88%91%E6%83%B3%E8%B3%BC%E8%B2%B7%EF%BC%9A%E4%B8%89%E5%A0%B4%E7%B5%84%E5%90%88" class="mt-8 block text-center btn-primary text-white py-3 rounded-full shadow-lg font-bold">
           選擇此方案
@@ -564,67 +585,81 @@
       </div>
 
       <div class="glass-deep rounded-2xl p-8 glow-border card-hover flex flex-col reveal">
-        <div class="w-14 h-14 rounded-full bg-green/10 flex items-center justify-center">
-          <i class="fa fa-diamond text-2xl text-green/80"></i>
+        <div class="w-14 h-14 rounded-full bg-green/15 flex items-center justify-center">
+          <i class="fa fa-diamond text-2xl text-green"></i>
         </div>
-        <h3 class="text-2xl font-bold mt-4 text-white/90">六場組合</h3>
-        <p class="text-gray-500 text-sm mt-1">全年追星首選，性價比最高</p>
-        <div class="text-4xl font-bold my-5 text-white">$1,788 <span class="text-base font-normal text-gray-500">/ 6 場</span></div>
+        <h3 class="text-2xl font-bold mt-4 text-white/95">六場組合</h3>
+        <p class="text-blush/70 text-sm mt-1">全年追星首選，性價比最高</p>
+        <div class="text-4xl font-bold my-5 text-white">$1,788 <span class="text-base font-normal text-blush/60">/ 6 場</span></div>
         <p class="text-xs text-green mb-4"><i class="fa fa-tag mr-1"></i>平均 $298 / 場，即省 $540</p>
-        <ul class="space-y-3 text-sm text-gray-400 flex-1">
-          <li><i class="fa fa-check text-green/70 mr-2"></i>6 個場次使用權（可自選）</li>
-          <li><i class="fa fa-check text-green/70 mr-2"></i><span class="text-white/90 font-semibold">6 台設備</span>同時登入</li>
-          <li><i class="fa fa-check text-green/70 mr-2"></i><span class="text-white/90 font-semibold">不限搶飛次數</span></li>
-          <li><i class="fa fa-check text-green/70 mr-2"></i>六大平台全覆蓋</li>
-          <li><i class="fa fa-check text-green/70 mr-2"></i>專屬 1 對 1 客服</li>
-          <li><i class="fa fa-check text-green/70 mr-2"></i>搶飛策略諮詢服務</li>
+        <ul class="space-y-3 text-sm text-blush/85 flex-1">
+          <li><i class="fa fa-check text-green mr-2"></i>6 個場次使用權（可自選）</li>
+          <li><i class="fa fa-check text-green mr-2"></i><span class="text-white font-semibold">6 台設備</span>同時登入</li>
+          <li><i class="fa fa-check text-green mr-2"></i><span class="text-white font-semibold">不限搶飛次數</span></li>
+          <li><i class="fa fa-check text-green mr-2"></i>六大平台全覆蓋</li>
+          <li><i class="fa fa-check text-green mr-2"></i>專屬 1 對 1 客服</li>
+          <li><i class="fa fa-check text-green mr-2"></i>搶飛策略諮詢服務</li>
         </ul>
-        <a href="https://wa.me/85265432109?text=%E6%88%91%E6%83%B3%E8%B3%BC%E8%B2%B7%EF%BC%9A%E5%85%AD%E5%A0%B4%E7%B5%84%E5%90%88" class="mt-8 block text-center border border-green/25 py-3 rounded-full hover:bg-green/10 transition text-white/85 font-bold">
+        <a href="https://wa.me/85265432109?text=%E6%88%91%E6%83%B3%E8%B3%BC%E8%B2%B7%EF%BC%9A%E5%85%AD%E5%A0%B4%E7%B5%84%E5%90%88" class="mt-8 block text-center border border-green/40 py-3 rounded-full hover:bg-green/15 transition text-white/90 font-bold">
           選擇此方案
         </a>
       </div>
     </div>
 
     <div class="mt-12 max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-5 reveal">
-      <div class="glass-deep rounded-xl p-5 border border-white/5 text-center">
-        <i class="fa fa-mobile text-2xl text-purple/70"></i>
-        <h5 class="font-bold text-white/90 mt-2 text-sm">6 台設備怎麼算？</h5>
-        <p class="text-gray-500 text-xs mt-1 leading-relaxed">同一場次可同時登入 6 台裝置（例如 6 部手機、或 3 部手機＋3 部電腦），並行搶飛互不影響。</p>
+      <div class="glass-deep rounded-xl p-5 border border-white/10 text-center">
+        <i class="fa fa-mobile text-2xl text-rose"></i>
+        <h5 class="font-bold text-white/95 mt-2 text-sm">6 台設備怎麼算？</h5>
+        <p class="text-blush/70 text-xs mt-1 leading-relaxed">同一場次可同時登入 6 台裝置（例如 6 部手機、或 3 部手機＋3 部電腦），並行搶飛互不影響。</p>
       </div>
-      <div class="glass-deep rounded-xl p-5 border border-white/5 text-center">
-        <i class="fa fa-refresh text-2xl text-magenta/70"></i>
-        <h5 class="font-bold text-white/90 mt-2 text-sm">不限次數是什麼意思？</h5>
-        <p class="text-gray-500 text-xs mt-1 leading-relaxed">該場次由公售、加場到補飛，你都可以無限次啟動程式搶飛，不會額外扣費。</p>
+      <div class="glass-deep rounded-xl p-5 border border-white/10 text-center">
+        <i class="fa fa-refresh text-2xl text-magenta"></i>
+        <h5 class="font-bold text-white/95 mt-2 text-sm">不限次數是什麼意思？</h5>
+        <p class="text-blush/70 text-xs mt-1 leading-relaxed">該場次由公售、加場到補飛，你都可以無限次啟動程式搶飛，不會額外扣費。</p>
       </div>
-      <div class="glass-deep rounded-xl p-5 border border-white/5 text-center">
-        <i class="fa fa-clock-o text-2xl text-green/70"></i>
-        <h5 class="font-bold text-white/90 mt-2 text-sm">場次有效期？</h5>
-        <p class="text-gray-500 text-xs mt-1 leading-relaxed">由購買日起 12 個月內有效，可在有效期內自由選擇要搶的演唱會場次。</p>
+      <div class="glass-deep rounded-xl p-5 border border-white/10 text-center">
+        <i class="fa fa-clock-o text-2xl text-green"></i>
+        <h5 class="font-bold text-white/95 mt-2 text-sm">場次有效期？</h5>
+        <p class="text-blush/70 text-xs mt-1 leading-relaxed">由購買日起 12 個月內有效，可在有效期內自由選擇要搶的演唱會場次。</p>
       </div>
     </div>
   </div>
 </section>
 
 <!-- ============ 更新日誌 ============ -->
-<section id="changelog" class="py-24 px-6 md:px-12 bg-[#0a0a0a] relative">
-  <div class="absolute inset-0" style="background-image:radial-gradient(rgba(138,43,226,.02) 1px,transparent 1px);background-size:30px 30px;"></div>
+<section id="changelog" class="py-24 px-6 md:px-12 bg-[#130917] relative">
+  <div class="absolute inset-0" style="background-image:radial-gradient(rgba(179,136,255,.05) 1px,transparent 1px);background-size:30px 30px;"></div>
   <div class="container mx-auto relative z-10">
     <div class="text-center mb-16 reveal">
-      <span class="text-purple/70 font-semibold tracking-widest text-sm">CHANGELOG</span>
+      <span class="text-purple/85 font-semibold tracking-widest text-sm">CHANGELOG</span>
       <h2 class="text-[clamp(2rem,5vw,3.2rem)] font-bold mt-2"><span class="text-gradient">更新日誌</span></h2>
-      <p class="text-gray-500 max-w-2xl mx-auto text-lg mt-3">持續跟進六大平台改版，每週優化搶飛成功率</p>
+      <p class="text-blush/75 max-w-2xl mx-auto text-lg mt-3">持續跟進六大平台改版，每週優化搶飛成功率</p>
     </div>
 
     <div class="max-w-3xl mx-auto">
 
       <div class="timeline-item reveal">
         <div class="flex flex-wrap items-center gap-2">
-          <span class="version-tag">v1.28.0</span>
-          <span class="text-gray-500 text-sm"><i class="fa fa-calendar-o mr-1"></i>2026-09-24</span>
+          <span class="version-tag">v1.29.0</span>
+          <span class="text-blush/65 text-sm"><i class="fa fa-calendar-o mr-1"></i>2026-09-24</span>
           <span class="tag-pill tag-new">最新</span>
         </div>
-        <h4 class="text-white/90 font-bold mt-3">海報展示 + 完整搶票時間線 + 澳門場次</h4>
-        <ul class="text-gray-400 text-sm mt-3 space-y-2">
+        <h4 class="text-white/95 font-bold mt-3">場次擴充至 12 場 + 海報同步更新</h4>
+        <ul class="text-blush/80 text-sm mt-3 space-y-2">
+          <li><span class="tag-pill tag-new mr-2">新增</span>備用場次資料由 12 場演唱會組成，覆蓋香港及澳門</li>
+          <li><span class="tag-pill tag-new mr-2">新增</span>每場演唱會加入宣傳海報展示位，API 更新時同步更新圖片</li>
+          <li><span class="tag-pill tag-new mr-2">新增</span>海報載入失敗自動顯示漸變佔位圖，不影響版面</li>
+          <li><span class="tag-pill tag-opt mr-2">優化</span>海報懸停放大效果，配合卡片浮起更有質感</li>
+        </ul>
+      </div>
+
+      <div class="timeline-item reveal">
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="version-tag">v1.28.0</span>
+          <span class="text-blush/65 text-sm"><i class="fa fa-calendar-o mr-1"></i>2026-09-24</span>
+        </div>
+        <h4 class="text-white/95 font-bold mt-3">海報展示 + 完整搶票時間線 + 澳門場次</h4>
+        <ul class="text-blush/80 text-sm mt-3 space-y-2">
           <li><span class="tag-pill tag-new mr-2">新增</span>每張場次卡片加入演唱會宣傳海報展示區</li>
           <li><span class="tag-pill tag-new mr-2">新增</span>「查看全部搶票日期」按鈕，展開完整優先購票時間線</li>
           <li><span class="tag-pill tag-new mr-2">新增</span>澳門演唱會專屬標籤 🇲🇴，與香港場次一併展示</li>
@@ -637,10 +672,10 @@
       <div class="timeline-item reveal">
         <div class="flex flex-wrap items-center gap-2">
           <span class="version-tag">v1.27.2</span>
-          <span class="text-gray-500 text-sm"><i class="fa fa-calendar-o mr-1"></i>2026-09-24</span>
+          <span class="text-blush/65 text-sm"><i class="fa fa-calendar-o mr-1"></i>2026-09-24</span>
         </div>
-        <h4 class="text-white/90 font-bold mt-3">生產環境優化</h4>
-        <ul class="text-gray-400 text-sm mt-3 space-y-2">
+        <h4 class="text-white/95 font-bold mt-3">生產環境優化</h4>
+        <ul class="text-blush/80 text-sm mt-3 space-y-2">
           <li><span class="tag-pill tag-opt mr-2">優化</span>關閉除錯模式，正式上線不洩露 API 端點資訊</li>
           <li><span class="tag-pill tag-opt mr-2">優化</span>Console 保持乾淨，降低被逆向分析風險</li>
         </ul>
@@ -649,11 +684,11 @@
       <div class="timeline-item reveal">
         <div class="flex flex-wrap items-center gap-2">
           <span class="version-tag">v1.27.1</span>
-          <span class="text-gray-500 text-sm"><i class="fa fa-calendar-o mr-1"></i>2026-09-24</span>
+          <span class="text-blush/65 text-sm"><i class="fa fa-calendar-o mr-1"></i>2026-09-24</span>
         </div>
-        <h4 class="text-white/90 font-bold mt-3">API 配置層優化</h4>
-        <ul class="text-gray-400 text-sm mt-3 space-y-2">
-          <li><span class="tag-pill tag-new mr-2">新增</span>全域 <code class="text-green/80">window.TK_CONFIG</code> 配置物件</li>
+        <h4 class="text-white/95 font-bold mt-3">API 配置層優化</h4>
+        <ul class="text-blush/80 text-sm mt-3 space-y-2">
+          <li><span class="tag-pill tag-new mr-2">新增</span>全域 <code class="text-green">window.TK_CONFIG</code> 配置物件</li>
           <li><span class="tag-pill tag-new mr-2">新增</span>自動偵測環境，智能選擇 API 路徑</li>
           <li><span class="tag-pill tag-new mr-2">新增</span>支援跨域 API，內置可選 CORS 代理前綴</li>
         </ul>
@@ -662,10 +697,10 @@
       <div class="timeline-item reveal">
         <div class="flex flex-wrap items-center gap-2">
           <span class="version-tag">v1.27.0</span>
-          <span class="text-gray-500 text-sm"><i class="fa fa-calendar-o mr-1"></i>2026-09-24</span>
+          <span class="text-blush/65 text-sm"><i class="fa fa-calendar-o mr-1"></i>2026-09-24</span>
         </div>
-        <h4 class="text-white/90 font-bold mt-3">場次資料改由 API 驅動</h4>
-        <ul class="text-gray-400 text-sm mt-3 space-y-2">
+        <h4 class="text-white/95 font-bold mt-3">場次資料改由 API 驅動</h4>
+        <ul class="text-blush/80 text-sm mt-3 space-y-2">
           <li><span class="tag-pill tag-new mr-2">新增</span>場次列表改為從 API 讀取，支援後端自動化</li>
           <li><span class="tag-pill tag-new mr-2">新增</span>localStorage 快取機制，API 失敗時自動使用上次成功資料</li>
           <li><span class="tag-pill tag-new mr-2">新增</span>載入骨架屏、錯誤提示與一鍵重試按鈕</li>
@@ -676,37 +711,37 @@
         <div class="timeline-item">
           <div class="flex flex-wrap items-center gap-2">
             <span class="version-tag">v1.26.1</span>
-            <span class="text-gray-500 text-sm"><i class="fa fa-calendar-o mr-1"></i>2026-09-24</span>
+            <span class="text-blush/65 text-sm"><i class="fa fa-calendar-o mr-1"></i>2026-09-24</span>
           </div>
-          <h4 class="text-white/90 font-bold mt-3">場次官方購票連結上線</h4>
-          <ul class="text-gray-400 text-sm mt-3 space-y-2">
+          <h4 class="text-white/95 font-bold mt-3">場次官方購票連結上線</h4>
+          <ul class="text-blush/80 text-sm mt-3 space-y-2">
             <li><span class="tag-pill tag-new mr-2">新增</span>每個場次卡片加入「官方購票連結」按鈕</li>
           </ul>
         </div>
         <div class="timeline-item">
           <div class="flex flex-wrap items-center gap-2">
             <span class="version-tag">v1.26.0</span>
-            <span class="text-gray-500 text-sm"><i class="fa fa-calendar-o mr-1"></i>2026-09-24</span>
+            <span class="text-blush/65 text-sm"><i class="fa fa-calendar-o mr-1"></i>2026-09-24</span>
           </div>
-          <h4 class="text-white/90 font-bold mt-3">每日自動更新場次系統</h4>
-          <ul class="text-gray-400 text-sm mt-3 space-y-2">
+          <h4 class="text-white/95 font-bold mt-3">每日自動更新場次系統</h4>
+          <ul class="text-blush/80 text-sm mt-3 space-y-2">
             <li><span class="tag-pill tag-new mr-2">新增</span>官網場次列表每日自動更新，已開售場次自動移除</li>
           </ul>
         </div>
         <div class="timeline-item">
           <div class="flex flex-wrap items-center gap-2">
             <span class="version-tag">v1.25.0</span>
-            <span class="text-gray-500 text-sm"><i class="fa fa-calendar-o mr-1"></i>2026-09-18</span>
+            <span class="text-blush/65 text-sm"><i class="fa fa-calendar-o mr-1"></i>2026-09-18</span>
           </div>
-          <h4 class="text-white/90 font-bold mt-3">按場次授權系統上線</h4>
-          <ul class="text-gray-400 text-sm mt-3 space-y-2">
+          <h4 class="text-white/95 font-bold mt-3">按場次授權系統上線</h4>
+          <ul class="text-blush/80 text-sm mt-3 space-y-2">
             <li><span class="tag-pill tag-new mr-2">新增</span>全新「場次授權」機制，一個場次可綁定 6 台設備</li>
           </ul>
         </div>
       </div>
 
       <div class="text-center mt-10">
-        <button id="toggleLogs" class="btn-secondary text-white/80 font-bold py-3 px-8 rounded-full text-sm">
+        <button id="toggleLogs" class="btn-secondary text-white/90 font-bold py-3 px-8 rounded-full text-sm">
           <i class="fa fa-history mr-2"></i>查看更早版本
         </button>
       </div>
@@ -715,35 +750,35 @@
 </section>
 
 <!-- ============ WhatsApp 咨詢 ============ -->
-<section id="contact" class="py-24 px-6 md:px-12 bg-[#0d0d0d] relative overflow-hidden">
-  <div class="absolute inset-0 opacity-25" style="background:radial-gradient(circle at 20% 40%,rgba(37,211,102,.35),transparent 55%),radial-gradient(circle at 80% 60%,rgba(138,43,226,.35),transparent 55%);"></div>
+<section id="contact" class="py-24 px-6 md:px-12 bg-[#180C1D] relative overflow-hidden">
+  <div class="absolute inset-0 opacity-30" style="background:radial-gradient(circle at 20% 40%,rgba(37,211,102,.35),transparent 55%),radial-gradient(circle at 80% 60%,rgba(255,77,157,.4),transparent 55%),radial-gradient(circle at 50% 80%,rgba(179,136,255,.3),transparent 55%);"></div>
 
   <div class="container mx-auto max-w-5xl relative z-10">
-    <div class="glass-deep rounded-3xl border border-green/15 p-8 md:p-12 reveal">
+    <div class="glass-deep rounded-3xl border border-green/25 p-8 md:p-12 reveal">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
         <div>
-          <span class="text-green/80 font-semibold tracking-widest text-sm">WHATSAPP 咨詢</span>
+          <span class="text-green font-semibold tracking-widest text-sm">WHATSAPP 咨詢</span>
           <h2 class="text-[clamp(1.8rem,4vw,2.6rem)] font-bold mt-2 leading-tight">
             <span class="text-gradient">搶飛有疑問？<br>即刻搵我哋</span>
           </h2>
-          <p class="text-gray-400 mt-4 leading-relaxed">
+          <p class="text-blush/85 mt-4 leading-relaxed">
             場次選擇、激活碼開通、程式設定、搶飛策略 —— 全部可以由真人客服即時解答。
           </p>
 
-          <ul class="mt-6 space-y-3 text-sm text-gray-400">
-            <li><i class="fa fa-bolt text-green/80 mr-3"></i>平均 5 分鐘內回覆</li>
-            <li><i class="fa fa-ticket text-green/80 mr-3"></i>協助你揀選最合適的場次方案</li>
-            <li><i class="fa fa-life-ring text-green/80 mr-3"></i>購買後享全程售後技術支援</li>
-            <li><i class="fa fa-lock text-green/80 mr-3"></i>一對一私密對話，資料不外洩</li>
+          <ul class="mt-6 space-y-3 text-sm text-blush/85">
+            <li><i class="fa fa-bolt text-green mr-3"></i>平均 5 分鐘內回覆</li>
+            <li><i class="fa fa-ticket text-green mr-3"></i>協助你揀選最合適的場次方案</li>
+            <li><i class="fa fa-life-ring text-green mr-3"></i>購買後享全程售後技術支援</li>
+            <li><i class="fa fa-lock text-green mr-3"></i>一對一私密對話，資料不外洩</li>
           </ul>
         </div>
 
         <div class="text-center">
-          <div class="w-24 h-24 mx-auto rounded-full bg-green/10 border border-green/25 flex items-center justify-center">
+          <div class="w-24 h-24 mx-auto rounded-full bg-green/15 border border-green/35 flex items-center justify-center">
             <i class="fa fa-whatsapp text-5xl text-green"></i>
           </div>
 
-          <p class="text-gray-500 text-sm mt-6">點擊下方按鈕直接對話</p>
+          <p class="text-blush/70 text-sm mt-6">點擊下方按鈕直接對話</p>
           <p class="text-2xl font-extrabold text-white mt-1 tracking-wide">+852 6543 2109</p>
 
           <a href="https://wa.me/85265432109?text=%E4%BD%A0%E5%A5%BD%EF%BC%8C%E6%88%91%E6%83%B3%E6%9F%A5%E8%A9%A2%20ticketkiller%20%E6%90%B6%E9%A3%9B%E7%A8%8B%E5%BC%8F"
@@ -752,7 +787,7 @@
             <i class="fa fa-whatsapp text-xl"></i> WhatsApp 即時查詢
           </a>
 
-          <p class="text-gray-600 text-xs mt-4">服務時間：每日 10:00 – 23:00（HKT）</p>
+          <p class="text-blush/50 text-xs mt-4">服務時間：每日 10:00 – 23:00（HKT）</p>
         </div>
       </div>
     </div>
@@ -760,19 +795,19 @@
 </section>
 
 <!-- ============ CTA ============ -->
-<section class="py-20 px-6 md:px-12 bg-[#0a0a0a] relative overflow-hidden">
-  <div class="absolute inset-0 opacity-20" style="background:radial-gradient(circle at 30% 50%,#8A2BE2,transparent 60%),radial-gradient(circle at 70% 50%,#FF0080,transparent 60%);"></div>
-  <div class="container mx-auto max-w-3xl glass-deep rounded-3xl p-10 border border-purple/20 shadow-2xl text-center relative z-10 reveal">
+<section class="py-20 px-6 md:px-12 bg-[#130917] relative overflow-hidden">
+  <div class="absolute inset-0 opacity-25" style="background:radial-gradient(circle at 30% 50%,#FF4D9D,transparent 60%),radial-gradient(circle at 70% 50%,#B388FF,transparent 60%),radial-gradient(circle at 50% 30%,#FFD54F,transparent 60%);"></div>
+  <div class="container mx-auto max-w-3xl glass-deep rounded-3xl p-10 border border-purple/35 shadow-2xl text-center relative z-10 reveal">
     <h2 class="text-3xl md:text-4xl font-bold"><span class="text-gradient">立即體驗極速搶票</span></h2>
-    <p class="text-gray-400 mt-3 text-lg">下載 ticketkiller，六大平台全覆蓋 · 6 台設備不限次數</p>
+    <p class="text-blush/85 mt-3 text-lg">下載 ticketkiller，六大平台全覆蓋 · 6 台設備不限次數</p>
     <div class="flex flex-wrap justify-center gap-4 mt-8">
       <a href="https://ticketbot.lanzn.com/ix3og46ghm5g" class="btn-primary text-white px-8 py-3 rounded-full font-bold shadow-lg">
         <i class="fa fa-windows mr-2"></i>Windows
       </a>
-      <a href="https://ticketbot.lanzn.com/ix3og46ghm5g" class="btn-secondary text-white/85 px-8 py-3 rounded-full font-bold">
+      <a href="https://ticketbot.lanzn.com/ix3og46ghm5g" class="btn-secondary text-white/90 px-8 py-3 rounded-full font-bold">
         <i class="fa fa-apple mr-2"></i>macOS
       </a>
-      <a href="https://wa.me/85265432109?text=%E6%88%91%E6%83%B3%E6%9F%A5%E8%A9%A2%20Android%20%2F%20iOS%20%E7%89%88" class="btn-secondary text-white/85 px-8 py-3 rounded-full font-bold">
+      <a href="https://wa.me/85265432109?text=%E6%88%91%E6%83%B3%E6%9F%A5%E8%A9%A2%20Android%20%2F%20iOS%20%E7%89%88" class="btn-secondary text-white/90 px-8 py-3 rounded-full font-bold">
         <i class="fa fa-mobile mr-2"></i>Android / iOS
       </a>
     </div>
@@ -780,26 +815,26 @@
 </section>
 
 <!-- ============ Footer ============ -->
-<footer class="bg-[#0a0a0a] border-t border-white/5 py-12 px-6">
+<footer class="bg-[#130917] border-t border-white/5 py-12 px-6">
   <div class="container mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 text-sm">
     <div>
       <a href="#top" class="logo-icon" aria-label="ticketkiller 首頁">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 56" class="h-8 sm:h-9 md:h-10 w-auto" role="img" aria-label="ticketkiller">
           <defs>
             <linearGradient id="logoGradFooter" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stop-color="#8A2BE2"/>
-              <stop offset="50%" stop-color="#FF0080"/>
-              <stop offset="100%" stop-color="#39FF14"/>
+              <stop offset="0%" stop-color="#FF4D9D"/>
+              <stop offset="50%" stop-color="#B388FF"/>
+              <stop offset="100%" stop-color="#FFD54F"/>
             </linearGradient>
             <linearGradient id="iconGradFooter" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stop-color="#8A2BE2"/>
-              <stop offset="100%" stop-color="#FF0080"/>
+              <stop offset="0%" stop-color="#FF4D9D"/>
+              <stop offset="100%" stop-color="#B388FF"/>
             </linearGradient>
             <filter id="glowFooter"><feGaussianBlur stdDeviation="2"/><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter>
           </defs>
           <g transform="translate(0,6)">
-            <rect x="0" y="0" width="44" height="44" rx="12" fill="url(#iconGradFooter)" opacity="0.12"/>
-            <rect x="0" y="0" width="44" height="44" rx="12" fill="none" stroke="url(#iconGradFooter)" stroke-width="1" opacity="0.28"/>
+            <rect x="0" y="0" width="44" height="44" rx="12" fill="url(#iconGradFooter)" opacity="0.15"/>
+            <rect x="0" y="0" width="44" height="44" rx="12" fill="none" stroke="url(#iconGradFooter)" stroke-width="1" opacity="0.4"/>
             <polygon points="23,10 17,22 22,22 19,33 28,20 23,20 25.5,10" fill="url(#iconGradFooter)" filter="url(#glowFooter)" stroke="#fff" stroke-width="0.6"/>
           </g>
           <g transform="translate(56,0)">
@@ -807,12 +842,12 @@
           </g>
         </svg>
       </a>
-      <p class="text-gray-600 mt-2 text-sm">六大平台 · 按場次收費 · 6 台設備不限次數</p>
+      <p class="text-blush/60 mt-2 text-sm">六大平台 · 按場次收費 · 6 台設備不限次數</p>
     </div>
 
     <div>
-      <h5 class="font-bold mb-3 text-gray-400">連結</h5>
-      <ul class="space-y-2 text-gray-500">
+      <h5 class="font-bold mb-3 text-blush/80">連結</h5>
+      <ul class="space-y-2 text-blush/65">
         <li><a href="#shows" class="hover:text-green transition">最新場次</a></li>
         <li><a href="#platforms" class="hover:text-purple transition">平台</a></li>
         <li><a href="#workflow" class="hover:text-green transition">使用流程</a></li>
@@ -822,8 +857,8 @@
     </div>
 
     <div>
-      <h5 class="font-bold mb-3 text-gray-400">支援</h5>
-      <ul class="space-y-2 text-gray-500">
+      <h5 class="font-bold mb-3 text-blush/80">支援</h5>
+      <ul class="space-y-2 text-blush/65">
         <li><a href="#contact" class="hover:text-green transition">常見問題</a></li>
         <li><a href="#contact" class="hover:text-purple transition">私隱政策</a></li>
         <li><a href="https://ticketbot.lanzn.com/ix3og46ghm5g" class="hover:text-magenta transition">下載程式</a></li>
@@ -831,20 +866,20 @@
     </div>
 
     <div>
-      <h5 class="font-bold mb-3 text-gray-400">聯繫</h5>
-      <ul class="space-y-2 text-gray-500">
+      <h5 class="font-bold mb-3 text-blush/80">聯繫</h5>
+      <ul class="space-y-2 text-blush/65">
         <li>
           <a href="https://wa.me/85265432109?text=%E4%BD%A0%E5%A5%BD%EF%BC%8Cticketkiller%20%E6%9F%A5%E8%A9%A2" target="_blank" rel="noopener" class="hover:text-green transition">
-            <i class="fa fa-whatsapp mr-2 text-green/70"></i>WhatsApp 查詢
+            <i class="fa fa-whatsapp mr-2 text-green"></i>WhatsApp 查詢
           </a>
         </li>
-        <li><i class="fa fa-phone mr-2 text-magenta/60"></i> +852 6543 2109</li>
-        <li><i class="fa fa-envelope mr-2 text-purple/60"></i> support@ticketkiller.com</li>
+        <li><i class="fa fa-phone mr-2 text-magenta"></i> +852 6543 2109</li>
+        <li><i class="fa fa-envelope mr-2 text-rose"></i> support@ticketkiller.com</li>
       </ul>
     </div>
   </div>
 
-  <div class="text-center text-gray-700 text-xs mt-10 border-t border-white/5 pt-6">
+  <div class="text-center text-blush/40 text-xs mt-10 border-t border-white/5 pt-6">
     © 2026 ticketkiller. All rights reserved.
   </div>
 </footer>
@@ -868,15 +903,16 @@
      ============================================================ -->
 <script>
   window.TK_CONFIG = {
+    // 改為讀取靜態 JSON 檔案，由外部定時任務（如 GitHub Actions）每日更新
     apiBase: '',
-    apiPath: '/api/shows',
+    apiPath: './data/concerts.json',   // 你的 JSON 檔案路徑
     corsProxy: '',
     apiKey: '',
     timeout: 8000,
     cacheTTL: 24 * 60 * 60 * 1000,
     cacheKey: 'tk_shows_cache_v1',
     debug: false,
-    autoDetectEnv: true
+    autoDetectEnv: false                // 關閉本地環境自動回退，統一讀取 JSON
   };
 
   (function () {
@@ -991,14 +1027,14 @@
 
 
 /* ============================================================
-   第二部分：演唱會場次系統
+   第二部分：演唱會場次系統（讀取靜態 JSON）
    ============================================================ */
 (function () {
   'use strict';
 
   var CFG = window.TK_CONFIG || {};
   var API_BASE    = CFG.apiBase    != null ? CFG.apiBase    : '';
-  var API_PATH    = CFG.apiPath    != null ? CFG.apiPath    : '/api/shows';
+  var API_PATH    = CFG.apiPath    != null ? CFG.apiPath    : './data/concerts.json';
   var CORS_PROXY  = CFG.corsProxy  != null ? CFG.corsProxy  : '';
   var API_KEY     = CFG.apiKey     != null ? CFG.apiKey     : '';
   var TIMEOUT     = CFG.timeout    != null ? CFG.timeout    : 8000;
@@ -1021,13 +1057,10 @@
   var API_ENDPOINT = buildApiUrl();
 
   /* ==========================================================
-     備用資料（API 失敗時使用）
+     備用資料（當 JSON 檔案無法讀取時使用）— 共 12 場
      ----------------------------------------------------------
-     欄位說明：
-     - posterUrl：演唱會宣傳海報連結
-     - prioritySales：優先購票時間線（陣列）
-     - isMacau：是否為澳門場次
-     - isHot：是否為熱門推薦（自動置頂）
+     說明：這些是靜態展示資料，實際運作時應以每日更新的
+     concerts.json 為準。你可以將以下內容作為 concerts.json 的初始版本。
      ========================================================== */
   var FALLBACK_SHOWS = [
     {
@@ -1273,7 +1306,7 @@
   ];
 
   /* ==========================================================
-     以上為備用資料，API 成功時會以 API 回傳資料為準
+     以上為備用資料，JSON 成功時會以 JSON 回傳資料為準
      ========================================================== */
 
   var grid         = document.getElementById('showsGrid');
@@ -1327,10 +1360,8 @@
 
   function sortShows(shows) {
     return shows.slice().sort(function (a, b) {
-      // 熱門演唱會置頂
       if (a.isHot && !b.isHot) return -1;
       if (!a.isHot && b.isHot) return 1;
-      // 其次按公售日期排序
       return String(a.publicSaleDate).localeCompare(String(b.publicSaleDate));
     });
   }
@@ -1376,7 +1407,7 @@
     if (grid)      { grid.classList.add('hidden'); grid.classList.remove('grid'); }
     if (noShows)   noShows.classList.add('hidden');
     if (errorEl)   errorEl.classList.remove('hidden');
-    if (errorMsgEl) errorMsgEl.textContent = msg || '無法連接伺服器，請檢查網絡後重試。';
+    if (errorMsgEl) errorMsgEl.textContent = msg || '無法讀取資料，請檢查網絡後重試。';
     setSource('error');
   }
 
@@ -1391,7 +1422,7 @@
     sourceBadge.classList.remove('source-live', 'source-cache', 'source-fallback');
     if (state === 'live') {
       sourceBadge.classList.add('source-live');
-      sourceText.textContent = 'API 即時資料';
+      sourceText.textContent = '即時資料';
     } else if (state === 'cache') {
       sourceBadge.classList.add('source-cache');
       sourceText.textContent = '快取資料';
@@ -1473,18 +1504,17 @@
               '<span>' + esc(formatDate(p.date)) + (p.time ? ' ' + esc(p.time) : '') + '</span>' +
             '</div>';
         });
-        // 加入公開發售行
         rows +=
           '<div class="sale-row">' +
             '<span class="dot public"></span>' +
-            '<span class="stage" style="color:#FF74B8">公開發售</span>' +
+            '<span class="stage" style="color:#FF9DC8">公開發售</span>' +
             '<span>' + esc(formatDate(s.publicSaleDate)) + (s.publicSaleTime ? ' ' + esc(s.publicSaleTime) : '') + '</span>' +
           '</div>';
 
         timelineHtml =
           '<div class="sale-timeline" id="' + timelineId + '">' +
             '<div class="sale-timeline-inner">' +
-              '<p class="text-xs text-gray-500 mb-2"><i class="fa fa-list-ul mr-1"></i>全部搶票日期</p>' +
+              '<p class="text-xs text-blush/70 mb-2"><i class="fa fa-list-ul mr-1"></i>全部搶票日期</p>' +
               rows +
             '</div>' +
           '</div>';
@@ -1505,21 +1535,21 @@
           '<div class="p-6 flex flex-col flex-1">' +
 
             '<div class="flex items-start justify-between gap-3">' +
-              '<div class="icon-wrap w-12 h-12 rounded-full bg-' + esc(iconColor) + '/10 flex items-center justify-center text-xl text-' + esc(iconColor) + '/80 shrink-0">' +
+              '<div class="icon-wrap w-12 h-12 rounded-full bg-' + esc(iconColor) + '/15 flex items-center justify-center text-xl text-' + esc(iconColor) + ' shrink-0">' +
                 '<i class="fa ' + esc(icon) + '"></i>' +
               '</div>' +
               '<div class="flex flex-wrap items-center gap-1.5">' + badges + '</div>' +
             '</div>' +
 
-            '<h4 class="text-lg font-bold text-white/90 mt-4 leading-snug">' + esc(s.name) + '</h4>' +
+            '<h4 class="text-lg font-bold text-white/95 mt-4 leading-snug">' + esc(s.name) + '</h4>' +
 
-            '<ul class="text-gray-400 text-sm mt-3 space-y-1.5 flex-1">' +
-              '<li><i class="fa fa-calendar-o text-' + esc(iconColor) + '/60 mr-2"></i>' + esc(s.date) + '</li>' +
-              '<li><i class="fa fa-map-marker text-' + esc(iconColor) + '/60 mr-2"></i>' + esc(s.venue) + '</li>' +
-              '<li><i class="fa fa-ticket text-' + esc(iconColor) + '/60 mr-2"></i>' + esc(s.price) + '</li>' +
-              '<li><i class="fa fa-clock-o text-' + esc(iconColor) + '/60 mr-2"></i>公開發售：<span class="text-white/90 font-semibold">' +
+            '<ul class="text-blush/85 text-sm mt-3 space-y-1.5 flex-1">' +
+              '<li><i class="fa fa-calendar-o text-' + esc(iconColor) + '/80 mr-2"></i>' + esc(s.date) + '</li>' +
+              '<li><i class="fa fa-map-marker text-' + esc(iconColor) + '/80 mr-2"></i>' + esc(s.venue) + '</li>' +
+              '<li><i class="fa fa-ticket text-' + esc(iconColor) + '/80 mr-2"></i>' + esc(s.price) + '</li>' +
+              '<li><i class="fa fa-clock-o text-' + esc(iconColor) + '/80 mr-2"></i>公開發售：<span class="text-white font-semibold">' +
                 esc(formatDate(s.publicSaleDate)) + ' ' + esc(s.publicSaleTime || '') + '</span></li>' +
-              '<li><i class="fa fa-globe text-' + esc(iconColor) + '/60 mr-2"></i>售票平台：' + esc(s.platform) + '</li>' +
+              '<li><i class="fa fa-globe text-' + esc(iconColor) + '/80 mr-2"></i>售票平台：' + esc(s.platform) + '</li>' +
             '</ul>' +
 
             (hasPriority
@@ -1530,7 +1560,7 @@
               : '') +
 
             '<div class="mt-4 flex items-center gap-2">' +
-              '<span class="text-xs text-gray-500">單次購買：</span>' +
+              '<span class="text-xs text-blush/60">單次購買：</span>' +
               '<span class="text-sm font-bold text-green">$388 / 場</span>' +
             '</div>' +
 
@@ -1661,8 +1691,8 @@
 
         showError(
           err && err.message === 'TIMEOUT'
-            ? 'API 回應逾時，已切換至備用資料。'
-            : '無法連接 API，已切換至備用資料。'
+            ? '資料讀取逾時，已切換至備用資料。'
+            : '無法讀取資料，已切換至備用資料。'
         );
         setTimeout(function () {
           renderShows(FALLBACK_SHOWS);
@@ -1705,13 +1735,7 @@
   }
 
   function init() {
-    if (CFG.autoDetectEnv && CFG.__isLocal && !API_BASE) {
-      renderShows(FALLBACK_SHOWS);
-      if (lastUpdated) lastUpdated.textContent = formatTime(new Date().toISOString()) + '（本機）';
-      setSource('fallback');
-      scheduleDailyCheck();
-      return;
-    }
+    // 統一從 JSON 檔案讀取，不再區分本地環境
     showLoading();
     loadShows(false);
     scheduleDailyCheck();
