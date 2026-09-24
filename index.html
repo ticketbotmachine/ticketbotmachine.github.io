@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-HK">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -125,6 +125,8 @@
   .toggle-sale i{transition:transform .3s}
   .toggle-sale.open i{transform:rotate(180deg)}
   .joy-glow{position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none}
+  .lang-toggle{display:inline-flex;align-items:center;justify-content:center;gap:4px;font-weight:700;letter-spacing:.5px;cursor:pointer}
+  .lang-toggle i{font-size:15px}
 </style>
 </head>
 <body>
@@ -174,6 +176,10 @@
       </nav>
 
       <div class="hidden md:flex items-center space-x-3">
+        <button id="langToggle" data-no-translate class="lang-toggle btn-secondary text-white/90 py-2.5 px-4 rounded-full text-sm" aria-label="切換語言" title="切換繁體 / 简体">
+          <i class="fa fa-language"></i>
+          <span id="langLabelText">简</span>
+        </button>
         <a href="#contact" class="btn-secondary text-green font-bold py-2.5 px-5 rounded-full text-sm">
           <i class="fa fa-whatsapp mr-1.5"></i>WhatsApp
         </a>
@@ -197,6 +203,9 @@
       <a href="#pricing" class="py-2 hover:text-purple transition">收費</a>
       <a href="#changelog" class="py-2 hover:text-magenta transition">更新</a>
       <a href="#contact" class="py-2 hover:text-green transition">咨詢</a>
+      <button id="langToggleMobile" data-no-translate class="btn-secondary text-white/90 py-3 rounded-full font-bold">
+        <i class="fa fa-language mr-2"></i><span id="langLabelMobile">切換至简体中文</span>
+      </button>
       <a href="https://wa.me/85265432109?text=%E4%BD%A0%E5%A5%BD%EF%BC%8Cticketkiller%20%E6%9F%A5%E8%A9%A2" class="wa-btn text-white text-center py-3 rounded-full font-bold">
         <i class="fa fa-whatsapp mr-2"></i>WhatsApp 查詢
       </a>
@@ -944,10 +953,124 @@
 </script>
 
 
+<!-- ============================================================
+     ★★★ 語言切換系統（繁 / 简） ★★★
+     ============================================================ -->
 <script>
-/* ============================================================
-   第一部分：頁面互動
-   ============================================================ */
+(function () {
+  'use strict';
+
+  /* 繁體 → 简体 字符映射表（覆蓋頁面所有中文字符） */
+  var T2S = {
+    '極':'极','搶':'抢','場':'场','費':'费','設':'设','備':'备','數':'数','蓋':'盖','買':'买','個':'个','飛':'飞','諮':'咨','詢':'询','導':'导','頁':'页','選':'选','單':'单','開':'开','關':'关','覽':'览','內':'内','銷':'销','賣':'卖','價':'价','優':'优','證':'证','驗':'验','碼':'码','動':'动','體':'体','隻':'只','銀':'银','網':'网','購':'购','連':'连','結':'结','簡':'简','說':'说','暫':'暂','時':'时','間':'间','線':'线','強':'强','級':'级','專':'专','業':'业','務':'务','館':'馆','區':'区','東':'东','亞':'亚','國':'国','際':'际','樂':'乐','隊':'队','團':'团','週':'周','圍':'围','環':'环','龍':'龙','髮':'发','灣':'湾','華':'华','語':'语','對':'对','話':'话','戶':'户','資':'资','隱':'隐','於':'于','與':'与','將':'将','來':'来','顯':'显','現':'现','觸':'触','發':'发','態':'态','檢':'检','測':'测','錯':'错','誤':'误','確':'确','認':'认','軟':'软','觀':'观','賞':'赏','終':'终','親':'亲','師':'师','傳':'传','訊':'讯','準':'准','權':'权','門':'门','眾':'众','類':'类','離':'离','虛':'虚','擬':'拟','幫':'帮','屬':'属','歸':'归','總':'总','匯':'汇','編':'编','號':'号','歷':'历','譜':'谱','聽':'听','腦':'脑','鍋':'锅','邊':'边','鍵':'键','靈':'灵','靜':'静','頭':'头','願':'愿','風':'风','複':'复','雜':'杂','辦':'办','劃':'划','舉':'举','義':'义','興':'兴','輸':'输','贏':'赢','鬆':'松','點':'点','營':'营','絡':'络','統':'统','維':'维','繽':'缤','紛':'纷','頻':'频','顧':'顾','預':'预','頂':'顶','題':'题','顏':'颜','齊':'齐','齡':'龄','龜':'龟','們':'们','這':'这','麼':'么','過':'过','後':'后','從':'从','會':'会','為':'为','實':'实','藝':'艺','術':'术','節':'节','員':'员','熱':'热','雙':'双','應':'应','該':'该','讓':'让','識':'识','記':'记','帳':'帐','繳':'缴','質':'质','標':'标','嚴':'严','謹':'谨','益':'益','協':'协','議':'议','條':'条','款':'款','贈':'赠','禮':'礼','摺':'折','額':'额','據':'据','鐘':'钟','當':'当','還':'还','進':'进','擇':'择','閉':'闭','續':'续','斷':'断','擊':'击','較':'较','長':'长','詳':'详','細':'细','瀏':'浏','徑':'径','載':'载','讀':'读','寫':'写','刪':'删','響':'响','適':'适','處':'处','羅':'罗','蘭':'兰','麗':'丽','豐':'丰','貴':'贵','鄉':'乡','復':'复','練':'练','習':'习','訓':'训','範':'范','邏':'逻','輯':'辑','籤':'签','紋':'纹','樣':'样','樹':'树','葉':'叶','夢':'梦','電':'电','視':'视','車':'车','輪':'轮','轉':'转','軸':'轴','軌':'轨','輛':'辆','運':'运','遞':'递','達':'达','遠':'远','鎖':'锁','鑰':'钥','匙':'匙','牆':'墙','層':'层','樓':'楼','梯':'梯','廚':'厨','廁':'厕','浴':'浴','櫃':'柜','帶':'带','錶':'表','鏡':'镜','燈':'灯','燭':'烛','焰':'焰','煙':'烟','霧':'雾','雲':'云','凍':'冻','溫':'温','涼':'凉','暖':'暖','寒':'寒','暑':'暑','節':'节','氣':'气','暴':'暴','閃':'闪','紅':'红','綠':'绿','藍':'蓝','黃':'黄','鹹':'咸','韌':'韧','緊':'紧','輕':'轻','濕':'湿','淨':'净','潔':'洁','髒':'脏','亂':'乱','壞':'坏','彎':'弯','圓':'圆','鈍':'钝','娛':'娱','蹤':'踪','別':'别','樑':'梁','詠':'咏','銀':'银','赫':'赫','園':'园','麥':'麦','啟':'启','綜':'综','威':'威','倫':'伦','敦':'敦','劇':'剧','匯':'汇','院':'院','郭':'郭','富':'富','跨':'跨','演':'演','唱':'唱','獨':'独','套':'套','售':'售','旅':'游','遊':'游','貓':'猫','攜':'携','程':'程','衞':'卫','劉':'刘','恒':'恒','抽':'抽','登':'登','員':'员','諮':'咨','詢':'询','服':'服','策':'策','略':'略','謝':'谢','啊':'啊','界':'界','限':'限','定':'定','版':'版','展':'展','音':'音','留':'留','競':'竞','技':'技','張':'张','敏':'敏','球':'球','抱':'抱','歉':'歉','兔':'兔','帶':'带','贈':'赠','禮':'礼','券':'券','扣':'扣','付款':'付款','據':'据','絲':'丝','印':'印','紅':'红','磡':'磡','體':'体','育':'育','健':'健','康':'康','化':'化','堂':'堂','經':'经','敗':'败','源':'源','即':'即','載':'载','刷':'刷','發':'发','薦':'荐','訊':'讯','步':'步','清':'清','理':'理','相':'相','樣':'样','式':'式','卡':'卡','片':'片','面':'面','消':'消','宣':'宣','報':'报','佔':'占','位':'位','盡':'尽','無':'无','線':'线','電':'电','詢':'询','講':'讲','緊':'紧','張':'张','關':'关','註':'注','冊':'册','啟':'启','動':'动','碼':'码','綁':'绑','裝':'装','置':'置','並':'并','行':'行','參':'参','匯':'汇','入':'入','鎖':'锁','票':'票','彈':'弹','窗':'窗','秒':'秒','速':'速','付':'付','款':'款','體':'体','驗':'验','馬':'马','上':'上','體':'体','驗':'验','內':'内','測':'测','試':'试','試':'试','用':'用','載':'载','體':'体','證':'证','碼':'码','驗':'验','證':'证','頁':'页','驗':'验','證':'证','郵':'邮','箱':'箱','電':'电','話':'话','聯':'联','繫':'系','繫':'系','繫':'系','繫':'系'
+  };
+
+  var currentLang = 'zh-HK';
+  var originalTexts = [];
+  var collected = false;
+
+  function toSimplified(str) {
+    return String(str).replace(/[\u4e00-\u9fff\u3400-\u4dbf]/g, function (ch) {
+      return T2S[ch] || ch;
+    });
+  }
+
+  function tr(str) {
+    if (str == null) return '';
+    str = String(str);
+    return currentLang === 'zh-CN' ? toSimplified(str) : str;
+  }
+
+  window.__tkTr = tr;
+  window.__tkGetLang = function () { return currentLang; };
+
+  function collectStaticTexts() {
+    if (collected) return;
+    collected = true;
+    var walker = document.createTreeWalker(
+      document.body,
+      NodeFilter.SHOW_TEXT,
+      null,
+      false
+    );
+    var node;
+    while ((node = walker.nextNode())) {
+      var p = node.parentNode;
+      if (!p) continue;
+      var tag = p.nodeName ? p.nodeName.toLowerCase() : '';
+      if (tag === 'script' || tag === 'style' || tag === 'noscript') continue;
+      if (p.closest && p.closest('[data-no-translate]')) continue;
+      var val = node.nodeValue;
+      if (!val || !val.trim()) continue;
+      if (!/[\u4e00-\u9fff]/.test(val)) continue;
+      originalTexts.push({ node: node, text: val });
+    }
+  }
+
+  function applyLang(lang) {
+    if (lang !== 'zh-CN' && lang !== 'zh-HK') lang = 'zh-HK';
+    currentLang = lang;
+    document.documentElement.lang = lang;
+
+    /* 1. 轉換靜態文本 */
+    for (var i = 0; i < originalTexts.length; i++) {
+      var item = originalTexts[i];
+      if (!item.node || !item.node.isConnected) continue;
+      item.node.nodeValue = lang === 'zh-CN' ? toSimplified(item.text) : item.text;
+    }
+
+    /* 2. 更新切換按鈕標籤 */
+    var lbl1 = document.getElementById('langLabelText');
+    if (lbl1) lbl1.textContent = lang === 'zh-CN' ? '繁' : '简';
+    var lbl2 = document.getElementById('langLabelMobile');
+    if (lbl2) lbl2.textContent = lang === 'zh-CN' ? '切換至繁體中文' : '切換至简体中文';
+
+    /* 3. 重新渲染動態場次卡片 */
+    if (window.__showsSystem && typeof window.__showsSystem.rerender === 'function') {
+      window.__showsSystem.rerender();
+    }
+
+    /* 4. 持久化 */
+    try { localStorage.setItem('tk_lang', lang); } catch (e) {}
+  }
+
+  window.__tkApplyLang = applyLang;
+
+  function bindToggle() {
+    var t1 = document.getElementById('langToggle');
+    var t2 = document.getElementById('langToggleMobile');
+    function handler() {
+      applyLang(currentLang === 'zh-CN' ? 'zh-HK' : 'zh-CN');
+    }
+    if (t1) t1.addEventListener('click', handler);
+    if (t2) t2.addEventListener('click', handler);
+  }
+
+  function init() {
+    collectStaticTexts();
+    var saved = 'zh-HK';
+    try { saved = localStorage.getItem('tk_lang') || 'zh-HK'; } catch (e) {}
+    if (saved === 'zh-CN') {
+      applyLang('zh-CN');
+    } else {
+      currentLang = 'zh-HK';
+    }
+    bindToggle();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+</script>
+
+
+<!-- ============================================================
+     第一部分：頁面互動
+     ============================================================ -->
+<script>
 (function () {
   'use strict';
 
@@ -1004,9 +1127,10 @@
 
   toggleLogs.addEventListener('click', function () {
     var isHidden = olderLogs.classList.toggle('hidden');
+    var tr = window.__tkTr || function (s) { return s; };
     this.innerHTML = isHidden
-      ? '<i class="fa fa-history mr-2"></i>查看更早版本'
-      : '<i class="fa fa-angle-up mr-2"></i>收起更早版本';
+      ? tr('<i class="fa fa-history mr-2"></i>查看更早版本')
+      : tr('<i class="fa fa-angle-up mr-2"></i>收起更早版本');
     if (!isHidden && typeof window.__revealAll === 'function') window.__revealAll();
   });
 
@@ -1040,11 +1164,13 @@
 
   window.__revealAll = revealAll;
 })();
+</script>
 
 
-/* ============================================================
-   第二部分：演唱會場次系統（讀取靜態 JSON）
-   ============================================================ */
+<!-- ============================================================
+     第二部分：演唱會場次系統（讀取靜態 JSON）
+     ============================================================ -->
+<script>
 (function () {
   'use strict';
 
@@ -1056,7 +1182,10 @@
   var TIMEOUT     = CFG.timeout    != null ? CFG.timeout    : 8000;
   var CACHE_KEY   = CFG.cacheKey   != null ? CFG.cacheKey   : 'tk_shows_cache_v1';
   var CACHE_TTL   = CFG.cacheTTL   != null ? CFG.cacheTTL   : 24 * 60 * 60 * 1000;
-  var DEBUG       = false;
+
+  function tr(str) {
+    return window.__tkTr ? window.__tkTr(str) : String(str);
+  }
 
   function buildApiUrl() {
     var url;
@@ -1074,9 +1203,6 @@
 
   /* ==========================================================
      備用資料（當 JSON 檔案無法讀取時使用）— 共 21 場
-     ----------------------------------------------------------
-     說明：這些是靜態展示資料，實際運作時應以每日更新的
-     concerts.json 為準。你可以將以下內容作為 concerts.json 的初始版本。
      ========================================================== */
   var FALLBACK_SHOWS = [
     {
@@ -1307,8 +1433,6 @@
       icon: 'fa-star',
       iconColor: 'green'
     },
-
-    /* ---------- 以下為新增的 9 場演唱會 ---------- */
     {
       id: 'gigi-2026',
       name: '梁詠琪 LOVE GiGi 愛自己世界巡迴演唱會 香港站',
@@ -1475,6 +1599,8 @@
   var fallbackBtn  = document.getElementById('fallbackBtn');
   var refreshBtn   = document.getElementById('refreshBtn');
 
+  var currentShows = [];
+
   function getTodayStr() {
     var d = new Date();
     return d.getFullYear() + '-' +
@@ -1486,7 +1612,7 @@
     if (!dateStr) return '';
     var p = String(dateStr).split('-');
     if (p.length !== 3) return dateStr;
-    return p[0] + '年' + parseInt(p[1], 10) + '月' + parseInt(p[2], 10) + '日';
+    return tr(p[0] + '年' + parseInt(p[1], 10) + '月' + parseInt(p[2], 10) + '日');
   }
 
   function formatTime(iso) {
@@ -1561,7 +1687,7 @@
     if (grid)      { grid.classList.add('hidden'); grid.classList.remove('grid'); }
     if (noShows)   noShows.classList.add('hidden');
     if (errorEl)   errorEl.classList.remove('hidden');
-    if (errorMsgEl) errorMsgEl.textContent = msg || '無法讀取資料，請檢查網絡後重試。';
+    if (errorMsgEl) errorMsgEl.textContent = tr(msg || '無法讀取資料，請檢查網絡後重試。');
     setSource('error');
   }
 
@@ -1576,19 +1702,19 @@
     sourceBadge.classList.remove('source-live', 'source-cache', 'source-fallback');
     if (state === 'live') {
       sourceBadge.classList.add('source-live');
-      sourceText.textContent = '即時資料';
+      sourceText.textContent = tr('即時資料');
     } else if (state === 'cache') {
       sourceBadge.classList.add('source-cache');
-      sourceText.textContent = '快取資料';
+      sourceText.textContent = tr('快取資料');
     } else if (state === 'fallback') {
       sourceBadge.classList.add('source-fallback');
-      sourceText.textContent = '備用資料';
+      sourceText.textContent = tr('備用資料');
     } else if (state === 'loading') {
       sourceBadge.classList.add('source-cache');
-      sourceText.textContent = '正在載入...';
+      sourceText.textContent = tr('正在載入...');
     } else if (state === 'error') {
       sourceBadge.classList.add('source-fallback');
-      sourceText.textContent = '載入失敗';
+      sourceText.textContent = tr('載入失敗');
     }
   }
 
@@ -1596,8 +1722,9 @@
      渲染場次卡片（含搶票時間線，已移除海報佔位）
      ========================================================== */
   function renderShows(shows) {
+    if (shows !== undefined) currentShows = shows;
     if (!grid) return;
-    var activeShows = sortShows(filterActiveShows(shows));
+    var activeShows = sortShows(filterActiveShows(currentShows));
 
     var hotTotal = 0;
     activeShows.forEach(function(s) { if (s.isHot) hotTotal++; });
@@ -1642,14 +1769,14 @@
         rows +=
           '<div class="sale-row">' +
             '<span class="dot public"></span>' +
-            '<span class="stage" style="color:#FF9DC8">公開發售</span>' +
+            '<span class="stage" style="color:#FF9DC8">' + tr('公開發售') + '</span>' +
             '<span>' + esc(formatDate(s.publicSaleDate)) + (s.publicSaleTime ? ' ' + esc(s.publicSaleTime) : '') + '</span>' +
           '</div>';
 
         timelineHtml =
           '<div class="sale-timeline" id="' + timelineId + '">' +
             '<div class="sale-timeline-inner">' +
-              '<p class="text-xs text-blush/70 mb-2"><i class="fa fa-list-ul mr-1"></i>全部搶票日期</p>' +
+              '<p class="text-xs text-blush/70 mb-2"><i class="fa fa-list-ul mr-1"></i>' + tr('全部搶票日期') + '</p>' +
               rows +
             '</div>' +
           '</div>';
@@ -1657,9 +1784,9 @@
 
       /* -------- 標籤區 -------- */
       var badges = '';
-      if (s.isHot)   badges += '<span class="tag-pill tag-hot">🔥 熱門</span>';
-      if (s.isMacau) badges += '<span class="tag-pill tag-macau">🇲🇴 澳門</span>';
-      badges += '<span class="tag-pill ' + esc(status.cls) + '">' + esc(status.text) + '</span>';
+      if (s.isHot)   badges += '<span class="tag-pill tag-hot">' + tr('🔥 熱門') + '</span>';
+      if (s.isMacau) badges += '<span class="tag-pill tag-macau">' + tr('🇲🇴 澳門') + '</span>';
+      badges += '<span class="tag-pill ' + esc(status.cls) + '">' + esc(tr(status.text)) + '</span>';
 
       /* -------- 組合卡片（無海報區） -------- */
       html +=
@@ -1674,38 +1801,38 @@
               '<div class="flex flex-wrap items-center gap-1.5">' + badges + '</div>' +
             '</div>' +
 
-            '<h4 class="text-lg font-bold text-white/95 mt-4 leading-snug">' + esc(s.name) + '</h4>' +
+            '<h4 class="text-lg font-bold text-white/95 mt-4 leading-snug">' + esc(tr(s.name)) + '</h4>' +
 
             '<ul class="text-blush/85 text-sm mt-3 space-y-1.5 flex-1">' +
-              '<li><i class="fa fa-calendar-o text-' + esc(iconColor) + '/80 mr-2"></i>' + esc(s.date) + '</li>' +
-              '<li><i class="fa fa-map-marker text-' + esc(iconColor) + '/80 mr-2"></i>' + esc(s.venue) + '</li>' +
-              '<li><i class="fa fa-ticket text-' + esc(iconColor) + '/80 mr-2"></i>' + esc(s.price) + '</li>' +
-              '<li><i class="fa fa-clock-o text-' + esc(iconColor) + '/80 mr-2"></i>公開發售：<span class="text-white font-semibold">' +
-                esc(formatDate(s.publicSaleDate)) + ' ' + esc(s.publicSaleTime || '') + '</span></li>' +
-              '<li><i class="fa fa-globe text-' + esc(iconColor) + '/80 mr-2"></i>售票平台：' + esc(s.platform) + '</li>' +
+              '<li><i class="fa fa-calendar-o text-' + esc(iconColor) + '/80 mr-2"></i>' + esc(tr(s.date)) + '</li>' +
+              '<li><i class="fa fa-map-marker text-' + esc(iconColor) + '/80 mr-2"></i>' + esc(tr(s.venue)) + '</li>' +
+              '<li><i class="fa fa-ticket text-' + esc(iconColor) + '/80 mr-2"></i>' + esc(tr(s.price)) + '</li>' +
+              '<li><i class="fa fa-clock-o text-' + esc(iconColor) + '/80 mr-2"></i>' + tr('公開發售：') + '<span class="text-white font-semibold">' +
+                esc(formatDate(s.publicSaleDate)) + ' ' + esc(tr(s.publicSaleTime || '')) + '</span></li>' +
+              '<li><i class="fa fa-globe text-' + esc(iconColor) + '/80 mr-2"></i>' + tr('售票平台：') + esc(tr(s.platform)) + '</li>' +
             '</ul>' +
 
             (hasPriority
               ? '<button class="toggle-sale" data-timeline="' + timelineId + '">' +
-                  '<i class="fa fa-chevron-down"></i> 查看全部搶票日期' +
+                  '<i class="fa fa-chevron-down"></i> ' + tr('查看全部搶票日期') +
                 '</button>' +
                 timelineHtml
               : '') +
 
             '<div class="mt-4 flex items-center gap-2">' +
-              '<span class="text-xs text-blush/60">單次購買：</span>' +
-              '<span class="text-sm font-bold text-green">$100 / 場 / 日</span>' +
+              '<span class="text-xs text-blush/60">' + tr('單次購買：') + '</span>' +
+              '<span class="text-sm font-bold text-green">$100 / ' + tr('場') + ' / ' + tr('日') + '</span>' +
             '</div>' +
 
             (ticketUrl
               ? '<a href="' + esc(ticketUrl) + '" target="_blank" rel="noopener" ' +
                 'class="mt-3 block text-center btn-official text-green py-2.5 rounded-full text-sm font-bold">' +
-                '<i class="fa fa-external-link mr-2"></i>' + esc(hostLabel) + '</a>'
+                '<i class="fa fa-external-link mr-2"></i>' + esc(tr(hostLabel)) + '</a>'
               : '') +
 
             '<a href="https://wa.me/85265432109?text=' + waText + '" target="_blank" rel="noopener" ' +
                'class="mt-3 block text-center btn-primary text-white py-2.5 rounded-full text-sm font-bold">' +
-              '<i class="fa fa-shopping-cart mr-2"></i>單次購買此場次' +
+              '<i class="fa fa-shopping-cart mr-2"></i>' + tr('單次購買此場次') +
             '</a>' +
 
           '</div>' +
@@ -1724,8 +1851,8 @@
         var isOpen = el.classList.toggle('open');
         this.classList.toggle('open', isOpen);
         this.innerHTML = isOpen
-          ? '<i class="fa fa-chevron-up"></i> 收起搶票日期'
-          : '<i class="fa fa-chevron-down"></i> 查看全部搶票日期';
+          ? '<i class="fa fa-chevron-up"></i> ' + tr('收起搶票日期')
+          : '<i class="fa fa-chevron-down"></i> ' + tr('查看全部搶票日期');
       });
     });
 
@@ -1798,7 +1925,7 @@
     if (forceFallback) {
       isLoading = false;
       renderShows(FALLBACK_SHOWS);
-      if (lastUpdated) lastUpdated.textContent = formatTime(new Date().toISOString()) + '（備用）';
+      if (lastUpdated) lastUpdated.textContent = formatTime(new Date().toISOString()) + tr('（備用）');
       setSource('fallback');
       return;
     }
@@ -1817,7 +1944,7 @@
         var cached = loadCache();
         if (cached) {
           renderShows(cached.shows);
-          if (lastUpdated) lastUpdated.textContent = formatTime(cached.updatedAt) + '（快取）';
+          if (lastUpdated) lastUpdated.textContent = formatTime(cached.updatedAt) + tr('（快取）');
           setSource('cache');
           return;
         }
@@ -1829,7 +1956,7 @@
         );
         setTimeout(function () {
           renderShows(FALLBACK_SHOWS);
-          if (lastUpdated) lastUpdated.textContent = formatTime(new Date().toISOString()) + '（備用）';
+          if (lastUpdated) lastUpdated.textContent = formatTime(new Date().toISOString()) + tr('（備用）');
           setSource('fallback');
         }, 300);
       });
@@ -1843,12 +1970,12 @@
   }
   if (refreshBtn) {
     refreshBtn.addEventListener('click', function () {
-      this.innerHTML = '<i class="fa fa-spinner fa-spin mr-2"></i>刷新中...';
+      this.innerHTML = '<i class="fa fa-spinner fa-spin mr-2"></i>' + tr('刷新中...');
       var self = this;
       try { localStorage.removeItem(CACHE_KEY); } catch (e) {}
       loadShows(false);
       setTimeout(function () {
-        self.innerHTML = '<i class="fa fa-refresh mr-2"></i>手動刷新';
+        self.innerHTML = '<i class="fa fa-refresh mr-2"></i>' + tr('手動刷新');
       }, 1200);
     });
   }
@@ -1868,7 +1995,6 @@
   }
 
   function init() {
-    // 統一從 JSON 檔案讀取，不再區分本地環境
     showLoading();
     loadShows(false);
     scheduleDailyCheck();
@@ -1885,6 +2011,7 @@
     useFallback: function () { loadShows(true); },
     clearCache: function () { try { localStorage.removeItem(CACHE_KEY); } catch (e) {} },
     getFallback: function () { return FALLBACK_SHOWS.slice(); },
+    rerender: function () { renderShows(); },
     getConfig: function () {
       return {
         endpoint: API_ENDPOINT,
