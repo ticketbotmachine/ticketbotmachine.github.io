@@ -285,7 +285,7 @@
         每日自動更新 · 已開售場次自動移除 · 附官方購票連結 · 完整搶票時間線
       </p>
       <p class="text-blush/50 max-w-2xl mx-auto text-sm mt-2">
-        🇭🇰 香港 + 🇲🇴 澳門全覆蓋 · 熱門演唱會優先展示
+        🎯 只收錄 ticketkiller 支援的六大平台場次 · 共 12 場
       </p>
 
       <div class="mt-4 flex flex-wrap items-center justify-center gap-3 text-xs text-blush/50">
@@ -641,9 +641,24 @@
 
       <div class="timeline-item reveal">
         <div class="flex flex-wrap items-center gap-2">
-          <span class="version-tag">v1.31.0</span>
+          <span class="version-tag">v1.32.0</span>
           <span class="text-blush/65 text-sm"><i class="fa fa-calendar-o mr-1"></i>2026-09-24</span>
           <span class="tag-pill tag-new">最新</span>
+        </div>
+        <h4 class="text-white/95 font-bold mt-3">場次資料收窄至六大平台 · 精選 12 場</h4>
+        <ul class="text-blush/80 text-sm mt-3 space-y-2">
+          <li><span class="tag-pill tag-opt mr-2">優化</span>備用場次全面重整為 12 場，只保留 ticketkiller 程式直接支援的六大平台場次</li>
+          <li><span class="tag-pill tag-new mr-2">新增</span>納入 Klook 專屬場次，補齊六大平台覆蓋面（Cityline / KKTIX / HK Ticketing / URBTIX / FANTOPIA / Klook）</li>
+          <li><span class="tag-pill tag-fix mr-2">移除</span>剔除銀河票務、金光票務、澳門售票網、大麥、貓眼等非支援平台場次，避免用戶誤購無法搶飛的場次</li>
+          <li><span class="tag-pill tag-opt mr-2">優化</span>場次副標題同步更新為「只收錄六大平台場次 · 共 12 場」</li>
+          <li><span class="tag-pill tag-opt mr-2">優化</span>熱門標籤排序：熱門場次自動置頂，其餘按公售日期先後排列</li>
+        </ul>
+      </div>
+
+      <div class="timeline-item reveal">
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="version-tag">v1.31.0</span>
+          <span class="text-blush/65 text-sm"><i class="fa fa-calendar-o mr-1"></i>2026-09-24</span>
         </div>
         <h4 class="text-white/95 font-bold mt-3">精簡場次卡片版面，取消宣傳海報佔位</h4>
         <ul class="text-blush/80 text-sm mt-3 space-y-2">
@@ -658,24 +673,11 @@
           <span class="version-tag">v1.30.0</span>
           <span class="text-blush/65 text-sm"><i class="fa fa-calendar-o mr-1"></i>2026-09-24</span>
         </div>
-        <h4 class="text-white/95 font-bold mt-3">場次擴充至 21 場 + 港澳門全面覆蓋</h4>
+        <h4 class="text-white/95 font-bold mt-3">場次擴充 + 港澳門全面覆蓋</h4>
         <ul class="text-blush/80 text-sm mt-3 space-y-2">
-          <li><span class="tag-pill tag-new mr-2">新增</span>備用場次新增 9 場演唱會：梁詠琪、KARD、Supper Moment、王菀之、張明敏、PLAVE、銀赫、OMEGA X、icyball 冰球樂團</li>
-          <li><span class="tag-pill tag-new mr-2">新增</span>香港場次擴充至紅磡體育館、麥花臣場館、西九自由空間、啟德體藝館、會展等多個場地</li>
-          <li><span class="tag-pill tag-new mr-2">新增</span>澳門場次覆蓋銀河綜藝館、威尼斯人綜藝館、倫敦人劇場、G Box、百老匯劇院</li>
+          <li><span class="tag-pill tag-new mr-2">新增</span>備用場次擴充至 21 場，覆蓋香港及澳門多個場地</li>
+          <li><span class="tag-pill tag-new mr-2">新增</span>香港場地涵蓋紅磡體育館、麥花臣場館、西九自由空間、啟德體藝館、會展等</li>
           <li><span class="tag-pill tag-opt mr-2">優化</span>公售日期橫跨 2026 年 10 月至 2027 年 1 月，已開售場次自動過濾</li>
-        </ul>
-      </div>
-
-      <div class="timeline-item reveal">
-        <div class="flex flex-wrap items-center gap-2">
-          <span class="version-tag">v1.29.0</span>
-          <span class="text-blush/65 text-sm"><i class="fa fa-calendar-o mr-1"></i>2026-09-24</span>
-        </div>
-        <h4 class="text-white/95 font-bold mt-3">場次擴充至 12 場</h4>
-        <ul class="text-blush/80 text-sm mt-3 space-y-2">
-          <li><span class="tag-pill tag-new mr-2">新增</span>備用場次資料由 12 場演唱會組成，覆蓋香港及澳門</li>
-          <li><span class="tag-pill tag-opt mr-2">優化</span>卡片懸停浮起效果，閱讀體驗更流暢</li>
         </ul>
       </div>
 
@@ -935,7 +937,7 @@
     apiKey: '',
     timeout: 8000,
     cacheTTL: 24 * 60 * 60 * 1000,
-    cacheKey: 'tk_shows_cache_v1',
+    cacheKey: 'tk_shows_cache_v2',      // ← 版本號提升，舊快取自動失效
     debug: false,
     autoDetectEnv: false                // 關閉本地環境自動回退，統一讀取 JSON
   };
@@ -962,7 +964,7 @@
 
   /* 繁體 → 简体 字符映射表（覆蓋頁面所有中文字符） */
   var T2S = {
-    '極':'极','搶':'抢','場':'场','費':'费','設':'设','備':'备','數':'数','蓋':'盖','買':'买','個':'个','飛':'飞','諮':'咨','詢':'询','導':'导','頁':'页','選':'选','單':'单','開':'开','關':'关','覽':'览','內':'内','銷':'销','賣':'卖','價':'价','優':'优','證':'证','驗':'验','碼':'码','動':'动','體':'体','隻':'只','銀':'银','網':'网','購':'购','連':'连','結':'结','簡':'简','說':'说','暫':'暂','時':'时','間':'间','線':'线','強':'强','級':'级','專':'专','業':'业','務':'务','館':'馆','區':'区','東':'东','亞':'亚','國':'国','際':'际','樂':'乐','隊':'队','團':'团','週':'周','圍':'围','環':'环','龍':'龙','髮':'发','灣':'湾','華':'华','語':'语','對':'对','話':'话','戶':'户','資':'资','隱':'隐','於':'于','與':'与','將':'将','來':'来','顯':'显','現':'现','觸':'触','發':'发','態':'态','檢':'检','測':'测','錯':'错','誤':'误','確':'确','認':'认','軟':'软','觀':'观','賞':'赏','終':'终','親':'亲','師':'师','傳':'传','訊':'讯','準':'准','權':'权','門':'门','眾':'众','類':'类','離':'离','虛':'虚','擬':'拟','幫':'帮','屬':'属','歸':'归','總':'总','匯':'汇','編':'编','號':'号','歷':'历','譜':'谱','聽':'听','腦':'脑','鍋':'锅','邊':'边','鍵':'键','靈':'灵','靜':'静','頭':'头','願':'愿','風':'风','複':'复','雜':'杂','辦':'办','劃':'划','舉':'举','義':'义','興':'兴','輸':'输','贏':'赢','鬆':'松','點':'点','營':'营','絡':'络','統':'统','維':'维','繽':'缤','紛':'纷','頻':'频','顧':'顾','預':'预','頂':'顶','題':'题','顏':'颜','齊':'齐','齡':'龄','龜':'龟','們':'们','這':'这','麼':'么','過':'过','後':'后','從':'从','會':'会','為':'为','實':'实','藝':'艺','術':'术','節':'节','員':'员','熱':'热','雙':'双','應':'应','該':'该','讓':'让','識':'识','記':'记','帳':'帐','繳':'缴','質':'质','標':'标','嚴':'严','謹':'谨','益':'益','協':'协','議':'议','條':'条','款':'款','贈':'赠','禮':'礼','摺':'折','額':'额','據':'据','鐘':'钟','當':'当','還':'还','進':'进','擇':'择','閉':'闭','續':'续','斷':'断','擊':'击','較':'较','長':'长','詳':'详','細':'细','瀏':'浏','徑':'径','載':'载','讀':'读','寫':'写','刪':'删','響':'响','適':'适','處':'处','羅':'罗','蘭':'兰','麗':'丽','豐':'丰','貴':'贵','鄉':'乡','復':'复','練':'练','習':'习','訓':'训','範':'范','邏':'逻','輯':'辑','籤':'签','紋':'纹','樣':'样','樹':'树','葉':'叶','夢':'梦','電':'电','視':'视','車':'车','輪':'轮','轉':'转','軸':'轴','軌':'轨','輛':'辆','運':'运','遞':'递','達':'达','遠':'远','鎖':'锁','鑰':'钥','匙':'匙','牆':'墙','層':'层','樓':'楼','梯':'梯','廚':'厨','廁':'厕','浴':'浴','櫃':'柜','帶':'带','錶':'表','鏡':'镜','燈':'灯','燭':'烛','焰':'焰','煙':'烟','霧':'雾','雲':'云','凍':'冻','溫':'温','涼':'凉','暖':'暖','寒':'寒','暑':'暑','節':'节','氣':'气','暴':'暴','閃':'闪','紅':'红','綠':'绿','藍':'蓝','黃':'黄','鹹':'咸','韌':'韧','緊':'紧','輕':'轻','濕':'湿','淨':'净','潔':'洁','髒':'脏','亂':'乱','壞':'坏','彎':'弯','圓':'圆','鈍':'钝','娛':'娱','蹤':'踪','別':'别','樑':'梁','詠':'咏','銀':'银','赫':'赫','園':'园','麥':'麦','啟':'启','綜':'综','威':'威','倫':'伦','敦':'敦','劇':'剧','匯':'汇','院':'院','郭':'郭','富':'富','跨':'跨','演':'演','唱':'唱','獨':'独','套':'套','售':'售','旅':'游','遊':'游','貓':'猫','攜':'携','程':'程','衞':'卫','劉':'刘','恒':'恒','抽':'抽','登':'登','員':'员','諮':'咨','詢':'询','服':'服','策':'策','略':'略','謝':'谢','啊':'啊','界':'界','限':'限','定':'定','版':'版','展':'展','音':'音','留':'留','競':'竞','技':'技','張':'张','敏':'敏','球':'球','抱':'抱','歉':'歉','兔':'兔','帶':'带','贈':'赠','禮':'礼','券':'券','扣':'扣','付款':'付款','據':'据','絲':'丝','印':'印','紅':'红','磡':'磡','體':'体','育':'育','健':'健','康':'康','化':'化','堂':'堂','經':'经','敗':'败','源':'源','即':'即','載':'载','刷':'刷','發':'发','薦':'荐','訊':'讯','步':'步','清':'清','理':'理','相':'相','樣':'样','式':'式','卡':'卡','片':'片','面':'面','消':'消','宣':'宣','報':'报','佔':'占','位':'位','盡':'尽','無':'无','線':'线','電':'电','詢':'询','講':'讲','緊':'紧','張':'张','關':'关','註':'注','冊':'册','啟':'启','動':'动','碼':'码','綁':'绑','裝':'装','置':'置','並':'并','行':'行','參':'参','匯':'汇','入':'入','鎖':'锁','票':'票','彈':'弹','窗':'窗','秒':'秒','速':'速','付':'付','款':'款','體':'体','驗':'验','馬':'马','上':'上','體':'体','驗':'验','內':'内','測':'测','試':'试','試':'试','用':'用','載':'载','體':'体','證':'证','碼':'码','驗':'验','證':'证','頁':'页','驗':'验','證':'证','郵':'邮','箱':'箱','電':'电','話':'话','聯':'联','繫':'系','繫':'系','繫':'系','繫':'系'
+    '極':'极','搶':'抢','場':'场','費':'费','設':'设','備':'备','數':'数','蓋':'盖','買':'买','個':'个','飛':'飞','諮':'咨','詢':'询','導':'导','頁':'页','選':'选','單':'单','開':'开','關':'关','覽':'览','內':'内','銷':'销','賣':'卖','價':'价','優':'优','證':'证','驗':'验','碼':'码','動':'动','體':'体','隻':'只','銀':'银','網':'网','購':'购','連':'连','結':'结','簡':'简','說':'说','暫':'暂','時':'时','間':'间','線':'线','強':'强','級':'级','專':'专','業':'业','務':'务','館':'馆','區':'区','東':'东','亞':'亚','國':'国','際':'际','樂':'乐','隊':'队','團':'团','週':'周','圍':'围','環':'环','龍':'龙','髮':'发','灣':'湾','華':'华','語':'语','對':'对','話':'话','戶':'户','資':'资','隱':'隐','於':'于','與':'与','將':'将','來':'来','顯':'显','現':'现','觸':'触','發':'发','態':'态','檢':'检','測':'测','錯':'错','誤':'误','確':'确','認':'认','軟':'软','觀':'观','賞':'赏','終':'终','親':'亲','師':'师','傳':'传','訊':'讯','準':'准','權':'权','門':'门','眾':'众','類':'类','離':'离','虛':'虚','擬':'拟','幫':'帮','屬':'属','歸':'归','總':'总','匯':'汇','編':'编','號':'号','歷':'历','譜':'谱','聽':'听','腦':'脑','鍋':'锅','邊':'边','鍵':'键','靈':'灵','靜':'静','頭':'头','願':'愿','風':'风','複':'复','雜':'杂','辦':'办','劃':'划','舉':'举','義':'义','興':'兴','輸':'输','贏':'赢','鬆':'松','點':'点','營':'营','絡':'络','統':'统','維':'维','繽':'缤','紛':'纷','頻':'频','顧':'顾','預':'预','頂':'顶','題':'题','顏':'颜','齊':'齐','齡':'龄','龜':'龟','們':'们','這':'这','麼':'么','過':'过','後':'后','從':'从','會':'会','為':'为','實':'实','藝':'艺','術':'术','節':'节','員':'员','熱':'热','雙':'双','應':'应','該':'该','讓':'让','識':'识','記':'记','帳':'帐','繳':'缴','質':'质','標':'标','嚴':'严','謹':'谨','益':'益','協':'协','議':'议','條':'条','款':'款','贈':'赠','禮':'礼','摺':'折','額':'额','據':'据','鐘':'钟','當':'当','還':'还','進':'进','擇':'择','閉':'闭','續':'续','斷':'断','擊':'击','較':'较','長':'长','詳':'详','細':'细','瀏':'浏','徑':'径','載':'载','讀':'读','寫':'写','刪':'删','響':'响','適':'适','處':'处','羅':'罗','蘭':'兰','麗':'丽','豐':'丰','貴':'贵','鄉':'乡','復':'复','練':'练','習':'习','訓':'训','範':'范','邏':'逻','輯':'辑','籤':'签','紋':'纹','樣':'样','樹':'树','葉':'叶','夢':'梦','電':'电','視':'视','車':'车','輪':'轮','轉':'转','軸':'轴','軌':'轨','輛':'辆','運':'运','遞':'递','達':'达','遠':'远','鎖':'锁','鑰':'钥','匙':'匙','牆':'墙','層':'层','樓':'楼','梯':'梯','廚':'厨','廁':'厕','浴':'浴','櫃':'柜','帶':'带','錶':'表','鏡':'镜','燈':'灯','燭':'烛','焰':'焰','煙':'烟','霧':'雾','雲':'云','凍':'冻','溫':'温','涼':'凉','暖':'暖','寒':'寒','暑':'暑','氣':'气','暴':'暴','閃':'闪','紅':'红','綠':'绿','藍':'蓝','黃':'黄','鹹':'咸','韌':'韧','緊':'紧','輕':'轻','濕':'湿','淨':'净','潔':'洁','髒':'脏','亂':'乱','壞':'坏','彎':'弯','圓':'圆','鈍':'钝','娛':'娱','蹤':'踪','別':'别','樑':'梁','詠':'咏','赫':'赫','園':'园','麥':'麦','啟':'启','綜':'综','威':'威','倫':'伦','敦':'敦','劇':'剧','院':'院','郭':'郭','富':'富','跨':'跨','演':'演','唱':'唱','獨':'独','套':'套','售':'售','旅':'游','遊':'游','貓':'猫','攜':'携','程':'程','衞':'卫','劉':'刘','恒':'恒','抽':'抽','登':'登','策':'策','略':'略','謝':'谢','界':'界','限':'限','定':'定','版':'版','展':'展','音':'音','留':'留','競':'竞','技':'技','張':'张','敏':'敏','球':'球','抱':'歉','兔':'兔','券':'券','扣':'扣','絲':'丝','印':'印','磡':'磡','育':'育','健':'健','康':'康','化':'化','堂':'堂','經':'经','敗':'败','源':'源','即':'即','刷':'刷','薦':'荐','步':'步','清':'清','理':'理','相':'相','式':'式','卡':'卡','片':'片','面':'面','消':'消','宣':'宣','報':'报','佔':'占','位':'位','盡':'尽','無':'无','講':'讲','註':'注','冊':'册','裝':'装','置':'置','並':'并','行':'行','參':'参','入':'入','票':'票','彈':'弹','窗':'窗','秒':'秒','速':'速','付':'付','馬':'马','上':'上','測':'测','試':'试','用':'用','郵':'邮','箱':'箱','聯':'联','繫':'系'
   };
 
   var currentLang = 'zh-HK';
@@ -1180,7 +1182,7 @@
   var CORS_PROXY  = CFG.corsProxy  != null ? CFG.corsProxy  : '';
   var API_KEY     = CFG.apiKey     != null ? CFG.apiKey     : '';
   var TIMEOUT     = CFG.timeout    != null ? CFG.timeout    : 8000;
-  var CACHE_KEY   = CFG.cacheKey   != null ? CFG.cacheKey   : 'tk_shows_cache_v1';
+  var CACHE_KEY   = CFG.cacheKey   != null ? CFG.cacheKey   : 'tk_shows_cache_v2';
   var CACHE_TTL   = CFG.cacheTTL   != null ? CFG.cacheTTL   : 24 * 60 * 60 * 1000;
 
   function tr(str) {
@@ -1202,92 +1204,20 @@
   var API_ENDPOINT = buildApiUrl();
 
   /* ==========================================================
-     備用資料（當 JSON 檔案無法讀取時使用）— 共 21 場
+     備用資料（當 JSON 檔案無法讀取時使用）
+     ★ v1.32.0：收窄至 ticketkiller 直接支援的六大平台
+       Cityline / KKTIX / HKTICKETING / URBTIX / FANTOPIA / Klook
+       共 12 場，其餘平台場次一律不收錄
      ========================================================== */
   var FALLBACK_SHOWS = [
-    {
-      id: 'aaron-2026',
-      name: '郭富城 ICONIC MOMENT 啟德跨年演唱會',
-      date: '2026年12月31日 – 2027年1月1日',
-      venue: '啟德體育園主場館',
-      price: 'HK$1,680 / $1,380 / $1,180 / $980 / $680 / $480',
-      publicSaleDate: '2026-10-14',
-      publicSaleTime: '上午 10:00',
-      platform: '快達票 HK Ticketing、大麥',
-      ticketUrl: 'https://www.hkticketing.com/',
-      isMacau: false,
-      isHot: true,
-      prioritySales: [
-        { stage: '滙豐Mastercard優先（第一輪）', date: '2026-10-09', time: '上午 10:00 – 晚上 23:59' },
-        { stage: '滙豐Mastercard優先（第二輪）', date: '2026-10-10', time: '上午 10:00 – 晚上 23:59' },
-        { stage: 'Klook 獨家套票預售', date: '2026-10-12', time: '中午 12:00 – 10月13日 23:59' }
-      ],
-      icon: 'fa-trophy',
-      iconColor: 'green'
-    },
-    {
-      id: 'twins-2026',
-      name: 'TWINS SIDE BY SIDE 演唱會',
-      date: '2026年12月18日 – 12月22日（共5場）',
-      venue: '香港會議展覽中心 Hall 5BC',
-      price: 'HK$1,280 / $980 / $680',
-      publicSaleDate: '2026-09-25',
-      publicSaleTime: '中午 12:00',
-      platform: '快達票 HK Ticketing',
-      ticketUrl: 'https://www.hkticketing.com/',
-      isMacau: false,
-      isHot: true,
-      prioritySales: [
-        { stage: '中銀銀聯信用卡優先', date: '2026-09-18', time: '上午 10:00' },
-        { stage: '港澳及內地銀聯卡優先', date: '2026-09-19', time: '待公佈' }
-      ],
-      icon: 'fa-music',
-      iconColor: 'magenta'
-    },
-    {
-      id: 'bigbang-2026',
-      name: 'BIGBANG WORLD TOUR 〈XX : COSMOS〉',
-      date: '2026年11月13日 – 11月17日（共4場）',
-      venue: '啟德體育園主場館',
-      price: 'HK$3,099（VIP企位）/ 坐位 $699 起',
-      publicSaleDate: '2026-09-29',
-      publicSaleTime: '下午 4:00',
-      platform: '快達票 HK Ticketing',
-      ticketUrl: 'https://www.hkticketing.com/',
-      isMacau: false,
-      isHot: true,
-      prioritySales: [
-        { stage: 'V.I.P Fan Club 優先預售', date: '2026-09-28', time: '上午 10:00 – 晚上 23:59' },
-        { stage: 'TME 音樂平台優先預售', date: '2026-09-29', time: '上午 10:00 – 下午 13:59' },
-        { stage: '旅遊平台優先預售', date: '2026-09-29', time: '下午 14:00 – 15:59' }
-      ],
-      icon: 'fa-star',
-      iconColor: 'purple'
-    },
-    {
-      id: 'mc-macau-2026',
-      name: 'MC張天賦《E=MC² 演唱會 2026》澳門站',
-      date: '2026年11月27日 – 11月28日（共2場）',
-      venue: '銀河綜藝館',
-      price: 'HKD/MOP $1,588 / $1,288 / $888 / $688',
-      publicSaleDate: '2026-10-07',
-      publicSaleTime: '下午 1:00',
-      platform: '銀河票務、MPay、澳門售票網、大麥、貓眼、uutix、BOOKYAY',
-      ticketUrl: 'https://www.galaxyticketing.com/hant/#/home',
-      isMacau: true,
-      isHot: true,
-      prioritySales: [
-        { stage: 'Trip.com 優先訂票', date: '2026-09-30', time: '上午 11:00' }
-      ],
-      icon: 'fa-star',
-      iconColor: 'magenta'
-    },
+
+    /* ---------- KKTIX（1 場） ---------- */
     {
       id: 'serrini-2026',
       name: 'Serrini《小心女星》香港演唱會',
       date: '2026年10月30日（星期五）',
       venue: '麥花臣場館',
-      price: 'VVIP $1,080 / $880 / $720',
+      price: 'VVIP HK$1,080 / $880 / $720',
       publicSaleDate: '2026-09-24',
       publicSaleTime: '上午 11:00',
       platform: 'KKTIX',
@@ -1295,69 +1225,13 @@
       isMacau: false,
       isHot: false,
       prioritySales: [
-        { stage: '私心女星私人預售', date: '2026-09-22', time: '12:00 – 9月23日 18:00' }
+        { stage: '私心女星私人預售', date: '2026-09-22', time: '中午 12:00 – 9月23日 18:00' }
       ],
       icon: 'fa-music',
       iconColor: 'magenta'
     },
-    {
-      id: 'janice-2026',
-      name: '衛蘭 Janice《OUT OF FRAME》世界巡迴演唱會',
-      date: '2026年11月14日、15日、17日',
-      venue: '紅磡香港體育館',
-      price: 'HK$1,180 / $880 / $580',
-      publicSaleDate: '2026-10-08',
-      publicSaleTime: '待公佈',
-      platform: 'URBTIX',
-      ticketUrl: 'https://www.urbtix.hk/',
-      isMacau: false,
-      isHot: true,
-      prioritySales: [
-        { stage: '建行(亞洲)信用卡優先（第一輪）', date: '2026-09-28', time: '中午 12:00 – 晚上 20:00' },
-        { stage: '建行(亞洲)信用卡優先（第二輪）', date: '2026-09-29', time: '中午 12:00 – 9月30日 20:00' },
-        { stage: 'Klook 優先購票', date: '2026-09-30', time: '待公佈' }
-      ],
-      icon: 'fa-globe',
-      iconColor: 'green'
-    },
-    {
-      id: 'perse-2026',
-      name: 'PER SE《LIFE IN CAPS》演唱會',
-      date: '2026年11月20日（星期五）',
-      venue: 'TIDES',
-      price: 'VIP $980 / GA $680（全企位）',
-      publicSaleDate: '2026-09-30',
-      publicSaleTime: '下午 3:00',
-      platform: 'Cityline',
-      ticketUrl: 'https://www.cityline.com/',
-      isMacau: false,
-      isHot: false,
-      prioritySales: [
-        { stage: '滙豐Mastercard優先預售', date: '2026-09-29', time: '下午 15:00 – 23:59' }
-      ],
-      icon: 'fa-ticket',
-      iconColor: 'purple'
-    },
-    {
-      id: 'andy-2026',
-      name: '劉德華《About Life》巡迴演唱會香港站',
-      date: '2026年12月18日 – 2027年1月10日（共20場）',
-      venue: '紅磡香港體育館',
-      price: 'HK$1,380 / $980 / $680',
-      publicSaleDate: '2026-10-15',
-      publicSaleTime: '待公佈',
-      platform: 'URBTIX',
-      ticketUrl: 'https://www.urbtix.hk/',
-      isMacau: false,
-      isHot: true,
-      prioritySales: [
-        { stage: '恒生Mastercard優先購票', date: '2026-09-21', time: '中午 12:00 起' },
-        { stage: 'Klook 獨家套票預售', date: '2026-09-23', time: '中午 12:00 起' },
-        { stage: 'URBTIX 網上抽籤登記', date: '2026-09-28 – 2026-09-30', time: '10:00 – 20:00' }
-      ],
-      icon: 'fa-star',
-      iconColor: 'purple'
-    },
+
+    /* ---------- Cityline（3 場） ---------- */
     {
       id: 'babymonster-2026',
       name: 'BABYMONSTER 世界巡迴演唱會香港站',
@@ -1380,57 +1254,120 @@
       iconColor: 'magenta'
     },
     {
-      id: 'grasshopper-macau-2026',
-      name: '草蜢《THREE IN LOVE》演唱會 2026 澳門站',
-      date: '2026年10月24日 – 10月25日（共2場）',
-      venue: '澳門威尼斯人綜藝館',
-      price: 'VIP $1,480 / A區 $880 / B區 $480',
-      publicSaleDate: '2026-08-21',
-      publicSaleTime: '中午 12:00',
-      platform: '金光票務、澳門售票網、大麥、貓眼、UUTIX',
-      ticketUrl: 'https://www.cotaiticketing.com/',
-      isMacau: true,
+      id: 'perse-2026',
+      name: 'PER SE《LIFE IN CAPS》演唱會',
+      date: '2026年11月20日（星期五）',
+      venue: 'TIDES',
+      price: 'VIP HK$980 / GA $680（全企位）',
+      publicSaleDate: '2026-09-30',
+      publicSaleTime: '下午 3:00',
+      platform: 'Cityline',
+      ticketUrl: 'https://www.cityline.com/',
+      isMacau: false,
       isHot: false,
       prioritySales: [
-        { stage: 'Trip.com 優先預售', date: '2026-08-14', time: '上午 10:00' }
+        { stage: '滙豐Mastercard優先預售', date: '2026-09-29', time: '下午 15:00 – 23:59' }
+      ],
+      icon: 'fa-ticket',
+      iconColor: 'purple'
+    },
+    {
+      id: 'wang-wan-chi-2026',
+      name: '王菀之《話・說》藝術展音樂會 香港站',
+      date: '2026年12月4日 – 12月13日',
+      venue: '西九文化區 自由空間 留白 Livehouse',
+      price: 'HK$780 起（全企位）',
+      publicSaleDate: '2026-10-02',
+      publicSaleTime: '上午 10:00',
+      platform: 'Cityline',
+      ticketUrl: 'https://www.cityline.com/',
+      isMacau: false,
+      isHot: false,
+      prioritySales: [],
+      icon: 'fa-star',
+      iconColor: 'purple'
+    },
+
+    /* ---------- HKTICKETING / 快達票（3 場） ---------- */
+    {
+      id: 'twins-2026',
+      name: 'TWINS SIDE BY SIDE 演唱會',
+      date: '2026年12月18日 – 12月22日（共5場）',
+      venue: '香港會議展覽中心 Hall 5BC',
+      price: 'HK$1,280 / $980 / $680',
+      publicSaleDate: '2026-09-25',
+      publicSaleTime: '中午 12:00',
+      platform: '快達票 HK Ticketing',
+      ticketUrl: 'https://www.hkticketing.com/',
+      isMacau: false,
+      isHot: true,
+      prioritySales: [
+        { stage: '中銀銀聯信用卡優先', date: '2026-09-18', time: '上午 10:00' },
+        { stage: '港澳及內地銀聯卡優先', date: '2026-09-19', time: '待公佈' }
+      ],
+      icon: 'fa-music',
+      iconColor: 'magenta'
+    },
+    {
+      id: 'bigbang-2026',
+      name: 'BIGBANG WORLD TOUR〈XX : COSMOS〉',
+      date: '2026年11月13日 – 11月17日（共4場）',
+      venue: '啟德體育園主場館',
+      price: 'HK$3,099（VIP企位）/ 坐位 $699 起',
+      publicSaleDate: '2026-09-29',
+      publicSaleTime: '下午 4:00',
+      platform: '快達票 HK Ticketing',
+      ticketUrl: 'https://www.hkticketing.com/',
+      isMacau: false,
+      isHot: true,
+      prioritySales: [
+        { stage: 'V.I.P Fan Club 優先預售', date: '2026-09-28', time: '上午 10:00 – 晚上 23:59' },
+        { stage: 'TME 音樂平台優先預售', date: '2026-09-29', time: '上午 10:00 – 下午 13:59' },
+        { stage: '旅遊平台優先預售', date: '2026-09-29', time: '下午 14:00 – 15:59' }
+      ],
+      icon: 'fa-star',
+      iconColor: 'purple'
+    },
+    {
+      id: 'aaron-2026',
+      name: '郭富城 ICONIC MOMENT 啟德跨年演唱會',
+      date: '2026年12月31日 – 2027年1月1日',
+      venue: '啟德體育園主場館',
+      price: 'HK$1,680 / $1,380 / $1,180 / $980 / $680 / $480',
+      publicSaleDate: '2026-10-14',
+      publicSaleTime: '上午 10:00',
+      platform: '快達票 HK Ticketing',
+      ticketUrl: 'https://www.hkticketing.com/',
+      isMacau: false,
+      isHot: true,
+      prioritySales: [
+        { stage: '滙豐Mastercard優先（第一輪）', date: '2026-10-09', time: '上午 10:00 – 晚上 23:59' },
+        { stage: '滙豐Mastercard優先（第二輪）', date: '2026-10-10', time: '上午 10:00 – 晚上 23:59' },
+        { stage: 'Klook 獨家套票預售', date: '2026-10-12', time: '中午 12:00 – 10月13日 23:59' }
       ],
       icon: 'fa-trophy',
       iconColor: 'green'
     },
+
+    /* ---------- URBTIX（3 場） ---------- */
     {
-      id: 'txt-macau-2026',
-      name: 'TOMORROW X TOGETHER WORLD TOUR 澳門站',
-      date: '2026年11月21日 – 11月22日',
-      venue: '銀河綜藝館',
-      price: '待公佈',
-      publicSaleDate: '2026-09-22',
-      publicSaleTime: '下午 2:00',
-      platform: '銀河票務',
-      ticketUrl: 'https://www.galaxyticketing.com/hant/#/home',
-      isMacau: true,
+      id: 'janice-2026',
+      name: '衛蘭 Janice《OUT OF FRAME》世界巡迴演唱會',
+      date: '2026年11月14日、15日、17日',
+      venue: '紅磡香港體育館',
+      price: 'HK$1,180 / $880 / $580',
+      publicSaleDate: '2026-10-08',
+      publicSaleTime: '待公佈',
+      platform: 'URBTIX',
+      ticketUrl: 'https://www.urbtix.hk/',
+      isMacau: false,
       isHot: true,
       prioritySales: [
-        { stage: 'MOA MEMBERSHIP 預售（GLOBAL ONLY）', date: '2026-09-21', time: '待公佈' }
+        { stage: '建行(亞洲)信用卡優先（第一輪）', date: '2026-09-28', time: '中午 12:00 – 晚上 20:00' },
+        { stage: '建行(亞洲)信用卡優先（第二輪）', date: '2026-09-29', time: '中午 12:00 – 9月30日 20:00' },
+        { stage: 'Klook 優先購票', date: '2026-09-30', time: '待公佈' }
       ],
-      icon: 'fa-fire',
-      iconColor: 'purple'
-    },
-    {
-      id: 'yesung-macau-2026',
-      name: '藝聲 YESUNG 10TH ANNIVERSARY TOUR 澳門站',
-      date: '2026年11月14日 – 11月15日（共2場）',
-      venue: '澳門百老匯劇院',
-      price: 'VIP（含Sound Check）MOP$1,699 / CAT 1 $1,199 / CAT 2 $899',
-      publicSaleDate: '2026-09-29',
-      publicSaleTime: '中午 12:00',
-      platform: '銀河票務、大麥、FANTOPIA',
-      ticketUrl: 'https://www.galaxyticketing.com/hant/#/home',
-      isMacau: true,
-      isHot: false,
-      prioritySales: [
-        { stage: 'E.L.F. 會員優先', date: '2026-09-28', time: '中午 12:00 – 晚上 19:00' }
-      ],
-      icon: 'fa-star',
+      icon: 'fa-globe',
       iconColor: 'green'
     },
     {
@@ -1452,137 +1389,73 @@
       iconColor: 'green'
     },
     {
-      id: 'kard-2026',
-      name: 'KARD 2026 WORLD TOUR [NOW HERE] in HONG KONG',
-      date: '2026年12月19日（星期六）',
-      venue: '麥花臣場館',
-      price: 'VIP $1,680 / A區 $1,480 / B區 $880',
-      publicSaleDate: '2026-10-06',
-      publicSaleTime: '中午 12:00',
-      platform: '貓眼',
-      ticketUrl: 'https://www.maoyan.com/',
+      id: 'andy-2026',
+      name: '劉德華《About Life》巡迴演唱會香港站',
+      date: '2026年12月18日 – 2027年1月10日（共20場）',
+      venue: '紅磡香港體育館',
+      price: 'HK$1,380 / $980 / $680',
+      publicSaleDate: '2026-10-15',
+      publicSaleTime: '待公佈',
+      platform: 'URBTIX',
+      ticketUrl: 'https://www.urbtix.hk/',
       isMacau: false,
-      isHot: false,
-      prioritySales: [],
-      icon: 'fa-fire',
-      iconColor: 'magenta'
-    },
-    {
-      id: 'supper-moment-macau-2026',
-      name: 'Supper Moment「謝謝你啊世界」演唱會 澳門限定版',
-      date: '2026年11月21日（星期六）',
-      venue: '威尼斯人綜藝館',
-      price: 'HKD/MOP $1,080 / $1,080(站位) / $880 / $680 / $480',
-      publicSaleDate: '2026-09-29',
-      publicSaleTime: '下午 3:00',
-      platform: '澳門售票網、金光票務',
-      ticketUrl: 'https://www.macauticket.com/',
-      isMacau: true,
-      isHot: false,
-      prioritySales: [],
-      icon: 'fa-music',
-      iconColor: 'green'
-    },
-    {
-      id: 'wang-wan-chi-2026',
-      name: '王菀之《話・說》藝術展音樂會 香港站',
-      date: '2026年12月4日 – 12月13日',
-      venue: '西九文化區 自由空間 留白 Livehouse',
-      price: 'HK$780 起（全企位）',
-      publicSaleDate: '2026-09-23',
-      publicSaleTime: '上午 10:00',
-      platform: 'Cityline',
-      ticketUrl: 'https://www.cityline.com/',
-      isMacau: false,
-      isHot: false,
-      prioritySales: [],
+      isHot: true,
+      prioritySales: [
+        { stage: '恒生Mastercard優先購票', date: '2026-09-21', time: '中午 12:00 起' },
+        { stage: 'Klook 獨家套票預售', date: '2026-09-23', time: '中午 12:00 起' },
+        { stage: 'URBTIX 網上抽籤登記', date: '2026-09-28 – 2026-09-30', time: '10:00 – 20:00' }
+      ],
       icon: 'fa-star',
       iconColor: 'purple'
     },
+
+    /* ---------- FANTOPIA（1 場，澳門） ---------- */
     {
-      id: 'zhang-mingmin-2026',
-      name: '張明敏《我的中國心》演唱會',
-      date: '2026年11月28日（星期六）',
-      venue: '啟德體藝館·競技場',
-      price: 'HK$1,888 / $1,380 / $980 / $680 / $480',
-      publicSaleDate: '2026-09-22',
+      id: 'yesung-macau-2026',
+      name: '藝聲 YESUNG 10TH ANNIVERSARY TOUR 澳門站',
+      date: '2026年11月14日 – 11月15日（共2場）',
+      venue: '澳門百老匯劇院',
+      price: 'VIP（含Sound Check）MOP$1,699 / CAT 1 $1,199 / CAT 2 $899',
+      publicSaleDate: '2026-09-29',
       publicSaleTime: '中午 12:00',
-      platform: '快達票 HK Ticketing、大麥',
-      ticketUrl: 'https://www.hkticketing.com/',
-      isMacau: false,
+      platform: 'FANTOPIA',
+      ticketUrl: 'https://www.fantopia.io/',
+      isMacau: true,
       isHot: false,
-      prioritySales: [],
-      icon: 'fa-trophy',
+      prioritySales: [
+        { stage: 'E.L.F. 會員優先', date: '2026-09-28', time: '中午 12:00 – 晚上 19:00' }
+      ],
+      icon: 'fa-star',
       iconColor: 'green'
     },
+
+    /* ---------- Klook（1 場，澳門套票） ---------- */
     {
-      id: 'plave-macau-2026',
-      name: 'PLAVE 2026 WORLD TOUR [KEEP IT MANIC] in MACAO',
-      date: '2026年10月31日 – 11月1日',
-      venue: '倫敦人綜藝館',
-      price: 'HKD/MOP $1,899 / $1,399 / $999',
+      id: 'mc-macau-2026',
+      name: 'MC張天賦《E=MC² 演唱會 2026》澳門站',
+      date: '2026年11月27日 – 11月28日（共2場）',
+      venue: '銀河綜藝館',
+      price: 'HKD/MOP $1,588 / $1,288 / $888 / $688',
       publicSaleDate: '2026-10-07',
-      publicSaleTime: '下午 3:00',
-      platform: '金光票務、大麥網',
-      ticketUrl: 'https://www.cotaiticketing.com/',
+      publicSaleTime: '下午 1:00',
+      platform: 'Klook、Cityline',
+      ticketUrl: 'https://www.klook.com/',
       isMacau: true,
       isHot: true,
-      prioritySales: [],
+      prioritySales: [
+        { stage: 'Klook 優先套票預售', date: '2026-09-30', time: '上午 11:00' },
+        { stage: 'Cityline 優先購票', date: '2026-10-05', time: '中午 12:00' }
+      ],
       icon: 'fa-fire',
-      iconColor: 'purple'
-    },
-    {
-      id: 'eunhyuk-macau-2026',
-      name: '銀赫 EUNHYUK PRE-DEBUT FANCON ‘be: WARE OF THE RABBIT’ in MACAO',
-      date: '2026年10月31日 – 11月1日',
-      venue: '澳門倫敦人，倫敦人劇場',
-      price: 'MOP/HKD $1,699 / $1,199 / $899',
-      publicSaleDate: '2026-09-25',
-      publicSaleTime: '中午 12:00',
-      platform: 'Trip.com、金光票務網、大麥、攜程',
-      ticketUrl: 'https://www.cotaiticketing.com/',
-      isMacau: true,
-      isHot: false,
-      prioritySales: [],
-      icon: 'fa-star',
-      iconColor: 'green'
-    },
-    {
-      id: 'omegax-macau-2026',
-      name: '2026 OMEGA X ASIA TOUR [BEYOND] IN MACAU',
-      date: '2026年12月5日（星期六）',
-      venue: 'G Box',
-      price: 'MOP/HKD $1,588 / $1,288 / $888',
-      publicSaleDate: '2026-09-14',
-      publicSaleTime: '中午 12:00',
-      platform: '銀河票務、大麥、Cityline',
-      ticketUrl: 'https://www.galaxyticketing.com/',
-      isMacau: true,
-      isHot: false,
-      prioritySales: [],
-      icon: 'fa-music',
       iconColor: 'magenta'
-    },
-    {
-      id: 'icyball-macau-2026',
-      name: 'icyball 冰球樂團《我很抱歉》澳門演唱會',
-      date: '2026年12月26日（星期六）',
-      venue: '澳門倫敦人劇場',
-      price: 'VIP $780 / A區 $680 / B區 $580',
-      publicSaleDate: '2026-09-18',
-      publicSaleTime: '中午 12:00',
-      platform: '金光票務、澳門售票網、大麥網、貓眼、uutix、攜程、MPAY',
-      ticketUrl: 'https://www.cotaiticketing.com/',
-      isMacau: true,
-      isHot: false,
-      prioritySales: [],
-      icon: 'fa-ticket',
-      iconColor: 'purple'
     }
+
   ];
 
   /* ==========================================================
      以上為備用資料，JSON 成功時會以 JSON 回傳資料為準
+     共 12 場 · 六大平台：Cityline 3 / KKTIX 1 / HKTICKETING 3
+                    / URBTIX 3 / FANTOPIA 1 / Klook 1
      ========================================================== */
 
   var grid         = document.getElementById('showsGrid');
@@ -1663,11 +1536,6 @@
       if (host.indexOf('urbtix') !== -1)      return 'URBTIX 官網';
       if (host.indexOf('fantopia') !== -1)    return 'FANTOPIA 官網';
       if (host.indexOf('klook') !== -1)       return 'Klook 官網';
-      if (host.indexOf('damai') !== -1)       return '大麥網';
-      if (host.indexOf('maoyan') !== -1)      return '貓眼';
-      if (host.indexOf('macauticket') !== -1) return '澳門售票網';
-      if (host.indexOf('galaxyticketing') !== -1) return '銀河票務官網';
-      if (host.indexOf('cotaiticketing') !== -1) return '金光票務官網';
       return host;
     } catch (e) {
       return '官方購票平台';
