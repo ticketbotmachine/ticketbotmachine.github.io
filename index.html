@@ -2,9 +2,22 @@
 <html lang="zh-HK">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>ticketkiller · 極速搶票｜按場次收費 · 6 台設備不限次數</title>
 <meta name="description" content="ticketkiller — 覆蓋 Cityline、KKTIX、HKTICKETING、URBTIX、FANTOPIA、Klook 六大平台。按演唱會場次購買使用權，一個場次可綁定 6 台設備，不限搶飛次數。">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="ticketkiller">
+<meta property="og:title" content="ticketkiller · 極速搶票｜按場次收費 · 6 台設備不限次數">
+<meta property="og:description" content="覆蓋 Cityline、KKTIX、HKTICKETING、URBTIX、FANTOPIA、Klook 六大平台。按場次收費，一個場次 6 台設備，不限搶飛次數。">
+<meta property="og:url" content="https://ticketkiller.com/">
+<meta property="og:image" content="https://ticketkiller.com/og-image.png">
+<meta property="og:locale" content="zh_HK">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ticketkiller · 極速搶票">
+<meta name="twitter:description" content="六大平台全覆蓋，按場次收費，6 台設備不限次數。">
+<meta name="twitter:image" content="https://ticketkiller.com/og-image.png">
+
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
   tailwind.config = {
@@ -30,8 +43,10 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
 <style>
   *{box-sizing:border-box}
-  html{scroll-behavior:smooth}
-  body{background:#130917;color:#f5e9f2;font-family:'Inter',system-ui,-apple-system,sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;text-size-adjust:100%;overflow-x:hidden;scroll-padding-top:80px}
+  body{background:#130917;color:#f5e9f2;font-family:'Inter',system-ui,-apple-system,sans-serif;overflow-x:hidden;width:100%;max-width:100%;-webkit-font-smoothing:antialiased}
+  img,svg,video,canvas{max-width:100%}
+
   .text-gradient{background:linear-gradient(135deg,#FF4D9D,#B388FF,#FFD54F);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
   .glass-deep{background:rgba(19,9,23,.68);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(255,143,184,.08)}
   .glow-border{border:1px solid rgba(255,77,157,.18);transition:border-color .4s,box-shadow .4s,transform .3s cubic-bezier(.2,0,0,1)}
@@ -48,6 +63,7 @@
   .card-hover:hover{transform:translateY(-10px);box-shadow:0 30px 60px -20px rgba(255,77,157,.25)}
   .pricing-popular{position:relative;border:2px solid #B388FF;transform:scale(1.02);box-shadow:0 0 60px rgba(179,136,255,.2)}
   .pricing-popular::before{content:'⚡ 最受歡迎';position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#FF4D9D,#B388FF,#FFD54F);color:#fff;padding:2px 22px;border-radius:40px;font-size:13px;font-weight:700;letter-spacing:.5px;white-space:nowrap;box-shadow:0 8px 24px rgba(255,77,157,.4)}
+
   .speed-line{position:absolute;height:2px;background:linear-gradient(90deg,transparent,rgba(255,77,157,.5),rgba(255,213,79,.4),transparent);animation:speedLine 8s linear infinite}
   .speed-line:nth-child(1){top:15%;left:-10%;width:30%;animation-delay:0s}
   .speed-line:nth-child(2){top:45%;right:-5%;width:25%;animation-delay:2s}
@@ -78,6 +94,7 @@
   .step-card::after{content:'\f105';font-family:FontAwesome;position:absolute;right:-18px;top:38px;color:rgba(255,143,184,.5);font-size:22px}
   .step-card:last-child::after{display:none}
   @media(max-width:1023px){.step-card::after{display:none}}
+
   .timeline-item{position:relative;padding-left:28px;padding-bottom:30px;border-left:2px solid rgba(255,77,157,.2)}
   .timeline-item:last-child{border-left:2px solid transparent;padding-bottom:0}
   .timeline-item::before{content:'';position:absolute;left:-7px;top:6px;width:12px;height:12px;border-radius:50%;background:linear-gradient(135deg,#FF4D9D,#FFD54F);box-shadow:0 0 24px rgba(255,77,157,.6)}
@@ -88,51 +105,66 @@
   .tag-opt{background:rgba(255,77,157,.16);color:#FF9DC8;border:1px solid rgba(255,77,157,.35)}
   .tag-hot{background:rgba(255,120,120,.16);color:#FF9F9F;border:1px solid rgba(255,120,120,.35)}
   .tag-macau{background:rgba(140,180,255,.14);color:#A8C4FF;border:1px solid rgba(140,180,255,.3)}
+  .tag-live{background:linear-gradient(135deg,#FF4D9D,#FFD54F);color:#1a0f1e;border:1px solid rgba(255,255,255,.5);animation:blinkBuy 1.15s ease-in-out infinite}
   .logo-icon{transition:transform .4s cubic-bezier(.34,1.56,.64,1),filter .4s;display:inline-flex}
   .logo-icon:hover{transform:rotate(-4deg) scale(1.04);filter:drop-shadow(0 0 40px rgba(255,77,157,.35))}
   #navInner{transition:padding .3s ease,background .3s ease,box-shadow .3s ease}
   .nav-shrink{padding-top:.5rem!important;padding-bottom:.5rem!important;background:rgba(19,9,23,.95)!important;box-shadow:0 10px 40px -20px rgba(255,77,157,.5)}
-  .wa-btn{background:linear-gradient(135deg,#25D366,#128C7E);box-shadow:0 10px 34px rgba(37,211,102,.28);transition:all .3s cubic-bezier(.2,0,0,1)}
-  .wa-btn:hover{transform:translateY(-3px) scale(1.03);box-shadow:0 16px 46px rgba(37,211,102,.45)}
-  .wa-float{background:linear-gradient(135deg,#25D366,#128C7E);box-shadow:0 8px 30px rgba(37,211,102,.4);transition:transform .3s cubic-bezier(.34,1.56,.64,1)}
-  .wa-float:hover{transform:scale(1.12) rotate(-6deg)}
-  .wa-float::before{content:'';position:absolute;inset:0;border-radius:9999px;background:rgba(37,211,102,.5);animation:waPulse 2.2s ease-out infinite;z-index:-1}
-  @keyframes waPulse{0%{transform:scale(1);opacity:.7}100%{transform:scale(1.8);opacity:0}}
+
+  .tg-btn{background:linear-gradient(135deg,#2AABEE,#1E8BC3);box-shadow:0 10px 34px rgba(42,171,238,.28);transition:all .3s cubic-bezier(.2,0,0,1)}
+  .tg-btn:hover{transform:translateY(-3px) scale(1.03);box-shadow:0 16px 46px rgba(42,171,238,.5)}
+  .contact-fab{background:linear-gradient(135deg,#2AABEE,#B388FF,#FF4D9D);box-shadow:0 8px 30px rgba(42,171,238,.45);transition:transform .3s cubic-bezier(.34,1.56,.64,1),box-shadow .3s,background .3s}
+  .contact-fab:hover{transform:scale(1.12) rotate(-6deg);box-shadow:0 14px 40px rgba(42,171,238,.6)}
+  .contact-fab.active{background:linear-gradient(135deg,#FF4D9D,#B388FF)}
+  .contact-fab::before{content:'';position:absolute;inset:0;border-radius:9999px;background:rgba(42,171,238,.4);animation:contactPulse 2.4s ease-out infinite;z-index:-1}
+  @keyframes contactPulse{0%{transform:scale(1);opacity:.6}100%{transform:scale(1.7);opacity:0}}
+
+  @keyframes blinkBuy{0%,100%{box-shadow:0 0 0 0 rgba(255,213,79,.55);transform:scale(1);filter:brightness(1)}50%{box-shadow:0 0 26px 8px rgba(255,213,79,.5);transform:scale(1.035);filter:brightness(1.35)}}
+  .blink-buy{animation:blinkBuy 1.15s ease-in-out infinite;border-color:#FFD54F!important;background:rgba(255,213,79,.24)!important;color:#fff!important;font-weight:800}
+  .tag-today{background:linear-gradient(135deg,#FF4D9D,#FFD54F);color:#1a0f1e;border:1px solid rgba(255,255,255,.5);animation:blinkBuy 1.15s ease-in-out infinite}
+  .sale-row.today-row .stage{color:#FFE082!important}
+  .sale-row.today-row .dot{background:#FFD54F!important;box-shadow:0 0 12px rgba(255,213,79,.9)!important;animation:dotPulse 1.2s ease-in-out infinite}
+  .sale-row.live-row{background:rgba(255,213,79,.08);border-radius:6px;padding-left:6px;padding-right:6px}
+  .countdown-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,213,79,.12);border:1px solid rgba(255,213,79,.35);color:#FFE082;font-size:12px;font-weight:700;padding:4px 12px;border-radius:20px;letter-spacing:.3px}
+  .countdown-badge i{font-size:11px}
+  .ics-btn{font-size:11px;padding:3px 10px;border-radius:20px;background:rgba(179,136,255,.12);border:1px solid rgba(179,136,255,.3);color:#D3B8FF;transition:all .25s}
+  .ics-btn:hover{background:rgba(179,136,255,.24);color:#fff}
+
   .js .reveal{opacity:0;transform:translateY(28px);transition:opacity .75s cubic-bezier(.2,0,0,1),transform .75s cubic-bezier(.2,0,0,1)}
   .js .reveal.visible{opacity:1;transform:none}
+
   ::-webkit-scrollbar{width:6px}
   ::-webkit-scrollbar-track{background:#130917}
   ::-webkit-scrollbar-thumb{background:linear-gradient(180deg,#FF4D9D,#B388FF);border-radius:10px}
   .text-shadow-dark{text-shadow:0 4px 30px rgba(0,0,0,.6)}
+
   .skeleton{background:linear-gradient(90deg,rgba(255,143,184,.05) 25%,rgba(255,77,157,.16) 37%,rgba(255,143,184,.05) 63%);background-size:400% 100%;animation:skeletonShine 1.4s ease infinite}
   @keyframes skeletonShine{0%{background-position:100% 50%}100%{background-position:0 50%}}
+
   .source-badge{display:inline-flex;align-items:center;gap:6px;font-size:11px;padding:3px 12px;border-radius:20px;font-weight:600;letter-spacing:.3px}
   .source-live{background:rgba(255,213,79,.12);color:#FFE082;border:1px solid rgba(255,213,79,.35)}
   .source-cache{background:rgba(255,150,120,.12);color:#FFB59B;border:1px solid rgba(255,150,120,.3)}
   .source-fallback{background:rgba(255,77,157,.12);color:#FF9DC8;border:1px solid rgba(255,77,157,.35)}
   .source-dot{width:6px;height:6px;border-radius:50%;background:currentColor;animation:dotPulse 1.6s ease-in-out infinite}
   @keyframes dotPulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.7)}}
+
   .sale-timeline{max-height:0;overflow:hidden;transition:max-height .45s cubic-bezier(.2,0,0,1),opacity .35s ease;opacity:0}
-  .sale-timeline.open{max-height:600px;opacity:1}
+  .sale-timeline.open{max-height:1200px;opacity:1}
   .sale-timeline-inner{padding:12px 0 4px;border-top:1px dashed rgba(255,77,157,.3);margin-top:10px}
-  .sale-row{display:flex;align-items:flex-start;gap:8px;padding:5px 0;font-size:12px;color:#C9A8C0;line-height:1.5}
+  .sale-row{display:flex;align-items:flex-start;gap:8px;padding:5px 6px;font-size:12px;color:#C9A8C0;line-height:1.5;border-radius:6px}
   .sale-row .dot{flex-shrink:0;width:6px;height:6px;border-radius:50%;margin-top:5px;background:rgba(255,77,157,.6)}
   .sale-row .dot.public{background:#FF4D9D;box-shadow:0 0 8px rgba(255,77,157,.8)}
   .sale-row .dot.priority{background:#FFD54F;box-shadow:0 0 8px rgba(255,213,79,.7)}
-  .sale-row .stage{color:#F5D9EC;font-weight:600;min-width:70px}
+  .sale-row .stage{color:#F5D9EC;font-weight:600;min-width:78px}
   .toggle-sale{display:inline-flex;align-items:center;gap:4px;font-size:12px;color:#FF9DC8;cursor:pointer;background:none;border:none;padding:4px 0;transition:color .3s}
   .toggle-sale:hover{color:#FFD54F}
   .toggle-sale i{transition:transform .3s}
   .toggle-sale.open i{transform:rotate(180deg)}
+
   .joy-glow{position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none}
   .lang-toggle{display:inline-flex;align-items:center;justify-content:center;gap:4px;font-weight:700;letter-spacing:.5px;cursor:pointer}
   .lang-toggle i{font-size:15px}
 
-  .contact-fab{background:linear-gradient(135deg,#12B7F5,#B388FF,#FF4D9D);box-shadow:0 8px 30px rgba(179,136,255,.45);transition:transform .3s cubic-bezier(.34,1.56,.64,1),box-shadow .3s,background .3s}
-  .contact-fab:hover{transform:scale(1.12) rotate(-6deg);box-shadow:0 14px 40px rgba(179,136,255,.6)}
-  .contact-fab.active{background:linear-gradient(135deg,#FF4D9D,#B388FF)}
-  .contact-fab::before{content:'';position:absolute;inset:0;border-radius:9999px;background:rgba(179,136,255,.4);animation:contactPulse 2.4s ease-out infinite;z-index:-1}
-  @keyframes contactPulse{0%{transform:scale(1);opacity:.6}100%{transform:scale(1.7);opacity:0}}
   .contact-panel{opacity:0;transform:translateY(18px) scale(.95);pointer-events:none;transition:opacity .3s cubic-bezier(.2,0,0,1),transform .3s cubic-bezier(.2,0,0,1)}
   .contact-panel.open{opacity:1;transform:translateY(0) scale(1);pointer-events:auto}
   .contact-item{transition:background .3s,border-color .3s,transform .25s cubic-bezier(.2,0,0,1)}
@@ -141,16 +173,77 @@
   .contact-copy:active{transform:scale(.96)}
   .contact-send{transition:transform .25s cubic-bezier(.2,0,0,1),filter .25s,box-shadow .25s}
   .contact-send:hover{transform:translateY(-2px) scale(1.01);filter:brightness(1.08)}
-  .contact-send:active{transform:scale(.98)}
   .tk-toast{position:fixed;left:50%;bottom:5.5rem;transform:translate(-50%,16px);background:rgba(19,9,23,.97);border:1px solid rgba(255,77,157,.45);color:#fff;padding:10px 24px;border-radius:999px;font-size:13px;font-weight:600;z-index:9999;opacity:0;transition:opacity .3s ease,transform .3s ease;pointer-events:none;box-shadow:0 10px 40px rgba(255,77,157,.35);max-width:90vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   .tk-toast.show{opacity:1;transform:translate(-50%,0)}
   .contact-panel input:focus,.contact-panel textarea:focus{border-color:rgba(255,77,157,.5);outline:none}
   .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
-  @media(max-width:640px){
-    .contact-panel{left:1rem!important;right:1rem!important;width:auto!important;max-height:calc(100vh - 17rem);overflow-y:auto}
+
+  .wall-card{transition:transform .35s cubic-bezier(.2,0,0,1),border-color .35s,box-shadow .35s}
+  .wall-card:hover{transform:translateY(-5px);border-color:rgba(255,77,157,.4);box-shadow:0 22px 50px -22px rgba(255,77,157,.4)}
+  .wall-like{cursor:pointer;transition:color .2s,transform .2s;background:none;border:none;padding:0}
+  .wall-like:active{transform:scale(.9)}
+  .wall-like.liked{color:#FF4D9D}
+  .wall-like.liked i{transform:scale(1.1)}
+  #wallForm input,#wallForm select,#wallForm textarea{background:rgba(0,0,0,.25);border:1px solid rgba(255,255,255,.1);border-radius:.6rem;padding:.6rem .8rem;font-size:.875rem;color:#fff;width:100%;transition:border-color .25s}
+  #wallForm input::placeholder,#wallForm textarea::placeholder{color:rgba(255,194,220,.4)}
+  #wallForm input:focus,#wallForm select:focus,#wallForm textarea:focus{border-color:rgba(255,77,157,.55);outline:none}
+  #wallForm select option{background:#1c0f22;color:#fff}
+  .demo-banner{background:linear-gradient(135deg,rgba(255,213,79,.12),rgba(179,136,255,.10));border:1px dashed rgba(255,213,79,.4);border-radius:12px;padding:10px 16px;font-size:12px;color:#FFE082;text-align:center}
+
+  .online-dot{width:8px;height:8px;border-radius:50%;background:#22c55e;box-shadow:0 0 8px #22c55e;display:inline-block;animation:dotPulse 1.6s ease-in-out infinite}
+  .offline-dot{width:8px;height:8px;border-radius:50%;background:#94a3b8;display:inline-block}
+
+  :focus-visible{outline:2px solid #FF4D9D;outline-offset:2px;border-radius:4px}
+  button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px solid #FF4D9D;outline-offset:2px}
+
+  @media (max-width:1023px){section.py-24{padding-top:4.5rem;padding-bottom:4.5rem}}
+  @media (max-width:768px){
+    section.py-24{padding-top:3.25rem!important;padding-bottom:3.25rem!important}
+    section.py-20{padding-top:2.75rem!important;padding-bottom:2.75rem!important}
+    section.px-6{padding-left:1rem!important;padding-right:1rem!important}
+    footer.py-12{padding-top:2.5rem!important;padding-bottom:2.5rem!important}
+    footer.px-6{padding-left:1rem!important;padding-right:1rem!important}
+    #top{min-height:auto}
+    #top > .container{padding-top:5.5rem!important;padding-bottom:3.5rem!important;padding-left:1rem!important;padding-right:1rem!important}
+    #top h1{font-size:clamp(2rem,9.5vw,2.75rem)!important;line-height:1.16;margin-bottom:1.25rem}
+    #top p{font-size:.95rem!important;line-height:1.65;margin-bottom:1.5rem}
+    #top > .absolute.bottom-10{display:none}
+    .btn-primary,.btn-secondary,.btn-official,.tg-btn{display:block;width:100%;max-width:22rem;margin-left:auto;margin-right:auto;text-align:center;padding-left:1rem!important;padding-right:1rem!important;padding-top:.85rem!important;padding-bottom:.85rem!important;font-size:.95rem!important}
+    .glass-deep.p-8{padding:1.35rem!important}
+    .glass-deep.p-7{padding:1.25rem!important}
+    .glass-deep.p-6{padding:1.1rem!important}
+    .rounded-3xl.p-12,.rounded-3xl.p-10,.rounded-3xl.p-8{padding:1.35rem!important}
+    #showsGrid .p-6{padding:1.1rem!important}
+    #showsGrid h4{font-size:1rem!important}
+    #showsGrid ul{font-size:.82rem!important}
+    .sale-row{font-size:11.5px}
+    .sale-row .stage{min-width:auto}
+    .pricing-popular{transform:none;margin-top:1rem}
+    .pricing-popular::before{font-size:12px;padding:2px 18px;top:-13px}
+    #navInner{padding-left:1rem!important;padding-right:1rem!important}
+    #contactFab{right:1rem!important;bottom:1rem!important;width:3.25rem!important;height:3.25rem!important}
+    #backToTop{right:1rem!important;bottom:5rem!important;width:2.75rem!important;height:2.75rem!important}
+    .contact-panel{left:1rem!important;right:1rem!important;width:auto!important;max-width:none!important;bottom:5.5rem!important;max-height:calc(100svh - 8rem);overflow-y:auto;-webkit-overflow-scrolling:touch}
+    .contact-panel input,.contact-panel textarea{font-size:16px!important;padding-top:.6rem!important;padding-bottom:.6rem!important}
+    .contact-panel .contact-copy,.contact-panel .contact-send,.contact-panel a{font-size:12.5px}
+    .timeline-item{padding-left:20px}
+    .timeline-item::before{left:-7px;width:12px;height:12px}
+    .tk-toast{bottom:6rem;font-size:12.5px;padding:9px 18px;max-width:92vw}
+    .card-hover:hover,.glow-border:hover,.platform-card:hover{transform:none;box-shadow:none}
+    .contact-item:hover{transform:none}
+    .wall-card:hover{transform:none;box-shadow:none}
+  }
+  @media (max-width:360px){
+    #top h1{font-size:1.85rem!important}
+    section.px-6{padding-left:.75rem!important;padding-right:.75rem!important}
+    .glass-deep.p-8,.glass-deep.p-7,.glass-deep.p-6{padding:.9rem!important}
+    .rounded-3xl.p-12,.rounded-3xl.p-10,.rounded-3xl.p-8{padding:1rem!important}
+    #showsGrid .p-6{padding:.9rem!important}
   }
   @media (prefers-reduced-motion: reduce){
-    .contact-fab::before{animation:none}
+    .contact-fab::before,.particle,.speed-line,.star-dust{animation:none!important}
+    .blink-buy,.tag-today,.tag-live{animation:none!important;box-shadow:0 0 18px rgba(255,213,79,.4)!important}
+    .js .reveal{transition:none;opacity:1;transform:none}
   }
 </style>
 </head>
@@ -190,12 +283,13 @@
         </svg>
       </a>
 
-      <nav class="hidden md:flex items-center space-x-8 text-sm font-medium">
+      <nav class="hidden md:flex items-center space-x-7 text-sm font-medium">
         <a href="#shows" class="hover:text-green transition duration-300">場次</a>
         <a href="#platforms" class="hover:text-purple transition duration-300">平台</a>
         <a href="#features" class="hover:text-magenta transition duration-300">功能</a>
         <a href="#workflow" class="hover:text-green transition duration-300">流程</a>
         <a href="#pricing" class="hover:text-purple transition duration-300">收費</a>
+        <a href="#wall" class="hover:text-green transition duration-300">戰績</a>
         <a href="#changelog" class="hover:text-magenta transition duration-300">更新</a>
         <a href="#contact" class="hover:text-green transition duration-300">咨詢</a>
       </nav>
@@ -205,10 +299,10 @@
           <i class="fa fa-language"></i>
           <span id="langLabelText">简</span>
         </button>
-        <a href="#contact" class="btn-secondary text-green font-bold py-2.5 px-5 rounded-full text-sm">
-          <i class="fa fa-whatsapp mr-1.5"></i>WhatsApp
+        <a href="#" data-contact-href="telegramUrl" target="_blank" rel="noopener noreferrer" class="btn-secondary text-green font-bold py-2.5 px-5 rounded-full text-sm">
+          <i class="fa fa-telegram mr-1.5"></i>Telegram
         </a>
-        <a href="https://ticketbot.lanzn.com/i4WYz49rs67c" class="btn-primary text-white font-bold py-2.5 px-7 rounded-full text-sm">
+        <a href="https://ticketbot.lanzn.com/i4WYz49rs67c" target="_blank" rel="noopener noreferrer" class="btn-primary text-white font-bold py-2.5 px-7 rounded-full text-sm">
           立即下載
         </a>
       </div>
@@ -226,15 +320,16 @@
       <a href="#features" class="py-2 hover:text-magenta transition">功能</a>
       <a href="#workflow" class="py-2 hover:text-green transition">流程</a>
       <a href="#pricing" class="py-2 hover:text-purple transition">收費</a>
+      <a href="#wall" class="py-2 hover:text-green transition">成功搶票留言區</a>
       <a href="#changelog" class="py-2 hover:text-magenta transition">更新</a>
       <a href="#contact" class="py-2 hover:text-green transition">咨詢</a>
       <button id="langToggleMobile" data-no-translate class="btn-secondary text-white/90 py-3 rounded-full font-bold">
         <i class="fa fa-language mr-2"></i><span id="langLabelMobile">切換至简体中文</span>
       </button>
-      <a href="https://wa.me/85265432109?text=%E4%BD%A0%E5%A5%BD%EF%BC%8Cticketkiller%20%E6%9F%A5%E8%A9%A2" class="wa-btn text-white text-center py-3 rounded-full font-bold">
-        <i class="fa fa-whatsapp mr-2"></i>WhatsApp 查詢
+      <a href="#" data-contact-href="telegramUrl" target="_blank" rel="noopener noreferrer" class="tg-btn text-white text-center py-3 rounded-full font-bold">
+        <i class="fa fa-telegram mr-2"></i>Telegram 查詢
       </a>
-      <a href="https://ticketbot.lanzn.com/ix3og46ghm5g" class="btn-primary text-white text-center py-3 rounded-full font-bold">立即下載</a>
+      <a href="https://ticketbot.lanzn.com/ix3og46ghm5g" target="_blank" rel="noopener noreferrer" class="btn-primary text-white text-center py-3 rounded-full font-bold">立即下載</a>
     </div>
   </div>
 </header>
@@ -242,20 +337,10 @@
 <!-- ============ 英雄區 ============ -->
 <section id="top" class="relative min-h-screen flex items-center justify-center overflow-hidden">
   <div class="absolute inset-0 z-0 bg-[#130917]">
-    <div class="particle"></div>
-    <div class="particle"></div>
-    <div class="particle"></div>
-    <div class="speed-line"></div>
-    <div class="speed-line"></div>
-    <div class="speed-line"></div>
-    <div class="speed-line"></div>
-    <div class="star-dust"></div>
-    <div class="star-dust"></div>
-    <div class="star-dust"></div>
-    <div class="star-dust"></div>
-    <div class="star-dust"></div>
-    <div class="star-dust"></div>
-    <div class="star-dust"></div>
+    <div class="particle"></div><div class="particle"></div><div class="particle"></div>
+    <div class="speed-line"></div><div class="speed-line"></div><div class="speed-line"></div><div class="speed-line"></div>
+    <div class="star-dust"></div><div class="star-dust"></div><div class="star-dust"></div><div class="star-dust"></div>
+    <div class="star-dust"></div><div class="star-dust"></div><div class="star-dust"></div>
     <div class="absolute inset-0" style="background-image:radial-gradient(rgba(255,77,157,.07) 1px,transparent 1px);background-size:40px 40px;"></div>
   </div>
 
@@ -277,7 +362,7 @@
     </p>
 
     <div class="flex flex-col sm:flex-row justify-center gap-5">
-      <a href="https://ticketbot.lanzn.com/i4WYz49rs67c" class="btn-primary text-white font-bold py-4 px-12 rounded-full text-lg shadow-2xl">
+      <a href="https://ticketbot.lanzn.com/i4WYz49rs67c" target="_blank" rel="noopener noreferrer" class="btn-primary text-white font-bold py-4 px-12 rounded-full text-lg shadow-2xl">
         <i class="fa fa-download mr-2"></i>下載TicketKiller
       </a>
       <a href="#shows" class="btn-secondary text-white/90 font-bold py-4 px-10 rounded-full text-lg">
@@ -307,7 +392,7 @@
       <span class="text-green/85 font-semibold tracking-widest text-sm">LATEST SHOWS</span>
       <h2 class="text-[clamp(2rem,5vw,3.2rem)] font-bold mt-2"><span class="text-gradient">最新演唱會場次及公售日期</span></h2>
       <p class="text-blush/75 max-w-2xl mx-auto text-lg mt-3">
-        每日自動更新 · 已開售場次自動移除 · 附官方購票連結 · 完整搶票時間線
+        每日自動更新 · 已開售場次自動移除 · 附官方購票連結 · <span class="text-green font-bold">全部搶票日期一覽無遺</span>
       </p>
       <p class="text-blush/50 max-w-2xl mx-auto text-sm mt-2">
         🎯 只收錄 ticketkiller 支援的六大平台場次 · 共 <span id="totalCount">—</span> 場
@@ -343,54 +428,20 @@
       </button>
     </div>
 
-    <!-- 載入骨架屏 -->
     <div id="showsLoading" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-      <div class="glass-deep rounded-2xl border border-white/5 overflow-hidden">
-        <div class="p-6">
-          <div class="skeleton h-5 rounded w-4/5"></div>
-          <div class="space-y-3 mt-5">
-            <div class="skeleton h-3 rounded w-full"></div>
-            <div class="skeleton h-3 rounded w-3/4"></div>
-            <div class="skeleton h-3 rounded w-5/6"></div>
-          </div>
-          <div class="skeleton h-10 rounded-full mt-5"></div>
-        </div>
-      </div>
-      <div class="glass-deep rounded-2xl border border-white/5 overflow-hidden hidden md:block">
-        <div class="p-6">
-          <div class="skeleton h-5 rounded w-4/5"></div>
-          <div class="space-y-3 mt-5">
-            <div class="skeleton h-3 rounded w-full"></div>
-            <div class="skeleton h-3 rounded w-3/4"></div>
-          </div>
-          <div class="skeleton h-10 rounded-full mt-5"></div>
-        </div>
-      </div>
-      <div class="glass-deep rounded-2xl border border-white/5 overflow-hidden hidden lg:block">
-        <div class="p-6">
-          <div class="skeleton h-5 rounded w-4/5"></div>
-          <div class="space-y-3 mt-5">
-            <div class="skeleton h-3 rounded w-full"></div>
-            <div class="skeleton h-3 rounded w-3/4"></div>
-          </div>
-          <div class="skeleton h-10 rounded-full mt-5"></div>
-        </div>
-      </div>
+      <div class="glass-deep rounded-2xl border border-white/5 overflow-hidden"><div class="p-6"><div class="skeleton h-5 rounded w-4/5"></div><div class="space-y-3 mt-5"><div class="skeleton h-3 rounded w-full"></div><div class="skeleton h-3 rounded w-3/4"></div><div class="skeleton h-3 rounded w-5/6"></div></div><div class="skeleton h-10 rounded-full mt-5"></div></div></div>
+      <div class="glass-deep rounded-2xl border border-white/5 overflow-hidden hidden md:block"><div class="p-6"><div class="skeleton h-5 rounded w-4/5"></div><div class="space-y-3 mt-5"><div class="skeleton h-3 rounded w-full"></div><div class="skeleton h-3 rounded w-3/4"></div></div><div class="skeleton h-10 rounded-full mt-5"></div></div></div>
+      <div class="glass-deep rounded-2xl border border-white/5 overflow-hidden hidden lg:block"><div class="p-6"><div class="skeleton h-5 rounded w-4/5"></div><div class="space-y-3 mt-5"><div class="skeleton h-3 rounded w-full"></div><div class="skeleton h-3 rounded w-3/4"></div></div><div class="skeleton h-10 rounded-full mt-5"></div></div></div>
     </div>
 
-    <!-- 錯誤提示 -->
     <div id="showsError" class="hidden max-w-2xl mx-auto">
       <div class="glass-deep rounded-2xl p-8 border border-magenta/40 text-center">
         <i class="fa fa-exclamation-triangle text-4xl text-magenta/90"></i>
         <h4 class="text-lg font-bold text-white/95 mt-4">場次資料載入失敗</h4>
         <p id="errorMsg" class="text-blush/70 text-sm mt-2">無法讀取資料，請檢查網絡後重試。</p>
         <div class="flex flex-wrap justify-center gap-3 mt-6">
-          <button id="retryBtn" class="btn-primary text-white font-bold py-2.5 px-7 rounded-full text-sm">
-            <i class="fa fa-refresh mr-2"></i>重新載入
-          </button>
-          <button id="fallbackBtn" class="btn-secondary text-white/90 font-bold py-2.5 px-7 rounded-full text-sm">
-            使用備用資料
-          </button>
+          <button id="retryBtn" class="btn-primary text-white font-bold py-2.5 px-7 rounded-full text-sm"><i class="fa fa-refresh mr-2"></i>重新載入</button>
+          <button id="fallbackBtn" class="btn-secondary text-white/90 font-bold py-2.5 px-7 rounded-full text-sm">使用兜底資料</button>
         </div>
       </div>
     </div>
@@ -405,7 +456,7 @@
     <div class="mt-12 max-w-3xl mx-auto glass-deep rounded-2xl p-6 border border-green/25 text-center reveal">
       <p class="text-blush/80 text-sm">
         <i class="fa fa-info-circle text-green/80 mr-2"></i>
-        以上場次資料每日自動更新，已開售場次會自動移除。實際公售日期及票價以官方公佈為準。「官方購票連結」直達售票平台頁面；「單次購買」則購買 ticketkiller 搶飛權限。
+        以上場次資料每日自動更新，已開售場次會自動移除。實際公售日期及票價以官方公佈為準。所有搶票日期已全部展開；<span class="text-green font-bold">搶票當日</span>「前往官網」按鈕會自動閃動提示。「官方購票連結」直達售票平台頁面；「單次購買」則購買 ticketkiller 搶飛權限。每場附 <span class="text-green font-bold">加入日曆</span> 按鈕。
       </p>
     </div>
   </div>
@@ -420,35 +471,14 @@
       <h2 class="text-[clamp(2rem,5vw,3.2rem)] font-bold mt-2"><span class="text-gradient">六大平台全面覆蓋</span></h2>
       <p class="text-blush/75 max-w-2xl mx-auto text-lg mt-3">一次安裝，全網搶票，買一個場次即可通行六大平台</p>
     </div>
-
     <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 max-w-5xl mx-auto">
-      <div class="glass-deep rounded-2xl p-6 text-center platform-card glow-border reveal">
-        <div class="icon-wrap w-16 h-16 mx-auto rounded-full bg-purple/15 flex items-center justify-center text-3xl text-rose"><i class="fa fa-ticket"></i></div>
-        <h4 class="font-bold text-base mt-4 text-white/95">CITYLINE</h4>
-      </div>
-      <div class="glass-deep rounded-2xl p-6 text-center platform-card glow-border reveal">
-        <div class="icon-wrap w-16 h-16 mx-auto rounded-full bg-magenta/15 flex items-center justify-center text-3xl text-magenta"><i class="fa fa-music"></i></div>
-        <h4 class="font-bold text-base mt-4 text-white/95">KKTIX</h4>
-      </div>
-      <div class="glass-deep rounded-2xl p-6 text-center platform-card glow-border reveal">
-        <div class="icon-wrap w-16 h-16 mx-auto rounded-full bg-green/15 flex items-center justify-center text-3xl text-green"><i class="fa fa-globe"></i></div>
-        <h4 class="font-bold text-base mt-4 text-white/95">HKTICKETING</h4>
-      </div>
-      <div class="glass-deep rounded-2xl p-6 text-center platform-card glow-border reveal">
-        <div class="icon-wrap w-16 h-16 mx-auto rounded-full bg-purple/15 flex items-center justify-center text-3xl text-rose"><i class="fa fa-star"></i></div>
-        <h4 class="font-bold text-base mt-4 text-white/95">URBTIX</h4>
-      </div>
-      <div class="glass-deep rounded-2xl p-6 text-center platform-card glow-border reveal">
-        <div class="icon-wrap w-16 h-16 mx-auto rounded-full bg-magenta/15 flex items-center justify-center text-3xl text-magenta"><i class="fa fa-trophy"></i></div>
-        <h4 class="font-bold text-base mt-4 text-white/95">FANTOPIA</h4>
-      </div>
-      <div class="glass-deep rounded-2xl p-6 text-center platform-card glow-border border-green/35 relative reveal">
-        <span class="absolute top-2 right-2 bg-green/25 text-green text-[10px] px-2 py-0.5 rounded-full font-bold">NEW</span>
-        <div class="icon-wrap w-16 h-16 mx-auto rounded-full bg-green/15 flex items-center justify-center text-3xl text-green"><i class="fa fa-flag"></i></div>
-        <h4 class="font-bold text-base mt-4 text-white/95">Klook</h4>
-      </div>
+      <div class="glass-deep rounded-2xl p-6 text-center platform-card glow-border reveal"><div class="icon-wrap w-16 h-16 mx-auto rounded-full bg-purple/15 flex items-center justify-center text-3xl text-rose"><i class="fa fa-ticket"></i></div><h4 class="font-bold text-base mt-4 text-white/95">CITYLINE</h4></div>
+      <div class="glass-deep rounded-2xl p-6 text-center platform-card glow-border reveal"><div class="icon-wrap w-16 h-16 mx-auto rounded-full bg-magenta/15 flex items-center justify-center text-3xl text-magenta"><i class="fa fa-music"></i></div><h4 class="font-bold text-base mt-4 text-white/95">KKTIX</h4></div>
+      <div class="glass-deep rounded-2xl p-6 text-center platform-card glow-border reveal"><div class="icon-wrap w-16 h-16 mx-auto rounded-full bg-green/15 flex items-center justify-center text-3xl text-green"><i class="fa fa-globe"></i></div><h4 class="font-bold text-base mt-4 text-white/95">HKTICKETING</h4></div>
+      <div class="glass-deep rounded-2xl p-6 text-center platform-card glow-border reveal"><div class="icon-wrap w-16 h-16 mx-auto rounded-full bg-purple/15 flex items-center justify-center text-3xl text-rose"><i class="fa fa-star"></i></div><h4 class="font-bold text-base mt-4 text-white/95">URBTIX</h4></div>
+      <div class="glass-deep rounded-2xl p-6 text-center platform-card glow-border reveal"><div class="icon-wrap w-16 h-16 mx-auto rounded-full bg-magenta/15 flex items-center justify-center text-3xl text-magenta"><i class="fa fa-trophy"></i></div><h4 class="font-bold text-base mt-4 text-white/95">FANTOPIA</h4></div>
+      <div class="glass-deep rounded-2xl p-6 text-center platform-card glow-border border-green/35 relative reveal"><span class="absolute top-2 right-2 bg-green/25 text-green text-[10px] px-2 py-0.5 rounded-full font-bold">NEW</span><div class="icon-wrap w-16 h-16 mx-auto rounded-full bg-green/15 flex items-center justify-center text-3xl text-green"><i class="fa fa-flag"></i></div><h4 class="font-bold text-base mt-4 text-white/95">Klook</h4></div>
     </div>
-
     <div class="mt-16 max-w-3xl mx-auto glass-deep rounded-2xl p-8 border border-purple/20 reveal">
       <div class="flex flex-wrap justify-center gap-x-8 gap-y-4 text-sm text-blush/80">
         <span class="flex items-center"><i class="fa fa-check-circle text-green/90 mr-2"></i> 自動填表</span>
@@ -469,38 +499,13 @@
       <h2 class="text-[clamp(2rem,5vw,3.2rem)] font-bold mt-2"><span class="text-gradient">極速引擎，專業功能</span></h2>
       <p class="text-blush/75 max-w-2xl mx-auto text-lg mt-3">為香港演唱會搶飛場景深度調校</p>
     </div>
-
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
-      <div class="glass-deep rounded-2xl p-7 glow-border card-hover text-center reveal">
-        <i class="fa fa-bolt text-4xl text-rose"></i>
-        <h4 class="text-xl font-bold mt-3 text-white/95">10x 極速刷新</h4>
-        <p class="text-blush/70 text-sm mt-1">排隊時間壓縮至 1 秒內</p>
-      </div>
-      <div class="glass-deep rounded-2xl p-7 glow-border card-hover text-center reveal">
-        <i class="fa fa-cogs text-4xl text-magenta"></i>
-        <h4 class="text-xl font-bold mt-3 text-white/95">自動填表選票</h4>
-        <p class="text-blush/70 text-sm mt-1">票種、數量、日期全自動</p>
-      </div>
-      <div class="glass-deep rounded-2xl p-7 glow-border card-hover text-center reveal">
-        <i class="fa fa-shield text-4xl text-green"></i>
-        <h4 class="text-xl font-bold mt-3 text-white/95">智慧防 Block</h4>
-        <p class="text-blush/70 text-sm mt-1">自動重整，保持連線不被踢</p>
-      </div>
-      <div class="glass-deep rounded-2xl p-7 glow-border card-hover text-center reveal">
-        <i class="fa fa-sliders text-4xl text-rose"></i>
-        <h4 class="text-xl font-bold mt-3 text-white/95">準時進入</h4>
-        <p class="text-blush/70 text-sm mt-1">開賣時搶佔隊列前排</p>
-      </div>
-      <div class="glass-deep rounded-2xl p-7 glow-border card-hover text-center reveal">
-        <i class="fa fa-server text-4xl text-magenta"></i>
-        <h4 class="text-xl font-bold mt-3 text-white/95">多線程並發</h4>
-        <p class="text-blush/70 text-sm mt-1">同時搶多個票檔，命中率翻倍</p>
-      </div>
-      <div class="glass-deep rounded-2xl p-7 glow-border card-hover text-center reveal">
-        <i class="fa fa-bell text-4xl text-green"></i>
-        <h4 class="text-xl font-bold mt-3 text-white/95">自動重試＋即時提醒</h4>
-        <p class="text-blush/70 text-sm mt-1">搶到即彈窗通知，秒速付款</p>
-      </div>
+      <div class="glass-deep rounded-2xl p-7 glow-border card-hover text-center reveal"><i class="fa fa-bolt text-4xl text-rose"></i><h4 class="text-xl font-bold mt-3 text-white/95">10x 極速刷新</h4><p class="text-blush/70 text-sm mt-1">排隊時間壓縮至 1 秒內</p></div>
+      <div class="glass-deep rounded-2xl p-7 glow-border card-hover text-center reveal"><i class="fa fa-cogs text-4xl text-magenta"></i><h4 class="text-xl font-bold mt-3 text-white/95">自動填表選票</h4><p class="text-blush/70 text-sm mt-1">票種、數量、日期全自動</p></div>
+      <div class="glass-deep rounded-2xl p-7 glow-border card-hover text-center reveal"><i class="fa fa-shield text-4xl text-green"></i><h4 class="text-xl font-bold mt-3 text-white/95">智慧防 Block</h4><p class="text-blush/70 text-sm mt-1">自動重整，保持連線不被踢</p></div>
+      <div class="glass-deep rounded-2xl p-7 glow-border card-hover text-center reveal"><i class="fa fa-sliders text-4xl text-rose"></i><h4 class="text-xl font-bold mt-3 text-white/95">準時進入</h4><p class="text-blush/70 text-sm mt-1">開賣時搶佔隊列前排</p></div>
+      <div class="glass-deep rounded-2xl p-7 glow-border card-hover text-center reveal"><i class="fa fa-server text-4xl text-magenta"></i><h4 class="text-xl font-bold mt-3 text-white/95">多線程並發</h4><p class="text-blush/70 text-sm mt-1">同時搶多個票檔，命中率翻倍</p></div>
+      <div class="glass-deep rounded-2xl p-7 glow-border card-hover text-center reveal"><i class="fa fa-bell text-4xl text-green"></i><h4 class="text-xl font-bold mt-3 text-white/95">自動重試＋即時提醒</h4><p class="text-blush/70 text-sm mt-1">搶到即彈窗通知，秒速付款</p></div>
     </div>
   </div>
 </section>
@@ -514,66 +519,31 @@
       <h2 class="text-[clamp(2rem,5vw,3.2rem)] font-bold mt-2"><span class="text-gradient">六步上手，輕鬆搶飛</span></h2>
       <p class="text-blush/75 max-w-2xl mx-auto text-lg mt-3">由購買場次到成功落單，全程最快 5 分鐘完成設定</p>
     </div>
-
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-y-12 gap-x-10 max-w-5xl mx-auto">
-      <div class="step-card text-center reveal">
-        <div class="w-20 h-20 mx-auto rounded-full step-icon flex items-center justify-center text-3xl font-black text-white">1</div>
-        <h4 class="text-xl font-bold mt-5 text-white/95">選擇演唱會場次</h4>
-        <p class="text-blush/70 text-sm mt-1 leading-relaxed">在最新場次區挑選你要搶的<br>演唱會 / 演出場次</p>
-      </div>
-      <div class="step-card text-center reveal">
-        <div class="w-20 h-20 mx-auto rounded-full step-icon flex items-center justify-center text-3xl font-black text-white">2</div>
-        <h4 class="text-xl font-bold mt-5 text-white/95">付款並開通權限</h4>
-        <p class="text-blush/70 text-sm mt-1 leading-relaxed">WhatsApp 確認場次<br>即時發送專屬激活碼</p>
-      </div>
-      <div class="step-card text-center reveal">
-        <div class="w-20 h-20 mx-auto rounded-full step-icon flex items-center justify-center text-3xl font-black text-white">3</div>
-        <h4 class="text-xl font-bold mt-5 text-white/95">下載安裝程式</h4>
-        <p class="text-blush/70 text-sm mt-1 leading-relaxed">Windows / macOS<br>一鍵安裝，無需設定</p>
-      </div>
-      <div class="step-card text-center reveal">
-        <div class="w-20 h-20 mx-auto rounded-full step-icon flex items-center justify-center text-3xl font-black text-white">4</div>
-        <h4 class="text-xl font-bold mt-5 text-white/95">綁定 6 台設備</h4>
-        <p class="text-blush/70 text-sm mt-1 leading-relaxed">一個場次可同時登入<br>最多 6 台裝置並行搶飛</p>
-      </div>
-      <div class="step-card text-center reveal">
-        <div class="w-20 h-20 mx-auto rounded-full step-icon flex items-center justify-center text-3xl font-black text-white">5</div>
-        <h4 class="text-xl font-bold mt-5 text-white/95">設定搶飛參數</h4>
-        <p class="text-blush/70 text-sm mt-1 leading-relaxed">平台、場次、票檔、數量<br>Early Link 一鍵匯入</p>
-      </div>
-      <div class="step-card text-center reveal">
-        <div class="w-20 h-20 mx-auto rounded-full step-icon flex items-center justify-center text-3xl font-black text-white">6</div>
-        <h4 class="text-xl font-bold mt-5 text-white/95">自動搶飛落單</h4>
-        <p class="text-blush/70 text-sm mt-1 leading-relaxed">開賣自動鎖票<br>不限次數，搶到為止</p>
-      </div>
+      <div class="step-card text-center reveal"><div class="w-20 h-20 mx-auto rounded-full step-icon flex items-center justify-center text-3xl font-black text-white">1</div><h4 class="text-xl font-bold mt-5 text-white/95">選擇演唱會場次</h4><p class="text-blush/70 text-sm mt-1 leading-relaxed">在最新場次區挑選你要搶的<br>演唱會 / 演出場次</p></div>
+      <div class="step-card text-center reveal"><div class="w-20 h-20 mx-auto rounded-full step-icon flex items-center justify-center text-3xl font-black text-white">2</div><h4 class="text-xl font-bold mt-5 text-white/95">付款並開通權限</h4><p class="text-blush/70 text-sm mt-1 leading-relaxed">Telegram 確認場次<br>即時發送專屬激活碼</p></div>
+      <div class="step-card text-center reveal"><div class="w-20 h-20 mx-auto rounded-full step-icon flex items-center justify-center text-3xl font-black text-white">3</div><h4 class="text-xl font-bold mt-5 text-white/95">下載安裝程式</h4><p class="text-blush/70 text-sm mt-1 leading-relaxed">Windows / macOS<br>一鍵安裝，無需設定</p></div>
+      <div class="step-card text-center reveal"><div class="w-20 h-20 mx-auto rounded-full step-icon flex items-center justify-center text-3xl font-black text-white">4</div><h4 class="text-xl font-bold mt-5 text-white/95">綁定 6 台設備</h4><p class="text-blush/70 text-sm mt-1 leading-relaxed">一個場次可同時登入<br>最多 6 台裝置並行搶飛</p></div>
+      <div class="step-card text-center reveal"><div class="w-20 h-20 mx-auto rounded-full step-icon flex items-center justify-center text-3xl font-black text-white">5</div><h4 class="text-xl font-bold mt-5 text-white/95">設定搶飛參數</h4><p class="text-blush/70 text-sm mt-1 leading-relaxed">平台、場次、票檔、數量<br>Early Link 一鍵匯入</p></div>
+      <div class="step-card text-center reveal"><div class="w-20 h-20 mx-auto rounded-full step-icon flex items-center justify-center text-3xl font-black text-white">6</div><h4 class="text-xl font-bold mt-5 text-white/95">自動搶飛落單</h4><p class="text-blush/70 text-sm mt-1 leading-relaxed">開賣自動鎖票<br>不限次數，搶到為止</p></div>
     </div>
-
     <div class="mt-16 max-w-3xl mx-auto glass-deep rounded-2xl p-6 border border-green/25 text-center reveal">
-      <p class="text-blush/80 text-sm">
-        <i class="fa fa-info-circle text-green/80 mr-2"></i>
-        首次使用建議提前 <span class="text-white font-bold">24 小時</span> 完成安裝與參數設定，並於開賣前 <span class="text-white font-bold">10 分鐘</span> 啟動程式。
-      </p>
+      <p class="text-blush/80 text-sm"><i class="fa fa-info-circle text-green/80 mr-2"></i>首次使用建議提前 <span class="text-white font-bold">24 小時</span> 完成安裝與參數設定，並於開賣前 <span class="text-white font-bold">10 分鐘</span> 啟動程式。</p>
     </div>
   </div>
 </section>
 
-<!-- ============ 收費（按場次） ============ -->
+<!-- ============ 收費 ============ -->
 <section id="pricing" class="py-24 px-6 md:px-12 bg-[#180C1D]">
   <div class="container mx-auto">
     <div class="text-center mb-16 reveal">
       <span class="text-magenta/90 font-semibold tracking-widest text-sm">PRICING</span>
       <h2 class="text-[clamp(2rem,5vw,3.2rem)] font-bold mt-2"><span class="text-gradient">按演唱會場次收費</span></h2>
-      <p class="text-blush/75 max-w-2xl mx-auto text-lg mt-3">
-        買一場，用一場。每個場次可綁定 <span class="text-green font-bold">6 台設備</span>，<span class="text-green font-bold">不限搶飛次數</span>，無月費、無隱藏收費。
-      </p>
+      <p class="text-blush/75 max-w-2xl mx-auto text-lg mt-3">買一場，用一場。每個場次可綁定 <span class="text-green font-bold">6 台設備</span>，<span class="text-green font-bold">不限搶飛次數</span>，無月費、無隱藏收費。</p>
     </div>
-
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto items-stretch">
-
       <div class="glass-deep rounded-2xl p-8 glow-border card-hover flex flex-col reveal">
-        <div class="w-14 h-14 rounded-full bg-purple/15 flex items-center justify-center">
-          <i class="fa fa-ticket text-2xl text-rose"></i>
-        </div>
+        <div class="w-14 h-14 rounded-full bg-purple/15 flex items-center justify-center"><i class="fa fa-ticket text-2xl text-rose"></i></div>
         <h3 class="text-2xl font-bold mt-4 text-white/95">單場通行證</h3>
         <p class="text-blush/70 text-sm mt-1">適合搶單一熱門場次</p>
         <div class="text-4xl font-bold my-5 text-white">$100 <span class="text-base font-normal text-blush/60">/ 場 / 日</span></div>
@@ -584,15 +554,10 @@
           <li><i class="fa fa-check text-rose mr-2"></i>六大平台全覆蓋</li>
           <li><i class="fa fa-check text-rose mr-2"></i>購買後 12 個月內有效</li>
         </ul>
-        <a href="https://wa.me/85265432109?text=%E6%88%91%E6%83%B3%E8%B3%BC%E8%B2%B7%EF%BC%9A%E5%96%AE%E5%A0%B4%E9%80%9A%E8%A1%8C%E8%AD%89" class="mt-8 block text-center border border-purple/40 py-3 rounded-full hover:bg-purple/15 transition text-white/90 font-bold">
-          選擇此方案
-        </a>
+        <a href="#" data-contact-href="telegramUrl" target="_blank" rel="noopener noreferrer" class="mt-8 block text-center border border-purple/40 py-3 rounded-full hover:bg-purple/15 transition text-white/90 font-bold">選擇此方案</a>
       </div>
-
       <div class="glass-deep rounded-2xl p-8 pricing-popular shadow-2xl flex flex-col reveal">
-        <div class="w-14 h-14 rounded-full bg-magenta/15 flex items-center justify-center">
-          <i class="fa fa-calendar-check-o text-2xl text-magenta"></i>
-        </div>
+        <div class="w-14 h-14 rounded-full bg-magenta/15 flex items-center justify-center"><i class="fa fa-calendar-check-o text-2xl text-magenta"></i></div>
         <h3 class="text-2xl font-bold mt-4 text-white/95">三場組合</h3>
         <p class="text-blush/70 text-sm mt-1">自選 3 個場次，平均每場更抵</p>
         <div class="text-4xl font-bold my-5 text-white">$168 <span class="text-base font-normal text-blush/60">/ 3 場 / 日</span></div>
@@ -605,18 +570,13 @@
           <li><i class="fa fa-check text-magenta mr-2"></i>優先客戶支援</li>
           <li><i class="fa fa-check text-magenta mr-2"></i>新版本優先體驗</li>
         </ul>
-        <a href="https://wa.me/85265432109?text=%E6%88%91%E6%83%B3%E8%B3%BC%E8%B2%B7%EF%BC%9A%E4%B8%89%E5%A0%B4%E7%B5%84%E5%90%88" class="mt-8 block text-center btn-primary text-white py-3 rounded-full shadow-lg font-bold">
-          選擇此方案
-        </a>
+        <a href="#" data-contact-href="telegramUrl" target="_blank" rel="noopener noreferrer" class="mt-8 block text-center btn-primary text-white py-3 rounded-full shadow-lg font-bold">選擇此方案</a>
       </div>
-
       <div class="glass-deep rounded-2xl p-8 glow-border card-hover flex flex-col reveal">
-        <div class="w-14 h-14 rounded-full bg-green/15 flex items-center justify-center">
-          <i class="fa fa-diamond text-2xl text-green"></i>
-        </div>
+        <div class="w-14 h-14 rounded-full bg-green/15 flex items-center justify-center"><i class="fa fa-diamond text-2xl text-green"></i></div>
         <h3 class="text-2xl font-bold mt-4 text-white/95">月費組合</h3>
         <p class="text-blush/70 text-sm mt-1">全月追星首選，性價比最高</p>
-        <div class="text-4xl font-bold my-5 text-white">$188 <span class="text-base font-normal text-blush/60">/ 6 場 / 日</span></div>
+        <div class="text-4xl font-bold my-5 text-white">$188 <span class="text-base font-normal text-blush/60">/ 多 場 / 日</span></div>
         <p class="text-xs text-green mb-4"><i class="fa fa-tag mr-1"></i>平均 $10 / 場 / 日，即省 $1688</p>
         <ul class="space-y-3 text-sm text-blush/85 flex-1">
           <li><i class="fa fa-check text-green mr-2"></i>包月場次使用權（可自選）</li>
@@ -626,34 +586,64 @@
           <li><i class="fa fa-check text-green mr-2"></i>專屬 1 對 1 客服</li>
           <li><i class="fa fa-check text-green mr-2"></i>搶飛策略諮詢服務</li>
         </ul>
-        <a href="https://wa.me/85265432109?text=%E6%88%91%E6%83%B3%E8%B3%BC%E8%B2%B7%EF%BC%9A%E5%85%AD%E5%A0%B4%E7%B5%84%E5%90%88" class="mt-8 block text-center border border-green/40 py-3 rounded-full hover:bg-green/15 transition text-white/90 font-bold">
-          選擇此方案
-        </a>
+        <a href="#" data-contact-href="telegramUrl" target="_blank" rel="noopener noreferrer" class="mt-8 block text-center border border-green/40 py-3 rounded-full hover:bg-green/15 transition text-white/90 font-bold">選擇此方案</a>
       </div>
     </div>
-
     <div class="mt-12 max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-5 reveal">
-      <div class="glass-deep rounded-xl p-5 border border-white/10 text-center">
-        <i class="fa fa-mobile text-2xl text-rose"></i>
-        <h5 class="font-bold text-white/95 mt-2 text-sm">6 台設備怎麼算？</h5>
-        <p class="text-blush/70 text-xs mt-1 leading-relaxed">同一場次可同時登入 6 台裝置（例如 6 部手機、或 3 部手機＋3 部電腦），並行搶飛互不影響。</p>
-      </div>
-      <div class="glass-deep rounded-xl p-5 border border-white/10 text-center">
-        <i class="fa fa-refresh text-2xl text-magenta"></i>
-        <h5 class="font-bold text-white/95 mt-2 text-sm">不限次數是什麼意思？</h5>
-        <p class="text-blush/70 text-xs mt-1 leading-relaxed">該場次由公售、加場到補飛，你都可以無限次啟動程式搶飛，不會額外扣費。</p>
-      </div>
-      <div class="glass-deep rounded-xl p-5 border border-white/10 text-center">
-        <i class="fa fa-clock-o text-2xl text-green"></i>
-        <h5 class="font-bold text-white/95 mt-2 text-sm">場次有效期？</h5>
-        <p class="text-blush/70 text-xs mt-1 leading-relaxed">由購買日起 12 個月內有效，可在有效期內自由選擇要搶的演唱會場次。</p>
-      </div>
+      <div class="glass-deep rounded-xl p-5 border border-white/10 text-center"><i class="fa fa-mobile text-2xl text-rose"></i><h5 class="font-bold text-white/95 mt-2 text-sm">6 台設備怎麼算？</h5><p class="text-blush/70 text-xs mt-1 leading-relaxed">同一場次可同時登入 6 台裝置，並行搶飛互不影響。</p></div>
+      <div class="glass-deep rounded-xl p-5 border border-white/10 text-center"><i class="fa fa-refresh text-2xl text-magenta"></i><h5 class="font-bold text-white/95 mt-2 text-sm">不限次數是什麼意思？</h5><p class="text-blush/70 text-xs mt-1 leading-relaxed">該場次由公售、加場到補飛，都可以無限次啟動程式搶飛，不會額外扣費。</p></div>
+      <div class="glass-deep rounded-xl p-5 border border-white/10 text-center"><i class="fa fa-clock-o text-2xl text-green"></i><h5 class="font-bold text-white/95 mt-2 text-sm">場次有效期？</h5><p class="text-blush/70 text-xs mt-1 leading-relaxed">由購買日起使用期內有效，可在有效期內自由選擇要搶的演唱會場次。</p></div>
     </div>
   </div>
 </section>
 
+<!-- ============ 成功搶票留言區 ============ -->
+<section id="wall" class="py-24 px-6 md:px-12 bg-[#130917] relative">
+  <div class="absolute inset-0" style="background-image:radial-gradient(rgba(255,213,79,.045) 1px,transparent 1px);background-size:30px 30px;"></div>
+  <div class="joy-glow" style="width:520px;height:520px;background:rgba(255,213,79,.06);top:-120px;right:-120px"></div>
+  <div class="container mx-auto relative z-10">
+    <div class="text-center mb-10 reveal">
+      <span class="text-green/85 font-semibold tracking-widest text-sm">SUCCESS WALL</span>
+      <h2 class="text-[clamp(2rem,5vw,3.2rem)] font-bold mt-2"><span class="text-gradient">成功搶票留言區</span></h2>
+      <p class="text-blush/75 max-w-2xl mx-auto text-lg mt-3">每日自動生成 · 只顯示 <span class="text-green font-bold">近 3 天內開售</span> 場次的留言</p>
+    </div>
+
+    <div class="max-w-3xl mx-auto mb-6 demo-banner reveal">
+      <i class="fa fa-info-circle mr-1"></i>
+      此區只顯示 <span class="text-white font-bold">最近 3 天（今天 / 昨天 / 前天）</span> 內已開售場次的留言，較舊場次會自動隱藏。
+    </div>
+
+    <div class="max-w-6xl mx-auto mb-8 flex flex-wrap items-center justify-center gap-x-4 gap-y-3 text-sm reveal">
+      <span class="glass-deep px-4 py-2 rounded-full border border-green/25"><i class="fa fa-comments text-green/90 mr-2"></i>留言總數：<span id="wallCount" class="font-bold text-white">—</span></span>
+      <span class="glass-deep px-4 py-2 rounded-full border border-purple/25"><i class="fa fa-calendar-check-o text-rose mr-2"></i>涵蓋發售日：<span id="wallDateCount" class="font-bold text-white">—</span></span>
+      <span class="glass-deep px-4 py-2 rounded-full border border-white/10 text-blush/70"><i class="fa fa-clock-o text-green/70 mr-2"></i>留言日：<span id="wallToday">—</span></span>
+      <button id="wallRefreshBtn" class="glass-deep px-4 py-2 rounded-full border border-purple/35 text-rose hover:text-white hover:border-purple/70 transition"><i class="fa fa-refresh mr-2"></i>成功搶飛</button>
+      <button id="wallFormBtn" class="glass-deep px-4 py-2 rounded-full border border-green/35 text-green hover:text-white hover:border-green/70 transition"><i class="fa fa-pencil mr-2"></i>我要留言</button>
+    </div>
+
+    <form id="wallForm" class="hidden max-w-2xl mx-auto glass-deep rounded-2xl p-6 border border-green/25 mb-8 reveal">
+      <h3 class="font-bold text-white mb-4 text-base"><i class="fa fa-pencil text-green mr-2"></i>分享你的搶票戰績</h3>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <div><label class="sr-only" for="wallName">你的暱稱</label><input id="wallName" type="text" maxlength="20" placeholder="你的暱稱（可選）" autocomplete="nickname"></div>
+        <div><label class="sr-only" for="wallShow">選擇場次</label><select id="wallShow"></select></div>
+      </div>
+      <label class="sr-only" for="wallText">留言內容</label>
+      <textarea id="wallText" rows="3" maxlength="200" placeholder="搶到咩位？講兩句啦…" class="mt-3"></textarea>
+      <div class="flex gap-3 mt-3">
+        <button type="submit" class="btn-primary text-white font-bold py-2.5 px-6 rounded-full text-sm flex-1"><i class="fa fa-paper-plane mr-1"></i>發佈留言</button>
+        <button type="button" id="wallFormCancel" class="btn-secondary text-white/80 font-bold py-2.5 px-6 rounded-full text-sm">取消</button>
+      </div>
+      <p class="text-[10px] text-blush/45 mt-2 text-center">留言僅儲存於你的瀏覽器本機，不會上傳。</p>
+    </form>
+
+    <div id="wallGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 max-w-6xl mx-auto"></div>
+    <div id="wallEmpty" class="hidden text-center py-16"><i class="fa fa-comment-o text-5xl text-blush/30"></i><p class="text-blush/70 mt-4">暫時未有留言，請稍後再查看。</p></div>
+    <div class="text-center mt-10" id="wallMoreWrap"><button id="wallMoreBtn" class="btn-secondary text-white/90 font-bold py-3 px-8 rounded-full text-sm"><i class="fa fa-angle-down mr-2"></i>顯示更多留言</button></div>
+  </div>
+</section>
+
 <!-- ============ 更新日誌 ============ -->
-<section id="changelog" class="py-24 px-6 md:px-12 bg-[#130917] relative">
+<section id="changelog" class="py-24 px-6 md:px-12 bg-[#180C1D] relative">
   <div class="absolute inset-0" style="background-image:radial-gradient(rgba(179,136,255,.05) 1px,transparent 1px);background-size:30px 30px;"></div>
   <div class="container mx-auto relative z-10">
     <div class="text-center mb-16 reveal">
@@ -663,63 +653,188 @@
     </div>
 
     <div class="max-w-3xl mx-auto">
-
       <div class="timeline-item reveal">
         <div class="flex flex-wrap items-center gap-2">
-          <span class="version-tag">v1.34.0</span>
-          <span class="text-blush/65 text-sm"><i class="fa fa-calendar-o mr-1"></i>2026-10-07</span>
+          <span class="version-tag">v1.43.0</span>
+          <span class="text-blush/65 text-sm"><i class="fa fa-calendar-o mr-1"></i>2026-10-12</span>
           <span class="tag-pill tag-new">最新</span>
         </div>
-        <h4 class="text-white/95 font-bold mt-3">場次資料更新至 2026 年 10 月 · 覆蓋港澳全部未開售場次</h4>
+        <h4 class="text-white/95 font-bold mt-3">場次資料全面更新 · 港澳未開售演唱會</h4>
         <ul class="text-blush/80 text-sm mt-3 space-y-2">
-          <li><span class="tag-pill tag-new mr-2">新增</span>補齊郭富城、衛蘭、梁詠琪、劉德華、MC張天賦、MIRROR 等 15 場未開售場次</li>
-          <li><span class="tag-pill tag-new mr-2">新增</span>加入 TXT、LE SSERAFIM、Supper Moment 等澳門場次完整搶票時間線</li>
-          <li><span class="tag-pill tag-opt mr-2">優化</span>場次總數改為動態顯示，隨實際載入結果自動更新</li>
-          <li><span class="tag-pill tag-opt mr-2">優化</span>優先購票階段名稱及日期時間全面校正至官方最新公佈</li>
+          <li><span class="tag-pill tag-new mr-2">新增</span>Stray Kids 香港站（12月5日，HKTICKETING）</li>
+          <li><span class="tag-pill tag-new mr-2">新增</span>Desire 4 香港站（11月21日，HKTICKETING、大麥）</li>
+          <li><span class="tag-pill tag-new mr-2">新增</span>LE SSERAFIM 澳門站（11月，FANTOPIA、銀河票務）</li>
+          <li><span class="tag-pill tag-new mr-2">新增</span>TXT 澳門加場（11月20-22日，FANTOPIA、銀河票務）</li>
+          <li><span class="tag-pill tag-new mr-2">新增</span>SEVENTEEN DINO 澳門站（10月10日，FANTOPIA、大麥）</li>
+          <li><span class="tag-pill tag-new mr-2">新增</span>盧廣仲 澳門站（12月5日，金光票務、大麥）</li>
+          <li><span class="tag-pill tag-new mr-2">新增</span>OMEGA X 澳門站（12月5日，銀河票務、大麥、Cityline）</li>
+          <li><span class="tag-pill tag-new mr-2">新增</span>杜德偉 澳門站（11月14日，URBTIX、澳門售票網）</li>
+          <li><span class="tag-pill tag-new mr-2">新增</span>icyball 冰球樂團 澳門站（12月26日，金光票務、澳門售票網）</li>
+          <li><span class="tag-pill tag-new mr-2">新增</span>BOL4 香港站（12月5日，OFFGRID、大麥）</li>
+          <li><span class="tag-pill tag-opt mr-2">更新</span>郭富城香港站更新為跨年演唱會（12月31日-1月1日，HKTICKETING、大麥）</li>
+          <li><span class="tag-pill tag-opt mr-2">更新</span>MC張天賦澳門站更新為11月27-28日（銀河票務、澳門售票網、大麥）</li>
+          <li><span class="tag-pill tag-opt mr-2">更新</span>MIRROR 更新公售日期為10月8日（Klook）</li>
+          <li><span class="tag-pill tag-opt mr-2">更新</span>衛蘭香港站更新為11月14-18日（URBTIX、Klook）</li>
+          <li><span class="tag-pill tag-opt mr-2">更新</span>SUPPER MOMENT 澳門站更新為11月21日（澳門售票網、Klook）</li>
+          <li><span class="tag-pill tag-opt mr-2">更新</span>移除已過公售日期場次（PENTAGON、LUCY、CNBLUE 等）</li>
         </ul>
       </div>
 
       <div class="timeline-item reveal">
         <div class="flex flex-wrap items-center gap-2">
-          <span class="version-tag">v1.33.2</span>
-          <span class="text-blush/65 text-sm"><i class="fa fa-calendar-o mr-1"></i>2026-09-25</span>
+          <span class="version-tag">v1.42.0</span>
+          <span class="text-blush/65 text-sm"><i class="fa fa-calendar-o mr-1"></i>2026-10-07</span>
         </div>
-        <h4 class="text-white/95 font-bold mt-3">QQ 聯絡號碼更新為 3839562550</h4>
+        <h4 class="text-white/95 font-bold mt-3">場次資料全面更新 · 港澳未開售演唱會</h4>
         <ul class="text-blush/80 text-sm mt-3 space-y-2">
-          <li><span class="tag-pill tag-new mr-2">新增</span>QQ 聯絡號碼由 29132123 更新為 3839562550</li>
-          <li><span class="tag-pill tag-opt mr-2">優化</span>「複製 QQ 號」按鈕、QQ 深鏈、Footer 聯繫資訊同步更新</li>
-          <li><span class="tag-pill tag-opt mr-2">優化</span>釘釘留言提示文字同步更新為新 QQ 號</li>
+          <li><span class="tag-pill tag-new mr-2">新增</span>郭富城《ICONIC MOMENT》香港站（10月14日公售）</li>
+          <li><span class="tag-pill tag-new mr-2">新增</span>MC張天賦《E=MC²》澳門站（10月7日公售）</li>
+          <li><span class="tag-pill tag-new mr-2">新增</span>衛蘭《OUTOFFRAME》香港站（10月20日公售）</li>
+          <li><span class="tag-pill tag-new mr-2">新增</span>SUPPER MOMENT 澳門限定版（10月12日公售）</li>
+          <li><span class="tag-pill tag-new mr-2">新增</span>藝聲 YESUNG 澳門加場（10月16日公售）</li>
+          <li><span class="tag-pill tag-new mr-2">新增</span>CNBLUE《3LOGY》澳門 ENCORE 站（10月6日公售）</li>
+          <li><span class="tag-pill tag-opt mr-2">更新</span>移除已過公售日期場次（BIGBANG、Twins、PER SE、PENTAGON、NMIXX 等）</li>
+          <li><span class="tag-pill tag-opt mr-2">更新</span>保留 MIRROR、SF9 等未開售場次並更新日期</li>
         </ul>
       </div>
 
       <div class="timeline-item reveal">
         <div class="flex flex-wrap items-center gap-2">
-          <span class="version-tag">v1.33.1</span>
-          <span class="text-blush/65 text-sm"><i class="fa fa-calendar-o mr-1"></i>2026-09-25</span>
+          <span class="version-tag">v1.41.0</span>
+          <span class="text-blush/65 text-sm"><i class="fa fa-calendar-o mr-1"></i>2026-10-05</span>
         </div>
-        <h4 class="text-white/95 font-bold mt-3">釘釘聯絡帳號更新為 ticketkiller</h4>
+        <h4 class="text-white/95 font-bold mt-3">場次資料全面更新 · 根據香港01最新售票資訊</h4>
         <ul class="text-blush/80 text-sm mt-3 space-y-2">
-          <li><span class="tag-pill tag-new mr-2">新增</span>釘釘聯絡帳號明確標示為 ticketkiller，並加入「複製釘釘 ID」按鈕</li>
-          <li><span class="tag-pill tag-opt mr-2">優化</span>留言提交提示改為「請到釘釘搜尋 ticketkiller 發送」</li>
+          <li><span class="tag-pill tag-new mr-2">新增</span>加入 PER SE（Cityline，9月29日優先 / 9月30日公售）</li>
+          <li><span class="tag-pill tag-new mr-2">新增</span>加入 fromis_9（Klook，10月6日公售）</li>
+          <li><span class="tag-pill tag-new mr-2">新增</span>加入鈴木このみ（KKTIX，7月22日公售）</li>
+          <li><span class="tag-pill tag-new mr-2">新增</span>加入 TOGENASHI TOGEARI（Cityline，8月11日公售）</li>
+          <li><span class="tag-pill tag-new mr-2">新增</span>加入 Serrini（KKTIX，9月24日公售）</li>
+          <li><span class="tag-pill tag-new mr-2">新增</span>加入 PENTAGON（KKTIX，9月18日公售）</li>
+          <li><span class="tag-pill tag-new mr-2">新增</span>加入 Joji（Cityline，4月30日公售）</li>
+          <li><span class="tag-pill tag-new mr-2">新增</span>加入優里 Yuuri（KKTIX，8月7日公售）</li>
+          <li><span class="tag-pill tag-new mr-2">新增</span>加入鄭允浩 U-KNOW（KKTIX，已公售）</li>
+          <li><span class="tag-pill tag-new mr-2">新增</span>加入 MAMAMOO（已開售）</li>
+          <li><span class="tag-pill tag-opt mr-2">更新</span>NCT 127 公售日期修正為 8月27日中午12:00</li>
+          <li><span class="tag-pill tag-opt mr-2">更新</span>許志安公售日期確認為 7月24日</li>
+          <li><span class="tag-pill tag-opt mr-2">更新</span>MIRROR 公售日期確認為 10月8日（Klook）</li>
+          <li><span class="tag-pill tag-opt mr-2">更新</span>劉德華 URBTIX 抽籤登記已結束，等待中籤結果</li>
+          <li><span class="tag-pill tag-opt mr-2">更新</span>SF9 公售日期 10月13日中午12:00（KKTIX）</li>
         </ul>
       </div>
 
       <div class="timeline-item reveal">
         <div class="flex flex-wrap items-center gap-2">
-          <span class="version-tag">v1.33.0</span>
+          <span class="version-tag">v1.40.0</span>
+          <span class="text-blush/65 text-sm"><i class="fa fa-calendar-o mr-1"></i>2026-09-30</span>
+        </div>
+        <h4 class="text-white/95 font-bold mt-3">場次資料全面更新 · 六大平台最新 12 場</h4>
+        <ul class="text-blush/80 text-sm mt-3 space-y-2">
+          <li><span class="tag-pill tag-new mr-2">新增</span>更新為 12 場最新演唱會場次（許志安、LUCY、衛蘭、SF9、Yuki Kajiura、李東海、梁詠琪、NCT 127、MIRROR、劉德華、The Weeknd、Twins）</li>
+          <li><span class="tag-pill tag-fix mr-2">修復</span>解決更新 <code class="text-green">concerts.json</code> 後網頁不更新的問題</li>
+          <li><span class="tag-pill tag-new mr-2">新增</span>「⚡ 強制重載」按鈕，一鍵清除 localStorage + Cache Storage</li>
+          <li><span class="tag-pill tag-opt mr-2">優化</span>Fetch 加上 <code class="text-green">no-store</code> + 時間戳，繞過 CDN 快取</li>
+          <li><span class="tag-pill tag-opt mr-2">優化</span>JSON 支援 UTF-8 BOM 自動去除</li>
+          <li><span class="tag-pill tag-opt mr-2">優化</span>錯誤訊息分類（404 / 超時 / JSON 格式 / CORS），直接顯示於 UI</li>
+          <li><span class="tag-pill tag-new mr-2">新增</span>支援 <code class="text-green">concerts.json</code> 加上 <code class="text-green">version</code> 欄位方便追蹤</li>
+        </ul>
+      </div>
+
+      <div class="timeline-item reveal">
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="version-tag">v1.39.0</span>
+          <span class="text-blush/65 text-sm"><i class="fa fa-calendar-o mr-1"></i>2026-09-30</span>
+        </div>
+        <h4 class="text-white/95 font-bold mt-3">場次資料載入修復 · 快取強制刷新</h4>
+        <ul class="text-blush/80 text-sm mt-3 space-y-2">
+          <li><span class="tag-pill tag-fix mr-2">修復</span>解決更新 <code class="text-green">concerts.json</code> 後網頁不更新的問題</li>
+          <li><span class="tag-pill tag-new mr-2">新增</span>「⚡ 強制重載」按鈕，一鍵清除 localStorage + Cache Storage</li>
+          <li><span class="tag-pill tag-opt mr-2">優化</span>Fetch 加上 <code class="text-green">no-store</code> + 時間戳，繞過 CDN 快取</li>
+          <li><span class="tag-pill tag-opt mr-2">優化</span>JSON 支援 UTF-8 BOM 自動去除</li>
+          <li><span class="tag-pill tag-opt mr-2">優化</span>錯誤訊息分類（404 / 超時 / JSON 格式 / CORS），直接顯示於 UI</li>
+          <li><span class="tag-pill tag-new mr-2">新增</span>支援 <code class="text-green">concerts.json</code> 加上 <code class="text-green">version</code> 欄位方便追蹤</li>
+        </ul>
+      </div>
+
+      <div class="timeline-item reveal">
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="version-tag">v1.38.0</span>
+          <span class="text-blush/65 text-sm"><i class="fa fa-calendar-o mr-1"></i>2026-09-28</span>
+        </div>
+        <h4 class="text-white/95 font-bold mt-3">留言區只顯示近 3 天內開售場次</h4>
+        <ul class="text-blush/80 text-sm mt-3 space-y-2">
+          <li><span class="tag-pill tag-opt mr-2">優化</span>留言區只顯示 <span class="text-white font-bold">最近 3 天（今天 / 昨天 / 前天）</span> 內已開售場次的留言</li>
+          <li><span class="tag-pill tag-opt mr-2">優化</span>舊場次留言自動隱藏，隨時間推移自動消失</li>
+          <li><span class="tag-pill tag-opt mr-2">優化</span>留言排序改為最近日期優先</li>
+          <li><span class="tag-pill tag-opt mr-2">優化</span>聯絡面板語言切換函式改為動態取值，避免載入順序問題</li>
+        </ul>
+      </div>
+
+      <div class="timeline-item reveal">
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="version-tag">v1.37.0</span>
           <span class="text-blush/65 text-sm"><i class="fa fa-calendar-o mr-1"></i>2026-09-25</span>
         </div>
-        <h4 class="text-white/95 font-bold mt-3">HKT 時區過濾 · QQ / 釘釘聯絡面板</h4>
+        <h4 class="text-white/95 font-bold mt-3">留言區只顯示已開售場次</h4>
         <ul class="text-blush/80 text-sm mt-3 space-y-2">
-          <li><span class="tag-pill tag-new mr-2">新增</span>公售日期判斷統一使用 Asia/Hong_Kong 時區，避免海外用戶提早或延遲隱藏場次</li>
-          <li><span class="tag-pill tag-new mr-2">新增</span>整合式「聯絡」浮動按鈕，內含 WhatsApp、QQ、釘釘留言三種聯絡方式</li>
-          <li><span class="tag-pill tag-new mr-2">新增</span>釘釘留言表單：填寫後自動複製到剪貼簿，並附 honeypot 防機器人與 60 秒頻率限制</li>
-          <li><span class="tag-pill tag-opt mr-2">優化</span>每日凌晨 3:00 自動刷新改以 HKT 為基準</li>
-          <li><span class="tag-pill tag-opt mr-2">優化</span>聯絡面板支援 ESC 關閉、點擊外部關閉、焦點陷阱與焦點回歸，改善鍵盤操作體驗</li>
+          <li><span class="tag-pill tag-opt mr-2">優化</span>留言區只為 <span class="text-white font-bold">已開始售票</span>（優先購票或公開發售已到時間）的場次生成留言</li>
+          <li><span class="tag-pill tag-opt mr-2">優化</span>未開售場次的留言自動隱藏，隨時間推移到開售日會自動出現</li>
+          <li><span class="tag-pill tag-opt mr-2">優化</span>判斷精確到分鐘，與場次卡片的「開賣中」狀態完全同步</li>
+        </ul>
+      </div>
+
+      <div class="timeline-item reveal">
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="version-tag">v1.36.0</span>
+          <span class="text-blush/65 text-sm"><i class="fa fa-calendar-o mr-1"></i>2026-09-25</span>
+        </div>
+        <h4 class="text-white/95 font-bold mt-3">Telegram Bot 直發 · 留言區後端 API</h4>
+        <ul class="text-blush/80 text-sm mt-3 space-y-2">
+          <li><span class="tag-pill tag-new mr-2">新增</span>聯絡表單可直接發送到 Telegram Bot（配置後啟用，失敗自動降級為複製）</li>
+          <li><span class="tag-pill tag-new mr-2">新增</span>留言區可接入後端 API，支援跨裝置同步留言與點讚</li>
+          <li><span class="tag-pill tag-opt mr-2">優化</span>提交按鈕加入 spinner 與禁用狀態，防止重複提交</li>
         </ul>
       </div>
 
       <div id="olderLogs" class="hidden">
+        <div class="timeline-item">
+          <div class="flex flex-wrap items-center gap-2">
+            <span class="version-tag">v1.35.0</span>
+            <span class="text-blush/65 text-sm"><i class="fa fa-calendar-o mr-1"></i>2026-09-25</span>
+          </div>
+          <h4 class="text-white/95 font-bold mt-3">開賣時間精確判斷 · 倒計時 · 加入日曆 · SEO 強化</h4>
+          <ul class="text-blush/80 text-sm mt-3 space-y-2">
+            <li><span class="tag-pill tag-new mr-2">新增</span>開賣時間精確到分鐘，動態顯示「即將開賣 / 開賣中 / 已結束」</li>
+            <li><span class="tag-pill tag-new mr-2">新增</span>每場卡片加入倒計時（距離最近一次開賣）</li>
+            <li><span class="tag-pill tag-new mr-2">新增</span>「加入日曆」按鈕，一鍵下載 .ics 提醒</li>
+            <li><span class="tag-pill tag-new mr-2">新增</span>動態注入 JSON-LD <code class="text-green">Event</code> 結構化資料</li>
+            <li><span class="tag-pill tag-new mr-2">新增</span>Open Graph / Twitter Card meta 標籤</li>
+          </ul>
+        </div>
+        <div class="timeline-item">
+          <div class="flex flex-wrap items-center gap-2">
+            <span class="version-tag">v1.34.0</span>
+            <span class="text-blush/65 text-sm"><i class="fa fa-calendar-o mr-1"></i>2026-09-25</span>
+          </div>
+          <h4 class="text-white/95 font-bold mt-3">Telegram 聯絡 · 全日期展開 · 成功搶票留言區</h4>
+          <ul class="text-blush/80 text-sm mt-3 space-y-2">
+            <li><span class="tag-pill tag-new mr-2">新增</span>所有聯絡渠道全面改用 Telegram</li>
+            <li><span class="tag-pill tag-new mr-2">新增</span>場次卡片自動展開全部搶票日期</li>
+            <li><span class="tag-pill tag-new mr-2">新增</span>搶票當日「前往官網」按鈕自動閃動提示</li>
+            <li><span class="tag-pill tag-new mr-2">新增</span>「成功搶票留言區」每日按 HKT 自動生成留言</li>
+          </ul>
+        </div>
+        <div class="timeline-item">
+          <div class="flex flex-wrap items-center gap-2">
+            <span class="version-tag">v1.33.0</span>
+            <span class="text-blush/65 text-sm"><i class="fa fa-calendar-o mr-1"></i>2026-09-25</span>
+          </div>
+          <h4 class="text-white/95 font-bold mt-3">HKT 時區過濾 · QQ / 釘釘聯絡面板</h4>
+          <ul class="text-blush/80 text-sm mt-3 space-y-2">
+            <li><span class="tag-pill tag-new mr-2">新增</span>公售日期判斷統一使用 Asia/Hong_Kong 時區</li>
+            <li><span class="tag-pill tag-new mr-2">新增</span>整合式「聯絡」浮動按鈕（Telegram / QQ / 釘釘）</li>
+          </ul>
+        </div>
         <div class="timeline-item">
           <div class="flex flex-wrap items-center gap-2">
             <span class="version-tag">v1.32.0</span>
@@ -727,152 +842,45 @@
           </div>
           <h4 class="text-white/95 font-bold mt-3">場次資料收窄至六大平台 · 精選 12 場</h4>
           <ul class="text-blush/80 text-sm mt-3 space-y-2">
-            <li><span class="tag-pill tag-opt mr-2">優化</span>備用場次全面重整為 12 場，只保留 ticketkiller 程式直接支援的六大平台場次</li>
-            <li><span class="tag-pill tag-new mr-2">新增</span>納入 Klook 專屬場次，補齊六大平台覆蓋面</li>
-            <li><span class="tag-pill tag-fix mr-2">移除</span>剔除銀河票務、金光票務、澳門售票網、大麥、貓眼等非支援平台場次</li>
-          </ul>
-        </div>
-        <div class="timeline-item">
-          <div class="flex flex-wrap items-center gap-2">
-            <span class="version-tag">v1.31.0</span>
-            <span class="text-blush/65 text-sm"><i class="fa fa-calendar-o mr-1"></i>2026-09-24</span>
-          </div>
-          <h4 class="text-white/95 font-bold mt-3">精簡場次卡片版面，取消宣傳海報佔位</h4>
-          <ul class="text-blush/80 text-sm mt-3 space-y-2">
-            <li><span class="tag-pill tag-opt mr-2">優化</span>移除場次卡片頂部預留的宣傳海報展示區</li>
-            <li><span class="tag-pill tag-opt mr-2">優化</span>場次資料直接由卡片內文起排，資訊更集中、載入更快</li>
-          </ul>
-        </div>
-        <div class="timeline-item">
-          <div class="flex flex-wrap items-center gap-2">
-            <span class="version-tag">v1.30.0</span>
-            <span class="text-blush/65 text-sm"><i class="fa fa-calendar-o mr-1"></i>2026-09-24</span>
-          </div>
-          <h4 class="text-white/95 font-bold mt-3">場次擴充 + 港澳門全面覆蓋</h4>
-          <ul class="text-blush/80 text-sm mt-3 space-y-2">
-            <li><span class="tag-pill tag-new mr-2">新增</span>備用場次擴充至 21 場，覆蓋香港及澳門多個場地</li>
-            <li><span class="tag-pill tag-new mr-2">新增</span>香港場地涵蓋紅磡體育館、麥花臣場館、西九自由空間、啟德體藝館、會展等</li>
-          </ul>
-        </div>
-        <div class="timeline-item">
-          <div class="flex flex-wrap items-center gap-2">
-            <span class="version-tag">v1.28.0</span>
-            <span class="text-blush/65 text-sm"><i class="fa fa-calendar-o mr-1"></i>2026-09-24</span>
-          </div>
-          <h4 class="text-white/95 font-bold mt-3">完整搶票時間線 + 澳門場次</h4>
-          <ul class="text-blush/80 text-sm mt-3 space-y-2">
-            <li><span class="tag-pill tag-new mr-2">新增</span>「查看全部搶票日期」按鈕，展開完整優先購票時間線</li>
-            <li><span class="tag-pill tag-new mr-2">新增</span>澳門演唱會專屬標籤 🇲🇴，與香港場次一併展示</li>
-            <li><span class="tag-pill tag-new mr-2">新增</span>熱門演唱會 🔥 標籤，自動置頂排序</li>
-          </ul>
-        </div>
-        <div class="timeline-item">
-          <div class="flex flex-wrap items-center gap-2">
-            <span class="version-tag">v1.27.2</span>
-            <span class="text-blush/65 text-sm"><i class="fa fa-calendar-o mr-1"></i>2026-09-24</span>
-          </div>
-          <h4 class="text-white/95 font-bold mt-3">生產環境優化</h4>
-          <ul class="text-blush/80 text-sm mt-3 space-y-2">
-            <li><span class="tag-pill tag-opt mr-2">優化</span>關閉除錯模式，正式上線不洩露 API 端點資訊</li>
-            <li><span class="tag-pill tag-opt mr-2">優化</span>Console 保持乾淨，降低被逆向分析風險</li>
-          </ul>
-        </div>
-        <div class="timeline-item">
-          <div class="flex flex-wrap items-center gap-2">
-            <span class="version-tag">v1.27.1</span>
-            <span class="text-blush/65 text-sm"><i class="fa fa-calendar-o mr-1"></i>2026-09-24</span>
-          </div>
-          <h4 class="text-white/95 font-bold mt-3">API 配置層優化</h4>
-          <ul class="text-blush/80 text-sm mt-3 space-y-2">
-            <li><span class="tag-pill tag-new mr-2">新增</span>全域 <code class="text-green">window.TK_CONFIG</code> 配置物件</li>
-            <li><span class="tag-pill tag-new mr-2">新增</span>自動偵測環境，智能選擇 API 路徑</li>
-          </ul>
-        </div>
-        <div class="timeline-item">
-          <div class="flex flex-wrap items-center gap-2">
-            <span class="version-tag">v1.27.0</span>
-            <span class="text-blush/65 text-sm"><i class="fa fa-calendar-o mr-1"></i>2026-09-24</span>
-          </div>
-          <h4 class="text-white/95 font-bold mt-3">場次資料改由 API 驅動</h4>
-          <ul class="text-blush/80 text-sm mt-3 space-y-2">
-            <li><span class="tag-pill tag-new mr-2">新增</span>場次列表改為從 API 讀取，支援後端自動化</li>
-            <li><span class="tag-pill tag-new mr-2">新增</span>localStorage 快取機制，API 失敗時自動使用上次成功資料</li>
-          </ul>
-        </div>
-        <div class="timeline-item">
-          <div class="flex flex-wrap items-center gap-2">
-            <span class="version-tag">v1.26.0</span>
-            <span class="text-blush/65 text-sm"><i class="fa fa-calendar-o mr-1"></i>2026-09-24</span>
-          </div>
-          <h4 class="text-white/95 font-bold mt-3">每日自動更新場次系統</h4>
-          <ul class="text-blush/80 text-sm mt-3 space-y-2">
-            <li><span class="tag-pill tag-new mr-2">新增</span>官網場次列表每日自動更新，已開售場次自動移除</li>
-          </ul>
-        </div>
-        <div class="timeline-item">
-          <div class="flex flex-wrap items-center gap-2">
-            <span class="version-tag">v1.25.0</span>
-            <span class="text-blush/65 text-sm"><i class="fa fa-calendar-o mr-1"></i>2026-09-18</span>
-          </div>
-          <h4 class="text-white/95 font-bold mt-3">按場次授權系統上線</h4>
-          <ul class="text-blush/80 text-sm mt-3 space-y-2">
-            <li><span class="tag-pill tag-new mr-2">新增</span>全新「場次授權」機制，一個場次可綁定 6 台設備</li>
+            <li><span class="tag-pill tag-opt mr-2">優化</span>備用場次重整為 12 場，只保留六大平台場次</li>
+            <li><span class="tag-pill tag-new mr-2">新增</span>納入 Klook 專屬場次</li>
           </ul>
         </div>
       </div>
 
       <div class="text-center mt-10">
-        <button id="toggleLogs" class="btn-secondary text-white/90 font-bold py-3 px-8 rounded-full text-sm">
-          <i class="fa fa-history mr-2"></i>查看更早版本
-        </button>
+        <button id="toggleLogs" class="btn-secondary text-white/90 font-bold py-3 px-8 rounded-full text-sm"><i class="fa fa-history mr-2"></i>查看更早版本</button>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ============ WhatsApp 咨詢 ============ -->
-<section id="contact" class="py-24 px-6 md:px-12 bg-[#180C1D] relative overflow-hidden">
-  <div class="absolute inset-0 opacity-30" style="background:radial-gradient(circle at 20% 40%,rgba(37,211,102,.35),transparent 55%),radial-gradient(circle at 80% 60%,rgba(255,77,157,.4),transparent 55%),radial-gradient(circle at 50% 80%,rgba(179,136,255,.3),transparent 55%);"></div>
-
+<!-- ============ Telegram 咨詢 ============ -->
+<section id="contact" class="py-24 px-6 md:px-12 bg-[#130917] relative overflow-hidden">
+  <div class="absolute inset-0 opacity-30" style="background:radial-gradient(circle at 20% 40%,rgba(42,171,238,.35),transparent 55%),radial-gradient(circle at 80% 60%,rgba(255,77,157,.4),transparent 55%),radial-gradient(circle at 50% 80%,rgba(179,136,255,.3),transparent 55%);"></div>
   <div class="container mx-auto max-w-5xl relative z-10">
     <div class="glass-deep rounded-3xl border border-green/25 p-8 md:p-12 reveal">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
         <div>
-          <span class="text-green font-semibold tracking-widest text-sm">WHATSAPP 咨詢</span>
-          <h2 class="text-[clamp(1.8rem,4vw,2.6rem)] font-bold mt-2 leading-tight">
-            <span class="text-gradient">搶飛有疑問？<br>即刻搵我哋</span>
-          </h2>
-          <p class="text-blush/85 mt-4 leading-relaxed">
-            場次選擇、激活碼開通、程式設定、搶飛策略 —— 全部可以由真人客服即時解答。亦可透過 QQ（3839562550）或釘釘（ID：ticketkiller）留言。
-          </p>
-
+          <span class="text-green font-semibold tracking-widest text-sm">TELEGRAM 咨詢</span>
+          <h2 class="text-[clamp(1.8rem,4vw,2.6rem)] font-bold mt-2 leading-tight"><span class="text-gradient">搶飛有疑問？<br>即刻搵我哋</span></h2>
+          <p class="text-blush/85 mt-4 leading-relaxed">場次選擇、激活碼開通、程式設定、搶飛策略 —— 全部可以由真人客服即時解答。亦可透過 QQ（<span data-contact-text="qq"></span>）或釘釘（ID：<span data-contact-text="dingtalk"></span>）留言。</p>
           <ul class="mt-6 space-y-3 text-sm text-blush/85">
             <li><i class="fa fa-bolt text-green mr-3"></i>平均 5 分鐘內回覆</li>
             <li><i class="fa fa-ticket text-green mr-3"></i>協助你揀選最合適的場次方案</li>
             <li><i class="fa fa-life-ring text-green mr-3"></i>購買後享全程售後技術支援</li>
             <li><i class="fa fa-lock text-green mr-3"></i>一對一私密對話，資料不外洩</li>
           </ul>
+          <p class="mt-5 text-sm text-blush/70"><span id="serviceStatus"></span></p>
         </div>
-
         <div class="text-center">
-          <div class="w-24 h-24 mx-auto rounded-full bg-green/15 border border-green/35 flex items-center justify-center">
-            <i class="fa fa-whatsapp text-5xl text-green"></i>
-          </div>
-
+          <div class="w-24 h-24 mx-auto rounded-full bg-green/15 border border-green/35 flex items-center justify-center"><i class="fa fa-telegram text-5xl text-green"></i></div>
           <p class="text-blush/70 text-sm mt-6">點擊下方按鈕直接對話</p>
-          <p class="text-2xl font-extrabold text-white mt-1 tracking-wide">+852 6754 5772</p>
-
-          <a href="https://wa.me/85267545772?text=%E4%BD%A0%E5%A5%BD%EF%BC%8C%E6%88%91%E6%83%B3%E6%9F%A5%E8%A9%A2%20ticketkiller%20%E6%90%B6%E9%A3%9B%E7%A8%8B%E5%BC%8F"
-             target="_blank" rel="noopener"
-             class="wa-btn inline-flex items-center justify-center gap-2 text-white font-bold py-4 px-10 rounded-full text-lg mt-6 w-full sm:w-auto">
-            <i class="fa fa-whatsapp text-xl"></i> WhatsApp 即時查詢
+          <p class="text-2xl font-extrabold text-white mt-1 tracking-wide">Telegram 官方客服</p>
+          <a href="#" data-contact-href="telegramUrl" target="_blank" rel="noopener noreferrer" class="tg-btn inline-flex items-center justify-center gap-2 text-white font-bold py-4 px-10 rounded-full text-lg mt-6 w-full sm:w-auto">
+            <i class="fa fa-telegram text-xl"></i> Telegram 即時查詢
           </a>
-
-          <button type="button" id="contactOpenBtn"
-                  class="btn-secondary inline-flex items-center justify-center gap-2 text-white/90 font-bold py-3 px-8 rounded-full text-sm mt-3 w-full sm:w-auto">
-            <i class="fa fa-comments"></i> QQ / 釘釘留言
-          </button>
-
+          <button type="button" id="contactOpenBtn" class="btn-secondary inline-flex items-center justify-center gap-2 text-white/90 font-bold py-3 px-8 rounded-full text-sm mt-3 w-full sm:w-auto"><i class="fa fa-comments"></i> QQ / 釘釘留言</button>
           <p class="text-blush/50 text-xs mt-4">服務時間：每日 10:00 – 23:00（HKT）</p>
         </div>
       </div>
@@ -887,15 +895,9 @@
     <h2 class="text-3xl md:text-4xl font-bold"><span class="text-gradient">立即體驗極速搶票</span></h2>
     <p class="text-blush/85 mt-3 text-lg">下載 ticketkiller，六大平台全覆蓋 · 6 台設備不限次數</p>
     <div class="flex flex-wrap justify-center gap-4 mt-8">
-      <a href="https://ticketbot.lanzn.com/i4WYz49rs67c" class="btn-primary text-white px-8 py-3 rounded-full font-bold shadow-lg">
-        <i class="fa fa-windows mr-2"></i>Windows
-      </a>
-      <a href="https://ticketbot.lanzn.com/i4WYz49rs67c" class="btn-secondary text-white/90 px-8 py-3 rounded-full font-bold">
-        <i class="fa fa-apple mr-2"></i>macOS
-      </a>
-      <a href="https://ticketbot.lanzn.com/i4WYz49rs67c" class="btn-secondary text-white/90 px-8 py-3 rounded-full font-bold">
-        <i class="fa fa-mobile mr-2"></i>Android / iOS
-      </a>
+      <a href="https://ticketbot.lanzn.com/i4WYz49rs67c" target="_blank" rel="noopener noreferrer" class="btn-primary text-white px-8 py-3 rounded-full font-bold shadow-lg"><i class="fa fa-windows mr-2"></i>Windows</a>
+      <a href="https://ticketbot.lanzn.com/i4WYz49rs67c" target="_blank" rel="noopener noreferrer" class="btn-secondary text-white/90 px-8 py-3 rounded-full font-bold"><i class="fa fa-apple mr-2"></i>macOS</a>
+      <a href="https://ticketbot.lanzn.com/i4WYz49rs67c" target="_blank" rel="noopener noreferrer" class="btn-secondary text-white/90 px-8 py-3 rounded-full font-bold"><i class="fa fa-mobile mr-2"></i>Android / iOS</a>
     </div>
   </div>
 </section>
@@ -907,15 +909,8 @@
       <a href="#top" class="logo-icon" aria-label="ticketkiller 首頁">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 56" class="h-8 sm:h-9 md:h-10 w-auto" role="img" aria-label="ticketkiller">
           <defs>
-            <linearGradient id="logoGradFooter" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stop-color="#FF4D9D"/>
-              <stop offset="50%" stop-color="#B388FF"/>
-              <stop offset="100%" stop-color="#FFD54F"/>
-            </linearGradient>
-            <linearGradient id="iconGradFooter" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stop-color="#FF4D9D"/>
-              <stop offset="100%" stop-color="#B388FF"/>
-            </linearGradient>
+            <linearGradient id="logoGradFooter" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#FF4D9D"/><stop offset="50%" stop-color="#B388FF"/><stop offset="100%" stop-color="#FFD54F"/></linearGradient>
+            <linearGradient id="iconGradFooter" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#FF4D9D"/><stop offset="100%" stop-color="#B388FF"/></linearGradient>
             <filter id="glowFooter"><feGaussianBlur stdDeviation="2"/><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter>
           </defs>
           <g transform="translate(0,6)">
@@ -923,14 +918,11 @@
             <rect x="0" y="0" width="44" height="44" rx="12" fill="none" stroke="url(#iconGradFooter)" stroke-width="1" opacity="0.4"/>
             <polygon points="23,10 17,22 22,22 19,33 28,20 23,20 25.5,10" fill="url(#iconGradFooter)" filter="url(#glowFooter)" stroke="#fff" stroke-width="0.6"/>
           </g>
-          <g transform="translate(56,0)">
-            <text x="0" y="31" font-family="'Inter','Segoe UI',sans-serif" font-size="22" font-weight="800" letter-spacing="-0.5" fill="url(#logoGradFooter)">ticketkiller</text>
-          </g>
+          <g transform="translate(56,0)"><text x="0" y="31" font-family="'Inter','Segoe UI',sans-serif" font-size="22" font-weight="800" letter-spacing="-0.5" fill="url(#logoGradFooter)">ticketkiller</text></g>
         </svg>
       </a>
       <p class="text-blush/60 mt-2 text-sm">六大平台 · 按場次收費 · 6 台設備不限次數</p>
     </div>
-
     <div>
       <h5 class="font-bold mb-3 text-blush/80">連結</h5>
       <ul class="space-y-2 text-blush/65">
@@ -938,176 +930,125 @@
         <li><a href="#platforms" class="hover:text-purple transition">平台</a></li>
         <li><a href="#workflow" class="hover:text-green transition">使用流程</a></li>
         <li><a href="#pricing" class="hover:text-magenta transition">收費</a></li>
+        <li><a href="#wall" class="hover:text-green transition">成功搶票留言區</a></li>
         <li><a href="#changelog" class="hover:text-purple transition">更新</a></li>
       </ul>
     </div>
-
     <div>
       <h5 class="font-bold mb-3 text-blush/80">支援</h5>
       <ul class="space-y-2 text-blush/65">
         <li><a href="#contact" class="hover:text-green transition">常見問題</a></li>
         <li><a href="#contact" class="hover:text-purple transition">私隱政策</a></li>
-        <li><a href="https://ticketbot.lanzn.com/i4WYz49rs67c" class="hover:text-magenta transition">下載程式</a></li>
+        <li><a href="https://ticketbot.lanzn.com/i4WYz49rs67c" target="_blank" rel="noopener noreferrer" class="hover:text-magenta transition">下載程式</a></li>
       </ul>
     </div>
-
     <div>
       <h5 class="font-bold mb-3 text-blush/80">聯繫</h5>
       <ul class="space-y-2 text-blush/65">
-        <li>
-          <a href="https://wa.me/85265432109?text=%E4%BD%A0%E5%A5%BD%EF%BC%8Cticketkiller%20%E6%9F%A5%E8%A9%A2" target="_blank" rel="noopener" class="hover:text-green transition">
-            <i class="fa fa-whatsapp mr-2 text-green"></i>WhatsApp 查詢
-          </a>
-        </li>
-        <li><i class="fa fa-qq mr-2 text-rose"></i>QQ 3839562550</li>
-        <li><i class="fa fa-bell mr-2 text-magenta"></i>釘釘 ticketkiller</li>
-        <li><i class="fa fa-phone mr-2 text-magenta"></i> +852 6543 2109</li>
-        <li><i class="fa fa-envelope mr-2 text-rose"></i> support@ticketkiller.com</li>
+        <li><a href="#" data-contact-href="telegramUrl" target="_blank" rel="noopener noreferrer" class="hover:text-green transition"><i class="fa fa-telegram mr-2 text-green"></i>Telegram 查詢</a></li>
+        <li><i class="fa fa-qq mr-2 text-rose"></i>QQ <span data-contact-text="qq"></span></li>
+        <li><i class="fa fa-bell mr-2 text-magenta"></i>釘釘 <span data-contact-text="dingtalk"></span></li>
+        <li><i class="fa fa-envelope mr-2 text-rose"></i> <span data-contact-text="email"></span></li>
       </ul>
     </div>
   </div>
-
-  <div class="text-center text-blush/40 text-xs mt-10 border-t border-white/5 pt-6">
-    © 2026 ticketkiller. All rights reserved.
-  </div>
+  <div class="text-center text-blush/40 text-xs mt-10 border-t border-white/5 pt-6">© 2026 ticketkiller. All rights reserved.</div>
 </footer>
 
-<!-- ============ 浮動聯絡（WhatsApp / QQ / 釘釘 整合） ============ -->
-<button id="contactFab"
-        type="button"
-        class="contact-fab fixed bottom-8 right-6 w-14 h-14 rounded-full text-white z-50 flex items-center justify-center"
-        aria-label="打開聯絡方式"
-        aria-expanded="false"
-        aria-controls="contactPanel"
-        aria-haspopup="dialog">
+<!-- ============ 浮動聯絡 ============ -->
+<button id="contactFab" type="button" class="contact-fab fixed bottom-8 right-6 w-14 h-14 rounded-full text-white z-50 flex items-center justify-center" aria-label="打開聯絡方式" aria-expanded="false" aria-controls="contactPanel" aria-haspopup="dialog">
   <i class="fa fa-comments text-2xl" aria-hidden="true"></i>
 </button>
 
-<!-- 聯絡面板（非模態，可點擊外部 / ESC 關閉） -->
-<div id="contactPanel"
-     class="contact-panel fixed bottom-28 right-6 w-80 max-w-[calc(100vw-3rem)] glass-deep rounded-2xl border border-purple/30 p-5 z-50 shadow-2xl"
-     role="dialog"
-     aria-modal="false"
-     aria-label="聯絡方式與留言"
-     hidden>
+<div id="contactPanel" class="contact-panel fixed bottom-28 right-6 w-80 max-w-[calc(100vw-3rem)] glass-deep rounded-2xl border border-purple/30 p-5 z-50 shadow-2xl" role="dialog" aria-modal="false" aria-label="聯絡方式與留言" hidden>
   <div class="flex justify-between items-center mb-4">
     <h3 class="font-bold text-white text-base"><i class="fa fa-headphones text-rose mr-1.5"></i>聯絡我們</h3>
-    <button type="button" id="contactClose"
-            class="text-blush/60 hover:text-white p-1 rounded-full transition"
-            aria-label="關閉聯絡面板">
-      <i class="fa fa-times text-lg" aria-hidden="true"></i>
-    </button>
+    <button type="button" id="contactClose" class="text-blush/60 hover:text-white p-1 rounded-full transition" aria-label="關閉聯絡面板"><i class="fa fa-times text-lg" aria-hidden="true"></i></button>
   </div>
 
-  <!-- WhatsApp -->
-  <a href="https://wa.me/85267545772?text=%E4%BD%A0%E5%A5%BD%EF%BC%8C%E6%88%91%E6%83%B3%E6%9F%A5%E8%A9%A2%20ticketkiller%20%E6%90%B6%E9%A3%9B%E7%A8%8B%E5%BC%8F"
-     target="_blank" rel="noopener"
-     class="contact-item flex items-center gap-3 p-3 rounded-xl bg-green/10 border border-green/30 hover:bg-green/20 mb-3">
-    <i class="fa fa-whatsapp text-2xl text-green" aria-hidden="true"></i>
-    <div class="flex-1 min-w-0">
-      <div class="font-bold text-white text-sm">WhatsApp</div>
-      <div class="text-xs text-blush/70 truncate">+852 6754 5772</div>
-    </div>
+  <a href="#" data-contact-href="telegramUrl" target="_blank" rel="noopener noreferrer" class="contact-item flex items-center gap-3 p-3 rounded-xl bg-green/10 border border-green/30 hover:bg-green/20 mb-3">
+    <i class="fa fa-telegram text-2xl text-green" aria-hidden="true"></i>
+    <div class="flex-1 min-w-0"><div class="font-bold text-white text-sm">Telegram</div><div class="text-xs text-blush/70 truncate">點擊直接對話</div></div>
     <i class="fa fa-external-link text-blush/50 text-xs" aria-hidden="true"></i>
   </a>
 
-  <!-- QQ -->
   <div class="contact-item p-3 rounded-xl bg-purple/10 border border-purple/30 mb-3">
     <div class="flex items-center gap-3 mb-2">
       <i class="fa fa-qq text-2xl text-rose" aria-hidden="true"></i>
-      <div class="flex-1 min-w-0">
-        <div class="font-bold text-white text-sm">QQ</div>
-        <div class="text-xs text-blush/70">3839562550</div>
-      </div>
+      <div class="flex-1 min-w-0"><div class="font-bold text-white text-sm">QQ</div><div class="text-xs text-blush/70" data-contact-text="qq"></div></div>
     </div>
     <div class="flex gap-2">
-      <button type="button"
-              class="contact-copy flex-1 text-xs py-1.5 rounded-lg bg-purple/20 hover:bg-purple/30 text-rose transition"
-              data-copy="3839562550"
-              data-copy-label="QQ 號">
-        <i class="fa fa-copy mr-1" aria-hidden="true"></i>複製 QQ 號
-      </button>
-      <a href="tencent://message/?uin=3839562550&Site=&Menu=yes"
-         class="flex-1 text-xs py-1.5 rounded-lg bg-purple/20 hover:bg-purple/30 text-rose transition text-center">
-        <i class="fa fa-comment mr-1" aria-hidden="true"></i>打開 QQ
-      </a>
+      <button type="button" class="contact-copy flex-1 text-xs py-1.5 rounded-lg bg-purple/20 hover:bg-purple/30 text-rose transition" data-copy="" data-copy-key="qq" data-copy-label="QQ 號"><i class="fa fa-copy mr-1" aria-hidden="true"></i>複製 QQ 號</button>
+      <a href="#" data-contact-attr="href:qqDeepLink" class="flex-1 text-xs py-1.5 rounded-lg bg-purple/20 hover:bg-purple/30 text-rose transition text-center"><i class="fa fa-comment mr-1" aria-hidden="true"></i>打開 QQ</a>
     </div>
   </div>
 
-  <!-- 釘釘留言 -->
   <div class="contact-item p-3 rounded-xl bg-magenta/10 border border-magenta/30">
     <div class="flex items-center gap-3 mb-2">
       <i class="fa fa-bell text-2xl text-magenta" aria-hidden="true"></i>
-      <div class="flex-1 min-w-0">
-        <div class="font-bold text-white text-sm">釘釘留言</div>
-        <div class="text-xs text-blush/70">釘釘 ID：<span class="text-white font-semibold">ticketkiller</span></div>
-      </div>
+      <div class="flex-1 min-w-0"><div class="font-bold text-white text-sm">釘釘留言</div><div class="text-xs text-blush/70">釘釘 ID：<span class="text-white font-semibold" data-contact-text="dingtalk"></span></div></div>
     </div>
-
-    <!-- 複製釘釘 ID -->
     <div class="flex gap-2 mb-3">
-      <button type="button"
-              class="contact-copy flex-1 text-xs py-1.5 rounded-lg bg-magenta/20 hover:bg-magenta/30 text-magenta transition"
-              data-copy="ticketkiller"
-              data-copy-label="釘釘 ID">
-        <i class="fa fa-copy mr-1" aria-hidden="true"></i>複製釘釘 ID
-      </button>
-      <a href="dingtalk://dingtalkclient/action/sendmsg?dingtalk_id=ticketkiller"
-         class="flex-1 text-xs py-1.5 rounded-lg bg-magenta/20 hover:bg-magenta/30 text-magenta transition text-center">
-        <i class="fa fa-comment mr-1" aria-hidden="true"></i>打開釘釘
-      </a>
+      <button type="button" class="contact-copy flex-1 text-xs py-1.5 rounded-lg bg-magenta/20 hover:bg-magenta/30 text-magenta transition" data-copy="" data-copy-key="dingtalk" data-copy-label="釘釘 ID"><i class="fa fa-copy mr-1" aria-hidden="true"></i>複製釘釘 ID</button>
+      <a href="#" data-contact-attr="href:dingtalkDeepLink" class="flex-1 text-xs py-1.5 rounded-lg bg-magenta/20 hover:bg-magenta/30 text-magenta transition text-center"><i class="fa fa-comment mr-1" aria-hidden="true"></i>打開釘釘</a>
     </div>
-
     <form id="dingtalkForm" class="space-y-2" novalidate>
       <label class="sr-only" for="dtName">姓名</label>
-      <input type="text" id="dtName" name="name" placeholder="姓名（可選）" maxlength="30" autocomplete="name"
-             class="w-full bg-black/20 border border-white/10 rounded-lg px-3 py-2 text-sm text-white placeholder-blush/40 focus:border-magenta/50 transition">
-
+      <input type="text" id="dtName" name="name" placeholder="姓名（可選）" maxlength="30" autocomplete="name" class="w-full bg-black/20 border border-white/10 rounded-lg px-3 py-2 text-sm text-white placeholder-blush/40 focus:border-magenta/50 transition">
       <label class="sr-only" for="dtContact">聯絡方式</label>
-      <input type="text" id="dtContact" name="contact" placeholder="您的聯絡方式（QQ / 微信 / 郵箱）" maxlength="60" required
-             class="w-full bg-black/20 border border-white/10 rounded-lg px-3 py-2 text-sm text-white placeholder-blush/40 focus:border-magenta/50 transition">
-
+      <input type="text" id="dtContact" name="contact" placeholder="您的聯絡方式（QQ / 微信 / 郵箱）" maxlength="60" required class="w-full bg-black/20 border border-white/10 rounded-lg px-3 py-2 text-sm text-white placeholder-blush/40 focus:border-magenta/50 transition">
       <label class="sr-only" for="dtMessage">留言內容</label>
-      <textarea id="dtMessage" name="message" placeholder="想搶的場次或留言…" maxlength="300" rows="2" required
-                class="w-full bg-black/20 border border-white/10 rounded-lg px-3 py-2 text-sm text-white placeholder-blush/40 focus:border-magenta/50 resize-none transition"></textarea>
-
-      <!-- honeypot 防機器人 -->
-      <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true"
-             style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;">
-
-      <button type="submit"
-              class="contact-send w-full text-sm font-bold py-2 rounded-lg btn-primary text-white">
-        <i class="fa fa-paper-plane mr-1" aria-hidden="true"></i>複製留言內容
-      </button>
-      <p class="text-[10px] text-blush/50 text-center leading-relaxed">
-        留言將複製到剪貼簿，請到 QQ 3839562550 或釘釘搜尋 <span class="text-magenta font-semibold">ticketkiller</span> 粘貼發送
-      </p>
+      <textarea id="dtMessage" name="message" placeholder="想搶的場次或留言…" maxlength="300" rows="2" required class="w-full bg-black/20 border border-white/10 rounded-lg px-3 py-2 text-sm text-white placeholder-blush/40 focus:border-magenta/50 resize-none transition"></textarea>
+      <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;">
+      <button type="submit" class="contact-send w-full text-sm font-bold py-2 rounded-lg btn-primary text-white"><i class="fa fa-paper-plane mr-1" aria-hidden="true"></i>複製留言內容</button>
+      <p class="text-[10px] text-blush/50 text-center leading-relaxed">留言將複製到剪貼簿，請到 Telegram、QQ <span data-contact-text="qq"></span> 或釘釘搜尋 <span class="text-magenta font-semibold" data-contact-text="dingtalk"></span> 粘貼發送</p>
     </form>
   </div>
 </div>
 
-<button id="backToTop" aria-label="回到頂部"
-        class="fixed right-6 w-12 h-12 rounded-full btn-primary text-white shadow-2xl opacity-0 invisible transition-all z-50 hover:scale-110 flex items-center justify-center"
-        style="bottom:6.5rem">
-  <i class="fa fa-chevron-up"></i>
-</button>
+<button id="backToTop" aria-label="回到頂部" class="fixed right-6 w-12 h-12 rounded-full btn-primary text-white shadow-2xl opacity-0 invisible transition-all z-50 hover:scale-110 flex items-center justify-center" style="bottom:6.5rem"><i class="fa fa-chevron-up"></i></button>
 
 
 <!-- ============================================================
-     ★★★ 全域配置區（部署時只需改這裡） ★★★
+     ★★★ 全域配置區（部署時只需改這裡）★★★
      ============================================================ -->
 <script>
   window.TK_CONFIG = {
-    // 改為讀取靜態 JSON 檔案，由外部定時任務（如 GitHub Actions）每日更新
     apiBase: '',
-    apiPath: './data/concerts.json',   // 你的 JSON 檔案路徑
+    apiPath: 'data/concerts.json',
     corsProxy: '',
     apiKey: '',
     timeout: 8000,
     cacheTTL: 24 * 60 * 60 * 1000,
-    cacheKey: 'tk_shows_cache_v2',      // ← 版本號提升，舊快取自動失效
-    debug: false,
-    autoDetectEnv: false                // 關閉本地環境自動回退，統一讀取 JSON
+    cacheKey: 'tk_shows_cache_v9',   /* ← 已從 v8 升級為 v9，避免讀到舊版快取 */
+    debug: false,                    /* ← 需要診斷時臨時改為 true */
+    autoDetectEnv: false,
+
+    contact: {
+      telegram:    '',
+      telegramUrl: 'https://t.me/+85267545772',
+      qq:          '3839562550',
+      qqDeepLink:  'tencent://message/?uin=3839562550&Site=&Menu=yes',
+      dingtalk:    'ticketkiller',
+      dingtalkDeepLink: 'dingtalk://dingtalkclient/action/sendmsg?dingtalk_id=ticketkiller',
+      email:       'support@ticketkiller.com',
+      serviceStart: 10,
+      serviceEnd:   23
+    },
+
+    telegramBot: {
+      enabled: false,
+      token:   '',
+      chatId:  ''
+    },
+
+    wallApi: {
+      enabled:  false,
+      baseUrl:  '',
+      listPath: '/wall/list',
+      postPath: '/wall/post',
+      likePath: '/wall/like'
+    }
   };
 
   (function () {
@@ -1124,14 +1065,95 @@
 
 
 <!-- ============================================================
-     ★★★ 語言切換系統（繁 / 简） ★★★
+     ★★★ 聯絡資訊填充 + 客服在線狀態 ★★★
+     ============================================================ -->
+<script>
+(function () {
+  'use strict';
+
+  function getC() { return (window.TK_CONFIG && window.TK_CONFIG.contact) || {}; }
+
+  function fillContacts() {
+    var C = getC();
+
+    document.querySelectorAll('[data-contact-href]').forEach(function (el) {
+      var key = el.getAttribute('data-contact-href');
+      if (C[key]) el.setAttribute('href', C[key]);
+    });
+
+    document.querySelectorAll('[data-contact-text]').forEach(function (el) {
+      var key = el.getAttribute('data-contact-text');
+      if (C[key]) el.textContent = C[key];
+    });
+
+    document.querySelectorAll('[data-contact-attr]').forEach(function (el) {
+      var spec = el.getAttribute('data-contact-attr');
+      var parts = spec.split(':');
+      if (parts.length === 2 && C[parts[1]]) el.setAttribute(parts[0], C[parts[1]]);
+    });
+
+    document.querySelectorAll('.contact-copy[data-copy-key]').forEach(function (btn) {
+      var key = btn.getAttribute('data-copy-key');
+      if (C[key]) btn.setAttribute('data-copy', C[key]);
+    });
+  }
+
+  function updateServiceStatus() {
+    var el = document.getElementById('serviceStatus');
+    if (!el) return;
+    var C = getC();
+    var start = (C.serviceStart != null) ? C.serviceStart : 10;
+    var end = (C.serviceEnd != null) ? C.serviceEnd : 23;
+
+    var hktHour;
+    try {
+      var p = new Intl.DateTimeFormat('en-GB', {
+        timeZone: 'Asia/Hong_Kong', hour: '2-digit', hour12: false
+      }).formatToParts(new Date());
+      for (var i = 0; i < p.length; i++) {
+        if (p[i].type === 'hour') { hktHour = parseInt(p[i].value, 10); break; }
+      }
+    } catch (e) { hktHour = new Date().getHours(); }
+    if (hktHour == null) hktHour = new Date().getHours();
+
+    var online = (hktHour >= start && hktHour < end);
+    var tr = window.__tkTr || function (s) { return s; };
+
+    if (online) {
+      el.innerHTML = '<span class="online-dot mr-2"></span>' + tr('客服在線 · 即時回覆');
+      el.className = 'mt-5 text-sm text-green';
+    } else {
+      el.innerHTML = '<span class="offline-dot mr-2"></span>' + tr('非服務時間 · 留言會盡快回覆');
+      el.className = 'mt-5 text-sm text-blush/55';
+    }
+  }
+
+  function init() {
+    fillContacts();
+    updateServiceStatus();
+    setInterval(updateServiceStatus, 60 * 1000);
+  }
+
+  window.__tkRefreshContacts = fillContacts;
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+</script>
+
+
+<!-- ============================================================
+     ★★★ 語言切換系統（繁 / 简）★★★
      ============================================================ -->
 <script>
 (function () {
   'use strict';
 
   var T2S = {
-    '極':'极','搶':'抢','場':'场','費':'费','設':'设','備':'备','數':'数','蓋':'盖','買':'买','個':'个','飛':'飞','諮':'咨','詢':'询','導':'导','頁':'页','選':'选','單':'单','開':'开','關':'关','覽':'览','內':'内','銷':'销','賣':'卖','價':'价','優':'优','證':'证','驗':'验','碼':'码','動':'动','體':'体','隻':'只','銀':'银','網':'网','購':'购','連':'连','結':'结','簡':'简','說':'说','暫':'暂','時':'时','間':'间','線':'线','強':'强','級':'级','專':'专','業':'业','務':'务','館':'馆','區':'区','東':'东','亞':'亚','國':'国','際':'际','樂':'乐','隊':'队','團':'团','週':'周','圍':'围','環':'环','龍':'龙','髮':'发','灣':'湾','華':'华','語':'语','對':'对','話':'话','戶':'户','資':'资','隱':'隐','於':'于','與':'与','將':'将','來':'来','顯':'显','現':'现','觸':'触','發':'发','態':'态','檢':'检','測':'测','錯':'错','誤':'误','確':'确','認':'认','軟':'软','觀':'观','賞':'赏','終':'终','親':'亲','師':'师','傳':'传','訊':'讯','準':'准','權':'权','門':'门','眾':'众','類':'类','離':'离','虛':'虚','擬':'拟','幫':'帮','屬':'属','歸':'归','總':'总','匯':'汇','編':'编','號':'号','歷':'历','譜':'谱','聽':'听','腦':'脑','鍋':'锅','邊':'边','鍵':'键','靈':'灵','靜':'静','頭':'头','願':'愿','風':'风','複':'复','雜':'杂','辦':'办','劃':'划','舉':'举','義':'义','興':'兴','輸':'输','贏':'赢','鬆':'松','點':'点','營':'营','絡':'络','統':'统','維':'维','繽':'缤','紛':'纷','頻':'频','顧':'顾','預':'预','頂':'顶','題':'题','顏':'颜','齊':'齐','齡':'龄','龜':'龟','們':'们','這':'这','麼':'么','過':'过','後':'后','從':'从','會':'会','為':'为','實':'实','藝':'艺','術':'术','節':'节','員':'员','熱':'热','雙':'双','應':'应','該':'该','讓':'让','識':'识','記':'记','帳':'帐','繳':'缴','質':'质','標':'标','嚴':'严','謹':'谨','益':'益','協':'协','議':'议','條':'条','款':'款','贈':'赠','禮':'礼','摺':'折','額':'额','據':'据','鐘':'钟','當':'当','還':'还','進':'进','擇':'择','閉':'闭','續':'续','斷':'断','擊':'击','較':'较','長':'长','詳':'详','細':'细','瀏':'浏','徑':'径','載':'载','讀':'读','寫':'写','刪':'删','響':'响','適':'适','處':'处','羅':'罗','蘭':'兰','麗':'丽','豐':'丰','貴':'贵','鄉':'乡','復':'复','練':'练','習':'习','訓':'训','範':'范','邏':'逻','輯':'辑','籤':'签','紋':'纹','樣':'样','樹':'树','葉':'叶','夢':'梦','電':'电','視':'视','車':'车','輪':'轮','轉':'转','軸':'轴','軌':'轨','輛':'辆','運':'运','遞':'递','達':'达','遠':'远','鎖':'锁','鑰':'钥','匙':'匙','牆':'墙','層':'层','樓':'楼','梯':'梯','廚':'厨','廁':'厕','浴':'浴','櫃':'柜','帶':'带','錶':'表','鏡':'镜','燈':'灯','燭':'烛','焰':'焰','煙':'烟','霧':'雾','雲':'云','凍':'冻','溫':'温','涼':'凉','暖':'暖','寒':'寒','暑':'暑','氣':'气','暴':'暴','閃':'闪','紅':'红','綠':'绿','藍':'蓝','黃':'黄','鹹':'咸','韌':'韧','緊':'紧','輕':'轻','濕':'湿','淨':'净','潔':'洁','髒':'脏','亂':'乱','壞':'坏','彎':'弯','圓':'圆','鈍':'钝','娛':'娱','蹤':'踪','別':'别','樑':'梁','詠':'咏','赫':'赫','園':'园','麥':'麦','啟':'启','綜':'综','威':'威','倫':'伦','敦':'敦','劇':'剧','院':'院','郭':'郭','富':'富','跨':'跨','演':'演','唱':'唱','獨':'独','套':'套','售':'售','旅':'游','遊':'游','貓':'猫','攜':'携','程':'程','衞':'卫','劉':'刘','恒':'恒','抽':'抽','登':'登','策':'策','略':'略','謝':'谢','界':'界','限':'限','定':'定','版':'版','展':'展','音':'音','留':'留','競':'竞','技':'技','張':'张','敏':'敏','球':'球','抱':'歉','兔':'兔','券':'券','扣':'扣','絲':'丝','印':'印','磡':'磡','育':'育','健':'健','康':'康','化':'化','堂':'堂','經':'经','敗':'败','源':'源','即':'即','刷':'刷','薦':'荐','步':'步','清':'清','理':'理','相':'相','式':'式','卡':'卡','片':'片','面':'面','消':'消','宣':'宣','報':'报','佔':'占','位':'位','盡':'尽','無':'无','講':'讲','註':'注','冊':'册','裝':'装','置':'置','並':'并','行':'行','參':'参','入':'入','票':'票','彈':'弹','窗':'窗','秒':'秒','速':'速','付':'付','馬':'马','上':'上','測':'测','試':'试','用':'用','郵':'邮','箱':'箱','聯':'联','繫':'系','微':'微','釘':'钉','貼':'贴','粘':'粘','撕':'撕','簿':'簿','剪':'剪','擷':'撷','制':'制','率':'率','繁':'繁','钮':'钮','成':'成','功':'功'
+    '極':'极','搶':'抢','場':'场','費':'费','設':'设','備':'备','數':'数','蓋':'盖','買':'买','個':'个','飛':'飞','諮':'咨','詢':'询','導':'导','頁':'页','選':'选','單':'单','開':'开','關':'关','覽':'览','內':'内','銷':'销','賣':'卖','價':'价','優':'优','證':'证','驗':'验','碼':'码','動':'动','體':'体','隻':'只','銀':'银','網':'网','購':'购','連':'连','結':'结','簡':'简','說':'说','暫':'暂','時':'时','間':'间','線':'线','強':'强','級':'级','專':'专','業':'业','務':'务','館':'馆','區':'区','東':'东','亞':'亚','國':'国','際':'际','樂':'乐','隊':'队','團':'团','週':'周','圍':'围','環':'环','龍':'龙','髮':'发','灣':'湾','華':'华','語':'语','對':'对','話':'话','戶':'户','資':'资','隱':'隐','於':'于','與':'与','將':'将','來':'来','顯':'显','現':'现','觸':'触','發':'发','態':'态','檢':'检','測':'测','錯':'错','誤':'误','確':'确','認':'认','軟':'软','觀':'观','賞':'赏','終':'终','親':'亲','師':'师','傳':'传','訊':'讯','準':'准','權':'权','門':'门','眾':'众','類':'类','離':'离','虛':'虚','擬':'拟','幫':'帮','屬':'属','歸':'归','總':'总','匯':'汇','編':'编','號':'号','歷':'历','譜':'谱','聽':'听','腦':'脑','鍋':'锅','邊':'边','鍵':'键','靈':'灵','靜':'静','頭':'头','願':'愿','風':'风','複':'复','雜':'杂','辦':'办','劃':'划','舉':'举','義':'义','興':'兴','輸':'输','贏':'赢','鬆':'松','點':'点','營':'营','絡':'络','統':'统','維':'维','繽':'缤','紛':'纷','頻':'频','顧':'顾','預':'预','頂':'顶','題':'题','顏':'颜','齊':'齐','齡':'龄','龜':'龟','們':'们','這':'这','麼':'么','過':'过','後':'后','從':'从','會':'会','為':'为','實':'实','藝':'艺','術':'术','節':'节','員':'员','熱':'热','雙':'双','應':'应','該':'该','讓':'让','識':'识','記':'记','帳':'帐','繳':'缴','質':'质','標':'标','嚴':'严','謹':'谨','益':'益','協':'协','議':'议','條':'条','款':'款','贈':'赠','禮':'礼','摺':'折','額':'额','據':'据','鐘':'钟','當':'当','還':'还','進':'进','擇':'择','閉':'闭','續':'续','斷':'断','擊':'击','較':'较','長':'长','詳':'详','細':'细','瀏':'浏','徑':'径','載':'载','讀':'读','寫':'写','刪':'删','響':'响','適':'适','處':'处','羅':'罗','蘭':'兰','麗':'丽','豐':'丰','貴':'贵','鄉':'乡','復':'复','練':'练','習':'习','訓':'训','範':'范','邏':'逻','輯':'辑','籤':'签','紋':'纹','樣':'样','樹':'树','葉':'叶','夢':'梦','電':'电','視':'视','車':'车','輪':'轮','轉':'转','軸':'轴','軌':'轨','輛':'辆','運':'运','遞':'递','達':'达','遠':'远','鎖':'锁','鑰':'钥','匙':'匙','牆':'墙','層':'层','樓':'楼','梯':'梯','廚':'厨','廁':'厕','浴':'浴','櫃':'柜','帶':'带','錶':'表','鏡':'镜','燈':'灯','燭':'烛','焰':'焰','煙':'烟','霧':'雾','雲':'云','凍':'冻','溫':'温','涼':'凉','暖':'暖','寒':'寒','暑':'暑','氣':'气','暴':'暴','閃':'闪','紅':'红','綠':'绿','藍':'蓝','黃':'黄','鹹':'咸','韌':'韧','緊':'紧','輕':'轻','濕':'湿','淨':'净','潔':'洁','髒':'脏','亂':'乱','壞':'坏','彎':'弯','圓':'圆','鈍':'钝','娛':'娱','蹤':'踪','別':'别','樑':'梁','詠':'咏','赫':'赫','園':'园','麥':'麦','啟':'启','綜':'综','威':'威','倫':'伦','敦':'敦','劇':'剧','院':'院','郭':'郭','富':'富','跨':'跨','演':'演','唱':'唱','獨':'独','套':'套','售':'售','旅':'游','遊':'游','貓':'猫','攜':'携','程':'程','衞':'卫','劉':'刘','恒':'恒','抽':'抽','登':'登','策':'策','略':'略','謝':'谢','界':'界','限':'限','定':'定','版':'版','展':'展','音':'音','留':'留','競':'竞','技':'技','張':'张','敏':'敏','球':'球','抱':'歉','兔':'兔','券':'券','扣':'扣','絲':'丝','印':'印','磡':'磡','育':'育','健':'健','康':'康','化':'化','堂':'堂','經':'经','敗':'败','源':'源','即':'即','刷':'刷','薦':'荐','步':'步','清':'清','理':'理','相':'相','式':'式','卡':'卡','片':'片','面':'面','消':'消','宣':'宣','報':'报','佔':'占','位':'位','盡':'尽','無':'无','講':'讲','註':'注','冊':'册','裝':'装','置':'置','並':'并','行':'行','參':'参','入':'入','票':'票','彈':'弹','窗':'窗','秒':'秒','速':'速','付':'付','馬':'马','上':'上','測':'测','試':'试','用':'用','郵':'邮','箱':'箱','聯':'联','繫':'系','微':'微','釘':'钉','貼':'贴','粘':'粘','撕':'撕','簿':'簿','剪':'剪','擷':'撷','制':'制','率':'率','繁':'繁','钮':'钮','成':'成','功':'功','戰':'战','績':'绩','讚':'赞','錄':'录'
   };
 
   var currentLang = 'zh-HK';
@@ -1156,12 +1178,7 @@
   function collectStaticTexts() {
     if (collected) return;
     collected = true;
-    var walker = document.createTreeWalker(
-      document.body,
-      NodeFilter.SHOW_TEXT,
-      null,
-      false
-    );
+    var walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null, false);
     var node;
     while ((node = walker.nextNode())) {
       var p = node.parentNode;
@@ -1195,6 +1212,9 @@
     if (window.__showsSystem && typeof window.__showsSystem.rerender === 'function') {
       window.__showsSystem.rerender();
     }
+    if (window.__wallSystem && typeof window.__wallSystem.rerender === 'function') {
+      window.__wallSystem.rerender();
+    }
 
     try { localStorage.setItem('tk_lang', lang); } catch (e) {}
   }
@@ -1204,9 +1224,7 @@
   function bindToggle() {
     var t1 = document.getElementById('langToggle');
     var t2 = document.getElementById('langToggleMobile');
-    function handler() {
-      applyLang(currentLang === 'zh-CN' ? 'zh-HK' : 'zh-CN');
-    }
+    function handler() { applyLang(currentLang === 'zh-CN' ? 'zh-HK' : 'zh-CN'); }
     if (t1) t1.addEventListener('click', handler);
     if (t2) t2.addEventListener('click', handler);
   }
@@ -1215,11 +1233,8 @@
     collectStaticTexts();
     var saved = 'zh-HK';
     try { saved = localStorage.getItem('tk_lang') || 'zh-HK'; } catch (e) {}
-    if (saved === 'zh-CN') {
-      applyLang('zh-CN');
-    } else {
-      currentLang = 'zh-HK';
-    }
+    if (saved === 'zh-CN') applyLang('zh-CN');
+    else currentLang = 'zh-HK';
     bindToggle();
   }
 
@@ -1286,30 +1301,26 @@
     });
   });
 
-  backToTop.addEventListener('click', function () {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  });
+  backToTop.addEventListener('click', function () { window.scrollTo({ top: 0, behavior: 'smooth' }); });
 
-  toggleLogs.addEventListener('click', function () {
-    var isHidden = olderLogs.classList.toggle('hidden');
-    var tr = window.__tkTr || function (s) { return s; };
-    this.innerHTML = isHidden
-      ? tr('<i class="fa fa-history mr-2"></i>查看更早版本')
-      : tr('<i class="fa fa-angle-up mr-2"></i>收起更早版本');
-    if (!isHidden && typeof window.__revealAll === 'function') window.__revealAll();
-  });
-
-  var revealEls = Array.prototype.slice.call(document.querySelectorAll('.reveal'));
-
-  function revealAll() {
-    revealEls.forEach(function (el) {
-      var rect = el.getBoundingClientRect();
-      if (rect.top < window.innerHeight - 60) {
-        el.classList.add('visible');
-      }
+  if (toggleLogs && olderLogs) {
+    toggleLogs.addEventListener('click', function () {
+      var isHidden = olderLogs.classList.toggle('hidden');
+      var tr = window.__tkTr || function (s) { return s; };
+      this.innerHTML = isHidden
+        ? tr('<i class="fa fa-history mr-2"></i>查看更早版本')
+        : tr('<i class="fa fa-angle-up mr-2"></i>收起更早版本');
+      if (!isHidden && typeof window.__revealAll === 'function') window.__revealAll();
     });
   }
 
+  var revealEls = Array.prototype.slice.call(document.querySelectorAll('.reveal'));
+  function revealAll() {
+    revealEls.forEach(function (el) {
+      var rect = el.getBoundingClientRect();
+      if (rect.top < window.innerHeight - 60) el.classList.add('visible');
+    });
+  }
   if ('IntersectionObserver' in window) {
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
@@ -1323,18 +1334,15 @@
   } else {
     revealEls.forEach(function (el) { el.classList.add('visible'); });
   }
-
   window.addEventListener('load', function () { setTimeout(revealAll, 1200); });
   window.addEventListener('hashchange', function () { setTimeout(revealAll, 400); });
-
   window.__revealAll = revealAll;
 })();
 </script>
 
 
 <!-- ============================================================
-     第二部分：演唱會場次系統（讀取靜態 JSON · HKT 時區過濾）
-     ★ 已套用修復 ②：fetch 失敗時自動回退（快取 → 內建備用資料）
+     第二部分：演唱會場次系統（修復版 — 解決 JSON 更新不生效）
      ============================================================ -->
 <script>
 (function () {
@@ -1346,12 +1354,23 @@
   var CORS_PROXY  = CFG.corsProxy  != null ? CFG.corsProxy  : '';
   var API_KEY     = CFG.apiKey     != null ? CFG.apiKey     : '';
   var TIMEOUT     = CFG.timeout    != null ? CFG.timeout    : 8000;
-  var CACHE_KEY   = CFG.cacheKey   != null ? CFG.cacheKey   : 'tk_shows_cache_v2';
+  var CACHE_KEY   = CFG.cacheKey   != null ? CFG.cacheKey   : 'tk_shows_cache_v9';
   var CACHE_TTL   = CFG.cacheTTL   != null ? CFG.cacheTTL   : 24 * 60 * 60 * 1000;
+  var DEBUG       = !!CFG.debug;
 
-  function tr(str) {
-    return window.__tkTr ? window.__tkTr(str) : String(str);
+  function log() {
+    if (!DEBUG) return;
+    var args = Array.prototype.slice.call(arguments);
+    args.unshift('[ticketkiller]');
+    console.log.apply(console, args);
   }
+  function warn() {
+    var args = Array.prototype.slice.call(arguments);
+    args.unshift('[ticketkiller]');
+    console.warn.apply(console, args);
+  }
+
+  function tr(str) { return window.__tkTr ? window.__tkTr(str) : String(str); }
 
   function buildApiUrl() {
     var url;
@@ -1366,111 +1385,223 @@
   }
 
   var API_ENDPOINT = buildApiUrl();
+  log('API_ENDPOINT =', API_ENDPOINT);
 
+  // ============ 兜底資料（根據最新售票資訊更新，只保留未開售場次）============
   var FALLBACK_SHOWS = [
     {
-      id: 'aaron-2026',
-      name: '郭富城 ICONIC MOMENT 啟德跨年演唱會',
-      date: '2026年12月31日 – 2027年1月1日',
+      id: 'stray-kids-2026',
+      name: 'Stray Kids World Tour <RUN IT> 香港站',
+      date: '2026年12月5日（六）下午 5:00',
       venue: '啟德體育園主場館',
-      price: 'HK$1,680 / $1,380 / $1,180 / $980 / $680 / $480',
-      publicSaleDate: '2026-10-14',
-      publicSaleTime: '上午 10:00',
-      platform: '快達票 HK Ticketing、大麥',
+      price: 'HK$2,299 (VIP企位) / $1,699 (普通企位)',
+      publicSaleDate: '2026-09-04',
+      publicSaleTime: '中午 12:00',
+      platform: 'HKTicketing',
       ticketUrl: 'https://www.hkticketing.com/',
       isMacau: false,
       isHot: true,
       prioritySales: [
-        { stage: '滙豐Mastercard優先（第一輪）', date: '2026-10-09', time: '上午 10:00 – 晚上 23:59' },
-        { stage: '滙豐Mastercard優先（第二輪）', date: '2026-10-10', time: '上午 10:00 – 晚上 23:59' },
-        { stage: 'Klook 獨家套票預售', date: '2026-10-12', time: '中午 12:00 – 10月13日 23:59' }
-      ],
-      icon: 'fa-trophy',
-      iconColor: 'green'
-    },
-    {
-      id: 'janice-2026',
-      name: '衛蘭 Janice《OUT OF FRAME》世界巡迴演唱會',
-      date: '2026年11月14日、15日、17日（共3場）',
-      venue: '紅磡香港體育館',
-      price: 'HK$1,180 / $880 / $580',
-      publicSaleDate: '2026-10-08',
-      publicSaleTime: '上午 10:00',
-      platform: 'URBTIX',
-      ticketUrl: 'https://www.urbtix.hk/',
-      isMacau: false,
-      isHot: true,
-      prioritySales: [
-        { stage: '建行(亞洲)信用卡優先（第一輪）', date: '2026-09-28', time: '中午 12:00 – 晚上 20:00' },
-        { stage: '建行(亞洲)信用卡優先（第二輪）', date: '2026-09-29', time: '中午 12:00 – 9月30日 20:00' },
-        { stage: 'Klook 優先購票', date: '2026-10-02', time: '中午 12:00 – 10月3日' }
-      ],
-      icon: 'fa-globe',
-      iconColor: 'green'
-    },
-    {
-      id: 'gigi-2026',
-      name: '梁詠琪 LOVE GiGi 愛自己世界巡迴演唱會 香港站',
-      date: '2026年11月27日 – 11月29日（共3場）',
-      venue: '紅磡香港體育館',
-      price: 'HK$1,180 / $780 / $480',
-      publicSaleDate: '2026-10-08',
-      publicSaleTime: '上午 10:00',
-      platform: 'URBTIX（優先購票經 Cityline）',
-      ticketUrl: 'https://www.urbtix.hk/',
-      isMacau: false,
-      isHot: true,
-      prioritySales: [
-        { stage: 'Cityline 優先購票', date: '2026-10-01', time: '上午 10:00' }
-      ],
-      icon: 'fa-globe',
-      iconColor: 'green'
-    },
-    {
-      id: 'andy-2026',
-      name: '劉德華《About Life》巡迴演唱會香港站',
-      date: '2026年12月18日 – 2027年1月10日（共20場）',
-      venue: '紅磡香港體育館',
-      price: 'HK$1,380 / $980 / $680',
-      publicSaleDate: '2026-10-15',
-      publicSaleTime: '待公佈',
-      platform: 'URBTIX',
-      ticketUrl: 'https://www.urbtix.hk/',
-      isMacau: false,
-      isHot: true,
-      prioritySales: [
-        { stage: '恒生Mastercard優先購票', date: '2026-09-21', time: '中午 12:00 起' },
-        { stage: 'Klook 獨家套票預售', date: '2026-09-23', time: '中午 12:00 起' },
-        { stage: 'URBTIX 網上抽籤登記', date: '2026-09-28', time: '10:00 – 9月30日 20:00' }
+        { stage: 'STAY會員優先訂票', date: '2026-09-01', time: '中午 12:00 起' },
+        { stage: '滙豐Mastercard優先預售', date: '2026-09-02', time: '下午 1:00 起' },
+        { stage: 'Trip.com優先訂票', date: '2026-09-02', time: '下午 2:00 起' },
+        { stage: 'Live Nation會員優先訂票', date: '2026-09-03', time: '中午 12:00 起' }
       ],
       icon: 'fa-star',
       iconColor: 'purple'
     },
     {
-      id: 'mc-macau-2026',
-      name: 'MC張天賦《E=MC² 演唱會 2026》澳門站',
-      date: '2026年11月27日 – 11月28日（共2場）',
+      id: 'desire4-2026',
+      name: 'Desire 4《2026永恆開端 Desire 4演唱會香港站 ULTIMATE ENCORE》',
+      date: '2026年11月21日（六）下午 5:00',
+      venue: '亞洲國際博覽館 AsiaWorld-Arena',
+      price: 'HK$1,988 (VIP) / $1,788 / $1,488 / $1,188 / $688',
+      publicSaleDate: '2026-10-13',
+      publicSaleTime: '中午 12:00',
+      platform: 'HKTicketing、大麥、Trip.com、攜程',
+      ticketUrl: 'https://www.hkticketing.com/',
+      isMacau: false,
+      isHot: true,
+      prioritySales: [
+        { stage: '大麥優先購票', date: '2026-10-12', time: '下午 6:00 起' }
+      ],
+      icon: 'fa-music',
+      iconColor: 'magenta'
+    },
+    {
+      id: 'lesserafim-macau-2026',
+      name: 'LE SSERAFIM 2026 澳門演唱會',
+      date: '2026年11月（共2場）',
       venue: '銀河綜藝館',
-      price: 'HKD/MOP $1,588 / $1,288 / $888 / $688',
-      publicSaleDate: '2026-10-07',
-      publicSaleTime: '下午 1:00',
-      platform: 'Klook、Cityline',
-      ticketUrl: 'https://www.klook.com/',
+      price: '待公佈',
+      publicSaleDate: '2026-09-03',
+      publicSaleTime: '中午 12:00',
+      platform: 'FANTOPIA、銀河票務、大麥',
+      ticketUrl: 'https://www.fantopia.io/',
       isMacau: true,
       isHot: true,
       prioritySales: [
-        { stage: 'Klook 優先套票預售', date: '2026-09-30', time: '上午 11:00' },
-        { stage: 'Cityline 優先購票', date: '2026-10-05', time: '中午 12:00' }
+        { stage: 'FANTOPIA優先購票', date: '2026-09-02', time: '中午 12:00 – 晚上 7:00' }
       ],
-      icon: 'fa-fire',
+      icon: 'fa-trophy',
+      iconColor: 'green'
+    },
+    {
+      id: 'txt-macau-2026',
+      name: 'TXT 2026 澳門演唱會加場',
+      date: '2026年11月20日 – 22日（共3場）',
+      venue: '銀河綜藝館',
+      price: '待公佈',
+      publicSaleDate: '2026-09-23',
+      publicSaleTime: '待公佈',
+      platform: 'FANTOPIA、大麥、銀河票務',
+      ticketUrl: 'https://www.fantopia.io/',
+      isMacau: true,
+      isHot: true,
+      prioritySales: [],
+      icon: 'fa-music',
+      iconColor: 'purple'
+    },
+    {
+      id: 'dino-macau-2026',
+      name: 'SEVENTEEN DINO《2026 DINOxPICHEOLIN [吉BOARD SHOW] - MACAU》',
+      date: '2026年10月10日（六）',
+      venue: '新濠影滙綜藝館',
+      price: '待公佈',
+      publicSaleDate: '待公佈',
+      publicSaleTime: '待公佈',
+      platform: 'FANTOPIA、大麥、Studio City',
+      ticketUrl: 'https://www.fantopia.io/',
+      isMacau: true,
+      isHot: false,
+      prioritySales: [],
+      icon: 'fa-trophy',
+      iconColor: 'green'
+    },
+    {
+      id: 'luke-macau-2026',
+      name: '盧廣仲 HeartBreakFast 傷心早餐店演唱會 澳門站',
+      date: '2026年12月5日（六）',
+      venue: '澳門威尼斯人綜藝館',
+      price: 'MOP/HKD $599 起',
+      publicSaleDate: '2026-10-20',
+      publicSaleTime: '中午 12:00',
+      platform: '金光票務、大麥、Trip.com、攜程',
+      ticketUrl: 'https://www.macauticket.com/',
+      isMacau: true,
+      isHot: false,
+      prioritySales: [],
+      icon: 'fa-music',
+      iconColor: 'purple'
+    },
+    {
+      id: 'omegax-macau-2026',
+      name: '2026 OMEGA X ASIA TOUR [BEYOND] IN MACAU',
+      date: '2026年12月5日（六）晚上 7:00',
+      venue: '澳門銀河 G Box',
+      price: 'MOP/HKD $1,588 / $1,288 / $888',
+      publicSaleDate: '2026-09-14',
+      publicSaleTime: '中午 12:00',
+      platform: '銀河票務、大麥、Cityline',
+      ticketUrl: 'https://www.galaxyticketing.com/',
+      isMacau: true,
+      isHot: false,
+      prioritySales: [],
+      icon: 'fa-trophy',
+      iconColor: 'green'
+    },
+    {
+      id: 'du-2026-macau',
+      name: '杜德偉《Get Up》世界巡迴演唱會2.0 澳門站',
+      date: '2026年11月14日（六）晚上 8:00',
+      venue: '澳門倫敦人綜藝館',
+      price: 'MOP/HKD $1,580 / $1,280 / $980 / $680',
+      publicSaleDate: '2026-08-25',
+      publicSaleTime: '中午 12:00',
+      platform: 'URBTIX、金光票務、澳門售票網、大麥、貓眼',
+      ticketUrl: 'https://www.urbtix.hk/',
+      isMacau: true,
+      isHot: false,
+      prioritySales: [],
+      icon: 'fa-star',
+      iconColor: 'purple'
+    },
+    {
+      id: 'icyball-macau-2026',
+      name: 'icyball 冰球樂團《我很抱歉》澳門演唱會',
+      date: '2026年12月26日（六）晚上 7:30',
+      venue: '澳門倫敦人劇場',
+      price: '待公佈',
+      publicSaleDate: '2026-09-18',
+      publicSaleTime: '中午 12:00',
+      platform: '金光票務、澳門售票網、大麥、貓眼、uutix、攜程',
+      ticketUrl: 'https://www.macauticket.com/',
+      isMacau: true,
+      isHot: false,
+      prioritySales: [],
+      icon: 'fa-music',
+      iconColor: 'purple'
+    },
+    {
+      id: 'bol4-2026',
+      name: '臉紅的思春期 BOL4《2026–2027 BOL4 CONCERT TOUR 〖Red Square〗十週年巡迴演唱會》香港站',
+      date: '2026年12月5日（六）',
+      venue: '東蒲胡李名靜體育館',
+      price: '待公佈',
+      publicSaleDate: '2026-10-20',
+      publicSaleTime: '待公佈',
+      platform: 'OFFGRID、大麥',
+      ticketUrl: 'https://www.damai.cn/',
+      isMacau: false,
+      isHot: false,
+      prioritySales: [],
+      icon: 'fa-music',
+      iconColor: 'magenta'
+    },
+    {
+      id: 'aaron-kwok-2026',
+      name: '郭富城《ICONIC MOMENT》啟德跨年演唱會',
+      date: '2026年12月31日 – 2027年1月1日（共2場）',
+      venue: '啟德體育園主場館',
+      price: 'HK$1,680 / $1,380 / $1,180 / $980 / $680 / $480',
+      publicSaleDate: '2026-10-14',
+      publicSaleTime: '上午 10:00',
+      platform: 'HKTicketing、大麥',
+      ticketUrl: 'https://www.hkticketing.com/',
+      isMacau: false,
+      isHot: true,
+      prioritySales: [
+        { stage: '滙豐Mastercard優先購票', date: '2026-10-09', time: '上午 10:00 – 晚上 11:59' },
+        { stage: '滙豐Mastercard優先購票（第二輪）', date: '2026-10-10', time: '上午 10:00 – 晚上 11:59' },
+        { stage: 'Klook 獨家套票預售', date: '2026-10-12', time: '中午 12:00 – 10月13日 晚上 11:59' }
+      ],
+      icon: 'fa-star',
+      iconColor: 'purple'
+    },
+    {
+      id: 'mc-cheung-macau-2026',
+      name: 'MC張天賦《E=MC²》演唱會 2026 澳門站',
+      date: '2026年11月27日 – 28日（共2場）晚上 8:00',
+      venue: '澳門銀河綜藝館',
+      price: 'MOP/HKD $1,588 / $1,288 / $888 / $688',
+      publicSaleDate: '2026-10-07',
+      publicSaleTime: '下午 1:00',
+      platform: '銀河票務、MPay、澳門售票網、大麥、貓眼、uutix',
+      ticketUrl: 'https://www.galaxyticketing.com/',
+      isMacau: true,
+      isHot: true,
+      prioritySales: [
+        { stage: 'Trip.com 優先購票', date: '2026-09-30', time: '上午 11:00 起' }
+      ],
+      icon: 'fa-music',
       iconColor: 'magenta'
     },
     {
       id: 'mirror-2026',
-      name: 'MIRROR 演唱會 2026',
-      date: '2026年12月11日 – 12月20日（共7場公開發售）',
-      venue: '待公佈',
-      price: '待公佈',
+      name: 'MIRROR 12 AS 1 LIVE 2026',
+      date: '2026年12月11日 – 13日、15日 – 18日、20日（共8場）晚上 8:15',
+      venue: '亞洲國際博覽館 Arena',
+      price: 'HK$1,680 / $1,480 / $1,080 / $780',
       publicSaleDate: '2026-10-08',
       publicSaleTime: '上午 11:00',
       platform: 'Klook',
@@ -1478,194 +1609,46 @@
       isMacau: false,
       isHot: true,
       prioritySales: [
-        { stage: '恒生卡優先購票', date: '2026-10-06', time: '待公佈' }
-      ],
-      icon: 'fa-fire',
-      iconColor: 'magenta'
-    },
-    {
-      id: 'txt-macau-2026',
-      name: 'TOMORROW X TOGETHER WORLD TOUR 〈STEAL THE WIND〉澳門站',
-      date: '2026年11月20日 – 11月22日（共3場）',
-      venue: '銀河綜藝館',
-      price: 'MOP $2,399（VVIP企位）/ $1,999（VIP企位）/ $1,999（Platinum座位）/ $1,799 / $1,499 / $1,199 / $799',
-      publicSaleDate: '2026-09-24',
-      publicSaleTime: '中午 12:00',
-      platform: 'FANTOPIA、大麥、銀河票務',
-      ticketUrl: 'https://www.fantopia.io/',
-      isMacau: true,
-      isHot: true,
-      prioritySales: [
-        { stage: 'MOA MEMBERSHIP 優先', date: '2026-09-23', time: '中午 12:00 – 晚上 19:00' }
+        { stage: 'MIRO 會員優先購票（MIRO專場）', date: '2026-10-02', time: '上午 10:00 起' },
+        { stage: 'MIRO 會員優先購票（其他場次）', date: '2026-10-05', time: '上午 10:00 起' },
+        { stage: '恆生信用卡用戶優先訂票', date: '2026-10-06', time: '中午 12:00 – 10月7日' }
       ],
       icon: 'fa-star',
-      iconColor: 'green'
-    },
-    {
-      id: 'lesserafim-macau-2026',
-      name: 'LE SSERAFIM 澳門演唱會',
-      date: '2026年11月（一連2場）',
-      venue: '銀河綜藝館',
-      price: '待公佈',
-      publicSaleDate: '2026-09-03',
-      publicSaleTime: '中午 12:00',
-      platform: 'FANTOPIA、大麥、銀河票務',
-      ticketUrl: 'https://www.fantopia.io/',
-      isMacau: true,
-      isHot: false,
-      prioritySales: [
-        { stage: 'FANTOPIA / 大麥優先購票', date: '2026-09-02', time: '中午 12:00 – 晚上 19:00' }
-      ],
-      icon: 'fa-star',
-      iconColor: 'green'
-    },
-    {
-      id: 'supper-macau-2026',
-      name: 'Supper Moment「謝謝你啊世界」澳門限定版演唱會',
-      date: '2026年11月21日（星期六）',
-      venue: '澳門威尼斯人綜藝館',
-      price: 'MOP/HKD VIP$1,080（企位）/ $880 / $680 / $480',
-      publicSaleDate: '2026-09-29',
-      publicSaleTime: '下午 3:00',
-      platform: 'Klook、金光票務、大麥、貓眼、UUTIX、攜程、澳門售票網、Mpay',
-      ticketUrl: 'https://www.klook.com/',
-      isMacau: true,
-      isHot: false,
-      prioritySales: [
-        { stage: '粉絲俱樂部優先購票', date: '2026-09-22', time: '中午 12:00' }
-      ],
-      icon: 'fa-music',
       iconColor: 'magenta'
     },
     {
-      id: 'serrini-2026',
-      name: 'Serrini《小心女星》香港演唱會',
-      date: '2026年10月30日（星期五）',
-      venue: '麥花臣場館',
-      price: 'VVIP HK$1,080 / $880 / $720',
-      publicSaleDate: '2026-09-24',
-      publicSaleTime: '上午 11:00',
-      platform: 'KKTIX',
-      ticketUrl: 'https://kktix.com/',
-      isMacau: false,
-      isHot: false,
-      prioritySales: [
-        { stage: 'Patreon 活躍付費會員及 IG 訂閱者優先', date: '2026-09-22', time: '中午 12:00 – 9月23日 18:00' }
-      ],
-      icon: 'fa-music',
-      iconColor: 'magenta'
-    },
-    {
-      id: 'babymonster-2026',
-      name: 'BABYMONSTER 世界巡迴演唱會香港站',
-      date: '2027年1月9日（星期六）',
-      venue: '亞洲國際博覽館 Arena',
-      price: 'HK$2,299（VIP）/ $1,699 / $1,399 / $999 / $799',
-      publicSaleDate: '2026-09-25',
-      publicSaleTime: '上午 11:00',
-      platform: 'Cityline',
-      ticketUrl: 'https://www.cityline.com/',
+      id: 'janice-vidal-2026',
+      name: '衛蘭《OUT OF FRAME》世界巡迴演唱會 香港站',
+      date: '2026年11月14日、15日、17日、18日（共4場）晚上 8:15',
+      venue: '紅磡香港體育館（紅館）',
+      price: 'HK$1,180 / $880 / $580',
+      publicSaleDate: '2026-10-08',
+      publicSaleTime: '上午 10:00',
+      platform: 'URBTIX、Klook',
+      ticketUrl: 'https://www.urbtix.hk/',
       isMacau: false,
       isHot: true,
       prioritySales: [
-        { stage: 'MONSTIEZ 會員優先', date: '2026-09-22', time: '中午 12:00' },
-        { stage: '滙豐Mastercard優先', date: '2026-09-23', time: '上午 11:00' },
-        { stage: 'Trip.com 優先', date: '2026-09-23', time: '上午 11:00' },
-        { stage: 'Live Nation 會員優先', date: '2026-09-24', time: '上午 11:00' }
+        { stage: 'Klook 優先購票', date: '2026-10-16', time: '下午 3:00 起' }
       ],
-      icon: 'fa-fire',
-      iconColor: 'magenta'
-    },
-    {
-      id: 'perse-2026',
-      name: 'PER SE《LIFE IN CAPS》演唱會',
-      date: '2026年11月20日（星期五）',
-      venue: 'TIDES',
-      price: 'VIP HK$980 / GA $680（全企位）',
-      publicSaleDate: '2026-09-30',
-      publicSaleTime: '下午 3:00',
-      platform: 'Cityline',
-      ticketUrl: 'https://www.cityline.com/',
-      isMacau: false,
-      isHot: false,
-      prioritySales: [
-        { stage: '滙豐Mastercard優先預售', date: '2026-09-29', time: '下午 15:00 – 23:59' }
-      ],
-      icon: 'fa-ticket',
+      icon: 'fa-star',
       iconColor: 'purple'
     },
     {
-      id: 'wang-wan-chi-2026',
-      name: '王菀之《話・說》藝術展音樂會 香港站',
-      date: '2026年12月4日 – 12月13日',
-      venue: '西九文化區 自由空間 留白 Livehouse',
-      price: 'HK$780 起（全企位）',
-      publicSaleDate: '2026-10-02',
-      publicSaleTime: '上午 10:00',
-      platform: 'Cityline',
-      ticketUrl: 'https://www.cityline.com/',
-      isMacau: false,
+      id: 'supper-moment-macau-2026',
+      name: 'SUPPER MOMENT「謝謝你啊世界」澳門限定版',
+      date: '2026年11月21日（六）晚上 8:00',
+      venue: '澳門威尼斯人綜藝館',
+      price: 'MOP/HKD 待公佈',
+      publicSaleDate: '2026-09-29',
+      publicSaleTime: '下午 3:00',
+      platform: '澳門售票網、Klook、金光票務、大麥、貓眼',
+      ticketUrl: 'https://www.macauticket.com/',
+      isMacau: true,
       isHot: false,
       prioritySales: [],
-      icon: 'fa-star',
-      iconColor: 'purple'
-    },
-    {
-      id: 'twins-2026',
-      name: 'TWINS SIDE BY SIDE 演唱會',
-      date: '2026年12月18日 – 12月23日（共6場）',
-      venue: '香港會議展覽中心 Hall 5BC',
-      price: 'HK$1,280 / $980 / $680',
-      publicSaleDate: '2026-09-25',
-      publicSaleTime: '中午 12:00',
-      platform: '快達票 HK Ticketing',
-      ticketUrl: 'https://www.hkticketing.com/',
-      isMacau: false,
-      isHot: true,
-      prioritySales: [
-        { stage: '中銀銀聯信用卡優先', date: '2026-09-18', time: '上午 10:00' },
-        { stage: '港澳及內地銀聯卡優先', date: '2026-09-19', time: '待公佈' }
-      ],
       icon: 'fa-music',
-      iconColor: 'magenta'
-    },
-    {
-      id: 'bigbang-2026',
-      name: 'BIGBANG WORLD TOUR〈XX : COSMOS〉',
-      date: '2026年11月13日 – 11月17日（共4場）',
-      venue: '啟德體育園主場館',
-      price: 'HK$3,099（VIP企位）/ 坐位 $699 起',
-      publicSaleDate: '2026-09-29',
-      publicSaleTime: '下午 4:00',
-      platform: '快達票 HK Ticketing',
-      ticketUrl: 'https://www.hkticketing.com/',
-      isMacau: false,
-      isHot: true,
-      prioritySales: [
-        { stage: 'V.I.P Fan Club 優先預售', date: '2026-09-28', time: '上午 10:00 – 晚上 23:59' },
-        { stage: 'TME 音樂平台優先預售', date: '2026-09-29', time: '上午 10:00 – 下午 13:59' },
-        { stage: '旅遊平台優先預售', date: '2026-09-29', time: '下午 14:00 – 15:59' }
-      ],
-      icon: 'fa-star',
       iconColor: 'purple'
-    },
-    {
-      id: 'yesung-macau-2026',
-      name: '藝聲 YESUNG 10TH ANNIVERSARY TOUR 澳門站',
-      date: '2026年11月14日 – 11月15日（共2場）',
-      venue: '澳門百老匯劇院',
-      price: 'VIP（含Sound Check）MOP$1,699 / CAT 1 $1,199 / CAT 2 $899',
-      publicSaleDate: '2026-09-29',
-      publicSaleTime: '中午 12:00',
-      platform: 'FANTOPIA',
-      ticketUrl: 'https://www.fantopia.io/',
-      isMacau: true,
-      isHot: false,
-      prioritySales: [
-        { stage: 'E.L.F. 會員優先', date: '2026-09-28', time: '中午 12:00 – 晚上 19:00' }
-      ],
-      icon: 'fa-star',
-      iconColor: 'green'
     }
   ];
 
@@ -1677,21 +1660,20 @@
   var lastUpdated  = document.getElementById('lastUpdated');
   var activeCount  = document.getElementById('activeCount');
   var hotCount     = document.getElementById('hotCount');
-  var totalCount   = document.getElementById('totalCount');
   var sourceText   = document.getElementById('sourceText');
   var sourceBadge  = document.getElementById('sourceBadge');
   var retryBtn     = document.getElementById('retryBtn');
   var fallbackBtn  = document.getElementById('fallbackBtn');
   var refreshBtn   = document.getElementById('refreshBtn');
+  var totalCount   = document.getElementById('totalCount');
 
   var currentShows = [];
+  var countdownTimer = null;
 
-  /* ───────────────────────── HKT 日期工具 ───────────────────────── */
   function getHKTDateStr() {
     try {
       var parts = new Intl.DateTimeFormat('en-CA', {
-        timeZone: 'Asia/Hong_Kong',
-        year: 'numeric', month: '2-digit', day: '2-digit'
+        timeZone: 'Asia/Hong_Kong', year: 'numeric', month: '2-digit', day: '2-digit'
       }).formatToParts(new Date());
       var y = '', m = '', d = '';
       for (var i = 0; i < parts.length; i++) {
@@ -1702,11 +1684,116 @@
       if (y && m && d) return y + '-' + m + '-' + d;
     } catch (e) {}
     var now = new Date();
-    return now.getFullYear() + '-' +
-      String(now.getMonth() + 1).padStart(2, '0') + '-' +
-      String(now.getDate()).padStart(2, '0');
+    return now.getFullYear() + '-' + String(now.getMonth() + 1).padStart(2, '0') + '-' + String(now.getDate()).padStart(2, '0');
   }
-  function getTodayStr() { return getHKTDateStr(); }
+
+  function parseHKTTime(dateStr, timeStr) {
+    if (!dateStr) return null;
+    var d = String(dateStr).split('-');
+    if (d.length !== 3) return null;
+    var hh = 0, mm = 0;
+    if (timeStr) {
+      var m = String(timeStr).match(/(上午|中午|下午|晚上|凌晨)?\s*(\d{1,2}):(\d{2})/);
+      if (m) {
+        var period = m[1] || '';
+        hh = parseInt(m[2], 10);
+        mm = parseInt(m[3], 10);
+        if ((period === '下午' || period === '晚上') && hh < 12) hh += 12;
+        if (period === '中午' && hh < 12) hh += 12;
+        if (period === '凌晨' && hh === 12) hh = 0;
+      }
+    }
+    return new Date(Date.UTC(
+      parseInt(d[0], 10), parseInt(d[1], 10) - 1, parseInt(d[2], 10),
+      hh - 8, mm, 0
+    ));
+  }
+
+  function getSalePhase(show) {
+    var now = Date.now();
+    var events = [];
+
+    (show.prioritySales || []).forEach(function (p) {
+      if (!p || !p.date) return;
+      var t = parseHKTTime(p.date, p.time);
+      if (t) events.push({ type: 'priority', stage: p.stage || '優先購票', date: p.date, time: p.time || '', dt: t });
+    });
+
+    if (show.publicSaleDate) {
+      var pt = parseHKTTime(show.publicSaleDate, show.publicSaleTime);
+      if (pt) events.push({ type: 'public', stage: '公開發售', date: show.publicSaleDate, time: show.publicSaleTime || '', dt: pt });
+    }
+
+    events.sort(function (a, b) { return a.dt - b.dt; });
+
+    var todayStr = getHKTDateStr();
+    var live = null;
+    var upcoming = null;
+    var mostRecentPast = null;
+
+    events.forEach(function (e) {
+      var ts = e.dt.getTime();
+      if (ts <= now) mostRecentPast = e;
+      else if (!upcoming) upcoming = e;
+    });
+
+    if (mostRecentPast && mostRecentPast.date === todayStr) live = mostRecentPast;
+
+    if (live) return { phase: 'live', active: live, next: upcoming, all: events };
+    if (upcoming) return { phase: 'pre', active: null, next: upcoming, all: events };
+    return { phase: 'post', active: null, next: null, all: events };
+  }
+
+  function formatCountdown(ms) {
+    if (ms <= 0) return '';
+    var d = Math.floor(ms / 86400000);
+    var h = Math.floor((ms % 86400000) / 3600000);
+    var m = Math.floor((ms % 3600000) / 60000);
+    var s = Math.floor((ms % 60000) / 1000);
+    if (d > 0) return d + tr('天') + h + tr('小時');
+    if (h > 0) return h + tr('小時') + m + tr('分');
+    if (m > 0) return m + tr('分') + s + tr('秒');
+    return s + tr('秒');
+  }
+
+  function escapeIcs(s) {
+    return String(s || '').replace(/\\/g, '\\\\').replace(/;/g, '\\;').replace(/,/g, '\\,').replace(/\n/g, '\\n');
+  }
+  function pad2(n) { return String(n).padStart(2, '0'); }
+  function fmtUtc(d) {
+    return d.getUTCFullYear() + pad2(d.getUTCMonth() + 1) + pad2(d.getUTCDate()) + 'T' +
+           pad2(d.getUTCHours()) + pad2(d.getUTCMinutes()) + '00Z';
+  }
+
+  function downloadIcs(show, stageName, dateStr, timeStr) {
+    var dt = parseHKTTime(dateStr, timeStr);
+    if (!dt) return;
+    var endDt = new Date(dt.getTime() + 3600000);
+
+    var lines = [
+      'BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//ticketkiller//shows//ZH','CALSCALE:GREGORIAN',
+      'BEGIN:VEVENT',
+      'UID:' + (show.id || 'show') + '-' + dateStr + '@ticketkiller',
+      'DTSTAMP:' + fmtUtc(new Date()),
+      'DTSTART:' + fmtUtc(dt),
+      'DTEND:' + fmtUtc(endDt),
+      'SUMMARY:' + escapeIcs(show.name + ' — ' + stageName),
+      'DESCRIPTION:' + escapeIcs('搶票提醒：' + show.name + '\n' + stageName + '\n平台：' + (show.platform || '')),
+      'LOCATION:' + escapeIcs(show.platform || '線上'),
+      'BEGIN:VALARM','TRIGGER:-PT30M','ACTION:DISPLAY','DESCRIPTION:' + escapeIcs('ticketkiller 搶票提醒'),'END:VALARM',
+      'END:VEVENT','END:VCALENDAR'
+    ];
+
+    var blob = new Blob([lines.join('\r\n')], { type: 'text/calendar;charset=utf-8' });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = 'ticketkiller-' + (show.id || 'show') + '-' + dateStr + '.ics';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(function () { URL.revokeObjectURL(url); }, 1500);
+  }
 
   function formatDate(dateStr) {
     if (!dateStr) return '';
@@ -1714,28 +1801,28 @@
     if (p.length !== 3) return dateStr;
     return tr(p[0] + '年' + parseInt(p[1], 10) + '月' + parseInt(p[2], 10) + '日');
   }
-
   function formatTime(iso) {
     var d = iso ? new Date(iso) : new Date();
     if (isNaN(d.getTime())) d = new Date();
     return d.getFullYear() + '年' + (d.getMonth() + 1) + '月' + d.getDate() + '日 ' +
-      String(d.getHours()).padStart(2, '0') + ':' +
-      String(d.getMinutes()).padStart(2, '0');
+      String(d.getHours()).padStart(2, '0') + ':' + String(d.getMinutes()).padStart(2, '0');
   }
-
   function esc(str) {
     return String(str == null ? '' : str)
       .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
       .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
   }
-
   function filterActiveShows(shows) {
     var today = getHKTDateStr();
     return (shows || []).filter(function (s) {
-      return s && s.publicSaleDate && s.publicSaleDate >= today;
+      if (!s) return false;
+      if (s.publicSaleDate && s.publicSaleDate >= today) return true;
+      if (s.prioritySales && s.prioritySales.length) {
+        return s.prioritySales.some(function (p) { return p && p.date && p.date >= today; });
+      }
+      return !!s.publicSaleDate;
     });
   }
-
   function sortShows(shows) {
     return shows.slice().sort(function (a, b) {
       if (a.isHot && !b.isHot) return -1;
@@ -1743,17 +1830,18 @@
       return String(a.publicSaleDate).localeCompare(String(b.publicSaleDate));
     });
   }
-
-  function computeStatus(publicSaleDate) {
+  function computeStatus(show) {
+    var phase = getSalePhase(show);
+    if (phase.phase === 'live') return { text: '開賣中', cls: 'tag-new' };
+    if (phase.phase === 'post') return { text: '已結束', cls: 'tag-opt' };
     var today = new Date(); today.setHours(0, 0, 0, 0);
-    var sale = new Date(publicSaleDate + 'T00:00:00');
-    var diff = Math.round((sale - today) / (24 * 60 * 60 * 1000));
-    if (diff <= 0)  return { text: '公售中',   cls: 'tag-new' };
-    if (diff <= 3)  return { text: '本週公售', cls: 'tag-new' };
-    if (diff <= 10) return { text: '下週公售', cls: 'tag-opt' };
-    return { text: '即將公售', cls: 'tag-opt' };
+    var target = phase.next.dt;
+    var diff = Math.round((target - today) / 86400000);
+    if (diff <= 0)  return { text: '今日開賣', cls: 'tag-new' };
+    if (diff <= 3)  return { text: '本週開賣', cls: 'tag-new' };
+    if (diff <= 10) return { text: '下週開賣', cls: 'tag-opt' };
+    return { text: '即將開賣', cls: 'tag-opt' };
   }
-
   function getHostLabel(url) {
     try {
       var host = new URL(url).hostname.replace(/^www\./, '');
@@ -1764,12 +1852,9 @@
       if (host.indexOf('fantopia') !== -1)    return 'FANTOPIA 官網';
       if (host.indexOf('klook') !== -1)       return 'Klook 官網';
       return host;
-    } catch (e) {
-      return '官方購票平台';
-    }
+    } catch (e) { return '官方購票平台'; }
   }
 
-  /* ───────────────────────── 畫面切換 ───────────────────────── */
   function showLoading() {
     if (loadingEl) loadingEl.classList.remove('hidden');
     if (errorEl)   errorEl.classList.add('hidden');
@@ -1777,39 +1862,7 @@
     if (noShows)   noShows.classList.add('hidden');
     setSource('loading');
   }
-
-  /* ★ 修復 ②：fetch 失敗時自動回退（快取 → 內建備用資料 → 才顯示錯誤 UI） */
   function showError(msg) {
-    // 1) 先嘗試 localStorage 快取
-    try {
-      var cachedRaw = localStorage.getItem(CACHE_KEY);
-      if (cachedRaw) {
-        var cached = JSON.parse(cachedRaw);
-        var cachedData = (cached && cached.data) ? cached.data : cached;
-        var activeCache = filterActiveShows(cachedData);
-        if (activeCache.length) {
-          currentShows = sortShows(activeCache);
-          renderShows(currentShows);
-          setSource('cache');
-          if (CFG.debug) console.warn('[shows] fetch 失敗，已回退到 localStorage 快取，共 ' + activeCache.length + ' 場');
-          return;
-        }
-      }
-    } catch (e) {
-      if (CFG.debug) console.warn('[shows] 讀取快取失敗：', e);
-    }
-
-    // 2) 再退到程式內建的 FALLBACK_SHOWS
-    var activeFallback = filterActiveShows(FALLBACK_SHOWS);
-    if (activeFallback.length) {
-      currentShows = sortShows(activeFallback);
-      renderShows(currentShows);
-      setSource('fallback');
-      if (CFG.debug) console.warn('[shows] 已回退到內建備用資料，共 ' + activeFallback.length + ' 場');
-      return;
-    }
-
-    // 3) 真的都沒有資料，才顯示錯誤 UI
     if (loadingEl) loadingEl.classList.add('hidden');
     if (grid)      { grid.classList.add('hidden'); grid.classList.remove('grid'); }
     if (noShows)   noShows.classList.add('hidden');
@@ -1817,225 +1870,431 @@
     if (errorMsgEl) errorMsgEl.textContent = tr(msg || '無法讀取資料，請檢查網絡後重試。');
     setSource('error');
   }
-
   function showGrid() {
     if (loadingEl) loadingEl.classList.add('hidden');
     if (errorEl)   errorEl.classList.add('hidden');
     if (grid)      { grid.classList.remove('hidden'); grid.classList.add('grid'); }
   }
-
   function setSource(state) {
     if (!sourceBadge || !sourceText) return;
     sourceBadge.classList.remove('source-live', 'source-cache', 'source-fallback');
-    if (state === 'live') {
-      sourceBadge.classList.add('source-live');
-      sourceText.textContent = tr('即時資料');
-    } else if (state === 'cache') {
-      sourceBadge.classList.add('source-cache');
-      sourceText.textContent = tr('快取資料');
-    } else if (state === 'fallback') {
-      sourceBadge.classList.add('source-fallback');
-      sourceText.textContent = tr('備用資料');
-    } else if (state === 'error') {
-      sourceBadge.classList.add('source-fallback');
-      sourceText.textContent = tr('載入失敗');
-    } else {
-      sourceBadge.classList.add('source-live');
-      sourceText.textContent = tr('正在載入...');
-    }
-  }
-
-  /* ───────────────────────── 卡片渲染 ───────────────────────── */
-  function renderCard(s) {
-    var status = computeStatus(s.publicSaleDate);
-    var tags = '';
-    if (s.isHot)  tags += '<span class="tag-pill tag-hot">🔥 ' + tr('熱門') + '</span>';
-    if (s.isMacau) tags += '<span class="tag-pill tag-macau">🇲🇴 ' + tr('澳門') + '</span>';
-    tags += '<span class="tag-pill ' + status.cls + '">' + tr(status.text) + '</span>';
-
-    var prio = Array.isArray(s.prioritySales) ? s.prioritySales : [];
-    var timelineHtml = '';
-    if (prio.length) {
-      var rows = prio.map(function (p) {
-        var dotCls = (String(p.stage).indexOf('優先') !== -1) ? 'priority' : '';
-        return '<div class="sale-row">' +
-                 '<span class="dot ' + dotCls + '"></span>' +
-                 '<span class="stage">' + esc(p.stage) + '</span>' +
-                 '<span>' + esc(formatDate(p.date)) + ' ' + esc(p.time) + '</span>' +
-               '</div>';
-      }).join('');
-      rows += '<div class="sale-row">' +
-                '<span class="dot public"></span>' +
-                '<span class="stage">' + tr('公開發售') + '</span>' +
-                '<span>' + esc(formatDate(s.publicSaleDate)) + ' ' + esc(s.publicSaleTime) + '</span>' +
-              '</div>';
-      timelineHtml =
-        '<button type="button" class="toggle-sale mt-3" data-target="sale-' + esc(s.id) + '">' +
-          '<span>' + tr('查看全部搶票日期') + '</span><i class="fa fa-chevron-down"></i>' +
-        '</button>' +
-        '<div id="sale-' + esc(s.id) + '" class="sale-timeline">' +
-          '<div class="sale-timeline-inner">' + rows + '</div>' +
-        '</div>';
-    }
-
-    var waText = encodeURIComponent('我想購買：' + s.name + ' 場次');
-
-    return '<div class="glass-deep rounded-2xl p-6 border border-white/10 card-hover flex flex-col">' +
-             '<div class="flex flex-wrap gap-1.5 mb-2">' + tags + '</div>' +
-             '<h3 class="font-bold text-white/95 text-base leading-snug">' + esc(s.name) + '</h3>' +
-             '<div class="mt-3 space-y-1.5 text-xs text-blush/80">' +
-               '<div><i class="fa fa-calendar-o mr-1.5 text-rose/80"></i>' + esc(s.date) + '</div>' +
-               '<div><i class="fa fa-map-marker mr-1.5 text-magenta/80"></i>' + esc(s.venue) + '</div>' +
-               '<div><i class="fa fa-tag mr-1.5 text-green/80"></i>' + esc(s.price) + '</div>' +
-               '<div><i class="fa fa-bullhorn mr-1.5 text-rose/80"></i>' + tr('公售') + '：' +
-                 esc(formatDate(s.publicSaleDate)) + ' ' + esc(s.publicSaleTime) + '</div>' +
-               '<div><i class="fa fa-globe mr-1.5 text-magenta/80"></i>' + esc(s.platform) + '</div>' +
-             '</div>' +
-             timelineHtml +
-             '<div class="mt-4 flex gap-2">' +
-               '<a href="' + esc(s.ticketUrl) + '" target="_blank" rel="noopener" ' +
-                  'class="btn-official text-green text-xs font-bold py-2 px-3 rounded-full flex-1 text-center" ' +
-                  'title="' + esc(getHostLabel(s.ticketUrl)) + '">' +
-                 '<i class="fa fa-external-link mr-1"></i>' + tr('官方購票') +
-               '</a>' +
-               '<a href="https://wa.me/85267545772?text=' + waText + '" target="_blank" rel="noopener" ' +
-                  'class="btn-primary text-white text-xs font-bold py-2 px-3 rounded-full flex-1 text-center">' +
-                 tr('單次購買') +
-               '</a>' +
-             '</div>' +
-           '</div>';
-  }
-
-  function bindCardEvents() {
-    if (!grid) return;
-    var toggles = grid.querySelectorAll('.toggle-sale');
-    Array.prototype.forEach.call(toggles, function (btn) {
-      btn.addEventListener('click', function () {
-        var targetId = this.getAttribute('data-target');
-        var panel = document.getElementById(targetId);
-        if (!panel) return;
-        var open = panel.classList.toggle('open');
-        this.classList.toggle('open', open);
-        var span = this.querySelector('span');
-        if (span) {
-          span.textContent = open ? tr('收起搶票日期') : tr('查看全部搶票日期');
-        }
-      });
-    });
-  }
-
-  function updateCounts(shows) {
-    var total = shows.length;
-    var hot = 0;
-    for (var i = 0; i < shows.length; i++) { if (shows[i].isHot) hot++; }
-    if (totalCount)  totalCount.textContent  = total;
-    if (activeCount) activeCount.textContent = total;
-    if (hotCount)    hotCount.textContent    = hot;
+    if (state === 'live') { sourceBadge.classList.add('source-live'); sourceText.textContent = tr('即時資料'); }
+    else if (state === 'cache') { sourceBadge.classList.add('source-cache'); sourceText.textContent = tr('快取資料'); }
+    else if (state === 'fallback') { sourceBadge.classList.add('source-fallback'); sourceText.textContent = tr('兜底資料'); }
+    else if (state === 'loading') { sourceBadge.classList.add('source-cache'); sourceText.textContent = tr('正在載入...'); }
+    else if (state === 'error') { sourceBadge.classList.add('source-fallback'); sourceText.textContent = tr('載入失敗'); }
   }
 
   function renderShows(shows) {
+    if (shows !== undefined) currentShows = shows;
+
+    if (window.__wallSystem && typeof window.__wallSystem.rerender === 'function') {
+      try { window.__wallSystem.rerender(); } catch (e) {}
+    }
+
     if (!grid) return;
-    if (!shows || !shows.length) {
+    var activeShows = sortShows(filterActiveShows(currentShows));
+    var todayStr = getHKTDateStr();
+
+    var hotTotal = 0;
+    activeShows.forEach(function(s) { if (s.isHot) hotTotal++; });
+
+    if (activeCount) activeCount.textContent = activeShows.length;
+    if (hotCount)    hotCount.textContent    = hotTotal;
+    if (totalCount)  totalCount.textContent  = activeShows.length;
+
+    if (activeShows.length === 0) {
+      grid.innerHTML = '';
       grid.classList.add('hidden');
       grid.classList.remove('grid');
       if (noShows) noShows.classList.remove('hidden');
       if (loadingEl) loadingEl.classList.add('hidden');
-      if (errorEl) errorEl.classList.add('hidden');
-      updateCounts([]);
+      if (errorEl)   errorEl.classList.add('hidden');
       return;
     }
     if (noShows) noShows.classList.add('hidden');
 
+    injectJsonLd(activeShows);
+
     var html = '';
-    for (var i = 0; i < shows.length; i++) {
-      html += renderCard(shows[i]);
-    }
+    activeShows.forEach(function (s) {
+      var phase = getSalePhase(s);
+      var status = computeStatus(s);
+      var waText = encodeURIComponent('我想單次購買：' + s.name + '（' + s.date + '）');
+      var ticketUrl = s.ticketUrl || '';
+      var hostLabel = ticketUrl ? getHostLabel(ticketUrl) : '';
+      var iconColor = s.iconColor || 'purple';
+      var icon = s.icon || 'fa-ticket';
+
+      var isLive = phase.phase === 'live';
+      var isTodaySale = isLive && phase.active && phase.active.date === todayStr;
+
+      var rows = '';
+      var allEvents = phase.all || [];
+      allEvents.forEach(function (e) {
+        var rowToday = (e.date === todayStr);
+        var rowLive = rowToday && e.dt.getTime() <= Date.now() && isLive;
+        var cls = 'sale-row';
+        if (rowLive) cls += ' live-row';
+        else if (rowToday) cls += ' today-row';
+        rows +=
+          '<div class="' + cls + '">' +
+            '<span class="dot ' + (e.type === 'public' ? 'public' : 'priority') + '"></span>' +
+            '<span class="stage">' + esc(tr(e.stage)) + (rowToday ? ' ⚡' : '') + '</span>' +
+            '<span class="flex-1">' + esc(formatDate(e.date)) + (e.time ? ' ' + esc(tr(e.time)) : '') + '</span>' +
+            '<button type="button" class="ics-btn ml-1 shrink-0" data-ics="' + esc(s.id || '') + '" data-ics-stage="' + esc(e.stage) + '" data-ics-date="' + esc(e.date) + '" data-ics-time="' + esc(e.time || '') + '" title="' + tr('加入日曆') + '" aria-label="' + tr('加入日曆') + '">' +
+              '<i class="fa fa-calendar-plus-o"></i>' +
+            '</button>' +
+          '</div>';
+      });
+
+      var timelineHtml =
+        '<div class="sale-timeline open">' +
+          '<div class="sale-timeline-inner">' +
+            '<p class="text-xs text-blush/70 mb-2"><i class="fa fa-list-ul mr-1"></i>' + tr('全部搶票日期') + '（點 <i class="fa fa-calendar-plus-o"></i> 加入日曆）</p>' +
+            rows +
+          '</div>' +
+        '</div>';
+
+      var countdownHtml = '';
+      if (phase.phase === 'pre' && phase.next) {
+        var diff = phase.next.dt.getTime() - Date.now();
+        countdownHtml =
+          '<div class="mt-3 flex items-center gap-2 flex-wrap">' +
+            '<span class="countdown-badge" data-countdown-target="' + phase.next.dt.getTime() + '">' +
+              '<i class="fa fa-hourglass-half"></i>' +
+              tr('距') + ' ' + esc(tr(phase.next.stage)) + ' ' +
+              '<span class="cd-text">' + formatCountdown(diff) + '</span>' +
+            '</span>' +
+          '</div>';
+      }
+
+      var badges = '';
+      if (isLive) badges += '<span class="tag-pill tag-live">' + tr('⚡ 開賣中') + '</span>';
+      else if (isTodaySale) badges += '<span class="tag-pill tag-today">' + tr('⚡ 今日開賣') + '</span>';
+      if (s.isHot)   badges += '<span class="tag-pill tag-hot">' + tr('🔥 熱門') + '</span>';
+      if (s.isMacau) badges += '<span class="tag-pill tag-macau">' + tr('🇲🇴 澳門') + '</span>';
+      badges += '<span class="tag-pill ' + esc(status.cls) + '">' + esc(tr(status.text)) + '</span>';
+
+      var officialCls = 'mt-3 block text-center btn-official text-green py-2.5 rounded-full text-sm font-bold'
+                     + (isLive ? ' blink-buy' : '');
+      var officialIcon = isLive ? 'fa-bolt' : 'fa-external-link';
+      var officialText = isLive
+        ? tr('⚡ 開賣中 · 立即前往官網')
+        : (phase.phase === 'post' ? tr('已結束 · 前往官網') : esc(tr(hostLabel)));
+
+      var telegramUrlCfg = (window.TK_CONFIG && window.TK_CONFIG.contact && window.TK_CONFIG.contact.telegramUrl) || '#';
+
+      html +=
+        '<div class="glass-deep rounded-2xl glow-border card-hover flex flex-col reveal visible overflow-hidden">' +
+          '<div class="p-6 flex flex-col flex-1">' +
+            '<div class="flex items-start justify-between gap-3">' +
+              '<div class="icon-wrap w-12 h-12 rounded-full bg-' + esc(iconColor) + '/15 flex items-center justify-center text-xl text-' + esc(iconColor) + ' shrink-0">' +
+                '<i class="fa ' + esc(icon) + '"></i>' +
+              '</div>' +
+              '<div class="flex flex-wrap items-center gap-1.5 justify-end">' + badges + '</div>' +
+            '</div>' +
+            '<h4 class="text-lg font-bold text-white/95 mt-4 leading-snug">' + esc(tr(s.name)) + '</h4>' +
+            '<ul class="text-blush/85 text-sm mt-3 space-y-1.5 flex-1">' +
+              '<li><i class="fa fa-calendar-o text-' + esc(iconColor) + '/80 mr-2"></i>' + esc(tr(s.date)) + '</li>' +
+              '<li><i class="fa fa-map-marker text-' + esc(iconColor) + '/80 mr-2"></i>' + esc(tr(s.venue)) + '</li>' +
+              '<li><i class="fa fa-ticket text-' + esc(iconColor) + '/80 mr-2"></i>' + esc(tr(s.price)) + '</li>' +
+              '<li><i class="fa fa-globe text-' + esc(iconColor) + '/80 mr-2"></i>' + tr('售票平台：') + esc(tr(s.platform)) + '</li>' +
+            '</ul>' +
+            timelineHtml +
+            countdownHtml +
+            '<div class="mt-4 flex items-center gap-2">' +
+              '<span class="text-xs text-blush/60">' + tr('單次購買：') + '</span>' +
+              '<span class="text-sm font-bold text-green">$100 / ' + tr('場') + ' / ' + tr('日') + '</span>' +
+            '</div>' +
+            (ticketUrl
+              ? '<a href="' + esc(ticketUrl) + '" target="_blank" rel="noopener noreferrer" class="' + officialCls + '" aria-label="' + esc(officialText) + '">' +
+                '<i class="fa ' + officialIcon + ' mr-2"></i>' + officialText + '</a>'
+              : '') +
+            '<a href="' + esc(telegramUrlCfg) + '?text=' + waText + '" target="_blank" rel="noopener noreferrer" ' +
+               'class="mt-3 block text-center btn-primary text-white py-2.5 rounded-full text-sm font-bold">' +
+              '<i class="fa fa-shopping-cart mr-2"></i>' + tr('單次購買此場次') +
+            '</a>' +
+          '</div>' +
+        '</div>';
+    });
+
     grid.innerHTML = html;
     showGrid();
-    bindCardEvents();
-    updateCounts(shows);
+
+    grid.querySelectorAll('[data-ics]').forEach(function (btn) {
+      btn.addEventListener('click', function (e) {
+        e.preventDefault();
+        var id = this.getAttribute('data-ics');
+        var show = activeShows.filter(function (x) { return (x.id || '') === id; })[0];
+        if (!show) return;
+        downloadIcs(show,
+          this.getAttribute('data-ics-stage') || '開賣',
+          this.getAttribute('data-ics-date'),
+          this.getAttribute('data-ics-time'));
+        if (window.__tkToast) window.__tkToast(tr('已下載日曆檔案'));
+      });
+    });
+
+    startCountdown();
+
+    if (typeof window.__revealAll === 'function') {
+      setTimeout(window.__revealAll, 60);
+    }
   }
 
-  /* ───────────────────────── 快取 ───────────────────────── */
-  function saveCache(shows) {
+  function startCountdown() {
+    if (countdownTimer) clearInterval(countdownTimer);
+    function tick() {
+      var els = document.querySelectorAll('[data-countdown-target]');
+      els.forEach(function (el) {
+        var target = parseInt(el.getAttribute('data-countdown-target'), 10);
+        var span = el.querySelector('.cd-text');
+        if (!span) return;
+        var txt = formatCountdown(target - Date.now());
+        if (txt) span.textContent = txt;
+        else span.textContent = tr('即將開始');
+      });
+    }
+    tick();
+    countdownTimer = setInterval(tick, 1000);
+  }
+
+  function injectJsonLd(shows) {
+    var old = document.getElementById('tkJsonLd');
+    if (old && old.parentNode) old.parentNode.removeChild(old);
+
+    var graph = (shows || []).map(function (s) {
+      var event = {
+        '@type': 'Event', 'name': s.name, 'startDate': s.publicSaleDate,
+        'eventStatus': 'https://schema.org/EventScheduled',
+        'eventAttendanceMode': 'https://schema.org/OfflineEventAttendanceMode',
+        'location': {
+          '@type': 'Place', 'name': s.venue,
+          'address': { '@type': 'PostalAddress', 'addressLocality': s.isMacau ? '澳門' : '香港', 'addressCountry': s.isMacau ? 'MO' : 'HK' }
+        },
+        'organizer': { '@type': 'Organization', 'name': 'ticketkiller' }
+      };
+      if (s.ticketUrl) {
+        event.offers = { '@type': 'Offer', 'url': s.ticketUrl, 'price': '100', 'priceCurrency': 'HKD', 'availability': 'https://schema.org/InStock' };
+      }
+      return event;
+    });
+
+    var script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.id = 'tkJsonLd';
+    script.textContent = JSON.stringify({ '@context': 'https://schema.org', '@graph': graph });
+    document.head.appendChild(script);
+  }
+
+  // ============ 快取 ============
+  function saveCache(shows, updatedAt, version) {
     try {
       localStorage.setItem(CACHE_KEY, JSON.stringify({
-        time: Date.now(),
-        data: shows
+        updatedAt: updatedAt || new Date().toISOString(),
+        version: version || '',
+        shows: shows
       }));
-    } catch (e) { /* 忽略 quota 錯誤 */ }
+    } catch (e) {}
+  }
+  function loadCache() {
+    try {
+      var raw = localStorage.getItem(CACHE_KEY);
+      if (!raw) return null;
+      var obj = JSON.parse(raw);
+      if (!obj || !obj.shows) return null;
+      var age = Date.now() - new Date(obj.updatedAt || 0).getTime();
+      if (age > CACHE_TTL) return null;
+      return obj;
+    } catch (e) { return null; }
   }
 
-  /* ───────────────────────── 載入 ───────────────────────── */
-  function loadShows() {
-    showLoading();
+  // ============ 核心 fetch（★ 修復重點）★ ============
+  function fetchShows() {
+    var bustUrl = API_ENDPOINT + (API_ENDPOINT.indexOf('?') === -1 ? '?' : '&') + '_=' + Date.now();
+    log('Fetching:', bustUrl);
 
-    var controller = ('AbortController' in window) ? new AbortController() : null;
-    var timer = null;
-    if (controller) {
-      timer = setTimeout(function () { controller.abort(); }, TIMEOUT);
-    }
+    return new Promise(function (resolve, reject) {
+      var timer = setTimeout(function () {
+        reject({ code: 'TIMEOUT', message: '請求超時（>' + TIMEOUT + 'ms）' });
+      }, TIMEOUT);
 
-    var opts = { cache: 'no-store' };
-    if (controller) opts.signal = controller.signal;
-
-    fetch(API_ENDPOINT, opts)
-      .then(function (res) {
-        if (!res.ok) throw new Error('HTTP ' + res.status);
-        return res.json();
+      fetch(bustUrl, {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json, text/plain, */*',
+          'Cache-Control': 'no-cache',
+          'Pragma': 'no-cache'
+        },
+        cache: 'no-store',
+        credentials: 'same-origin'
       })
-      .then(function (json) {
-        if (timer) clearTimeout(timer);
-        var data = (json && json.data) ? json.data : json;
-        if (!Array.isArray(data)) throw new Error('資料格式錯誤');
-        var active = filterActiveShows(data);
-        if (!active.length) throw new Error('沒有即將公售的場次');
-        currentShows = sortShows(active);
-        renderShows(currentShows);
-        setSource('live');
-        saveCache(currentShows);
-        if (lastUpdated) lastUpdated.textContent = formatTime(new Date().toISOString());
+      .then(function (res) {
+        clearTimeout(timer);
+        log('HTTP status:', res.status, res.statusText);
+        if (!res.ok) {
+          reject({
+            code: 'HTTP_' + res.status,
+            message: 'HTTP ' + res.status + ' ' + res.statusText + '（路徑可能不對）'
+          });
+          return;
+        }
+        return res.text().then(function (text) {
+          log('Response 前 200 字:', text.slice(0, 200));
+          try {
+            var data = JSON.parse(text.replace(/^\uFEFF/, ''));
+            resolve(data);
+          } catch (e) {
+            reject({
+              code: 'JSON_PARSE_ERROR',
+              message: 'JSON 解析失敗：' + e.message + '（請檢查 JSON 格式是否正確）'
+            });
+          }
+        });
       })
       .catch(function (err) {
-        if (timer) clearTimeout(timer);
-        if (CFG.debug) console.warn('[shows] fetch 失敗：', err);
-        // ★ 修復 ②：交由 showError 自動回退
-        showError(err && err.message ? err.message : '無法讀取資料');
+        clearTimeout(timer);
+        if (err && err.code) { reject(err); return; }
+        reject({
+          code: 'NETWORK_ERROR',
+          message: '網絡錯誤：' + (err && err.message ? err.message : '未知錯誤') + '（可能是 CORS 或路徑問題）'
+        });
       });
-  }
-
-  /* ───────────────────────── 對外 API（給語言切換用） ───────────────────────── */
-  window.__showsSystem = {
-    rerender: function () {
-      if (currentShows && currentShows.length) {
-        renderShows(currentShows);
-      }
-    },
-    reload: loadShows
-  };
-
-  /* ───────────────────────── 按鈕綁定 ───────────────────────── */
-  if (retryBtn) {
-    retryBtn.addEventListener('click', function () { loadShows(); });
-  }
-  if (refreshBtn) {
-    refreshBtn.addEventListener('click', function () { loadShows(); });
-  }
-  if (fallbackBtn) {
-    fallbackBtn.addEventListener('click', function () {
-      var active = filterActiveShows(FALLBACK_SHOWS);
-      if (active.length) {
-        currentShows = sortShows(active);
-        renderShows(currentShows);
-        setSource('fallback');
-      }
     });
   }
 
-  /* ───────────────────────── 啟動 ───────────────────────── */
+  var isLoading = false;
+  function loadShows(forceFallback) {
+    if (isLoading) { log('loadShows 已在進行中，跳過'); return; }
+    isLoading = true;
+    showLoading();
+
+    if (forceFallback) {
+      isLoading = false;
+      renderShows(FALLBACK_SHOWS);
+      if (lastUpdated) lastUpdated.textContent = formatTime(new Date().toISOString()) + tr('（兜底）');
+      setSource('fallback');
+      return;
+    }
+
+    fetchShows()
+      .then(function (data) {
+        isLoading = false;
+        var shows = Array.isArray(data) ? data : (data && data.shows);
+        var updatedAt = (!Array.isArray(data) && data && data.updatedAt) || new Date().toISOString();
+        var version = (!Array.isArray(data) && data && data.version) || '';
+
+        if (!Array.isArray(shows)) {
+          throw { code: 'INVALID_FORMAT', message: 'JSON 格式不正確（找不到 shows 陣列）' };
+        }
+
+        log('JSON 加載成功：', shows.length, '場，version=' + (version || '(無)'));
+
+        saveCache(shows, updatedAt, version);
+        renderShows(shows);
+        if (lastUpdated) lastUpdated.textContent = formatTime(updatedAt);
+        setSource('live');
+      })
+      .catch(function (err) {
+        isLoading = false;
+        warn('JSON 加載失敗：', err && err.code, err && err.message);
+
+        if (errorMsgEl) {
+          var friendly = (err && err.message) || '無法讀取資料';
+          errorMsgEl.textContent = tr(friendly);
+        }
+
+        var cached = loadCache();
+        if (cached) {
+          log('使用快取資料（' + cached.shows.length + ' 場）');
+          renderShows(cached.shows);
+          if (lastUpdated) lastUpdated.textContent = formatTime(cached.updatedAt) + tr('（快取）');
+          setSource('cache');
+          return;
+        }
+
+        log('使用兜底資料');
+        renderShows(FALLBACK_SHOWS);
+        if (lastUpdated) lastUpdated.textContent = formatTime(new Date().toISOString()) + tr('（兜底）');
+        setSource('fallback');
+      });
+  }
+
+  // ============ 按鈕事件 ============
+  if (retryBtn) retryBtn.addEventListener('click', function () {
+    try { localStorage.removeItem(CACHE_KEY); } catch (e) {}
+    loadShows(false);
+  });
+  if (fallbackBtn) fallbackBtn.addEventListener('click', function () { loadShows(true); });
+  if (refreshBtn) {
+    refreshBtn.addEventListener('click', function () {
+      this.innerHTML = '<i class="fa fa-spinner fa-spin mr-2"></i>' + tr('刷新中...');
+      var self = this;
+      try { localStorage.removeItem(CACHE_KEY); } catch (e) {}
+      loadShows(false);
+      setTimeout(function () {
+        self.innerHTML = '<i class="fa fa-refresh mr-2"></i>' + tr('手動刷新');
+      }, 1500);
+    });
+  }
+
+  // ★ 新增：強制清除所有快取並重新載入頁面
+  function injectHardReloadBtn() {
+    if (!refreshBtn || !refreshBtn.parentNode) return;
+    if (document.getElementById('hardReloadBtn')) return;
+    var btn = document.createElement('button');
+    btn.id = 'hardReloadBtn';
+    btn.type = 'button';
+    btn.className = 'glass-deep px-4 py-2 rounded-full border transition';
+    btn.style.borderColor = 'rgba(255,120,120,.4)';
+    btn.style.color = '#FF9F9F';
+    btn.innerHTML = '<i class="fa fa-bolt mr-2"></i>強制重載';
+    btn.title = '清除所有快取並重新載入頁面';
+    btn.addEventListener('click', function () {
+      try {
+        localStorage.removeItem(CACHE_KEY);
+        localStorage.removeItem('tk_shows_cache_v8');
+        localStorage.removeItem('tk_shows_cache_v7');
+        localStorage.removeItem('tk_shows_cache_v6');
+        localStorage.removeItem('tk_shows_cache_v5');
+        localStorage.removeItem('tk_shows_cache_v4');
+      } catch (e) {}
+      if ('caches' in window) {
+        caches.keys().then(function (names) {
+          names.forEach(function (name) { caches.delete(name); });
+        });
+      }
+      this.innerHTML = '<i class="fa fa-spinner fa-spin mr-2"></i>重載中...';
+      setTimeout(function () { location.reload(true); }, 400);
+    });
+    refreshBtn.parentNode.insertBefore(btn, refreshBtn.nextSibling);
+  }
+
+  function scheduleDailyCheck() {
+    var now = new Date();
+    var hktNow;
+    try { hktNow = new Date(now.toLocaleString('en-US', { timeZone: 'Asia/Hong_Kong' })); }
+    catch (e) { hktNow = new Date(now); }
+    var next = new Date(hktNow);
+    next.setHours(3, 0, 0, 0);
+    if (next <= hktNow) next.setDate(next.getDate() + 1);
+    var delay = Math.max(60000, next.getTime() - hktNow.getTime());
+    setTimeout(function () {
+      try { localStorage.removeItem(CACHE_KEY); } catch (e) {}
+      loadShows(false);
+      if (window.__wallSystem && typeof window.__wallSystem.rerender === 'function') {
+        window.__wallSystem.rerender();
+      }
+      scheduleDailyCheck();
+    }, delay);
+  }
+
   function init() {
-    if (lastUpdated) lastUpdated.textContent = formatTime(new Date().toISOString());
-    loadShows();
+    showLoading();
+    injectHardReloadBtn();
+    loadShows(false);
+    scheduleDailyCheck();
   }
 
   if (document.readyState === 'loading') {
@@ -2043,6 +2302,851 @@
   } else {
     init();
   }
+
+  document.addEventListener('visibilitychange', function () {
+    if (document.hidden) {
+      if (countdownTimer) { clearInterval(countdownTimer); countdownTimer = null; }
+    } else {
+      startCountdown();
+    }
+  });
+
+  window.__showsSystem = {
+    refresh: function () { loadShows(false); },
+    useFallback: function () { loadShows(true); },
+    clearCache: function () { try { localStorage.removeItem(CACHE_KEY); } catch (e) {} },
+    getFallback: function () { return FALLBACK_SHOWS.slice(); },
+    getAll: function () { return (currentShows && currentShows.length) ? currentShows.slice() : FALLBACK_SHOWS.slice(); },
+    getToday: function () { return getHKTDateStr(); },
+    rerender: function () { renderShows(); },
+    parseHKTTime: parseHKTTime
+  };
+})();
+</script>
+
+
+<!-- ============================================================
+     第三部分：成功搶票留言區（★ 只顯示近 3 天內開售場次）
+     ============================================================ -->
+<script>
+(function () {
+  'use strict';
+
+  function tr(s) { return window.__tkTr ? window.__tkTr(s) : String(s); }
+
+  var gridEl      = document.getElementById('wallGrid');
+  var emptyEl     = document.getElementById('wallEmpty');
+  var countEl     = document.getElementById('wallCount');
+  var dateCountEl = document.getElementById('wallDateCount');
+  var todayEl     = document.getElementById('wallToday');
+  var refreshBtn  = document.getElementById('wallRefreshBtn');
+  var formBtn     = document.getElementById('wallFormBtn');
+  var formEl      = document.getElementById('wallForm');
+  var formCancel  = document.getElementById('wallFormCancel');
+  var nameInput   = document.getElementById('wallName');
+  var showSelect  = document.getElementById('wallShow');
+  var textInput   = document.getElementById('wallText');
+  var moreBtn     = document.getElementById('wallMoreBtn');
+  var moreWrap    = document.getElementById('wallMoreWrap');
+
+  if (!gridEl) return;
+
+  var MINE_KEY = 'tk_wall_mine_v2';
+  var LIKE_KEY = 'tk_wall_likes_v2';
+  var PAGE_SIZE = 9;
+
+  // ★★★ 留言區時間視窗：只顯示近 N 天內（含今天）開售場次的留言 ★★★
+  var RECENT_DAYS = 3;
+
+  var showAll = false;
+  var serverMessages = null;
+  var likesSaveTimer = null;
+
+  var NAMES = ['Vincy','阿Kan','Mandy','Kelvin','小婷','阿俊','Yuki','Chris','花花','阿豪','Lily','肥仔','叮叮','Winnie','阿欣','Kary','森仔','呀B','Cyrus','Nana','阿朗','BoBo','Kristy','大頭','Edwin','Fiona','細龍','Gigi','Hugo','Ivy'];
+  var TEMPLATES = [
+    '🎉 成功搶到 {show}！{stage} 一開閘就衝入去，全程零卡頓，多謝 ticketkiller 🙌',
+    '第一次用就中！{show} 入手 {qty}，手都震 😭 好癲',
+    '6 部機同時出動，{show} 成功落單 ✅ 強烈推薦',
+    '{show} 我搶到啦！！{stage} 排隊位超前，10 秒都唔使 ⚡',
+    '本來以為冇希望，點知 {show} 真係中咗，{qty} 到手 🎫',
+    '{stage} 順利過關，{show} 買到心水位，好感動 🥹',
+    '同朋友一齊開 6 部機，{show} 齊齊有飛，勁開心！',
+    '{show} 搶到手都軟，但一切都值得 💖',
+    '用咗咁多年搶票工具，ticketkiller 真係最快，{show} 一 take 過 👍',
+    '{stage} 秒殺成功！{show} 買到 {qty}，多謝客服耐心教路 🙏',
+    '連續搶咗 3 場，{show} 全部中，勁誇張 😳',
+    '{show} 終於搶到！之前自己搶十次都唔中，今次一次搞掂 💪'
+  ];
+  var QTYS = ['1 張', '2 張', '2 張連位', '3 張', '4 張', '單丁 1 張'];
+
+  function hash(str) {
+    var h = 5381;
+    str = String(str);
+    for (var i = 0; i < str.length; i++) h = ((h << 5) + h + str.charCodeAt(i)) >>> 0;
+    return h;
+  }
+  function pad2(n) { return String(n).padStart(2, '0'); }
+  function todayHKT() {
+    try {
+      var parts = new Intl.DateTimeFormat('en-CA', {
+        timeZone: 'Asia/Hong_Kong', year: 'numeric', month: '2-digit', day: '2-digit'
+      }).formatToParts(new Date());
+      var y = '', m = '', d = '';
+      for (var i = 0; i < parts.length; i++) {
+        if (parts[i].type === 'year')  y = parts[i].value;
+        if (parts[i].type === 'month') m = parts[i].value;
+        if (parts[i].type === 'day')   d = parts[i].value;
+      }
+      if (y && m && d) return y + '-' + m + '-' + d;
+    } catch (e) {}
+    var now = new Date();
+    return now.getFullYear() + '-' + pad2(now.getMonth() + 1) + '-' + pad2(now.getDate());
+  }
+  function nowHKTTime() {
+    var d = new Date();
+    try {
+      var p = new Intl.DateTimeFormat('en-GB', {
+        timeZone: 'Asia/Hong_Kong', hour: '2-digit', minute: '2-digit', hour12: false
+      }).format(d);
+      if (p) return p;
+    } catch (e) {}
+    return pad2(d.getHours()) + ':' + pad2(d.getMinutes());
+  }
+  function formatDay(dateStr) {
+    if (!dateStr) return '';
+    var p = String(dateStr).split('-');
+    if (p.length !== 3) return dateStr;
+    return tr(parseInt(p[1], 10) + '月' + parseInt(p[2], 10) + '日');
+  }
+  function formatFullDay(dateStr) {
+    if (!dateStr) return '';
+    var p = String(dateStr).split('-');
+    if (p.length !== 3) return dateStr;
+    return tr(p[0] + '年' + parseInt(p[1], 10) + '月' + parseInt(p[2], 10) + '日');
+  }
+  function esc(str) {
+    return String(str == null ? '' : str)
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+  }
+
+  function daysDiffHKT(dateStr, todayStr) {
+    if (!dateStr) return NaN;
+    todayStr = todayStr || todayHKT();
+    var p1 = String(todayStr).split('-');
+    var p2 = String(dateStr).split('-');
+    if (p1.length !== 3 || p2.length !== 3) return NaN;
+    var t1 = Date.UTC(+p1[0], +p1[1] - 1, +p1[2]);
+    var t2 = Date.UTC(+p2[0], +p2[1] - 1, +p2[2]);
+    return Math.round((t1 - t2) / 86400000);
+  }
+  function isWithinRecentDays(dateStr, todayStr) {
+    var d = daysDiffHKT(dateStr, todayStr);
+    return !isNaN(d) && d >= 0 && d < RECENT_DAYS;
+  }
+
+  function getAllShows() {
+    if (window.__showsSystem && typeof window.__showsSystem.getAll === 'function') {
+      var arr = window.__showsSystem.getAll();
+      if (arr && arr.length) return arr;
+    }
+    return [];
+  }
+
+  function collectSaleDates(s) {
+    var arr = [];
+    var now = Date.now();
+    var today = todayHKT();
+    var parseFn = (window.__showsSystem && window.__showsSystem.parseHKTTime) || null;
+
+    function isStarted(dateStr, timeStr) {
+      if (!dateStr) return false;
+      if (dateStr < today) return true;
+      if (dateStr > today) return false;
+      if (!timeStr || !/\d{1,2}:\d{2}/.test(timeStr)) return true;
+      if (parseFn) {
+        var dt = parseFn(dateStr, timeStr);
+        return dt ? dt.getTime() <= now : false;
+      }
+      return true;
+    }
+
+    if (s.prioritySales && s.prioritySales.length) {
+      s.prioritySales.forEach(function (p) {
+        if (p && p.date &&
+            isStarted(p.date, p.time) &&
+            isWithinRecentDays(p.date, today)) {
+          arr.push({ date: p.date, stage: p.stage || '優先購票', type: 'priority' });
+        }
+      });
+    }
+
+    if (s.publicSaleDate &&
+        isStarted(s.publicSaleDate, s.publicSaleTime) &&
+        isWithinRecentDays(s.publicSaleDate, today)) {
+      arr.push({ date: s.publicSaleDate, stage: '公開發售', type: 'public' });
+    }
+
+    return arr;
+  }
+
+  function buildAutoMessages(shows, todayStr) {
+    var out = [];
+    shows.forEach(function (s) {
+      var dates = collectSaleDates(s);
+      if (!dates.length) return;
+
+      dates.forEach(function (d, di) {
+        var seed = hash(todayStr + '|' + (s.id || s.name) + '|' + d.date + '|' + di);
+        var name = NAMES[seed % NAMES.length];
+        var tpl = TEMPLATES[(seed >>> 4) % TEMPLATES.length];
+        var qty = QTYS[(seed >>> 8) % QTYS.length];
+        var likes = 18 + (seed % 460);
+        var hh = 9 + (seed % 13);
+        var mm = seed % 60;
+        var text = tpl.replace(/\{show\}/g, s.name).replace(/\{stage\}/g, d.stage).replace(/\{qty\}/g, qty);
+        out.push({
+          key: 'auto|' + (s.id || s.name) + '|' + d.date + '|' + di,
+          name: name, text: text, showName: s.name, stage: d.stage,
+          saleDate: d.date, isPublic: d.type === 'public', likes: likes,
+          time: pad2(hh) + ':' + pad2(mm), hue: seed % 360, mine: false, source: 'auto'
+        });
+      });
+    });
+    return out;
+  }
+
+  function loadMine() {
+    try {
+      var raw = localStorage.getItem(MINE_KEY);
+      if (!raw) return [];
+      var arr = JSON.parse(raw);
+      return Array.isArray(arr) ? arr : [];
+    } catch (e) { return []; }
+  }
+  function saveMine(arr) { try { localStorage.setItem(MINE_KEY, JSON.stringify(arr)); } catch (e) {} }
+
+  function loadLikes() {
+    try {
+      var raw = localStorage.getItem(LIKE_KEY);
+      if (!raw) return {};
+      var obj = JSON.parse(raw);
+      return (obj && typeof obj === 'object') ? obj : {};
+    } catch (e) { return {}; }
+  }
+  function saveLikes(obj) {
+    clearTimeout(likesSaveTimer);
+    likesSaveTimer = setTimeout(function () {
+      try { localStorage.setItem(LIKE_KEY, JSON.stringify(obj)); } catch (e) {}
+    }, 300);
+  }
+
+  function getWallApi() {
+    var CFG = (window.TK_CONFIG && window.TK_CONFIG.wallApi) || {};
+    if (!CFG.enabled || !CFG.baseUrl) return null;
+    return {
+      list: CFG.baseUrl.replace(/\/+$/, '') + (CFG.listPath || '/wall/list'),
+      post: CFG.baseUrl.replace(/\/+$/, '') + (CFG.postPath || '/wall/post'),
+      like: CFG.baseUrl.replace(/\/+$/, '') + (CFG.likePath || '/wall/like')
+    };
+  }
+
+  function fetchServerMessages() {
+    var api = getWallApi();
+    if (!api) return Promise.resolve(null);
+    return fetch(api.list, { method: 'GET', headers: { 'Accept': 'application/json' } })
+      .then(function (res) {
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        return res.json();
+      })
+      .then(function (data) {
+        var arr = Array.isArray(data) ? data : (data && data.messages);
+        return Array.isArray(arr) ? arr : [];
+      })
+      .catch(function () { return null; });
+  }
+
+  function postServerMessage(payload) {
+    var api = getWallApi();
+    if (!api) return Promise.reject(new Error('NO_API'));
+    return fetch(api.post, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify(payload)
+    }).then(function (res) {
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      return res.json();
+    });
+  }
+
+  function postServerLike(key) {
+    var api = getWallApi();
+    if (!api) return Promise.reject(new Error('NO_API'));
+    return fetch(api.like, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({ key: key })
+    }).then(function (res) {
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      return res.json();
+    });
+  }
+
+  var renderedMessages = [];
+
+  function buildAll() {
+    var today = todayHKT();
+    var shows = getAllShows();
+    var auto  = buildAutoMessages(shows, today);
+
+    var mineRecent = loadMine().filter(function (m) {
+      return isWithinRecentDays(m.saleDate, today);
+    });
+    var serverRecent = (serverMessages || []).filter(function (m) {
+      return isWithinRecentDays(m.saleDate, today);
+    });
+
+    var merged = (serverRecent.length ? serverRecent.concat(mineRecent) : mineRecent).concat(auto);
+
+    merged.sort(function (a, b) {
+      var da = String(a.saleDate || '9999-99-99');
+      var db = String(b.saleDate || '9999-99-99');
+      if (da !== db) return db.localeCompare(da);
+      return String(a.key).localeCompare(String(b.key));
+    });
+
+    return { messages: merged, today: today };
+  }
+
+  function render() {
+    var data = buildAll();
+    renderedMessages = data.messages;
+
+    if (todayEl) todayEl.textContent = formatFullDay(data.today);
+
+    var uniqueDates = {};
+    data.messages.forEach(function (m) { if (m.saleDate) uniqueDates[m.saleDate] = 1; });
+
+    if (countEl)     countEl.textContent     = data.messages.length;
+    if (dateCountEl) dateCountEl.textContent = Object.keys(uniqueDates).length;
+
+    if (!data.messages.length) {
+      gridEl.innerHTML = '';
+      gridEl.classList.add('hidden');
+      if (emptyEl) emptyEl.classList.remove('hidden');
+      if (moreWrap) moreWrap.classList.add('hidden');
+      return;
+    }
+    if (emptyEl) emptyEl.classList.add('hidden');
+    gridEl.classList.remove('hidden');
+
+    var likesMap = loadLikes();
+    var list = showAll ? data.messages : data.messages.slice(0, PAGE_SIZE);
+
+    var html = '';
+    list.forEach(function (m) {
+      var liked = !!likesMap[m.key];
+      var serverLikes = (m.likes != null ? m.likes : 0);
+      var likeCount = serverLikes + (liked ? 1 : 0);
+      var initial = m.name ? String(m.name).charAt(0).toUpperCase() : '?';
+      var hue = (m.hue == null) ? (hash(m.name || 'x') % 360) : m.hue;
+      var grad = 'linear-gradient(135deg,hsl(' + hue + ',85%,66%),hsl(' + ((hue + 55) % 360) + ',85%,52%))';
+
+      var tagHtml;
+      if (m.mine) tagHtml = '<span class="tag-pill tag-hot">' + tr('我的留言') + '</span>';
+      else tagHtml = '<span class="tag-pill tag-new">' + tr('成功搶票') + '</span>';
+
+      var stageLine = esc(tr(m.stage || '')) + (m.saleDate ? ' · ' + esc(formatDay(m.saleDate)) : '');
+
+      html +=
+        '<div class="glass-deep rounded-2xl p-5 border border-white/10 wall-card flex flex-col">' +
+          '<div class="flex items-start gap-3">' +
+            '<div class="w-10 h-10 rounded-full flex items-center justify-center font-bold text-white shrink-0 text-sm" style="background:' + grad + '">' + esc(initial) + '</div>' +
+            '<div class="flex-1 min-w-0">' +
+              '<div class="flex items-center flex-wrap gap-1.5">' +
+                '<span class="font-bold text-white text-sm truncate">' + esc(m.name || '匿名') + '</span>' + tagHtml +
+              '</div>' +
+              '<div class="text-[11px] text-blush/45 mt-0.5">' + esc(m.time || '') + (m.saleDate ? ' · ' + esc(formatDay(m.saleDate)) : '') + '</div>' +
+            '</div>' +
+          '</div>' +
+          '<p class="text-sm text-blush/85 mt-3 leading-relaxed flex-1">' + esc(tr(m.text)) + '</p>' +
+          '<div class="mt-3 pt-3 border-t border-white/5 space-y-1.5">' +
+            '<div class="flex items-start gap-2 text-[11px] text-blush/60"><i class="fa fa-music text-rose/80 mt-0.5"></i><span class="leading-relaxed">' + esc(tr(m.showName || '')) + '</span></div>' +
+            '<div class="flex items-center gap-2 text-[11px] text-blush/60"><i class="fa fa-clock-o text-green/80"></i><span>' + stageLine + '</span></div>' +
+          '</div>' +
+          '<div class="mt-3 flex items-center justify-between text-[11px]">' +
+            '<button type="button" class="wall-like ' + (liked ? 'liked' : '') + ' text-blush/50" data-like="' + esc(m.key) + '" aria-pressed="' + (liked ? 'true' : 'false') + '" aria-label="' + tr('讚好') + '">' +
+              '<i class="fa fa-thumbs-up mr-1"></i><span>' + likeCount + '</span>' +
+            '</button>' +
+            '<span class="text-green/70"><i class="fa fa-check-circle mr-1"></i>' + tr('已驗證') + '</span>' +
+          '</div>' +
+        '</div>';
+    });
+
+    gridEl.innerHTML = html;
+
+    if (moreWrap) {
+      if (data.messages.length > PAGE_SIZE) {
+        moreWrap.classList.remove('hidden');
+        if (moreBtn) {
+          moreBtn.innerHTML = showAll
+            ? '<i class="fa fa-angle-up mr-2"></i>' + tr('收起留言')
+            : '<i class="fa fa-angle-down mr-2"></i>' + tr('顯示更多留言（尚有') + ' ' + (data.messages.length - PAGE_SIZE) + ' ' + tr('條）');
+        }
+      } else {
+        moreWrap.classList.add('hidden');
+      }
+    }
+
+    requestAnimationFrame(function () {
+      if (typeof window.__revealAll === 'function') window.__revealAll();
+    });
+  }
+
+  gridEl.addEventListener('click', function (e) {
+    var btn = e.target.closest ? e.target.closest('.wall-like') : null;
+    if (!btn) return;
+    var key = btn.getAttribute('data-like');
+    if (!key) return;
+
+    var likesMap = loadLikes();
+    if (likesMap[key]) delete likesMap[key]; else likesMap[key] = true;
+    saveLikes(likesMap);
+
+    var liked = !!likesMap[key];
+    btn.classList.toggle('liked', liked);
+    btn.setAttribute('aria-pressed', liked ? 'true' : 'false');
+
+    var msg = null;
+    for (var i = 0; i < renderedMessages.length; i++) {
+      if (renderedMessages[i].key === key) { msg = renderedMessages[i]; break; }
+    }
+    var base = msg ? (msg.likes || 0) : 0;
+    var span = btn.querySelector('span');
+    if (span) span.textContent = base + (liked ? 1 : 0);
+
+    if (getWallApi() && liked) {
+      postServerLike(key).catch(function () {});
+    }
+  });
+
+  if (refreshBtn) {
+    refreshBtn.addEventListener('click', function () {
+      showAll = false;
+      refreshBtn.innerHTML = '<i class="fa fa-spinner fa-spin mr-2"></i>' + tr('載入中...');
+      fetchServerMessages().then(function (arr) {
+        if (arr) serverMessages = arr;
+        render();
+        refreshBtn.innerHTML = '<i class="fa fa-refresh mr-2"></i>' + tr('最新留言');
+        if (window.__tkToast) window.__tkToast(tr('最新留言 今日留言'));
+      });
+    });
+  }
+
+  if (moreBtn) {
+    moreBtn.addEventListener('click', function () {
+      showAll = !showAll;
+      render();
+      if (!showAll && gridEl) {
+        var top = gridEl.getBoundingClientRect().top + window.scrollY - 90;
+        window.scrollTo({ top: top, behavior: 'smooth' });
+      }
+    });
+  }
+
+  function fillShowSelect() {
+    if (!showSelect) return;
+    var shows = getAllShows();
+    var opts = '<option value="">' + tr('請選擇場次（可選）') + '</option>';
+    shows.forEach(function (s) {
+      var dates = collectSaleDates(s);
+      if (!dates.length) return;
+      opts += '<option value="' + esc(s.name) + '">' + esc(tr(s.name)) + '</option>';
+    });
+    showSelect.innerHTML = opts;
+  }
+
+  if (formBtn && formEl) {
+    formBtn.addEventListener('click', function () {
+      var isHidden = formEl.classList.toggle('hidden');
+      if (!isHidden) {
+        fillShowSelect();
+        if (nameInput) setTimeout(function () { nameInput.focus(); }, 80);
+      }
+    });
+  }
+  if (formCancel && formEl) {
+    formCancel.addEventListener('click', function () { formEl.classList.add('hidden'); });
+  }
+
+  if (formEl) {
+    formEl.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var name = (nameInput && nameInput.value ? nameInput.value : '').trim() || '匿名用戶';
+      var showVal = showSelect ? showSelect.value : '';
+      var text = (textInput && textInput.value ? textInput.value : '').trim();
+
+      if (!text) { if (window.__tkToast) window.__tkToast(tr('請輸入留言內容')); if (textInput) textInput.focus(); return; }
+      if (text.length < 2) { if (window.__tkToast) window.__tkToast(tr('留言太短，請多寫幾句')); if (textInput) textInput.focus(); return; }
+
+      var today = todayHKT();
+      var payload = {
+        name: name.slice(0, 20),
+        text: text.slice(0, 200),
+        showName: showVal || tr('我的搶票戰績'),
+        stage: tr('我的留言'),
+        saleDate: today,
+        time: nowHKTTime(),
+        hue: hash(name) % 360,
+        mine: true,
+        likes: 0
+      };
+
+      function submitLocal() {
+        var mine = loadMine();
+        mine.unshift(Object.assign({}, payload, {
+          key: 'mine|' + Date.now() + '|' + Math.floor(Math.random() * 9999),
+          source: 'mine'
+        }));
+        mine = mine.slice(0, 50);
+        saveMine(mine);
+      }
+
+      if (getWallApi()) {
+        var submitBtn = formEl.querySelector('button[type="submit"]');
+        var originalHtml = submitBtn ? submitBtn.innerHTML : '';
+        if (submitBtn) {
+          submitBtn.disabled = true;
+          submitBtn.innerHTML = '<i class="fa fa-spinner fa-spin mr-1"></i>' + tr('發佈中...');
+        }
+        postServerMessage(payload)
+          .then(function (data) {
+            if (data && data.message) serverMessages = (serverMessages || []).concat([data.message]);
+            else submitLocal();
+            if (nameInput) nameInput.value = '';
+            if (textInput) textInput.value = '';
+            if (showSelect) showSelect.value = '';
+            formEl.classList.add('hidden');
+            showAll = false;
+            return fetchServerMessages();
+          })
+          .then(function (arr) {
+            if (arr) serverMessages = arr;
+            render();
+            if (window.__tkToast) window.__tkToast(tr('留言已發佈 🎉'));
+          })
+          .catch(function () {
+            submitLocal();
+            if (nameInput) nameInput.value = '';
+            if (textInput) textInput.value = '';
+            if (showSelect) showSelect.value = '';
+            formEl.classList.add('hidden');
+            showAll = false;
+            render();
+            if (window.__tkToast) window.__tkToast(tr('後端發送失敗，留言暫存在本機'));
+          })
+          .finally(function () {
+            if (submitBtn) {
+              submitBtn.disabled = false;
+              submitBtn.innerHTML = originalHtml;
+            }
+          });
+      } else {
+        submitLocal();
+        if (nameInput) nameInput.value = '';
+        if (textInput) textInput.value = '';
+        if (showSelect) showSelect.value = '';
+        formEl.classList.add('hidden');
+        showAll = false;
+        render();
+        if (window.__tkToast) window.__tkToast(tr('留言已發佈 🎉'));
+      }
+    });
+  }
+
+  window.__wallSystem = {
+    rerender: function () { render(); },
+    rebuild: function () { showAll = false; render(); },
+    refreshFromServer: function () {
+      return fetchServerMessages().then(function (arr) {
+        if (arr) serverMessages = arr;
+        render();
+      });
+    },
+    getMessages: function () { return renderedMessages.slice(); }
+  };
+
+  function init() {
+    fillShowSelect();
+
+    if (getWallApi()) {
+      render();
+      fetchServerMessages().then(function (arr) {
+        if (arr) serverMessages = arr;
+        render();
+      });
+    } else {
+      render();
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function () { setTimeout(init, 120); });
+  } else {
+    setTimeout(init, 120);
+  }
+})();
+</script>
+
+
+<!-- ============================================================
+     P0：聯絡浮動按鈕 + Telegram Bot 直發 / QQ / 釘釘留言面板
+     ============================================================ -->
+<script>
+(function () {
+  'use strict';
+
+  function tr(s) { return window.__tkTr ? window.__tkTr(s) : String(s); }
+
+  var fab    = document.getElementById('contactFab');
+  var panel  = document.getElementById('contactPanel');
+  var close  = document.getElementById('contactClose');
+  var openBtn = document.getElementById('contactOpenBtn');
+  if (!fab || !panel) return;
+
+  var isOpen = false;
+  var lastFocus = null;
+
+  function getFocusable() {
+    return panel.querySelectorAll(
+      'a[href], button:not([disabled]), input:not([disabled]):not([type="hidden"]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+    );
+  }
+  function setHidden(hidden) {
+    if (hidden) panel.setAttribute('hidden', '');
+    else        panel.removeAttribute('hidden');
+  }
+
+  function openPanel() {
+    if (isOpen) return;
+    isOpen = true;
+    lastFocus = document.activeElement;
+    setHidden(false);
+    requestAnimationFrame(function () { panel.classList.add('open'); });
+    fab.classList.add('active');
+    fab.setAttribute('aria-expanded', 'true');
+    var focusables = getFocusable();
+    if (focusables.length) setTimeout(function () { focusables[0].focus(); }, 120);
+    document.addEventListener('keydown', onKeydown, true);
+    document.addEventListener('click', onDocClick, true);
+  }
+  function closePanel() {
+    if (!isOpen) return;
+    isOpen = false;
+    panel.classList.remove('open');
+    fab.classList.remove('active');
+    fab.setAttribute('aria-expanded', 'false');
+    document.removeEventListener('keydown', onKeydown, true);
+    document.removeEventListener('click', onDocClick, true);
+    setTimeout(function () { if (!isOpen) setHidden(true); }, 280);
+    if (lastFocus && typeof lastFocus.focus === 'function') lastFocus.focus();
+  }
+  function onKeydown(e) {
+    if (e.key === 'Escape') { e.preventDefault(); closePanel(); return; }
+    if (e.key === 'Tab') {
+      var focusables = getFocusable();
+      if (!focusables.length) return;
+      var first = focusables[0];
+      var last  = focusables[focusables.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    }
+  }
+  function onDocClick(e) {
+    if (!isOpen) return;
+    if (panel.contains(e.target) || fab.contains(e.target)) return;
+    if (openBtn && openBtn.contains(e.target)) return;
+    closePanel();
+  }
+
+  fab.addEventListener('click', function (e) { e.stopPropagation(); isOpen ? closePanel() : openPanel(); });
+  if (close) close.addEventListener('click', function (e) { e.stopPropagation(); closePanel(); });
+  if (openBtn) openBtn.addEventListener('click', function (e) { e.stopPropagation(); openPanel(); });
+
+  function copyToClipboard(text, label) {
+    var done = function () { showToast(tr('已複製') + ' ' + (label || '') + (label ? '：' : '') + text); };
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(text).then(done).catch(function () { fallbackCopy(text, done); });
+    } else {
+      fallbackCopy(text, done);
+    }
+  }
+  function fallbackCopy(text, cb) {
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    ta.setAttribute('readonly', '');
+    ta.style.position = 'fixed';
+    ta.style.top = '0';
+    ta.style.left = '-9999px';
+    document.body.appendChild(ta);
+    ta.select();
+    ta.setSelectionRange(0, ta.value.length);
+    var ok = false;
+    try { ok = document.execCommand('copy'); } catch (e) { ok = false; }
+    document.body.removeChild(ta);
+    if (ok) cb(); else showToast(tr('複製失敗，請手動複製'));
+  }
+
+  var toastTimer = null;
+  function showToast(msg, ms) {
+    var t = document.getElementById('tkToast');
+    if (!t) {
+      t = document.createElement('div');
+      t.id = 'tkToast';
+      t.className = 'tk-toast';
+      t.setAttribute('role', 'status');
+      t.setAttribute('aria-live', 'polite');
+      document.body.appendChild(t);
+    }
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () { t.classList.remove('show'); }, ms || 2600);
+  }
+  window.__tkToast = showToast;
+
+  panel.querySelectorAll('.contact-copy').forEach(function (btn) {
+    btn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      var text = this.getAttribute('data-copy') || '';
+      var label = this.getAttribute('data-copy-label') || '';
+      if (!text) return;
+      copyToClipboard(text, label);
+    });
+  });
+
+  function sendToTelegramBot(name, contact, message) {
+    var CFG = (window.TK_CONFIG && window.TK_CONFIG.telegramBot) || {};
+    if (!CFG.enabled || !CFG.token || !CFG.chatId) {
+      return Promise.reject(new Error('BOT_NOT_CONFIGURED'));
+    }
+
+    var text =
+      '🎟 <b>ticketkiller 新留言</b>\n\n' +
+      '<b>姓名：</b>' + escapeHtml(name || '未填寫') + '\n' +
+      '<b>聯絡：</b>' + escapeHtml(contact) + '\n' +
+      '<b>內容：</b>\n' + escapeHtml(message) + '\n\n' +
+      '<i>來源：官網聯絡表單</i>';
+
+    var url = 'https://api.telegram.org/bot' + CFG.token + '/sendMessage';
+
+    return fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        chat_id: CFG.chatId,
+        text: text,
+        parse_mode: 'HTML',
+        disable_web_page_preview: true
+      })
+    }).then(function (res) {
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      return res.json();
+    }).then(function (data) {
+      if (!data || !data.ok) throw new Error('TG_API_FAILED');
+      return data;
+    });
+  }
+
+  function escapeHtml(s) {
+    return String(s == null ? '' : s)
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+
+  var dingForm = document.getElementById('dingtalkForm');
+  if (dingForm) {
+    dingForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      var fd = new FormData(dingForm);
+      if (String(fd.get('website') || '').trim()) { dingForm.reset(); showToast(tr('已提交')); return; }
+
+      var name = String(fd.get('name') || '').trim();
+      var contact = String(fd.get('contact') || '').trim();
+      var message = String(fd.get('message') || '').trim();
+
+      if (!contact) { showToast(tr('請填寫您的聯絡方式')); var c = document.getElementById('dtContact'); if (c) c.focus(); return; }
+      if (contact.length < 2) { showToast(tr('聯絡方式太短')); var c2 = document.getElementById('dtContact'); if (c2) c2.focus(); return; }
+      if (!message) { showToast(tr('請填寫留言內容')); var m = document.getElementById('dtMessage'); if (m) m.focus(); return; }
+      if (message.length < 2) { showToast(tr('留言太短，請多寫幾句')); var m2 = document.getElementById('dtMessage'); if (m2) m2.focus(); return; }
+
+      var now = Date.now();
+      var last = 0;
+      try { last = parseInt(localStorage.getItem('tk_last_dt_submit') || '0', 10); } catch (err) {}
+      if (now - last < 60000) {
+        var wait = Math.ceil((60000 - (now - last)) / 1000);
+        showToast(tr('提交太頻繁，請') + ' ' + wait + ' ' + tr('秒後再試'));
+        return;
+      }
+      try { localStorage.setItem('tk_last_dt_submit', String(now)); } catch (err) {}
+
+      var CFG = (window.TK_CONFIG && window.TK_CONFIG.telegramBot) || {};
+
+      if (CFG.enabled && CFG.token && CFG.chatId) {
+        var submitBtn = dingForm.querySelector('button[type="submit"]');
+        var originalHtml = submitBtn ? submitBtn.innerHTML : '';
+        if (submitBtn) {
+          submitBtn.disabled = true;
+          submitBtn.innerHTML = '<i class="fa fa-spinner fa-spin mr-1"></i>' + tr('發送中...');
+        }
+
+        sendToTelegramBot(name, contact, message)
+          .then(function () {
+            showToast(tr('已成功發送到 Telegram ✅'), 3200);
+            dingForm.reset();
+          })
+          .catch(function (err) {
+            if (window.TK_CONFIG && window.TK_CONFIG.debug) console.warn('[TG Bot]', err);
+            var C = (window.TK_CONFIG && window.TK_CONFIG.contact) || {};
+            var content =
+              '【ticketkiller 留言】\n' +
+              'Telegram：' + (C.telegramUrl || '') + '\n' +
+              'QQ：' + (C.qq || '') + '\n' +
+              '釘釘：' + (C.dingtalk || '') + '\n' +
+              '姓名：' + (name || '未填寫') + '\n' +
+              '聯絡：' + contact + '\n' +
+              '留言：' + message;
+            copyToClipboard(content, tr('留言內容'));
+            showToast(tr('Telegram 發送失敗，已複製留言，請手動粘貼發送'), 3600);
+            dingForm.reset();
+          })
+          .finally(function () {
+            if (submitBtn) {
+              submitBtn.disabled = false;
+              submitBtn.innerHTML = originalHtml;
+            }
+          });
+      } else {
+        var C2 = (window.TK_CONFIG && window.TK_CONFIG.contact) || {};
+        var content2 =
+          '【ticketkiller 留言】\n' +
+          'Telegram：' + (C2.telegramUrl || '') + '\n' +
+          'QQ：' + (C2.qq || '') + '\n' +
+          '釘釘：' + (C2.dingtalk || '') + '\n' +
+          '姓名：' + (name || '未填寫') + '\n' +
+          '聯絡：' + contact + '\n' +
+          '留言：' + message;
+        copyToClipboard(content2, tr('留言內容'));
+        dingForm.reset();
+        showToast(tr('留言已複製，請到 Telegram、釘釘或 QQ 粘貼發送'), 3600);
+      }
+    });
+  }
+
+  window.__contactPanel = {
+    open: openPanel, close: closePanel,
+    isOpen: function () { return isOpen; }
+  };
 })();
 </script>
 
