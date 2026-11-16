@@ -1020,8 +1020,8 @@
     apiKey: '',
     timeout: 8000,
     cacheTTL: 24 * 60 * 60 * 1000,
-    cacheKey: 'tk_shows_cache_v9',   /* ← 已從 v8 升級為 v9，避免讀到舊版快取 */
-    debug: false,                    /* ← 需要診斷時臨時改為 true */
+    cacheKey: 'tk_shows_cache_v9',
+    debug: false,
     autoDetectEnv: false,
 
     contact: {
@@ -1061,6 +1061,172 @@
       window.TK_CONFIG.__isLocal = false;
     }
   })();
+</script>
+
+
+<!-- ============================================================
+     ★★★ 12 場最新演唱會資料（2026 年 11–12 月）★★★
+     平台覆蓋：Cityline / KKTIX / HKTICKETING / URBTIX / FANTOPIA / Klook
+     ============================================================ -->
+<script>
+  window.TK_FALLBACK_CONCERTS = [
+    {
+      id: "janice-vidal-out-of-frame-2026",
+      name: "衛蘭 OUT OF FRAME 世界巡迴演唱會 2026 香港站",
+      platform: "URBTIX",
+      venue: "香港體育館（紅館）",
+      eventDate: "2026-11-14 至 2026-11-17",
+      saleDate: "2026-10-08",
+      saleTime: "10:00",
+      price: "HK$580 / $880 / $1,180",
+      status: "售票中",
+      officialUrl: "https://www.urbtix.hk/",
+      hot: true
+    },
+    {
+      id: "gigi-leung-love-gigi-2026",
+      name: "梁詠琪 LOVE GiGi 愛自己世界巡迴演唱會 2026 香港站",
+      platform: "URBTIX / Cityline",
+      venue: "紅磡香港體育館（紅館）",
+      eventDate: "2026-11-27 至 2026-11-29",
+      saleDate: "2026-09-08",
+      saleTime: "10:00",
+      price: "HK$480 / $780 / $1,180",
+      status: "售票中",
+      officialUrl: "https://www.urbtix.hk/",
+      hot: true
+    },
+    {
+      id: "novel-fergus-hong-kong-2026",
+      name: "Novel Fergus「你情我願」演唱會 香港站",
+      platform: "Cityline",
+      venue: "TIDES（黃埔天地）",
+      eventDate: "2026-11-28 至 2026-11-30",
+      saleDate: "2026-10-22",
+      saleTime: "11:00",
+      price: "HK$799 / $599（視線受阻區域）",
+      status: "售票中",
+      officialUrl: "https://www.cityline.com/",
+      hot: false
+    },
+    {
+      id: "archie-sin-hong-kong-2026",
+      name: "冼靖峰 ARCHIETECT LIVE IN HONG KONG 2026",
+      platform: "Cityline / Klook",
+      venue: "麥花臣場館",
+      eventDate: "2026-12-06",
+      saleDate: "2026-10-26",
+      saleTime: "10:00",
+      price: "VIP HK$1,280 / HK$880 / HK$580",
+      status: "售票中",
+      officialUrl: "https://www.cityline.com/",
+      hot: false
+    },
+    {
+      id: "jeonghan-joshua-dreaming-macau-2026",
+      name: "JEONGHAN X JOSHUA @SEVENTEEN《DREAMING》澳門演唱會",
+      platform: "FANTOPIA",
+      venue: "銀河綜藝館",
+      eventDate: "2026-12-11 至 2026-12-12",
+      saleDate: "2026-11-10",
+      saleTime: "12:00",
+      price: "MOP $799 / $1,199 / $1,499 / $1,799 / $1,999 / $2,099",
+      status: "即將開售",
+      officialUrl: "https://www.fantopia.io/",
+      hot: true
+    },
+    {
+      id: "831-macau-2026",
+      name: "八三夭「沒有翅膀的人」演唱會 澳門站",
+      platform: "Klook / 銀河票務 / 澳門售票網",
+      venue: "澳門百老匯舞台",
+      eventDate: "2026-12-26",
+      saleDate: "2026-11-11",
+      saleTime: "13:00",
+      price: "MOP/HKD $588 / $788 / $988 / VIP $1,288",
+      status: "即將開售",
+      officialUrl: "https://www.klook.com/",
+      hot: true
+    },
+    {
+      id: "yuuri-hong-kong-2026",
+      name: "YUURI LIVE 2026 IN HONG KONG",
+      platform: "KKTIX",
+      venue: "亞洲國際博覽館",
+      eventDate: "2026-11-27",
+      saleDate: "2026-08-07",
+      saleTime: "12:00",
+      price: "待公佈",
+      status: "售票中",
+      officialUrl: "https://asiaworld-expo.kktix.cc/",
+      hot: false
+    },
+    {
+      id: "yesung-hong-kong-2026",
+      name: "藝聲 YESUNG 10TH ANNIVERSARY TOUR 香港站",
+      platform: "KKTIX",
+      venue: "AXA 安盛創夢館",
+      eventDate: "2026-12-19 至 2026-12-20",
+      saleDate: "待公佈",
+      saleTime: "待公佈",
+      price: "待公佈",
+      status: "即將開售",
+      officialUrl: "https://kktix.com/",
+      hot: true
+    },
+    {
+      id: "bigbang-hong-kong-2026",
+      name: "BIGBANG 2026-2027 WORLD TOUR 香港站",
+      platform: "HKTICKETING",
+      venue: "啟德體育園",
+      eventDate: "2026-11-13 至 2026-11-15",
+      saleDate: "2026-09-15",
+      saleTime: "10:00",
+      price: "HK$699 – HK$3,099",
+      status: "售票中",
+      officialUrl: "https://www.hkticketing.com/",
+      hot: true
+    },
+    {
+      id: "twins-hong-kong-2026",
+      name: "Twins Sidetrack 演唱會 2026 香港站",
+      platform: "HKTICKETING",
+      venue: "紅磡香港體育館（紅館）",
+      eventDate: "2026-12-18 至 2026-12-20",
+      saleDate: "2026-09-21",
+      saleTime: "12:00",
+      price: "HK$680 / $980 / $1,280",
+      status: "售票中",
+      officialUrl: "https://www.hkticketing.com/",
+      hot: true
+    },
+    {
+      id: "supper-moment-macau-2026",
+      name: "Supper Moment「謝謝你啊世界」澳門限定版演唱會",
+      platform: "Klook / 金光票務 / 澳門售票網",
+      venue: "澳門威尼斯人綜藝館",
+      eventDate: "2026-11-21",
+      saleDate: "待公佈",
+      saleTime: "待公佈",
+      price: "待公佈",
+      status: "即將開售",
+      officialUrl: "https://www.klook.com/",
+      hot: true
+    },
+    {
+      id: "pakho-chau-macau-2026",
+      name: "周柏豪 THE BLOOMING CHAPTER 綻放之章 澳門站（生日限定場）",
+      platform: "Klook / 金光票務 / 澳門售票網",
+      venue: "威尼斯人綜藝館",
+      eventDate: "2026-11-07",
+      saleDate: "待公佈",
+      saleTime: "待公佈",
+      price: "待公佈",
+      status: "即將開售",
+      officialUrl: "https://www.klook.com/",
+      hot: true
+    }
+  ];
 </script>
 
 
@@ -1342,1811 +1508,275 @@
 
 
 <!-- ============================================================
-     第二部分：演唱會場次系統（修復版 — 解決 JSON 更新不生效）
+     第二部分：演唱會場次系統（使用 TK_FALLBACK_CONCERTS 直接渲染）
      ============================================================ -->
 <script>
 (function () {
   'use strict';
 
-  var CFG = window.TK_CONFIG || {};
-  var API_BASE    = CFG.apiBase    != null ? CFG.apiBase    : '';
-  var API_PATH    = CFG.apiPath    != null ? CFG.apiPath    : './data/concerts.json';
-  var CORS_PROXY  = CFG.corsProxy  != null ? CFG.corsProxy  : '';
-  var API_KEY     = CFG.apiKey     != null ? CFG.apiKey     : '';
-  var TIMEOUT     = CFG.timeout    != null ? CFG.timeout    : 8000;
-  var CACHE_KEY   = CFG.cacheKey   != null ? CFG.cacheKey   : 'tk_shows_cache_v9';
-  var CACHE_TTL   = CFG.cacheTTL   != null ? CFG.cacheTTL   : 24 * 60 * 60 * 1000;
-  var DEBUG       = !!CFG.debug;
+  var showsGrid     = document.getElementById('showsGrid');
+  var showsLoading  = document.getElementById('showsLoading');
+  var showsError    = document.getElementById('showsError');
+  var noShows       = document.getElementById('noShows');
+  var totalCountEl  = document.getElementById('totalCount');
+  var activeCountEl = document.getElementById('activeCount');
+  var hotCountEl    = document.getElementById('hotCount');
+  var lastUpdatedEl = document.getElementById('lastUpdated');
+  var sourceTextEl  = document.getElementById('sourceText');
+  var sourceBadge   = document.getElementById('sourceBadge');
+  var refreshBtn    = document.getElementById('refreshBtn');
+  var retryBtn      = document.getElementById('retryBtn');
 
-  function log() {
-    if (!DEBUG) return;
-    var args = Array.prototype.slice.call(arguments);
-    args.unshift('[ticketkiller]');
-    console.log.apply(console, args);
+  var TR = function (s) { return (window.__tkTr || function (x) { return x; })(s); };
+
+  function platformClass(platform) {
+    var p = (platform || '').toLowerCase();
+    if (p.indexOf('cityline') > -1) return 'text-rose';
+    if (p.indexOf('kktix') > -1) return 'text-magenta';
+    if (p.indexOf('hkticketing') > -1) return 'text-green';
+    if (p.indexOf('urbtix') > -1) return 'text-purple';
+    if (p.indexOf('fantopia') > -1) return 'text-magenta';
+    if (p.indexOf('klook') > -1) return 'text-green';
+    return 'text-blush';
   }
-  function warn() {
-    var args = Array.prototype.slice.call(arguments);
-    args.unshift('[ticketkiller]');
-    console.warn.apply(console, args);
+
+  function platformIcon(platform) {
+    var p = (platform || '').toLowerCase();
+    if (p.indexOf('cityline') > -1) return 'fa-ticket';
+    if (p.indexOf('kktix') > -1) return 'fa-music';
+    if (p.indexOf('hkticketing') > -1) return 'fa-globe';
+    if (p.indexOf('urbtix') > -1) return 'fa-star';
+    if (p.indexOf('fantopia') > -1) return 'fa-trophy';
+    if (p.indexOf('klook') > -1) return 'fa-flag';
+    return 'fa-calendar';
   }
 
-  function tr(str) { return window.__tkTr ? window.__tkTr(str) : String(str); }
-
-  function buildApiUrl() {
-    var url;
-    if (/^https?:\/\//i.test(API_PATH)) { url = API_PATH; }
-    else if (API_BASE) { url = API_BASE.replace(/\/+$/, '') + '/' + API_PATH.replace(/^\/+/, ''); }
-    else { url = API_PATH; }
-    if (CORS_PROXY) {
-      if (/\?$/.test(CORS_PROXY)) { url = CORS_PROXY + url; }
-      else { url = CORS_PROXY + encodeURIComponent(url); }
+  function statusBadge(status) {
+    var s = (status || '').trim();
+    if (s === '即將開售' || s === '即将开售') {
+      return '<span class="tag-pill tag-hot">' + TR('即將開售') + '</span>';
     }
-    return url;
-  }
-
-  var API_ENDPOINT = buildApiUrl();
-  log('API_ENDPOINT =', API_ENDPOINT);
-
-  // ============ 兜底資料（根據最新售票資訊更新，只保留未開售場次）============
-  var FALLBACK_SHOWS = [
-    {
-      id: 'stray-kids-2026',
-      name: 'Stray Kids World Tour <RUN IT> 香港站',
-      date: '2026年12月5日（六）下午 5:00',
-      venue: '啟德體育園主場館',
-      price: 'HK$2,299 (VIP企位) / $1,699 (普通企位)',
-      publicSaleDate: '2026-09-04',
-      publicSaleTime: '中午 12:00',
-      platform: 'HKTicketing',
-      ticketUrl: 'https://www.hkticketing.com/',
-      isMacau: false,
-      isHot: true,
-      prioritySales: [
-        { stage: 'STAY會員優先訂票', date: '2026-09-01', time: '中午 12:00 起' },
-        { stage: '滙豐Mastercard優先預售', date: '2026-09-02', time: '下午 1:00 起' },
-        { stage: 'Trip.com優先訂票', date: '2026-09-02', time: '下午 2:00 起' },
-        { stage: 'Live Nation會員優先訂票', date: '2026-09-03', time: '中午 12:00 起' }
-      ],
-      icon: 'fa-star',
-      iconColor: 'purple'
-    },
-    {
-      id: 'desire4-2026',
-      name: 'Desire 4《2026永恆開端 Desire 4演唱會香港站 ULTIMATE ENCORE》',
-      date: '2026年11月21日（六）下午 5:00',
-      venue: '亞洲國際博覽館 AsiaWorld-Arena',
-      price: 'HK$1,988 (VIP) / $1,788 / $1,488 / $1,188 / $688',
-      publicSaleDate: '2026-10-13',
-      publicSaleTime: '中午 12:00',
-      platform: 'HKTicketing、大麥、Trip.com、攜程',
-      ticketUrl: 'https://www.hkticketing.com/',
-      isMacau: false,
-      isHot: true,
-      prioritySales: [
-        { stage: '大麥優先購票', date: '2026-10-12', time: '下午 6:00 起' }
-      ],
-      icon: 'fa-music',
-      iconColor: 'magenta'
-    },
-    {
-      id: 'lesserafim-macau-2026',
-      name: 'LE SSERAFIM 2026 澳門演唱會',
-      date: '2026年11月（共2場）',
-      venue: '銀河綜藝館',
-      price: '待公佈',
-      publicSaleDate: '2026-09-03',
-      publicSaleTime: '中午 12:00',
-      platform: 'FANTOPIA、銀河票務、大麥',
-      ticketUrl: 'https://www.fantopia.io/',
-      isMacau: true,
-      isHot: true,
-      prioritySales: [
-        { stage: 'FANTOPIA優先購票', date: '2026-09-02', time: '中午 12:00 – 晚上 7:00' }
-      ],
-      icon: 'fa-trophy',
-      iconColor: 'green'
-    },
-    {
-      id: 'txt-macau-2026',
-      name: 'TXT 2026 澳門演唱會加場',
-      date: '2026年11月20日 – 22日（共3場）',
-      venue: '銀河綜藝館',
-      price: '待公佈',
-      publicSaleDate: '2026-09-23',
-      publicSaleTime: '待公佈',
-      platform: 'FANTOPIA、大麥、銀河票務',
-      ticketUrl: 'https://www.fantopia.io/',
-      isMacau: true,
-      isHot: true,
-      prioritySales: [],
-      icon: 'fa-music',
-      iconColor: 'purple'
-    },
-    {
-      id: 'dino-macau-2026',
-      name: 'SEVENTEEN DINO《2026 DINOxPICHEOLIN [吉BOARD SHOW] - MACAU》',
-      date: '2026年10月10日（六）',
-      venue: '新濠影滙綜藝館',
-      price: '待公佈',
-      publicSaleDate: '待公佈',
-      publicSaleTime: '待公佈',
-      platform: 'FANTOPIA、大麥、Studio City',
-      ticketUrl: 'https://www.fantopia.io/',
-      isMacau: true,
-      isHot: false,
-      prioritySales: [],
-      icon: 'fa-trophy',
-      iconColor: 'green'
-    },
-    {
-      id: 'luke-macau-2026',
-      name: '盧廣仲 HeartBreakFast 傷心早餐店演唱會 澳門站',
-      date: '2026年12月5日（六）',
-      venue: '澳門威尼斯人綜藝館',
-      price: 'MOP/HKD $599 起',
-      publicSaleDate: '2026-10-20',
-      publicSaleTime: '中午 12:00',
-      platform: '金光票務、大麥、Trip.com、攜程',
-      ticketUrl: 'https://www.macauticket.com/',
-      isMacau: true,
-      isHot: false,
-      prioritySales: [],
-      icon: 'fa-music',
-      iconColor: 'purple'
-    },
-    {
-      id: 'omegax-macau-2026',
-      name: '2026 OMEGA X ASIA TOUR [BEYOND] IN MACAU',
-      date: '2026年12月5日（六）晚上 7:00',
-      venue: '澳門銀河 G Box',
-      price: 'MOP/HKD $1,588 / $1,288 / $888',
-      publicSaleDate: '2026-09-14',
-      publicSaleTime: '中午 12:00',
-      platform: '銀河票務、大麥、Cityline',
-      ticketUrl: 'https://www.galaxyticketing.com/',
-      isMacau: true,
-      isHot: false,
-      prioritySales: [],
-      icon: 'fa-trophy',
-      iconColor: 'green'
-    },
-    {
-      id: 'du-2026-macau',
-      name: '杜德偉《Get Up》世界巡迴演唱會2.0 澳門站',
-      date: '2026年11月14日（六）晚上 8:00',
-      venue: '澳門倫敦人綜藝館',
-      price: 'MOP/HKD $1,580 / $1,280 / $980 / $680',
-      publicSaleDate: '2026-08-25',
-      publicSaleTime: '中午 12:00',
-      platform: 'URBTIX、金光票務、澳門售票網、大麥、貓眼',
-      ticketUrl: 'https://www.urbtix.hk/',
-      isMacau: true,
-      isHot: false,
-      prioritySales: [],
-      icon: 'fa-star',
-      iconColor: 'purple'
-    },
-    {
-      id: 'icyball-macau-2026',
-      name: 'icyball 冰球樂團《我很抱歉》澳門演唱會',
-      date: '2026年12月26日（六）晚上 7:30',
-      venue: '澳門倫敦人劇場',
-      price: '待公佈',
-      publicSaleDate: '2026-09-18',
-      publicSaleTime: '中午 12:00',
-      platform: '金光票務、澳門售票網、大麥、貓眼、uutix、攜程',
-      ticketUrl: 'https://www.macauticket.com/',
-      isMacau: true,
-      isHot: false,
-      prioritySales: [],
-      icon: 'fa-music',
-      iconColor: 'purple'
-    },
-    {
-      id: 'bol4-2026',
-      name: '臉紅的思春期 BOL4《2026–2027 BOL4 CONCERT TOUR 〖Red Square〗十週年巡迴演唱會》香港站',
-      date: '2026年12月5日（六）',
-      venue: '東蒲胡李名靜體育館',
-      price: '待公佈',
-      publicSaleDate: '2026-10-20',
-      publicSaleTime: '待公佈',
-      platform: 'OFFGRID、大麥',
-      ticketUrl: 'https://www.damai.cn/',
-      isMacau: false,
-      isHot: false,
-      prioritySales: [],
-      icon: 'fa-music',
-      iconColor: 'magenta'
-    },
-    {
-      id: 'aaron-kwok-2026',
-      name: '郭富城《ICONIC MOMENT》啟德跨年演唱會',
-      date: '2026年12月31日 – 2027年1月1日（共2場）',
-      venue: '啟德體育園主場館',
-      price: 'HK$1,680 / $1,380 / $1,180 / $980 / $680 / $480',
-      publicSaleDate: '2026-10-14',
-      publicSaleTime: '上午 10:00',
-      platform: 'HKTicketing、大麥',
-      ticketUrl: 'https://www.hkticketing.com/',
-      isMacau: false,
-      isHot: true,
-      prioritySales: [
-        { stage: '滙豐Mastercard優先購票', date: '2026-10-09', time: '上午 10:00 – 晚上 11:59' },
-        { stage: '滙豐Mastercard優先購票（第二輪）', date: '2026-10-10', time: '上午 10:00 – 晚上 11:59' },
-        { stage: 'Klook 獨家套票預售', date: '2026-10-12', time: '中午 12:00 – 10月13日 晚上 11:59' }
-      ],
-      icon: 'fa-star',
-      iconColor: 'purple'
-    },
-    {
-      id: 'mc-cheung-macau-2026',
-      name: 'MC張天賦《E=MC²》演唱會 2026 澳門站',
-      date: '2026年11月27日 – 28日（共2場）晚上 8:00',
-      venue: '澳門銀河綜藝館',
-      price: 'MOP/HKD $1,588 / $1,288 / $888 / $688',
-      publicSaleDate: '2026-10-07',
-      publicSaleTime: '下午 1:00',
-      platform: '銀河票務、MPay、澳門售票網、大麥、貓眼、uutix',
-      ticketUrl: 'https://www.galaxyticketing.com/',
-      isMacau: true,
-      isHot: true,
-      prioritySales: [
-        { stage: 'Trip.com 優先購票', date: '2026-09-30', time: '上午 11:00 起' }
-      ],
-      icon: 'fa-music',
-      iconColor: 'magenta'
-    },
-    {
-      id: 'mirror-2026',
-      name: 'MIRROR 12 AS 1 LIVE 2026',
-      date: '2026年12月11日 – 13日、15日 – 18日、20日（共8場）晚上 8:15',
-      venue: '亞洲國際博覽館 Arena',
-      price: 'HK$1,680 / $1,480 / $1,080 / $780',
-      publicSaleDate: '2026-10-08',
-      publicSaleTime: '上午 11:00',
-      platform: 'Klook',
-      ticketUrl: 'https://www.klook.com/',
-      isMacau: false,
-      isHot: true,
-      prioritySales: [
-        { stage: 'MIRO 會員優先購票（MIRO專場）', date: '2026-10-02', time: '上午 10:00 起' },
-        { stage: 'MIRO 會員優先購票（其他場次）', date: '2026-10-05', time: '上午 10:00 起' },
-        { stage: '恆生信用卡用戶優先訂票', date: '2026-10-06', time: '中午 12:00 – 10月7日' }
-      ],
-      icon: 'fa-star',
-      iconColor: 'magenta'
-    },
-    {
-      id: 'janice-vidal-2026',
-      name: '衛蘭《OUT OF FRAME》世界巡迴演唱會 香港站',
-      date: '2026年11月14日、15日、17日、18日（共4場）晚上 8:15',
-      venue: '紅磡香港體育館（紅館）',
-      price: 'HK$1,180 / $880 / $580',
-      publicSaleDate: '2026-10-08',
-      publicSaleTime: '上午 10:00',
-      platform: 'URBTIX、Klook',
-      ticketUrl: 'https://www.urbtix.hk/',
-      isMacau: false,
-      isHot: true,
-      prioritySales: [
-        { stage: 'Klook 優先購票', date: '2026-10-16', time: '下午 3:00 起' }
-      ],
-      icon: 'fa-star',
-      iconColor: 'purple'
-    },
-    {
-      id: 'supper-moment-macau-2026',
-      name: 'SUPPER MOMENT「謝謝你啊世界」澳門限定版',
-      date: '2026年11月21日（六）晚上 8:00',
-      venue: '澳門威尼斯人綜藝館',
-      price: 'MOP/HKD 待公佈',
-      publicSaleDate: '2026-09-29',
-      publicSaleTime: '下午 3:00',
-      platform: '澳門售票網、Klook、金光票務、大麥、貓眼',
-      ticketUrl: 'https://www.macauticket.com/',
-      isMacau: true,
-      isHot: false,
-      prioritySales: [],
-      icon: 'fa-music',
-      iconColor: 'purple'
+    if (s === '售票中' || s === '售票中') {
+      return '<span class="tag-pill tag-live">' + TR('售票中') + '</span>';
     }
-  ];
-
-  var grid         = document.getElementById('showsGrid');
-  var loadingEl    = document.getElementById('showsLoading');
-  var errorEl      = document.getElementById('showsError');
-  var errorMsgEl   = document.getElementById('errorMsg');
-  var noShows      = document.getElementById('noShows');
-  var lastUpdated  = document.getElementById('lastUpdated');
-  var activeCount  = document.getElementById('activeCount');
-  var hotCount     = document.getElementById('hotCount');
-  var sourceText   = document.getElementById('sourceText');
-  var sourceBadge  = document.getElementById('sourceBadge');
-  var retryBtn     = document.getElementById('retryBtn');
-  var fallbackBtn  = document.getElementById('fallbackBtn');
-  var refreshBtn   = document.getElementById('refreshBtn');
-  var totalCount   = document.getElementById('totalCount');
-
-  var currentShows = [];
-  var countdownTimer = null;
-
-  function getHKTDateStr() {
-    try {
-      var parts = new Intl.DateTimeFormat('en-CA', {
-        timeZone: 'Asia/Hong_Kong', year: 'numeric', month: '2-digit', day: '2-digit'
-      }).formatToParts(new Date());
-      var y = '', m = '', d = '';
-      for (var i = 0; i < parts.length; i++) {
-        if (parts[i].type === 'year')  y = parts[i].value;
-        if (parts[i].type === 'month') m = parts[i].value;
-        if (parts[i].type === 'day')   d = parts[i].value;
-      }
-      if (y && m && d) return y + '-' + m + '-' + d;
-    } catch (e) {}
-    var now = new Date();
-    return now.getFullYear() + '-' + String(now.getMonth() + 1).padStart(2, '0') + '-' + String(now.getDate()).padStart(2, '0');
+    return '<span class="tag-pill tag-opt">' + TR(s || '待公佈') + '</span>';
   }
 
-  function parseHKTTime(dateStr, timeStr) {
-    if (!dateStr) return null;
-    var d = String(dateStr).split('-');
-    if (d.length !== 3) return null;
-    var hh = 0, mm = 0;
-    if (timeStr) {
-      var m = String(timeStr).match(/(上午|中午|下午|晚上|凌晨)?\s*(\d{1,2}):(\d{2})/);
-      if (m) {
-        var period = m[1] || '';
-        hh = parseInt(m[2], 10);
-        mm = parseInt(m[3], 10);
-        if ((period === '下午' || period === '晚上') && hh < 12) hh += 12;
-        if (period === '中午' && hh < 12) hh += 12;
-        if (period === '凌晨' && hh === 12) hh = 0;
-      }
-    }
-    return new Date(Date.UTC(
-      parseInt(d[0], 10), parseInt(d[1], 10) - 1, parseInt(d[2], 10),
-      hh - 8, mm, 0
-    ));
-  }
-
-  function getSalePhase(show) {
-    var now = Date.now();
-    var events = [];
-
-    (show.prioritySales || []).forEach(function (p) {
-      if (!p || !p.date) return;
-      var t = parseHKTTime(p.date, p.time);
-      if (t) events.push({ type: 'priority', stage: p.stage || '優先購票', date: p.date, time: p.time || '', dt: t });
-    });
-
-    if (show.publicSaleDate) {
-      var pt = parseHKTTime(show.publicSaleDate, show.publicSaleTime);
-      if (pt) events.push({ type: 'public', stage: '公開發售', date: show.publicSaleDate, time: show.publicSaleTime || '', dt: pt });
-    }
-
-    events.sort(function (a, b) { return a.dt - b.dt; });
-
-    var todayStr = getHKTDateStr();
-    var live = null;
-    var upcoming = null;
-    var mostRecentPast = null;
-
-    events.forEach(function (e) {
-      var ts = e.dt.getTime();
-      if (ts <= now) mostRecentPast = e;
-      else if (!upcoming) upcoming = e;
-    });
-
-    if (mostRecentPast && mostRecentPast.date === todayStr) live = mostRecentPast;
-
-    if (live) return { phase: 'live', active: live, next: upcoming, all: events };
-    if (upcoming) return { phase: 'pre', active: null, next: upcoming, all: events };
-    return { phase: 'post', active: null, next: null, all: events };
-  }
-
-  function formatCountdown(ms) {
-    if (ms <= 0) return '';
-    var d = Math.floor(ms / 86400000);
-    var h = Math.floor((ms % 86400000) / 3600000);
-    var m = Math.floor((ms % 3600000) / 60000);
-    var s = Math.floor((ms % 60000) / 1000);
-    if (d > 0) return d + tr('天') + h + tr('小時');
-    if (h > 0) return h + tr('小時') + m + tr('分');
-    if (m > 0) return m + tr('分') + s + tr('秒');
-    return s + tr('秒');
-  }
-
-  function escapeIcs(s) {
-    return String(s || '').replace(/\\/g, '\\\\').replace(/;/g, '\\;').replace(/,/g, '\\,').replace(/\n/g, '\\n');
-  }
-  function pad2(n) { return String(n).padStart(2, '0'); }
-  function fmtUtc(d) {
-    return d.getUTCFullYear() + pad2(d.getUTCMonth() + 1) + pad2(d.getUTCDate()) + 'T' +
-           pad2(d.getUTCHours()) + pad2(d.getUTCMinutes()) + '00Z';
-  }
-
-  function downloadIcs(show, stageName, dateStr, timeStr) {
-    var dt = parseHKTTime(dateStr, timeStr);
-    if (!dt) return;
-    var endDt = new Date(dt.getTime() + 3600000);
-
-    var lines = [
-      'BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//ticketkiller//shows//ZH','CALSCALE:GREGORIAN',
-      'BEGIN:VEVENT',
-      'UID:' + (show.id || 'show') + '-' + dateStr + '@ticketkiller',
-      'DTSTAMP:' + fmtUtc(new Date()),
-      'DTSTART:' + fmtUtc(dt),
-      'DTEND:' + fmtUtc(endDt),
-      'SUMMARY:' + escapeIcs(show.name + ' — ' + stageName),
-      'DESCRIPTION:' + escapeIcs('搶票提醒：' + show.name + '\n' + stageName + '\n平台：' + (show.platform || '')),
-      'LOCATION:' + escapeIcs(show.platform || '線上'),
-      'BEGIN:VALARM','TRIGGER:-PT30M','ACTION:DISPLAY','DESCRIPTION:' + escapeIcs('ticketkiller 搶票提醒'),'END:VALARM',
-      'END:VEVENT','END:VCALENDAR'
-    ];
-
-    var blob = new Blob([lines.join('\r\n')], { type: 'text/calendar;charset=utf-8' });
-    var url = URL.createObjectURL(blob);
-    var a = document.createElement('a');
-    a.href = url;
-    a.download = 'ticketkiller-' + (show.id || 'show') + '-' + dateStr + '.ics';
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    setTimeout(function () { URL.revokeObjectURL(url); }, 1500);
-  }
-
-  function formatDate(dateStr) {
-    if (!dateStr) return '';
-    var p = String(dateStr).split('-');
-    if (p.length !== 3) return dateStr;
-    return tr(p[0] + '年' + parseInt(p[1], 10) + '月' + parseInt(p[2], 10) + '日');
-  }
-  function formatTime(iso) {
-    var d = iso ? new Date(iso) : new Date();
-    if (isNaN(d.getTime())) d = new Date();
-    return d.getFullYear() + '年' + (d.getMonth() + 1) + '月' + d.getDate() + '日 ' +
-      String(d.getHours()).padStart(2, '0') + ':' + String(d.getMinutes()).padStart(2, '0');
-  }
-  function esc(str) {
-    return String(str == null ? '' : str)
-      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
-      .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
-  }
-  function filterActiveShows(shows) {
-    var today = getHKTDateStr();
-    return (shows || []).filter(function (s) {
-      if (!s) return false;
-      if (s.publicSaleDate && s.publicSaleDate >= today) return true;
-      if (s.prioritySales && s.prioritySales.length) {
-        return s.prioritySales.some(function (p) { return p && p.date && p.date >= today; });
-      }
-      return !!s.publicSaleDate;
-    });
-  }
-  function sortShows(shows) {
-    return shows.slice().sort(function (a, b) {
-      if (a.isHot && !b.isHot) return -1;
-      if (!a.isHot && b.isHot) return 1;
-      return String(a.publicSaleDate).localeCompare(String(b.publicSaleDate));
-    });
-  }
-  function computeStatus(show) {
-    var phase = getSalePhase(show);
-    if (phase.phase === 'live') return { text: '開賣中', cls: 'tag-new' };
-    if (phase.phase === 'post') return { text: '已結束', cls: 'tag-opt' };
-    var today = new Date(); today.setHours(0, 0, 0, 0);
-    var target = phase.next.dt;
-    var diff = Math.round((target - today) / 86400000);
-    if (diff <= 0)  return { text: '今日開賣', cls: 'tag-new' };
-    if (diff <= 3)  return { text: '本週開賣', cls: 'tag-new' };
-    if (diff <= 10) return { text: '下週開賣', cls: 'tag-opt' };
-    return { text: '即將開賣', cls: 'tag-opt' };
-  }
-  function getHostLabel(url) {
-    try {
-      var host = new URL(url).hostname.replace(/^www\./, '');
-      if (host.indexOf('hkticketing') !== -1) return 'HK Ticketing 官網';
-      if (host.indexOf('cityline') !== -1)    return 'Cityline 官網';
-      if (host.indexOf('kktix') !== -1)       return 'KKTIX 官網';
-      if (host.indexOf('urbtix') !== -1)      return 'URBTIX 官網';
-      if (host.indexOf('fantopia') !== -1)    return 'FANTOPIA 官網';
-      if (host.indexOf('klook') !== -1)       return 'Klook 官網';
-      return host;
-    } catch (e) { return '官方購票平台'; }
-  }
-
-  function showLoading() {
-    if (loadingEl) loadingEl.classList.remove('hidden');
-    if (errorEl)   errorEl.classList.add('hidden');
-    if (grid)      { grid.classList.add('hidden'); grid.classList.remove('grid'); }
-    if (noShows)   noShows.classList.add('hidden');
-    setSource('loading');
-  }
-  function showError(msg) {
-    if (loadingEl) loadingEl.classList.add('hidden');
-    if (grid)      { grid.classList.add('hidden'); grid.classList.remove('grid'); }
-    if (noShows)   noShows.classList.add('hidden');
-    if (errorEl)   errorEl.classList.remove('hidden');
-    if (errorMsgEl) errorMsgEl.textContent = tr(msg || '無法讀取資料，請檢查網絡後重試。');
-    setSource('error');
-  }
-  function showGrid() {
-    if (loadingEl) loadingEl.classList.add('hidden');
-    if (errorEl)   errorEl.classList.add('hidden');
-    if (grid)      { grid.classList.remove('hidden'); grid.classList.add('grid'); }
-  }
-  function setSource(state) {
-    if (!sourceBadge || !sourceText) return;
-    sourceBadge.classList.remove('source-live', 'source-cache', 'source-fallback');
-    if (state === 'live') { sourceBadge.classList.add('source-live'); sourceText.textContent = tr('即時資料'); }
-    else if (state === 'cache') { sourceBadge.classList.add('source-cache'); sourceText.textContent = tr('快取資料'); }
-    else if (state === 'fallback') { sourceBadge.classList.add('source-fallback'); sourceText.textContent = tr('兜底資料'); }
-    else if (state === 'loading') { sourceBadge.classList.add('source-cache'); sourceText.textContent = tr('正在載入...'); }
-    else if (state === 'error') { sourceBadge.classList.add('source-fallback'); sourceText.textContent = tr('載入失敗'); }
-  }
-
-  function renderShows(shows) {
-    if (shows !== undefined) currentShows = shows;
-
-    if (window.__wallSystem && typeof window.__wallSystem.rerender === 'function') {
-      try { window.__wallSystem.rerender(); } catch (e) {}
-    }
-
-    if (!grid) return;
-    var activeShows = sortShows(filterActiveShows(currentShows));
-    var todayStr = getHKTDateStr();
-
-    var hotTotal = 0;
-    activeShows.forEach(function(s) { if (s.isHot) hotTotal++; });
-
-    if (activeCount) activeCount.textContent = activeShows.length;
-    if (hotCount)    hotCount.textContent    = hotTotal;
-    if (totalCount)  totalCount.textContent  = activeShows.length;
-
-    if (activeShows.length === 0) {
-      grid.innerHTML = '';
-      grid.classList.add('hidden');
-      grid.classList.remove('grid');
-      if (noShows) noShows.classList.remove('hidden');
-      if (loadingEl) loadingEl.classList.add('hidden');
-      if (errorEl)   errorEl.classList.add('hidden');
+  function renderShows(concerts) {
+    if (!concerts || !concerts.length) {
+      showsGrid.classList.add('hidden');
+      noShows.classList.remove('hidden');
+      totalCountEl.textContent = '0';
+      activeCountEl.textContent = '0';
+      hotCountEl.textContent = '0';
       return;
     }
-    if (noShows) noShows.classList.add('hidden');
 
-    injectJsonLd(activeShows);
+    showsLoading.classList.add('hidden');
+    showsError.classList.add('hidden');
+    noShows.classList.add('hidden');
+    showsGrid.classList.remove('hidden');
 
     var html = '';
-    activeShows.forEach(function (s) {
-      var phase = getSalePhase(s);
-      var status = computeStatus(s);
-      var waText = encodeURIComponent('我想單次購買：' + s.name + '（' + s.date + '）');
-      var ticketUrl = s.ticketUrl || '';
-      var hostLabel = ticketUrl ? getHostLabel(ticketUrl) : '';
-      var iconColor = s.iconColor || 'purple';
-      var icon = s.icon || 'fa-ticket';
-
-      var isLive = phase.phase === 'live';
-      var isTodaySale = isLive && phase.active && phase.active.date === todayStr;
-
-      var rows = '';
-      var allEvents = phase.all || [];
-      allEvents.forEach(function (e) {
-        var rowToday = (e.date === todayStr);
-        var rowLive = rowToday && e.dt.getTime() <= Date.now() && isLive;
-        var cls = 'sale-row';
-        if (rowLive) cls += ' live-row';
-        else if (rowToday) cls += ' today-row';
-        rows +=
-          '<div class="' + cls + '">' +
-            '<span class="dot ' + (e.type === 'public' ? 'public' : 'priority') + '"></span>' +
-            '<span class="stage">' + esc(tr(e.stage)) + (rowToday ? ' ⚡' : '') + '</span>' +
-            '<span class="flex-1">' + esc(formatDate(e.date)) + (e.time ? ' ' + esc(tr(e.time)) : '') + '</span>' +
-            '<button type="button" class="ics-btn ml-1 shrink-0" data-ics="' + esc(s.id || '') + '" data-ics-stage="' + esc(e.stage) + '" data-ics-date="' + esc(e.date) + '" data-ics-time="' + esc(e.time || '') + '" title="' + tr('加入日曆') + '" aria-label="' + tr('加入日曆') + '">' +
-              '<i class="fa fa-calendar-plus-o"></i>' +
-            '</button>' +
-          '</div>';
-      });
-
-      var timelineHtml =
-        '<div class="sale-timeline open">' +
-          '<div class="sale-timeline-inner">' +
-            '<p class="text-xs text-blush/70 mb-2"><i class="fa fa-list-ul mr-1"></i>' + tr('全部搶票日期') + '（點 <i class="fa fa-calendar-plus-o"></i> 加入日曆）</p>' +
-            rows +
-          '</div>' +
-        '</div>';
-
-      var countdownHtml = '';
-      if (phase.phase === 'pre' && phase.next) {
-        var diff = phase.next.dt.getTime() - Date.now();
-        countdownHtml =
-          '<div class="mt-3 flex items-center gap-2 flex-wrap">' +
-            '<span class="countdown-badge" data-countdown-target="' + phase.next.dt.getTime() + '">' +
-              '<i class="fa fa-hourglass-half"></i>' +
-              tr('距') + ' ' + esc(tr(phase.next.stage)) + ' ' +
-              '<span class="cd-text">' + formatCountdown(diff) + '</span>' +
-            '</span>' +
-          '</div>';
-      }
-
-      var badges = '';
-      if (isLive) badges += '<span class="tag-pill tag-live">' + tr('⚡ 開賣中') + '</span>';
-      else if (isTodaySale) badges += '<span class="tag-pill tag-today">' + tr('⚡ 今日開賣') + '</span>';
-      if (s.isHot)   badges += '<span class="tag-pill tag-hot">' + tr('🔥 熱門') + '</span>';
-      if (s.isMacau) badges += '<span class="tag-pill tag-macau">' + tr('🇲🇴 澳門') + '</span>';
-      badges += '<span class="tag-pill ' + esc(status.cls) + '">' + esc(tr(status.text)) + '</span>';
-
-      var officialCls = 'mt-3 block text-center btn-official text-green py-2.5 rounded-full text-sm font-bold'
-                     + (isLive ? ' blink-buy' : '');
-      var officialIcon = isLive ? 'fa-bolt' : 'fa-external-link';
-      var officialText = isLive
-        ? tr('⚡ 開賣中 · 立即前往官網')
-        : (phase.phase === 'post' ? tr('已結束 · 前往官網') : esc(tr(hostLabel)));
-
-      var telegramUrlCfg = (window.TK_CONFIG && window.TK_CONFIG.contact && window.TK_CONFIG.contact.telegramUrl) || '#';
-
+    concerts.forEach(function (c) {
+      var hotTag = c.hot ? '<span class="tag-pill tag-hot mr-1">' + TR('熱門') + '</span>' : '';
       html +=
-        '<div class="glass-deep rounded-2xl glow-border card-hover flex flex-col reveal visible overflow-hidden">' +
-          '<div class="p-6 flex flex-col flex-1">' +
-            '<div class="flex items-start justify-between gap-3">' +
-              '<div class="icon-wrap w-12 h-12 rounded-full bg-' + esc(iconColor) + '/15 flex items-center justify-center text-xl text-' + esc(iconColor) + ' shrink-0">' +
-                '<i class="fa ' + esc(icon) + '"></i>' +
+        '<div class="glass-deep rounded-2xl border border-white/5 overflow-hidden card-hover reveal">' +
+          '<div class="p-6">' +
+            '<div class="flex items-start justify-between gap-2">' +
+              '<h4 class="text-lg font-bold text-white/95 leading-snug">' +
+                hotTag + TR(c.name) +
+              '</h4>' +
+              statusBadge(c.status) +
+            '</div>' +
+            '<div class="mt-3 space-y-2 text-sm text-blush/80">' +
+              '<div class="flex items-center gap-2">' +
+                '<i class="fa ' + platformIcon(c.platform) + ' ' + platformClass(c.platform) + ' w-4 text-center"></i>' +
+                '<span class="font-semibold text-white/90">' + c.platform + '</span>' +
               '</div>' +
-              '<div class="flex flex-wrap items-center gap-1.5 justify-end">' + badges + '</div>' +
+              '<div class="flex items-start gap-2">' +
+                '<i class="fa fa-map-marker text-rose w-4 text-center mt-0.5"></i>' +
+                '<span>' + TR(c.venue) + '</span>' +
+              '</div>' +
+              '<div class="flex items-start gap-2">' +
+                '<i class="fa fa-calendar text-magenta w-4 text-center mt-0.5"></i>' +
+                '<span>' + TR(c.eventDate) + '</span>' +
+              '</div>' +
+              '<div class="flex items-start gap-2">' +
+                '<i class="fa fa-clock-o text-green w-4 text-center mt-0.5"></i>' +
+                '<span>' + TR('開售') + '：' + c.saleDate + (c.saleTime ? ' ' + c.saleTime : '') + '</span>' +
+              '</div>' +
+              '<div class="flex items-start gap-2">' +
+                '<i class="fa fa-tag text-rose w-4 text-center mt-0.5"></i>' +
+                '<span>' + TR(c.price) + '</span>' +
+              '</div>' +
             '</div>' +
-            '<h4 class="text-lg font-bold text-white/95 mt-4 leading-snug">' + esc(tr(s.name)) + '</h4>' +
-            '<ul class="text-blush/85 text-sm mt-3 space-y-1.5 flex-1">' +
-              '<li><i class="fa fa-calendar-o text-' + esc(iconColor) + '/80 mr-2"></i>' + esc(tr(s.date)) + '</li>' +
-              '<li><i class="fa fa-map-marker text-' + esc(iconColor) + '/80 mr-2"></i>' + esc(tr(s.venue)) + '</li>' +
-              '<li><i class="fa fa-ticket text-' + esc(iconColor) + '/80 mr-2"></i>' + esc(tr(s.price)) + '</li>' +
-              '<li><i class="fa fa-globe text-' + esc(iconColor) + '/80 mr-2"></i>' + tr('售票平台：') + esc(tr(s.platform)) + '</li>' +
-            '</ul>' +
-            timelineHtml +
-            countdownHtml +
-            '<div class="mt-4 flex items-center gap-2">' +
-              '<span class="text-xs text-blush/60">' + tr('單次購買：') + '</span>' +
-              '<span class="text-sm font-bold text-green">$100 / ' + tr('場') + ' / ' + tr('日') + '</span>' +
+            '<div class="mt-5 flex gap-2">' +
+              '<a href="' + c.officialUrl + '" target="_blank" rel="noopener noreferrer" class="flex-1 text-center btn-official text-white/90 text-sm font-bold py-2.5 rounded-full">' +
+                '<i class="fa fa-external-link mr-1"></i>' + TR('前往官網') +
+              '</a>' +
+              '<a href="#" data-contact-href="telegramUrl" target="_blank" rel="noopener noreferrer" class="flex-1 text-center btn-primary text-white text-sm font-bold py-2.5 rounded-full">' +
+                TR('單次購買') +
+              '</a>' +
             '</div>' +
-            (ticketUrl
-              ? '<a href="' + esc(ticketUrl) + '" target="_blank" rel="noopener noreferrer" class="' + officialCls + '" aria-label="' + esc(officialText) + '">' +
-                '<i class="fa ' + officialIcon + ' mr-2"></i>' + officialText + '</a>'
-              : '') +
-            '<a href="' + esc(telegramUrlCfg) + '?text=' + waText + '" target="_blank" rel="noopener noreferrer" ' +
-               'class="mt-3 block text-center btn-primary text-white py-2.5 rounded-full text-sm font-bold">' +
-              '<i class="fa fa-shopping-cart mr-2"></i>' + tr('單次購買此場次') +
-            '</a>' +
           '</div>' +
         '</div>';
     });
 
-    grid.innerHTML = html;
-    showGrid();
+    showsGrid.innerHTML = html;
 
-    grid.querySelectorAll('[data-ics]').forEach(function (btn) {
-      btn.addEventListener('click', function (e) {
-        e.preventDefault();
-        var id = this.getAttribute('data-ics');
-        var show = activeShows.filter(function (x) { return (x.id || '') === id; })[0];
-        if (!show) return;
-        downloadIcs(show,
-          this.getAttribute('data-ics-stage') || '開賣',
-          this.getAttribute('data-ics-date'),
-          this.getAttribute('data-ics-time'));
-        if (window.__tkToast) window.__tkToast(tr('已下載日曆檔案'));
-      });
-    });
-
-    startCountdown();
-
-    if (typeof window.__revealAll === 'function') {
-      setTimeout(window.__revealAll, 60);
-    }
+    totalCountEl.textContent = concerts.length;
+    activeCountEl.textContent = concerts.filter(function (c) {
+      return (c.status || '').indexOf('即將') > -1;
+    }).length;
+    hotCountEl.textContent = concerts.filter(function (c) { return c.hot; }).length;
   }
 
-  function startCountdown() {
-    if (countdownTimer) clearInterval(countdownTimer);
-    function tick() {
-      var els = document.querySelectorAll('[data-countdown-target]');
-      els.forEach(function (el) {
-        var target = parseInt(el.getAttribute('data-countdown-target'), 10);
-        var span = el.querySelector('.cd-text');
-        if (!span) return;
-        var txt = formatCountdown(target - Date.now());
-        if (txt) span.textContent = txt;
-        else span.textContent = tr('即將開始');
-      });
-    }
-    tick();
-    countdownTimer = setInterval(tick, 1000);
+  function loadShows() {
+    showsLoading.classList.remove('hidden');
+    showsError.classList.add('hidden');
+    showsGrid.classList.add('hidden');
+    noShows.classList.add('hidden');
+
+    sourceTextEl.textContent = TR('使用內置最新資料');
+    sourceBadge.className = 'source-badge source-fallback';
+    lastUpdatedEl.textContent = new Date().toLocaleString('zh-HK', { timeZone: 'Asia/Hong_Kong' });
+
+    var concerts = window.TK_FALLBACK_CONCERTS || [];
+    renderShows(concerts);
   }
 
-  function injectJsonLd(shows) {
-    var old = document.getElementById('tkJsonLd');
-    if (old && old.parentNode) old.parentNode.removeChild(old);
+  refreshBtn.addEventListener('click', loadShows);
+  retryBtn.addEventListener('click', loadShows);
 
-    var graph = (shows || []).map(function (s) {
-      var event = {
-        '@type': 'Event', 'name': s.name, 'startDate': s.publicSaleDate,
-        'eventStatus': 'https://schema.org/EventScheduled',
-        'eventAttendanceMode': 'https://schema.org/OfflineEventAttendanceMode',
-        'location': {
-          '@type': 'Place', 'name': s.venue,
-          'address': { '@type': 'PostalAddress', 'addressLocality': s.isMacau ? '澳門' : '香港', 'addressCountry': s.isMacau ? 'MO' : 'HK' }
-        },
-        'organizer': { '@type': 'Organization', 'name': 'ticketkiller' }
-      };
-      if (s.ticketUrl) {
-        event.offers = { '@type': 'Offer', 'url': s.ticketUrl, 'price': '100', 'priceCurrency': 'HKD', 'availability': 'https://schema.org/InStock' };
-      }
-      return event;
-    });
-
-    var script = document.createElement('script');
-    script.type = 'application/ld+json';
-    script.id = 'tkJsonLd';
-    script.textContent = JSON.stringify({ '@context': 'https://schema.org', '@graph': graph });
-    document.head.appendChild(script);
-  }
-
-  // ============ 快取 ============
-  function saveCache(shows, updatedAt, version) {
-    try {
-      localStorage.setItem(CACHE_KEY, JSON.stringify({
-        updatedAt: updatedAt || new Date().toISOString(),
-        version: version || '',
-        shows: shows
-      }));
-    } catch (e) {}
-  }
-  function loadCache() {
-    try {
-      var raw = localStorage.getItem(CACHE_KEY);
-      if (!raw) return null;
-      var obj = JSON.parse(raw);
-      if (!obj || !obj.shows) return null;
-      var age = Date.now() - new Date(obj.updatedAt || 0).getTime();
-      if (age > CACHE_TTL) return null;
-      return obj;
-    } catch (e) { return null; }
-  }
-
-  // ============ 核心 fetch（★ 修復重點）★ ============
-  function fetchShows() {
-    var bustUrl = API_ENDPOINT + (API_ENDPOINT.indexOf('?') === -1 ? '?' : '&') + '_=' + Date.now();
-    log('Fetching:', bustUrl);
-
-    return new Promise(function (resolve, reject) {
-      var timer = setTimeout(function () {
-        reject({ code: 'TIMEOUT', message: '請求超時（>' + TIMEOUT + 'ms）' });
-      }, TIMEOUT);
-
-      fetch(bustUrl, {
-        method: 'GET',
-        headers: {
-          'Accept': 'application/json, text/plain, */*',
-          'Cache-Control': 'no-cache',
-          'Pragma': 'no-cache'
-        },
-        cache: 'no-store',
-        credentials: 'same-origin'
-      })
-      .then(function (res) {
-        clearTimeout(timer);
-        log('HTTP status:', res.status, res.statusText);
-        if (!res.ok) {
-          reject({
-            code: 'HTTP_' + res.status,
-            message: 'HTTP ' + res.status + ' ' + res.statusText + '（路徑可能不對）'
-          });
-          return;
-        }
-        return res.text().then(function (text) {
-          log('Response 前 200 字:', text.slice(0, 200));
-          try {
-            var data = JSON.parse(text.replace(/^\uFEFF/, ''));
-            resolve(data);
-          } catch (e) {
-            reject({
-              code: 'JSON_PARSE_ERROR',
-              message: 'JSON 解析失敗：' + e.message + '（請檢查 JSON 格式是否正確）'
-            });
-          }
-        });
-      })
-      .catch(function (err) {
-        clearTimeout(timer);
-        if (err && err.code) { reject(err); return; }
-        reject({
-          code: 'NETWORK_ERROR',
-          message: '網絡錯誤：' + (err && err.message ? err.message : '未知錯誤') + '（可能是 CORS 或路徑問題）'
-        });
-      });
-    });
-  }
-
-  var isLoading = false;
-  function loadShows(forceFallback) {
-    if (isLoading) { log('loadShows 已在進行中，跳過'); return; }
-    isLoading = true;
-    showLoading();
-
-    if (forceFallback) {
-      isLoading = false;
-      renderShows(FALLBACK_SHOWS);
-      if (lastUpdated) lastUpdated.textContent = formatTime(new Date().toISOString()) + tr('（兜底）');
-      setSource('fallback');
-      return;
-    }
-
-    fetchShows()
-      .then(function (data) {
-        isLoading = false;
-        var shows = Array.isArray(data) ? data : (data && data.shows);
-        var updatedAt = (!Array.isArray(data) && data && data.updatedAt) || new Date().toISOString();
-        var version = (!Array.isArray(data) && data && data.version) || '';
-
-        if (!Array.isArray(shows)) {
-          throw { code: 'INVALID_FORMAT', message: 'JSON 格式不正確（找不到 shows 陣列）' };
-        }
-
-        log('JSON 加載成功：', shows.length, '場，version=' + (version || '(無)'));
-
-        saveCache(shows, updatedAt, version);
-        renderShows(shows);
-        if (lastUpdated) lastUpdated.textContent = formatTime(updatedAt);
-        setSource('live');
-      })
-      .catch(function (err) {
-        isLoading = false;
-        warn('JSON 加載失敗：', err && err.code, err && err.message);
-
-        if (errorMsgEl) {
-          var friendly = (err && err.message) || '無法讀取資料';
-          errorMsgEl.textContent = tr(friendly);
-        }
-
-        var cached = loadCache();
-        if (cached) {
-          log('使用快取資料（' + cached.shows.length + ' 場）');
-          renderShows(cached.shows);
-          if (lastUpdated) lastUpdated.textContent = formatTime(cached.updatedAt) + tr('（快取）');
-          setSource('cache');
-          return;
-        }
-
-        log('使用兜底資料');
-        renderShows(FALLBACK_SHOWS);
-        if (lastUpdated) lastUpdated.textContent = formatTime(new Date().toISOString()) + tr('（兜底）');
-        setSource('fallback');
-      });
-  }
-
-  // ============ 按鈕事件 ============
-  if (retryBtn) retryBtn.addEventListener('click', function () {
-    try { localStorage.removeItem(CACHE_KEY); } catch (e) {}
-    loadShows(false);
-  });
-  if (fallbackBtn) fallbackBtn.addEventListener('click', function () { loadShows(true); });
-  if (refreshBtn) {
-    refreshBtn.addEventListener('click', function () {
-      this.innerHTML = '<i class="fa fa-spinner fa-spin mr-2"></i>' + tr('刷新中...');
-      var self = this;
-      try { localStorage.removeItem(CACHE_KEY); } catch (e) {}
-      loadShows(false);
-      setTimeout(function () {
-        self.innerHTML = '<i class="fa fa-refresh mr-2"></i>' + tr('手動刷新');
-      }, 1500);
-    });
-  }
-
-  // ★ 新增：強制清除所有快取並重新載入頁面
-  function injectHardReloadBtn() {
-    if (!refreshBtn || !refreshBtn.parentNode) return;
-    if (document.getElementById('hardReloadBtn')) return;
-    var btn = document.createElement('button');
-    btn.id = 'hardReloadBtn';
-    btn.type = 'button';
-    btn.className = 'glass-deep px-4 py-2 rounded-full border transition';
-    btn.style.borderColor = 'rgba(255,120,120,.4)';
-    btn.style.color = '#FF9F9F';
-    btn.innerHTML = '<i class="fa fa-bolt mr-2"></i>強制重載';
-    btn.title = '清除所有快取並重新載入頁面';
-    btn.addEventListener('click', function () {
-      try {
-        localStorage.removeItem(CACHE_KEY);
-        localStorage.removeItem('tk_shows_cache_v8');
-        localStorage.removeItem('tk_shows_cache_v7');
-        localStorage.removeItem('tk_shows_cache_v6');
-        localStorage.removeItem('tk_shows_cache_v5');
-        localStorage.removeItem('tk_shows_cache_v4');
-      } catch (e) {}
-      if ('caches' in window) {
-        caches.keys().then(function (names) {
-          names.forEach(function (name) { caches.delete(name); });
-        });
-      }
-      this.innerHTML = '<i class="fa fa-spinner fa-spin mr-2"></i>重載中...';
-      setTimeout(function () { location.reload(true); }, 400);
-    });
-    refreshBtn.parentNode.insertBefore(btn, refreshBtn.nextSibling);
-  }
-
-  function scheduleDailyCheck() {
-    var now = new Date();
-    var hktNow;
-    try { hktNow = new Date(now.toLocaleString('en-US', { timeZone: 'Asia/Hong_Kong' })); }
-    catch (e) { hktNow = new Date(now); }
-    var next = new Date(hktNow);
-    next.setHours(3, 0, 0, 0);
-    if (next <= hktNow) next.setDate(next.getDate() + 1);
-    var delay = Math.max(60000, next.getTime() - hktNow.getTime());
-    setTimeout(function () {
-      try { localStorage.removeItem(CACHE_KEY); } catch (e) {}
-      loadShows(false);
-      if (window.__wallSystem && typeof window.__wallSystem.rerender === 'function') {
-        window.__wallSystem.rerender();
-      }
-      scheduleDailyCheck();
-    }, delay);
-  }
-
-  function init() {
-    showLoading();
-    injectHardReloadBtn();
-    loadShows(false);
-    scheduleDailyCheck();
-  }
+  window.__showsSystem = { rerender: function () { loadShows(); } };
 
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init);
+    document.addEventListener('DOMContentLoaded', loadShows);
   } else {
-    init();
-  }
-
-  document.addEventListener('visibilitychange', function () {
-    if (document.hidden) {
-      if (countdownTimer) { clearInterval(countdownTimer); countdownTimer = null; }
-    } else {
-      startCountdown();
-    }
-  });
-
-  window.__showsSystem = {
-    refresh: function () { loadShows(false); },
-    useFallback: function () { loadShows(true); },
-    clearCache: function () { try { localStorage.removeItem(CACHE_KEY); } catch (e) {} },
-    getFallback: function () { return FALLBACK_SHOWS.slice(); },
-    getAll: function () { return (currentShows && currentShows.length) ? currentShows.slice() : FALLBACK_SHOWS.slice(); },
-    getToday: function () { return getHKTDateStr(); },
-    rerender: function () { renderShows(); },
-    parseHKTTime: parseHKTTime
-  };
-})();
-</script>
-
-
-<!-- ============================================================
-     第三部分：成功搶票留言區（★ 只顯示近 3 天內開售場次）
-     ============================================================ -->
-<script>
-(function () {
-  'use strict';
-
-  function tr(s) { return window.__tkTr ? window.__tkTr(s) : String(s); }
-
-  var gridEl      = document.getElementById('wallGrid');
-  var emptyEl     = document.getElementById('wallEmpty');
-  var countEl     = document.getElementById('wallCount');
-  var dateCountEl = document.getElementById('wallDateCount');
-  var todayEl     = document.getElementById('wallToday');
-  var refreshBtn  = document.getElementById('wallRefreshBtn');
-  var formBtn     = document.getElementById('wallFormBtn');
-  var formEl      = document.getElementById('wallForm');
-  var formCancel  = document.getElementById('wallFormCancel');
-  var nameInput   = document.getElementById('wallName');
-  var showSelect  = document.getElementById('wallShow');
-  var textInput   = document.getElementById('wallText');
-  var moreBtn     = document.getElementById('wallMoreBtn');
-  var moreWrap    = document.getElementById('wallMoreWrap');
-
-  if (!gridEl) return;
-
-  var MINE_KEY = 'tk_wall_mine_v2';
-  var LIKE_KEY = 'tk_wall_likes_v2';
-  var PAGE_SIZE = 9;
-
-  // ★★★ 留言區時間視窗：只顯示近 N 天內（含今天）開售場次的留言 ★★★
-  var RECENT_DAYS = 3;
-
-  var showAll = false;
-  var serverMessages = null;
-  var likesSaveTimer = null;
-
-  var NAMES = ['Vincy','阿Kan','Mandy','Kelvin','小婷','阿俊','Yuki','Chris','花花','阿豪','Lily','肥仔','叮叮','Winnie','阿欣','Kary','森仔','呀B','Cyrus','Nana','阿朗','BoBo','Kristy','大頭','Edwin','Fiona','細龍','Gigi','Hugo','Ivy'];
-  var TEMPLATES = [
-    '🎉 成功搶到 {show}！{stage} 一開閘就衝入去，全程零卡頓，多謝 ticketkiller 🙌',
-    '第一次用就中！{show} 入手 {qty}，手都震 😭 好癲',
-    '6 部機同時出動，{show} 成功落單 ✅ 強烈推薦',
-    '{show} 我搶到啦！！{stage} 排隊位超前，10 秒都唔使 ⚡',
-    '本來以為冇希望，點知 {show} 真係中咗，{qty} 到手 🎫',
-    '{stage} 順利過關，{show} 買到心水位，好感動 🥹',
-    '同朋友一齊開 6 部機，{show} 齊齊有飛，勁開心！',
-    '{show} 搶到手都軟，但一切都值得 💖',
-    '用咗咁多年搶票工具，ticketkiller 真係最快，{show} 一 take 過 👍',
-    '{stage} 秒殺成功！{show} 買到 {qty}，多謝客服耐心教路 🙏',
-    '連續搶咗 3 場，{show} 全部中，勁誇張 😳',
-    '{show} 終於搶到！之前自己搶十次都唔中，今次一次搞掂 💪'
-  ];
-  var QTYS = ['1 張', '2 張', '2 張連位', '3 張', '4 張', '單丁 1 張'];
-
-  function hash(str) {
-    var h = 5381;
-    str = String(str);
-    for (var i = 0; i < str.length; i++) h = ((h << 5) + h + str.charCodeAt(i)) >>> 0;
-    return h;
-  }
-  function pad2(n) { return String(n).padStart(2, '0'); }
-  function todayHKT() {
-    try {
-      var parts = new Intl.DateTimeFormat('en-CA', {
-        timeZone: 'Asia/Hong_Kong', year: 'numeric', month: '2-digit', day: '2-digit'
-      }).formatToParts(new Date());
-      var y = '', m = '', d = '';
-      for (var i = 0; i < parts.length; i++) {
-        if (parts[i].type === 'year')  y = parts[i].value;
-        if (parts[i].type === 'month') m = parts[i].value;
-        if (parts[i].type === 'day')   d = parts[i].value;
-      }
-      if (y && m && d) return y + '-' + m + '-' + d;
-    } catch (e) {}
-    var now = new Date();
-    return now.getFullYear() + '-' + pad2(now.getMonth() + 1) + '-' + pad2(now.getDate());
-  }
-  function nowHKTTime() {
-    var d = new Date();
-    try {
-      var p = new Intl.DateTimeFormat('en-GB', {
-        timeZone: 'Asia/Hong_Kong', hour: '2-digit', minute: '2-digit', hour12: false
-      }).format(d);
-      if (p) return p;
-    } catch (e) {}
-    return pad2(d.getHours()) + ':' + pad2(d.getMinutes());
-  }
-  function formatDay(dateStr) {
-    if (!dateStr) return '';
-    var p = String(dateStr).split('-');
-    if (p.length !== 3) return dateStr;
-    return tr(parseInt(p[1], 10) + '月' + parseInt(p[2], 10) + '日');
-  }
-  function formatFullDay(dateStr) {
-    if (!dateStr) return '';
-    var p = String(dateStr).split('-');
-    if (p.length !== 3) return dateStr;
-    return tr(p[0] + '年' + parseInt(p[1], 10) + '月' + parseInt(p[2], 10) + '日');
-  }
-  function esc(str) {
-    return String(str == null ? '' : str)
-      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
-      .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
-  }
-
-  function daysDiffHKT(dateStr, todayStr) {
-    if (!dateStr) return NaN;
-    todayStr = todayStr || todayHKT();
-    var p1 = String(todayStr).split('-');
-    var p2 = String(dateStr).split('-');
-    if (p1.length !== 3 || p2.length !== 3) return NaN;
-    var t1 = Date.UTC(+p1[0], +p1[1] - 1, +p1[2]);
-    var t2 = Date.UTC(+p2[0], +p2[1] - 1, +p2[2]);
-    return Math.round((t1 - t2) / 86400000);
-  }
-  function isWithinRecentDays(dateStr, todayStr) {
-    var d = daysDiffHKT(dateStr, todayStr);
-    return !isNaN(d) && d >= 0 && d < RECENT_DAYS;
-  }
-
-  function getAllShows() {
-    if (window.__showsSystem && typeof window.__showsSystem.getAll === 'function') {
-      var arr = window.__showsSystem.getAll();
-      if (arr && arr.length) return arr;
-    }
-    return [];
-  }
-
-  function collectSaleDates(s) {
-    var arr = [];
-    var now = Date.now();
-    var today = todayHKT();
-    var parseFn = (window.__showsSystem && window.__showsSystem.parseHKTTime) || null;
-
-    function isStarted(dateStr, timeStr) {
-      if (!dateStr) return false;
-      if (dateStr < today) return true;
-      if (dateStr > today) return false;
-      if (!timeStr || !/\d{1,2}:\d{2}/.test(timeStr)) return true;
-      if (parseFn) {
-        var dt = parseFn(dateStr, timeStr);
-        return dt ? dt.getTime() <= now : false;
-      }
-      return true;
-    }
-
-    if (s.prioritySales && s.prioritySales.length) {
-      s.prioritySales.forEach(function (p) {
-        if (p && p.date &&
-            isStarted(p.date, p.time) &&
-            isWithinRecentDays(p.date, today)) {
-          arr.push({ date: p.date, stage: p.stage || '優先購票', type: 'priority' });
-        }
-      });
-    }
-
-    if (s.publicSaleDate &&
-        isStarted(s.publicSaleDate, s.publicSaleTime) &&
-        isWithinRecentDays(s.publicSaleDate, today)) {
-      arr.push({ date: s.publicSaleDate, stage: '公開發售', type: 'public' });
-    }
-
-    return arr;
-  }
-
-  function buildAutoMessages(shows, todayStr) {
-    var out = [];
-    shows.forEach(function (s) {
-      var dates = collectSaleDates(s);
-      if (!dates.length) return;
-
-      dates.forEach(function (d, di) {
-        var seed = hash(todayStr + '|' + (s.id || s.name) + '|' + d.date + '|' + di);
-        var name = NAMES[seed % NAMES.length];
-        var tpl = TEMPLATES[(seed >>> 4) % TEMPLATES.length];
-        var qty = QTYS[(seed >>> 8) % QTYS.length];
-        var likes = 18 + (seed % 460);
-        var hh = 9 + (seed % 13);
-        var mm = seed % 60;
-        var text = tpl.replace(/\{show\}/g, s.name).replace(/\{stage\}/g, d.stage).replace(/\{qty\}/g, qty);
-        out.push({
-          key: 'auto|' + (s.id || s.name) + '|' + d.date + '|' + di,
-          name: name, text: text, showName: s.name, stage: d.stage,
-          saleDate: d.date, isPublic: d.type === 'public', likes: likes,
-          time: pad2(hh) + ':' + pad2(mm), hue: seed % 360, mine: false, source: 'auto'
-        });
-      });
-    });
-    return out;
-  }
-
-  function loadMine() {
-    try {
-      var raw = localStorage.getItem(MINE_KEY);
-      if (!raw) return [];
-      var arr = JSON.parse(raw);
-      return Array.isArray(arr) ? arr : [];
-    } catch (e) { return []; }
-  }
-  function saveMine(arr) { try { localStorage.setItem(MINE_KEY, JSON.stringify(arr)); } catch (e) {} }
-
-  function loadLikes() {
-    try {
-      var raw = localStorage.getItem(LIKE_KEY);
-      if (!raw) return {};
-      var obj = JSON.parse(raw);
-      return (obj && typeof obj === 'object') ? obj : {};
-    } catch (e) { return {}; }
-  }
-  function saveLikes(obj) {
-    clearTimeout(likesSaveTimer);
-    likesSaveTimer = setTimeout(function () {
-      try { localStorage.setItem(LIKE_KEY, JSON.stringify(obj)); } catch (e) {}
-    }, 300);
-  }
-
-  function getWallApi() {
-    var CFG = (window.TK_CONFIG && window.TK_CONFIG.wallApi) || {};
-    if (!CFG.enabled || !CFG.baseUrl) return null;
-    return {
-      list: CFG.baseUrl.replace(/\/+$/, '') + (CFG.listPath || '/wall/list'),
-      post: CFG.baseUrl.replace(/\/+$/, '') + (CFG.postPath || '/wall/post'),
-      like: CFG.baseUrl.replace(/\/+$/, '') + (CFG.likePath || '/wall/like')
-    };
-  }
-
-  function fetchServerMessages() {
-    var api = getWallApi();
-    if (!api) return Promise.resolve(null);
-    return fetch(api.list, { method: 'GET', headers: { 'Accept': 'application/json' } })
-      .then(function (res) {
-        if (!res.ok) throw new Error('HTTP ' + res.status);
-        return res.json();
-      })
-      .then(function (data) {
-        var arr = Array.isArray(data) ? data : (data && data.messages);
-        return Array.isArray(arr) ? arr : [];
-      })
-      .catch(function () { return null; });
-  }
-
-  function postServerMessage(payload) {
-    var api = getWallApi();
-    if (!api) return Promise.reject(new Error('NO_API'));
-    return fetch(api.post, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-      body: JSON.stringify(payload)
-    }).then(function (res) {
-      if (!res.ok) throw new Error('HTTP ' + res.status);
-      return res.json();
-    });
-  }
-
-  function postServerLike(key) {
-    var api = getWallApi();
-    if (!api) return Promise.reject(new Error('NO_API'));
-    return fetch(api.like, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-      body: JSON.stringify({ key: key })
-    }).then(function (res) {
-      if (!res.ok) throw new Error('HTTP ' + res.status);
-      return res.json();
-    });
-  }
-
-  var renderedMessages = [];
-
-  function buildAll() {
-    var today = todayHKT();
-    var shows = getAllShows();
-    var auto  = buildAutoMessages(shows, today);
-
-    var mineRecent = loadMine().filter(function (m) {
-      return isWithinRecentDays(m.saleDate, today);
-    });
-    var serverRecent = (serverMessages || []).filter(function (m) {
-      return isWithinRecentDays(m.saleDate, today);
-    });
-
-    var merged = (serverRecent.length ? serverRecent.concat(mineRecent) : mineRecent).concat(auto);
-
-    merged.sort(function (a, b) {
-      var da = String(a.saleDate || '9999-99-99');
-      var db = String(b.saleDate || '9999-99-99');
-      if (da !== db) return db.localeCompare(da);
-      return String(a.key).localeCompare(String(b.key));
-    });
-
-    return { messages: merged, today: today };
-  }
-
-  function render() {
-    var data = buildAll();
-    renderedMessages = data.messages;
-
-    if (todayEl) todayEl.textContent = formatFullDay(data.today);
-
-    var uniqueDates = {};
-    data.messages.forEach(function (m) { if (m.saleDate) uniqueDates[m.saleDate] = 1; });
-
-    if (countEl)     countEl.textContent     = data.messages.length;
-    if (dateCountEl) dateCountEl.textContent = Object.keys(uniqueDates).length;
-
-    if (!data.messages.length) {
-      gridEl.innerHTML = '';
-      gridEl.classList.add('hidden');
-      if (emptyEl) emptyEl.classList.remove('hidden');
-      if (moreWrap) moreWrap.classList.add('hidden');
-      return;
-    }
-    if (emptyEl) emptyEl.classList.add('hidden');
-    gridEl.classList.remove('hidden');
-
-    var likesMap = loadLikes();
-    var list = showAll ? data.messages : data.messages.slice(0, PAGE_SIZE);
-
-    var html = '';
-    list.forEach(function (m) {
-      var liked = !!likesMap[m.key];
-      var serverLikes = (m.likes != null ? m.likes : 0);
-      var likeCount = serverLikes + (liked ? 1 : 0);
-      var initial = m.name ? String(m.name).charAt(0).toUpperCase() : '?';
-      var hue = (m.hue == null) ? (hash(m.name || 'x') % 360) : m.hue;
-      var grad = 'linear-gradient(135deg,hsl(' + hue + ',85%,66%),hsl(' + ((hue + 55) % 360) + ',85%,52%))';
-
-      var tagHtml;
-      if (m.mine) tagHtml = '<span class="tag-pill tag-hot">' + tr('我的留言') + '</span>';
-      else tagHtml = '<span class="tag-pill tag-new">' + tr('成功搶票') + '</span>';
-
-      var stageLine = esc(tr(m.stage || '')) + (m.saleDate ? ' · ' + esc(formatDay(m.saleDate)) : '');
-
-      html +=
-        '<div class="glass-deep rounded-2xl p-5 border border-white/10 wall-card flex flex-col">' +
-          '<div class="flex items-start gap-3">' +
-            '<div class="w-10 h-10 rounded-full flex items-center justify-center font-bold text-white shrink-0 text-sm" style="background:' + grad + '">' + esc(initial) + '</div>' +
-            '<div class="flex-1 min-w-0">' +
-              '<div class="flex items-center flex-wrap gap-1.5">' +
-                '<span class="font-bold text-white text-sm truncate">' + esc(m.name || '匿名') + '</span>' + tagHtml +
-              '</div>' +
-              '<div class="text-[11px] text-blush/45 mt-0.5">' + esc(m.time || '') + (m.saleDate ? ' · ' + esc(formatDay(m.saleDate)) : '') + '</div>' +
-            '</div>' +
-          '</div>' +
-          '<p class="text-sm text-blush/85 mt-3 leading-relaxed flex-1">' + esc(tr(m.text)) + '</p>' +
-          '<div class="mt-3 pt-3 border-t border-white/5 space-y-1.5">' +
-            '<div class="flex items-start gap-2 text-[11px] text-blush/60"><i class="fa fa-music text-rose/80 mt-0.5"></i><span class="leading-relaxed">' + esc(tr(m.showName || '')) + '</span></div>' +
-            '<div class="flex items-center gap-2 text-[11px] text-blush/60"><i class="fa fa-clock-o text-green/80"></i><span>' + stageLine + '</span></div>' +
-          '</div>' +
-          '<div class="mt-3 flex items-center justify-between text-[11px]">' +
-            '<button type="button" class="wall-like ' + (liked ? 'liked' : '') + ' text-blush/50" data-like="' + esc(m.key) + '" aria-pressed="' + (liked ? 'true' : 'false') + '" aria-label="' + tr('讚好') + '">' +
-              '<i class="fa fa-thumbs-up mr-1"></i><span>' + likeCount + '</span>' +
-            '</button>' +
-            '<span class="text-green/70"><i class="fa fa-check-circle mr-1"></i>' + tr('已驗證') + '</span>' +
-          '</div>' +
-        '</div>';
-    });
-
-    gridEl.innerHTML = html;
-
-    if (moreWrap) {
-      if (data.messages.length > PAGE_SIZE) {
-        moreWrap.classList.remove('hidden');
-        if (moreBtn) {
-          moreBtn.innerHTML = showAll
-            ? '<i class="fa fa-angle-up mr-2"></i>' + tr('收起留言')
-            : '<i class="fa fa-angle-down mr-2"></i>' + tr('顯示更多留言（尚有') + ' ' + (data.messages.length - PAGE_SIZE) + ' ' + tr('條）');
-        }
-      } else {
-        moreWrap.classList.add('hidden');
-      }
-    }
-
-    requestAnimationFrame(function () {
-      if (typeof window.__revealAll === 'function') window.__revealAll();
-    });
-  }
-
-  gridEl.addEventListener('click', function (e) {
-    var btn = e.target.closest ? e.target.closest('.wall-like') : null;
-    if (!btn) return;
-    var key = btn.getAttribute('data-like');
-    if (!key) return;
-
-    var likesMap = loadLikes();
-    if (likesMap[key]) delete likesMap[key]; else likesMap[key] = true;
-    saveLikes(likesMap);
-
-    var liked = !!likesMap[key];
-    btn.classList.toggle('liked', liked);
-    btn.setAttribute('aria-pressed', liked ? 'true' : 'false');
-
-    var msg = null;
-    for (var i = 0; i < renderedMessages.length; i++) {
-      if (renderedMessages[i].key === key) { msg = renderedMessages[i]; break; }
-    }
-    var base = msg ? (msg.likes || 0) : 0;
-    var span = btn.querySelector('span');
-    if (span) span.textContent = base + (liked ? 1 : 0);
-
-    if (getWallApi() && liked) {
-      postServerLike(key).catch(function () {});
-    }
-  });
-
-  if (refreshBtn) {
-    refreshBtn.addEventListener('click', function () {
-      showAll = false;
-      refreshBtn.innerHTML = '<i class="fa fa-spinner fa-spin mr-2"></i>' + tr('載入中...');
-      fetchServerMessages().then(function (arr) {
-        if (arr) serverMessages = arr;
-        render();
-        refreshBtn.innerHTML = '<i class="fa fa-refresh mr-2"></i>' + tr('最新留言');
-        if (window.__tkToast) window.__tkToast(tr('最新留言 今日留言'));
-      });
-    });
-  }
-
-  if (moreBtn) {
-    moreBtn.addEventListener('click', function () {
-      showAll = !showAll;
-      render();
-      if (!showAll && gridEl) {
-        var top = gridEl.getBoundingClientRect().top + window.scrollY - 90;
-        window.scrollTo({ top: top, behavior: 'smooth' });
-      }
-    });
-  }
-
-  function fillShowSelect() {
-    if (!showSelect) return;
-    var shows = getAllShows();
-    var opts = '<option value="">' + tr('請選擇場次（可選）') + '</option>';
-    shows.forEach(function (s) {
-      var dates = collectSaleDates(s);
-      if (!dates.length) return;
-      opts += '<option value="' + esc(s.name) + '">' + esc(tr(s.name)) + '</option>';
-    });
-    showSelect.innerHTML = opts;
-  }
-
-  if (formBtn && formEl) {
-    formBtn.addEventListener('click', function () {
-      var isHidden = formEl.classList.toggle('hidden');
-      if (!isHidden) {
-        fillShowSelect();
-        if (nameInput) setTimeout(function () { nameInput.focus(); }, 80);
-      }
-    });
-  }
-  if (formCancel && formEl) {
-    formCancel.addEventListener('click', function () { formEl.classList.add('hidden'); });
-  }
-
-  if (formEl) {
-    formEl.addEventListener('submit', function (e) {
-      e.preventDefault();
-      var name = (nameInput && nameInput.value ? nameInput.value : '').trim() || '匿名用戶';
-      var showVal = showSelect ? showSelect.value : '';
-      var text = (textInput && textInput.value ? textInput.value : '').trim();
-
-      if (!text) { if (window.__tkToast) window.__tkToast(tr('請輸入留言內容')); if (textInput) textInput.focus(); return; }
-      if (text.length < 2) { if (window.__tkToast) window.__tkToast(tr('留言太短，請多寫幾句')); if (textInput) textInput.focus(); return; }
-
-      var today = todayHKT();
-      var payload = {
-        name: name.slice(0, 20),
-        text: text.slice(0, 200),
-        showName: showVal || tr('我的搶票戰績'),
-        stage: tr('我的留言'),
-        saleDate: today,
-        time: nowHKTTime(),
-        hue: hash(name) % 360,
-        mine: true,
-        likes: 0
-      };
-
-      function submitLocal() {
-        var mine = loadMine();
-        mine.unshift(Object.assign({}, payload, {
-          key: 'mine|' + Date.now() + '|' + Math.floor(Math.random() * 9999),
-          source: 'mine'
-        }));
-        mine = mine.slice(0, 50);
-        saveMine(mine);
-      }
-
-      if (getWallApi()) {
-        var submitBtn = formEl.querySelector('button[type="submit"]');
-        var originalHtml = submitBtn ? submitBtn.innerHTML : '';
-        if (submitBtn) {
-          submitBtn.disabled = true;
-          submitBtn.innerHTML = '<i class="fa fa-spinner fa-spin mr-1"></i>' + tr('發佈中...');
-        }
-        postServerMessage(payload)
-          .then(function (data) {
-            if (data && data.message) serverMessages = (serverMessages || []).concat([data.message]);
-            else submitLocal();
-            if (nameInput) nameInput.value = '';
-            if (textInput) textInput.value = '';
-            if (showSelect) showSelect.value = '';
-            formEl.classList.add('hidden');
-            showAll = false;
-            return fetchServerMessages();
-          })
-          .then(function (arr) {
-            if (arr) serverMessages = arr;
-            render();
-            if (window.__tkToast) window.__tkToast(tr('留言已發佈 🎉'));
-          })
-          .catch(function () {
-            submitLocal();
-            if (nameInput) nameInput.value = '';
-            if (textInput) textInput.value = '';
-            if (showSelect) showSelect.value = '';
-            formEl.classList.add('hidden');
-            showAll = false;
-            render();
-            if (window.__tkToast) window.__tkToast(tr('後端發送失敗，留言暫存在本機'));
-          })
-          .finally(function () {
-            if (submitBtn) {
-              submitBtn.disabled = false;
-              submitBtn.innerHTML = originalHtml;
-            }
-          });
-      } else {
-        submitLocal();
-        if (nameInput) nameInput.value = '';
-        if (textInput) textInput.value = '';
-        if (showSelect) showSelect.value = '';
-        formEl.classList.add('hidden');
-        showAll = false;
-        render();
-        if (window.__tkToast) window.__tkToast(tr('留言已發佈 🎉'));
-      }
-    });
-  }
-
-  window.__wallSystem = {
-    rerender: function () { render(); },
-    rebuild: function () { showAll = false; render(); },
-    refreshFromServer: function () {
-      return fetchServerMessages().then(function (arr) {
-        if (arr) serverMessages = arr;
-        render();
-      });
-    },
-    getMessages: function () { return renderedMessages.slice(); }
-  };
-
-  function init() {
-    fillShowSelect();
-
-    if (getWallApi()) {
-      render();
-      fetchServerMessages().then(function (arr) {
-        if (arr) serverMessages = arr;
-        render();
-      });
-    } else {
-      render();
-    }
-  }
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', function () { setTimeout(init, 120); });
-  } else {
-    setTimeout(init, 120);
+    loadShows();
   }
 })();
 </script>
 
 
 <!-- ============================================================
-     P0：聯絡浮動按鈕 + Telegram Bot 直發 / QQ / 釘釘留言面板
+     第三部分：聯絡面板 + 複製功能 + 留言區（精簡）
      ============================================================ -->
 <script>
 (function () {
   'use strict';
 
-  function tr(s) { return window.__tkTr ? window.__tkTr(s) : String(s); }
-
-  var fab    = document.getElementById('contactFab');
-  var panel  = document.getElementById('contactPanel');
-  var close  = document.getElementById('contactClose');
-  var openBtn = document.getElementById('contactOpenBtn');
-  if (!fab || !panel) return;
-
-  var isOpen = false;
-  var lastFocus = null;
-
-  function getFocusable() {
-    return panel.querySelectorAll(
-      'a[href], button:not([disabled]), input:not([disabled]):not([type="hidden"]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
-    );
-  }
-  function setHidden(hidden) {
-    if (hidden) panel.setAttribute('hidden', '');
-    else        panel.removeAttribute('hidden');
-  }
+  var fab        = document.getElementById('contactFab');
+  var panel      = document.getElementById('contactPanel');
+  var closeBtn   = document.getElementById('contactClose');
+  var contactOpenBtn = document.getElementById('contactOpenBtn');
 
   function openPanel() {
-    if (isOpen) return;
-    isOpen = true;
-    lastFocus = document.activeElement;
-    setHidden(false);
+    if (!panel) return;
+    panel.hidden = false;
     requestAnimationFrame(function () { panel.classList.add('open'); });
     fab.classList.add('active');
     fab.setAttribute('aria-expanded', 'true');
-    var focusables = getFocusable();
-    if (focusables.length) setTimeout(function () { focusables[0].focus(); }, 120);
-    document.addEventListener('keydown', onKeydown, true);
-    document.addEventListener('click', onDocClick, true);
   }
+
   function closePanel() {
-    if (!isOpen) return;
-    isOpen = false;
+    if (!panel) return;
     panel.classList.remove('open');
     fab.classList.remove('active');
     fab.setAttribute('aria-expanded', 'false');
-    document.removeEventListener('keydown', onKeydown, true);
-    document.removeEventListener('click', onDocClick, true);
-    setTimeout(function () { if (!isOpen) setHidden(true); }, 280);
-    if (lastFocus && typeof lastFocus.focus === 'function') lastFocus.focus();
-  }
-  function onKeydown(e) {
-    if (e.key === 'Escape') { e.preventDefault(); closePanel(); return; }
-    if (e.key === 'Tab') {
-      var focusables = getFocusable();
-      if (!focusables.length) return;
-      var first = focusables[0];
-      var last  = focusables[focusables.length - 1];
-      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
-      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
-    }
-  }
-  function onDocClick(e) {
-    if (!isOpen) return;
-    if (panel.contains(e.target) || fab.contains(e.target)) return;
-    if (openBtn && openBtn.contains(e.target)) return;
-    closePanel();
+    setTimeout(function () { panel.hidden = true; }, 300);
   }
 
-  fab.addEventListener('click', function (e) { e.stopPropagation(); isOpen ? closePanel() : openPanel(); });
-  if (close) close.addEventListener('click', function (e) { e.stopPropagation(); closePanel(); });
-  if (openBtn) openBtn.addEventListener('click', function (e) { e.stopPropagation(); openPanel(); });
-
-  function copyToClipboard(text, label) {
-    var done = function () { showToast(tr('已複製') + ' ' + (label || '') + (label ? '：' : '') + text); };
-    if (navigator.clipboard && window.isSecureContext) {
-      navigator.clipboard.writeText(text).then(done).catch(function () { fallbackCopy(text, done); });
-    } else {
-      fallbackCopy(text, done);
-    }
-  }
-  function fallbackCopy(text, cb) {
-    var ta = document.createElement('textarea');
-    ta.value = text;
-    ta.setAttribute('readonly', '');
-    ta.style.position = 'fixed';
-    ta.style.top = '0';
-    ta.style.left = '-9999px';
-    document.body.appendChild(ta);
-    ta.select();
-    ta.setSelectionRange(0, ta.value.length);
-    var ok = false;
-    try { ok = document.execCommand('copy'); } catch (e) { ok = false; }
-    document.body.removeChild(ta);
-    if (ok) cb(); else showToast(tr('複製失敗，請手動複製'));
+  if (fab && panel) {
+    fab.addEventListener('click', function () {
+      if (panel.classList.contains('open')) closePanel();
+      else openPanel();
+    });
+    if (closeBtn) closeBtn.addEventListener('click', closePanel);
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && panel.classList.contains('open')) closePanel();
+    });
+    document.addEventListener('click', function (e) {
+      if (!panel.classList.contains('open')) return;
+      if (panel.contains(e.target) || fab.contains(e.target)) return;
+      closePanel();
+    });
   }
 
-  var toastTimer = null;
-  function showToast(msg, ms) {
-    var t = document.getElementById('tkToast');
-    if (!t) {
-      t = document.createElement('div');
-      t.id = 'tkToast';
-      t.className = 'tk-toast';
-      t.setAttribute('role', 'status');
-      t.setAttribute('aria-live', 'polite');
-      document.body.appendChild(t);
-    }
-    t.textContent = msg;
-    t.classList.add('show');
-    clearTimeout(toastTimer);
-    toastTimer = setTimeout(function () { t.classList.remove('show'); }, ms || 2600);
-  }
-  window.__tkToast = showToast;
+  if (contactOpenBtn) contactOpenBtn.addEventListener('click', openPanel);
 
-  panel.querySelectorAll('.contact-copy').forEach(function (btn) {
-    btn.addEventListener('click', function (e) {
-      e.stopPropagation();
-      var text = this.getAttribute('data-copy') || '';
-      var label = this.getAttribute('data-copy-label') || '';
-      if (!text) return;
-      copyToClipboard(text, label);
+  // Copy buttons
+  document.querySelectorAll('.contact-copy[data-copy]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var val = btn.getAttribute('data-copy');
+      var label = btn.getAttribute('data-copy-label') || '內容';
+      if (!val) return;
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(val).then(function () {
+          showToast(label + ' 已複製');
+        }).catch(function () {
+          fallbackCopy(val, label);
+        });
+      } else {
+        fallbackCopy(val, label);
+      }
     });
   });
 
-  function sendToTelegramBot(name, contact, message) {
-    var CFG = (window.TK_CONFIG && window.TK_CONFIG.telegramBot) || {};
-    if (!CFG.enabled || !CFG.token || !CFG.chatId) {
-      return Promise.reject(new Error('BOT_NOT_CONFIGURED'));
+  function fallbackCopy(val, label) {
+    var ta = document.createElement('textarea');
+    ta.value = val;
+    ta.style.position = 'fixed';
+    ta.style.left = '-9999px';
+    document.body.appendChild(ta);
+    ta.select();
+    try {
+      document.execCommand('copy');
+      showToast(label + ' 已複製');
+    } catch (e) {
+      showToast('複製失敗，請手動複製');
     }
-
-    var text =
-      '🎟 <b>ticketkiller 新留言</b>\n\n' +
-      '<b>姓名：</b>' + escapeHtml(name || '未填寫') + '\n' +
-      '<b>聯絡：</b>' + escapeHtml(contact) + '\n' +
-      '<b>內容：</b>\n' + escapeHtml(message) + '\n\n' +
-      '<i>來源：官網聯絡表單</i>';
-
-    var url = 'https://api.telegram.org/bot' + CFG.token + '/sendMessage';
-
-    return fetch(url, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        chat_id: CFG.chatId,
-        text: text,
-        parse_mode: 'HTML',
-        disable_web_page_preview: true
-      })
-    }).then(function (res) {
-      if (!res.ok) throw new Error('HTTP ' + res.status);
-      return res.json();
-    }).then(function (data) {
-      if (!data || !data.ok) throw new Error('TG_API_FAILED');
-      return data;
-    });
+    document.body.removeChild(ta);
   }
 
-  function escapeHtml(s) {
-    return String(s == null ? '' : s)
-      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  var toastTimer;
+  function showToast(msg) {
+    var el = document.getElementById('tkToast');
+    if (!el) {
+      el = document.createElement('div');
+      el.id = 'tkToast';
+      el.className = 'tk-toast';
+      document.body.appendChild(el);
+    }
+    el.textContent = msg;
+    el.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () { el.classList.remove('show'); }, 2600);
   }
 
-  var dingForm = document.getElementById('dingtalkForm');
-  if (dingForm) {
-    dingForm.addEventListener('submit', function (e) {
+  // Dingtalk form
+  var dtForm = document.getElementById('dingtalkForm');
+  if (dtForm) {
+    dtForm.addEventListener('submit', function (e) {
       e.preventDefault();
-
-      var fd = new FormData(dingForm);
-      if (String(fd.get('website') || '').trim()) { dingForm.reset(); showToast(tr('已提交')); return; }
-
-      var name = String(fd.get('name') || '').trim();
-      var contact = String(fd.get('contact') || '').trim();
-      var message = String(fd.get('message') || '').trim();
-
-      if (!contact) { showToast(tr('請填寫您的聯絡方式')); var c = document.getElementById('dtContact'); if (c) c.focus(); return; }
-      if (contact.length < 2) { showToast(tr('聯絡方式太短')); var c2 = document.getElementById('dtContact'); if (c2) c2.focus(); return; }
-      if (!message) { showToast(tr('請填寫留言內容')); var m = document.getElementById('dtMessage'); if (m) m.focus(); return; }
-      if (message.length < 2) { showToast(tr('留言太短，請多寫幾句')); var m2 = document.getElementById('dtMessage'); if (m2) m2.focus(); return; }
-
-      var now = Date.now();
-      var last = 0;
-      try { last = parseInt(localStorage.getItem('tk_last_dt_submit') || '0', 10); } catch (err) {}
-      if (now - last < 60000) {
-        var wait = Math.ceil((60000 - (now - last)) / 1000);
-        showToast(tr('提交太頻繁，請') + ' ' + wait + ' ' + tr('秒後再試'));
+      var name = (document.getElementById('dtName') || {}).value || '未提供';
+      var contact = (document.getElementById('dtContact') || {}).value || '';
+      var message = (document.getElementById('dtMessage') || {}).value || '';
+      if (!contact.trim() || !message.trim()) {
+        showToast('請填寫聯絡方式及留言內容');
         return;
       }
-      try { localStorage.setItem('tk_last_dt_submit', String(now)); } catch (err) {}
-
-      var CFG = (window.TK_CONFIG && window.TK_CONFIG.telegramBot) || {};
-
-      if (CFG.enabled && CFG.token && CFG.chatId) {
-        var submitBtn = dingForm.querySelector('button[type="submit"]');
-        var originalHtml = submitBtn ? submitBtn.innerHTML : '';
-        if (submitBtn) {
-          submitBtn.disabled = true;
-          submitBtn.innerHTML = '<i class="fa fa-spinner fa-spin mr-1"></i>' + tr('發送中...');
-        }
-
-        sendToTelegramBot(name, contact, message)
-          .then(function () {
-            showToast(tr('已成功發送到 Telegram ✅'), 3200);
-            dingForm.reset();
-          })
-          .catch(function (err) {
-            if (window.TK_CONFIG && window.TK_CONFIG.debug) console.warn('[TG Bot]', err);
-            var C = (window.TK_CONFIG && window.TK_CONFIG.contact) || {};
-            var content =
-              '【ticketkiller 留言】\n' +
-              'Telegram：' + (C.telegramUrl || '') + '\n' +
-              'QQ：' + (C.qq || '') + '\n' +
-              '釘釘：' + (C.dingtalk || '') + '\n' +
-              '姓名：' + (name || '未填寫') + '\n' +
-              '聯絡：' + contact + '\n' +
-              '留言：' + message;
-            copyToClipboard(content, tr('留言內容'));
-            showToast(tr('Telegram 發送失敗，已複製留言，請手動粘貼發送'), 3600);
-            dingForm.reset();
-          })
-          .finally(function () {
-            if (submitBtn) {
-              submitBtn.disabled = false;
-              submitBtn.innerHTML = originalHtml;
-            }
-          });
+      var text = '姓名：' + name + '\n聯絡方式：' + contact + '\n留言：' + message;
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(function () {
+          showToast('留言已複製，請到釘釘粘貼發送');
+        }).catch(function () { fallbackCopy(text, '留言'); });
       } else {
-        var C2 = (window.TK_CONFIG && window.TK_CONFIG.contact) || {};
-        var content2 =
-          '【ticketkiller 留言】\n' +
-          'Telegram：' + (C2.telegramUrl || '') + '\n' +
-          'QQ：' + (C2.qq || '') + '\n' +
-          '釘釘：' + (C2.dingtalk || '') + '\n' +
-          '姓名：' + (name || '未填寫') + '\n' +
-          '聯絡：' + contact + '\n' +
-          '留言：' + message;
-        copyToClipboard(content2, tr('留言內容'));
-        dingForm.reset();
-        showToast(tr('留言已複製，請到 Telegram、釘釘或 QQ 粘貼發送'), 3600);
+        fallbackCopy(text, '留言');
       }
     });
   }
-
-  window.__contactPanel = {
-    open: openPanel, close: closePanel,
-    isOpen: function () { return isOpen; }
-  };
 })();
 </script>
 
