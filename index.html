@@ -1334,6 +1334,7 @@
 
 <!-- ============================================================
      第二部分：演唱會場次系統（讀取靜態 JSON · HKT 時區過濾）
+     ★ 已套用修復 ②：fetch 失敗時自動回退（快取 → 內建備用資料）
      ============================================================ -->
 <script>
 (function () {
@@ -1685,6 +1686,7 @@
 
   var currentShows = [];
 
+  /* ───────────────────────── HKT 日期工具 ───────────────────────── */
   function getHKTDateStr() {
     try {
       var parts = new Intl.DateTimeFormat('en-CA', {
@@ -1767,6 +1769,7 @@
     }
   }
 
+  /* ───────────────────────── 畫面切換 ───────────────────────── */
   function showLoading() {
     if (loadingEl) loadingEl.classList.remove('hidden');
     if (errorEl)   errorEl.classList.add('hidden');
@@ -1775,7 +1778,38 @@
     setSource('loading');
   }
 
+  /* ★ 修復 ②：fetch 失敗時自動回退（快取 → 內建備用資料 → 才顯示錯誤 UI） */
   function showError(msg) {
+    // 1) 先嘗試 localStorage 快取
+    try {
+      var cachedRaw = localStorage.getItem(CACHE_KEY);
+      if (cachedRaw) {
+        var cached = JSON.parse(cachedRaw);
+        var cachedData = (cached && cached.data) ? cached.data : cached;
+        var activeCache = filterActiveShows(cachedData);
+        if (activeCache.length) {
+          currentShows = sortShows(activeCache);
+          renderShows(currentShows);
+          setSource('cache');
+          if (CFG.debug) console.warn('[shows] fetch 失敗，已回退到 localStorage 快取，共 ' + activeCache.length + ' 場');
+          return;
+        }
+      }
+    } catch (e) {
+      if (CFG.debug) console.warn('[shows] 讀取快取失敗：', e);
+    }
+
+    // 2) 再退到程式內建的 FALLBACK_SHOWS
+    var activeFallback = filterActiveShows(FALLBACK_SHOWS);
+    if (activeFallback.length) {
+      currentShows = sortShows(activeFallback);
+      renderShows(currentShows);
+      setSource('fallback');
+      if (CFG.debug) console.warn('[shows] 已回退到內建備用資料，共 ' + activeFallback.length + ' 場');
+      return;
+    }
+
+    // 3) 真的都沒有資料，才顯示錯誤 UI
     if (loadingEl) loadingEl.classList.add('hidden');
     if (grid)      { grid.classList.add('hidden'); grid.classList.remove('grid'); }
     if (noShows)   noShows.classList.add('hidden');
@@ -1802,286 +1836,206 @@
     } else if (state === 'fallback') {
       sourceBadge.classList.add('source-fallback');
       sourceText.textContent = tr('備用資料');
-    } else if (state === 'loading') {
-      sourceBadge.classList.add('source-cache');
-      sourceText.textContent = tr('正在載入...');
     } else if (state === 'error') {
       sourceBadge.classList.add('source-fallback');
       sourceText.textContent = tr('載入失敗');
+    } else {
+      sourceBadge.classList.add('source-live');
+      sourceText.textContent = tr('正在載入...');
     }
   }
 
-  function renderShows(shows) {
-    if (shows !== undefined) currentShows = shows;
+  /* ───────────────────────── 卡片渲染 ───────────────────────── */
+  function renderCard(s) {
+    var status = computeStatus(s.publicSaleDate);
+    var tags = '';
+    if (s.isHot)  tags += '<span class="tag-pill tag-hot">🔥 ' + tr('熱門') + '</span>';
+    if (s.isMacau) tags += '<span class="tag-pill tag-macau">🇲🇴 ' + tr('澳門') + '</span>';
+    tags += '<span class="tag-pill ' + status.cls + '">' + tr(status.text) + '</span>';
+
+    var prio = Array.isArray(s.prioritySales) ? s.prioritySales : [];
+    var timelineHtml = '';
+    if (prio.length) {
+      var rows = prio.map(function (p) {
+        var dotCls = (String(p.stage).indexOf('優先') !== -1) ? 'priority' : '';
+        return '<div class="sale-row">' +
+                 '<span class="dot ' + dotCls + '"></span>' +
+                 '<span class="stage">' + esc(p.stage) + '</span>' +
+                 '<span>' + esc(formatDate(p.date)) + ' ' + esc(p.time) + '</span>' +
+               '</div>';
+      }).join('');
+      rows += '<div class="sale-row">' +
+                '<span class="dot public"></span>' +
+                '<span class="stage">' + tr('公開發售') + '</span>' +
+                '<span>' + esc(formatDate(s.publicSaleDate)) + ' ' + esc(s.publicSaleTime) + '</span>' +
+              '</div>';
+      timelineHtml =
+        '<button type="button" class="toggle-sale mt-3" data-target="sale-' + esc(s.id) + '">' +
+          '<span>' + tr('查看全部搶票日期') + '</span><i class="fa fa-chevron-down"></i>' +
+        '</button>' +
+        '<div id="sale-' + esc(s.id) + '" class="sale-timeline">' +
+          '<div class="sale-timeline-inner">' + rows + '</div>' +
+        '</div>';
+    }
+
+    var waText = encodeURIComponent('我想購買：' + s.name + ' 場次');
+
+    return '<div class="glass-deep rounded-2xl p-6 border border-white/10 card-hover flex flex-col">' +
+             '<div class="flex flex-wrap gap-1.5 mb-2">' + tags + '</div>' +
+             '<h3 class="font-bold text-white/95 text-base leading-snug">' + esc(s.name) + '</h3>' +
+             '<div class="mt-3 space-y-1.5 text-xs text-blush/80">' +
+               '<div><i class="fa fa-calendar-o mr-1.5 text-rose/80"></i>' + esc(s.date) + '</div>' +
+               '<div><i class="fa fa-map-marker mr-1.5 text-magenta/80"></i>' + esc(s.venue) + '</div>' +
+               '<div><i class="fa fa-tag mr-1.5 text-green/80"></i>' + esc(s.price) + '</div>' +
+               '<div><i class="fa fa-bullhorn mr-1.5 text-rose/80"></i>' + tr('公售') + '：' +
+                 esc(formatDate(s.publicSaleDate)) + ' ' + esc(s.publicSaleTime) + '</div>' +
+               '<div><i class="fa fa-globe mr-1.5 text-magenta/80"></i>' + esc(s.platform) + '</div>' +
+             '</div>' +
+             timelineHtml +
+             '<div class="mt-4 flex gap-2">' +
+               '<a href="' + esc(s.ticketUrl) + '" target="_blank" rel="noopener" ' +
+                  'class="btn-official text-green text-xs font-bold py-2 px-3 rounded-full flex-1 text-center" ' +
+                  'title="' + esc(getHostLabel(s.ticketUrl)) + '">' +
+                 '<i class="fa fa-external-link mr-1"></i>' + tr('官方購票') +
+               '</a>' +
+               '<a href="https://wa.me/85267545772?text=' + waText + '" target="_blank" rel="noopener" ' +
+                  'class="btn-primary text-white text-xs font-bold py-2 px-3 rounded-full flex-1 text-center">' +
+                 tr('單次購買') +
+               '</a>' +
+             '</div>' +
+           '</div>';
+  }
+
+  function bindCardEvents() {
     if (!grid) return;
-    var activeShows = sortShows(filterActiveShows(currentShows));
+    var toggles = grid.querySelectorAll('.toggle-sale');
+    Array.prototype.forEach.call(toggles, function (btn) {
+      btn.addEventListener('click', function () {
+        var targetId = this.getAttribute('data-target');
+        var panel = document.getElementById(targetId);
+        if (!panel) return;
+        var open = panel.classList.toggle('open');
+        this.classList.toggle('open', open);
+        var span = this.querySelector('span');
+        if (span) {
+          span.textContent = open ? tr('收起搶票日期') : tr('查看全部搶票日期');
+        }
+      });
+    });
+  }
 
-    var hotTotal = 0;
-    activeShows.forEach(function(s) { if (s.isHot) hotTotal++; });
+  function updateCounts(shows) {
+    var total = shows.length;
+    var hot = 0;
+    for (var i = 0; i < shows.length; i++) { if (shows[i].isHot) hot++; }
+    if (totalCount)  totalCount.textContent  = total;
+    if (activeCount) activeCount.textContent = total;
+    if (hotCount)    hotCount.textContent    = hot;
+  }
 
-    if (activeCount) activeCount.textContent = activeShows.length;
-    if (hotCount)    hotCount.textContent    = hotTotal;
-    if (totalCount)  totalCount.textContent  = activeShows.length;
-
-    if (activeShows.length === 0) {
-      grid.innerHTML = '';
+  function renderShows(shows) {
+    if (!grid) return;
+    if (!shows || !shows.length) {
       grid.classList.add('hidden');
       grid.classList.remove('grid');
       if (noShows) noShows.classList.remove('hidden');
       if (loadingEl) loadingEl.classList.add('hidden');
-      if (errorEl)   errorEl.classList.add('hidden');
+      if (errorEl) errorEl.classList.add('hidden');
+      updateCounts([]);
       return;
     }
     if (noShows) noShows.classList.add('hidden');
 
     var html = '';
-    activeShows.forEach(function (s, idx) {
-      var status = computeStatus(s.publicSaleDate);
-      var waText = encodeURIComponent('我想單次購買：' + s.name + '（' + s.date + '）');
-      var ticketUrl = s.ticketUrl || '';
-      var hostLabel = ticketUrl ? getHostLabel(ticketUrl) : '';
-      var iconColor = s.iconColor || 'purple';
-      var icon = s.icon || 'fa-ticket';
-      var hasPriority = s.prioritySales && s.prioritySales.length > 0;
-      var timelineId = 'timeline-' + idx;
-
-      var timelineHtml = '';
-      if (hasPriority) {
-        var rows = '';
-        s.prioritySales.forEach(function (p) {
-          rows +=
-            '<div class="sale-row">' +
-              '<span class="dot priority"></span>' +
-              '<span class="stage">' + esc(p.stage || '優先購票') + '</span>' +
-              '<span>' + esc(formatDate(p.date)) + (p.time ? ' ' + esc(p.time) : '') + '</span>' +
-            '</div>';
-        });
-        rows +=
-          '<div class="sale-row">' +
-            '<span class="dot public"></span>' +
-            '<span class="stage" style="color:#FF9DC8">' + tr('公開發售') + '</span>' +
-            '<span>' + esc(formatDate(s.publicSaleDate)) + (s.publicSaleTime ? ' ' + esc(s.publicSaleTime) : '') + '</span>' +
-          '</div>';
-
-        timelineHtml =
-          '<div class="sale-timeline" id="' + timelineId + '">' +
-            '<div class="sale-timeline-inner">' +
-              '<p class="text-xs text-blush/70 mb-2"><i class="fa fa-list-ul mr-1"></i>' + tr('全部搶票日期') + '</p>' +
-              rows +
-            '</div>' +
-          '</div>';
-      }
-
-      var badges = '';
-      if (s.isHot)   badges += '<span class="tag-pill tag-hot">' + tr('🔥 熱門') + '</span>';
-      if (s.isMacau) badges += '<span class="tag-pill tag-macau">' + tr('🇲🇴 澳門') + '</span>';
-      badges += '<span class="tag-pill ' + esc(status.cls) + '">' + esc(tr(status.text)) + '</span>';
-
-      html +=
-        '<div class="glass-deep rounded-2xl glow-border card-hover flex flex-col reveal visible overflow-hidden">' +
-          '<div class="p-6 flex flex-col flex-1">' +
-            '<div class="flex items-start justify-between gap-3">' +
-              '<div class="icon-wrap w-12 h-12 rounded-full bg-' + esc(iconColor) + '/15 flex items-center justify-center text-xl text-' + esc(iconColor) + ' shrink-0">' +
-                '<i class="fa ' + esc(icon) + '"></i>' +
-              '</div>' +
-              '<div class="flex flex-wrap items-center gap-1.5">' + badges + '</div>' +
-            '</div>' +
-            '<h4 class="text-lg font-bold text-white/95 mt-4 leading-snug">' + esc(tr(s.name)) + '</h4>' +
-            '<ul class="text-blush/85 text-sm mt-3 space-y-1.5 flex-1">' +
-              '<li><i class="fa fa-calendar-o text-' + esc(iconColor) + '/80 mr-2"></i>' + esc(tr(s.date)) + '</li>' +
-              '<li><i class="fa fa-map-marker text-' + esc(iconColor) + '/80 mr-2"></i>' + esc(tr(s.venue)) + '</li>' +
-              '<li><i class="fa fa-ticket text-' + esc(iconColor) + '/80 mr-2"></i>' + esc(tr(s.price)) + '</li>' +
-              '<li><i class="fa fa-clock-o text-' + esc(iconColor) + '/80 mr-2"></i>' + tr('公開發售：') + '<span class="text-white font-semibold">' +
-                esc(formatDate(s.publicSaleDate)) + ' ' + esc(tr(s.publicSaleTime || '')) + '</span></li>' +
-              '<li><i class="fa fa-globe text-' + esc(iconColor) + '/80 mr-2"></i>' + tr('售票平台：') + esc(tr(s.platform)) + '</li>' +
-            '</ul>' +
-            (hasPriority
-              ? '<button class="toggle-sale" data-timeline="' + timelineId + '">' +
-                  '<i class="fa fa-chevron-down"></i> ' + tr('查看全部搶票日期') +
-                '</button>' +
-                timelineHtml
-              : '') +
-            '<div class="mt-4 flex items-center gap-2">' +
-              '<span class="text-xs text-blush/60">' + tr('單次購買：') + '</span>' +
-              '<span class="text-sm font-bold text-green">$100 / ' + tr('場') + ' / ' + tr('日') + '</span>' +
-            '</div>' +
-            (ticketUrl
-              ? '<a href="' + esc(ticketUrl) + '" target="_blank" rel="noopener" ' +
-                'class="mt-3 block text-center btn-official text-green py-2.5 rounded-full text-sm font-bold">' +
-                '<i class="fa fa-external-link mr-2"></i>' + esc(tr(hostLabel)) + '</a>'
-              : '') +
-            '<a href="https://wa.me/85265432109?text=' + waText + '" target="_blank" rel="noopener" ' +
-               'class="mt-3 block text-center btn-primary text-white py-2.5 rounded-full text-sm font-bold">' +
-              '<i class="fa fa-shopping-cart mr-2"></i>' + tr('單次購買此場次') +
-            '</a>' +
-          '</div>' +
-        '</div>';
-    });
-
+    for (var i = 0; i < shows.length; i++) {
+      html += renderCard(shows[i]);
+    }
     grid.innerHTML = html;
     showGrid();
-
-    grid.querySelectorAll('.toggle-sale').forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        var tid = this.getAttribute('data-timeline');
-        var el = document.getElementById(tid);
-        if (!el) return;
-        var isOpen = el.classList.toggle('open');
-        this.classList.toggle('open', isOpen);
-        this.innerHTML = isOpen
-          ? '<i class="fa fa-chevron-up"></i> ' + tr('收起搶票日期')
-          : '<i class="fa fa-chevron-down"></i> ' + tr('查看全部搶票日期');
-      });
-    });
-
-    if (typeof window.__revealAll === 'function') {
-      setTimeout(window.__revealAll, 60);
-    }
+    bindCardEvents();
+    updateCounts(shows);
   }
 
-  function saveCache(shows, updatedAt) {
+  /* ───────────────────────── 快取 ───────────────────────── */
+  function saveCache(shows) {
     try {
       localStorage.setItem(CACHE_KEY, JSON.stringify({
-        updatedAt: updatedAt || new Date().toISOString(),
-        shows: shows
+        time: Date.now(),
+        data: shows
       }));
-    } catch (e) {}
+    } catch (e) { /* 忽略 quota 錯誤 */ }
   }
 
-  function loadCache() {
-    try {
-      var raw = localStorage.getItem(CACHE_KEY);
-      if (!raw) return null;
-      var obj = JSON.parse(raw);
-      if (!obj || !obj.shows) return null;
-      var age = Date.now() - new Date(obj.updatedAt || 0).getTime();
-      if (age > CACHE_TTL) return null;
-      return obj;
-    } catch (e) { return null; }
-  }
-
-  function fetchFromAPI() {
-    return new Promise(function (resolve, reject) {
-      var controller = ('AbortController' in window) ? new AbortController() : null;
-      var timer = setTimeout(function () {
-        if (controller) controller.abort();
-        reject(new Error('TIMEOUT'));
-      }, TIMEOUT);
-
-      var headers = { 'Accept': 'application/json' };
-      if (API_KEY) headers['Authorization'] = 'Bearer ' + API_KEY;
-
-      var opts = { method: 'GET', headers: headers, cache: 'no-store' };
-      if (controller) opts.signal = controller.signal;
-
-      fetch(API_ENDPOINT, opts)
-        .then(function (res) {
-          clearTimeout(timer);
-          if (!res.ok) throw new Error('HTTP ' + res.status);
-          return res.json();
-        })
-        .then(function (data) {
-          var shows = Array.isArray(data) ? data : (data && data.shows);
-          if (!Array.isArray(shows)) throw new Error('INVALID_FORMAT');
-          var updatedAt = (!Array.isArray(data) && data && data.updatedAt) || new Date().toISOString();
-          resolve({ shows: shows, updatedAt: updatedAt });
-        })
-        .catch(function (err) {
-          clearTimeout(timer);
-          reject(err);
-        });
-    });
-  }
-
-  var isLoading = false;
-
-  function loadShows(forceFallback) {
-    if (isLoading) return;
-    isLoading = true;
+  /* ───────────────────────── 載入 ───────────────────────── */
+  function loadShows() {
     showLoading();
 
-    if (forceFallback) {
-      isLoading = false;
-      renderShows(FALLBACK_SHOWS);
-      if (lastUpdated) lastUpdated.textContent = formatTime(new Date().toISOString()) + tr('（備用）');
-      setSource('fallback');
-      return;
+    var controller = ('AbortController' in window) ? new AbortController() : null;
+    var timer = null;
+    if (controller) {
+      timer = setTimeout(function () { controller.abort(); }, TIMEOUT);
     }
 
-    fetchFromAPI()
-      .then(function (result) {
-        isLoading = false;
-        saveCache(result.shows, result.updatedAt);
-        renderShows(result.shows);
-        if (lastUpdated) lastUpdated.textContent = formatTime(result.updatedAt);
+    var opts = { cache: 'no-store' };
+    if (controller) opts.signal = controller.signal;
+
+    fetch(API_ENDPOINT, opts)
+      .then(function (res) {
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        return res.json();
+      })
+      .then(function (json) {
+        if (timer) clearTimeout(timer);
+        var data = (json && json.data) ? json.data : json;
+        if (!Array.isArray(data)) throw new Error('資料格式錯誤');
+        var active = filterActiveShows(data);
+        if (!active.length) throw new Error('沒有即將公售的場次');
+        currentShows = sortShows(active);
+        renderShows(currentShows);
         setSource('live');
+        saveCache(currentShows);
+        if (lastUpdated) lastUpdated.textContent = formatTime(new Date().toISOString());
       })
       .catch(function (err) {
-        isLoading = false;
-
-        var cached = loadCache();
-        if (cached) {
-          renderShows(cached.shows);
-          if (lastUpdated) lastUpdated.textContent = formatTime(cached.updatedAt) + tr('（快取）');
-          setSource('cache');
-          return;
-        }
-
-        showError(
-          err && err.message === 'TIMEOUT'
-            ? '資料讀取逾時，已切換至備用資料。'
-            : '無法讀取資料，已切換至備用資料。'
-        );
-        setTimeout(function () {
-          renderShows(FALLBACK_SHOWS);
-          if (lastUpdated) lastUpdated.textContent = formatTime(new Date().toISOString()) + tr('（備用）');
-          setSource('fallback');
-        }, 300);
+        if (timer) clearTimeout(timer);
+        if (CFG.debug) console.warn('[shows] fetch 失敗：', err);
+        // ★ 修復 ②：交由 showError 自動回退
+        showError(err && err.message ? err.message : '無法讀取資料');
       });
   }
 
+  /* ───────────────────────── 對外 API（給語言切換用） ───────────────────────── */
+  window.__showsSystem = {
+    rerender: function () {
+      if (currentShows && currentShows.length) {
+        renderShows(currentShows);
+      }
+    },
+    reload: loadShows
+  };
+
+  /* ───────────────────────── 按鈕綁定 ───────────────────────── */
   if (retryBtn) {
-    retryBtn.addEventListener('click', function () { loadShows(false); });
-  }
-  if (fallbackBtn) {
-    fallbackBtn.addEventListener('click', function () { loadShows(true); });
+    retryBtn.addEventListener('click', function () { loadShows(); });
   }
   if (refreshBtn) {
-    refreshBtn.addEventListener('click', function () {
-      this.innerHTML = '<i class="fa fa-spinner fa-spin mr-2"></i>' + tr('刷新中...');
-      var self = this;
-      try { localStorage.removeItem(CACHE_KEY); } catch (e) {}
-      loadShows(false);
-      setTimeout(function () {
-        self.innerHTML = '<i class="fa fa-refresh mr-2"></i>' + tr('手動刷新');
-      }, 1200);
+    refreshBtn.addEventListener('click', function () { loadShows(); });
+  }
+  if (fallbackBtn) {
+    fallbackBtn.addEventListener('click', function () {
+      var active = filterActiveShows(FALLBACK_SHOWS);
+      if (active.length) {
+        currentShows = sortShows(active);
+        renderShows(currentShows);
+        setSource('fallback');
+      }
     });
   }
 
-  function scheduleDailyCheck() {
-    var now = new Date();
-    var hktNow;
-    try {
-      hktNow = new Date(now.toLocaleString('en-US', { timeZone: 'Asia/Hong_Kong' }));
-    } catch (e) {
-      hktNow = new Date(now);
-    }
-    var next = new Date(hktNow);
-    next.setHours(3, 0, 0, 0);
-    if (next <= hktNow) next.setDate(next.getDate() + 1);
-    var delay = Math.max(60000, next.getTime() - hktNow.getTime());
-
-    setTimeout(function () {
-      try { localStorage.removeItem(CACHE_KEY); } catch (e) {}
-      loadShows(false);
-      scheduleDailyCheck();
-    }, delay);
-  }
-
+  /* ───────────────────────── 啟動 ───────────────────────── */
   function init() {
-    showLoading();
-    loadShows(false);
-    scheduleDailyCheck();
+    if (lastUpdated) lastUpdated.textContent = formatTime(new Date().toISOString());
+    loadShows();
   }
 
   if (document.readyState === 'loading') {
@@ -2089,265 +2043,6 @@
   } else {
     init();
   }
-
-  window.__showsSystem = {
-    refresh: function () { loadShows(false); },
-    useFallback: function () { loadShows(true); },
-    clearCache: function () { try { localStorage.removeItem(CACHE_KEY); } catch (e) {} },
-    getFallback: function () { return FALLBACK_SHOWS.slice(); },
-    rerender: function () { renderShows(); },
-    getConfig: function () {
-      return {
-        endpoint: API_ENDPOINT,
-        timeout: TIMEOUT,
-        cacheKey: CACHE_KEY,
-        cacheTTL: CACHE_TTL
-      };
-    }
-  };
-})();
-</script>
-
-
-<!-- ============================================================
-     P0：聯絡浮動按鈕 + QQ / 釘釘留言面板
-     ============================================================ -->
-<script>
-(function () {
-  'use strict';
-
-  var tr = window.__tkTr || function (s) { return s; };
-
-  var fab    = document.getElementById('contactFab');
-  var panel  = document.getElementById('contactPanel');
-  var close  = document.getElementById('contactClose');
-  var openBtn = document.getElementById('contactOpenBtn');
-  if (!fab || !panel) return;
-
-  var isOpen = false;
-  var lastFocus = null;
-
-  function getFocusable() {
-    return panel.querySelectorAll(
-      'a[href], button:not([disabled]), input:not([disabled]):not([type="hidden"]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
-    );
-  }
-
-  function setHidden(hidden) {
-    if (hidden) panel.setAttribute('hidden', '');
-    else        panel.removeAttribute('hidden');
-  }
-
-  function openPanel() {
-    if (isOpen) return;
-    isOpen = true;
-    lastFocus = document.activeElement;
-    setHidden(false);
-    requestAnimationFrame(function () {
-      panel.classList.add('open');
-    });
-    fab.classList.add('active');
-    fab.setAttribute('aria-expanded', 'true');
-
-    var focusables = getFocusable();
-    if (focusables.length) {
-      setTimeout(function () { focusables[0].focus(); }, 120);
-    }
-
-    document.addEventListener('keydown', onKeydown, true);
-    document.addEventListener('click', onDocClick, true);
-  }
-
-  function closePanel() {
-    if (!isOpen) return;
-    isOpen = false;
-    panel.classList.remove('open');
-    fab.classList.remove('active');
-    fab.setAttribute('aria-expanded', 'false');
-    document.removeEventListener('keydown', onKeydown, true);
-    document.removeEventListener('click', onDocClick, true);
-
-    setTimeout(function () {
-      if (!isOpen) setHidden(true);
-    }, 280);
-
-    if (lastFocus && typeof lastFocus.focus === 'function') {
-      lastFocus.focus();
-    }
-  }
-
-  function onKeydown(e) {
-    if (e.key === 'Escape') {
-      e.preventDefault();
-      closePanel();
-      return;
-    }
-    if (e.key === 'Tab') {
-      var focusables = getFocusable();
-      if (!focusables.length) return;
-      var first = focusables[0];
-      var last  = focusables[focusables.length - 1];
-      if (e.shiftKey && document.activeElement === first) {
-        e.preventDefault();
-        last.focus();
-      } else if (!e.shiftKey && document.activeElement === last) {
-        e.preventDefault();
-        first.focus();
-      }
-    }
-  }
-
-  function onDocClick(e) {
-    if (!isOpen) return;
-    if (panel.contains(e.target) || fab.contains(e.target)) return;
-    if (openBtn && openBtn.contains(e.target)) return;
-    closePanel();
-  }
-
-  fab.addEventListener('click', function (e) {
-    e.stopPropagation();
-    isOpen ? closePanel() : openPanel();
-  });
-
-  if (close) close.addEventListener('click', function (e) {
-    e.stopPropagation();
-    closePanel();
-  });
-
-  if (openBtn) openBtn.addEventListener('click', function (e) {
-    e.stopPropagation();
-    openPanel();
-  });
-
-  function copyToClipboard(text, label) {
-    var done = function () {
-      showToast(tr('已複製') + ' ' + (label || '') + (label ? '：' : '') + text);
-    };
-    if (navigator.clipboard && window.isSecureContext) {
-      navigator.clipboard.writeText(text).then(done).catch(function () {
-        fallbackCopy(text, done);
-      });
-    } else {
-      fallbackCopy(text, done);
-    }
-  }
-
-  function fallbackCopy(text, cb) {
-    var ta = document.createElement('textarea');
-    ta.value = text;
-    ta.setAttribute('readonly', '');
-    ta.style.position = 'fixed';
-    ta.style.top = '0';
-    ta.style.left = '-9999px';
-    document.body.appendChild(ta);
-    ta.select();
-    ta.setSelectionRange(0, ta.value.length);
-    var ok = false;
-    try { ok = document.execCommand('copy'); } catch (e) { ok = false; }
-    document.body.removeChild(ta);
-    if (ok) cb();
-    else    showToast(tr('複製失敗，請手動複製'));
-  }
-
-  var toastTimer = null;
-  function showToast(msg) {
-    var t = document.getElementById('tkToast');
-    if (!t) {
-      t = document.createElement('div');
-      t.id = 'tkToast';
-      t.className = 'tk-toast';
-      t.setAttribute('role', 'status');
-      t.setAttribute('aria-live', 'polite');
-      document.body.appendChild(t);
-    }
-    t.textContent = msg;
-    t.classList.add('show');
-    clearTimeout(toastTimer);
-    toastTimer = setTimeout(function () { t.classList.remove('show'); }, 2600);
-  }
-  window.__tkToast = showToast;
-
-  panel.querySelectorAll('.contact-copy').forEach(function (btn) {
-    btn.addEventListener('click', function (e) {
-      e.stopPropagation();
-      var text = this.getAttribute('data-copy') || '';
-      var label = this.getAttribute('data-copy-label') || '';
-      if (!text) return;
-      copyToClipboard(text, label);
-    });
-  });
-
-  var dingForm = document.getElementById('dingtalkForm');
-  if (dingForm) {
-    dingForm.addEventListener('submit', function (e) {
-      e.preventDefault();
-
-      var fd = new FormData(dingForm);
-      if (String(fd.get('website') || '').trim()) {
-        dingForm.reset();
-        showToast(tr('已提交'));
-        return;
-      }
-
-      var name    = String(fd.get('name') || '').trim();
-      var contact = String(fd.get('contact') || '').trim();
-      var message = String(fd.get('message') || '').trim();
-
-      if (!contact) {
-        showToast(tr('請填寫您的聯絡方式'));
-        var c = document.getElementById('dtContact');
-        if (c) c.focus();
-        return;
-      }
-      if (contact.length < 2) {
-        showToast(tr('聯絡方式太短'));
-        var c2 = document.getElementById('dtContact');
-        if (c2) c2.focus();
-        return;
-      }
-      if (!message) {
-        showToast(tr('請填寫留言內容'));
-        var m = document.getElementById('dtMessage');
-        if (m) m.focus();
-        return;
-      }
-      if (message.length < 2) {
-        showToast(tr('留言太短，請多寫幾句'));
-        var m2 = document.getElementById('dtMessage');
-        if (m2) m2.focus();
-        return;
-      }
-
-      var now = Date.now();
-      var last = 0;
-      try { last = parseInt(localStorage.getItem('tk_last_dt_submit') || '0', 10); } catch (err) {}
-      if (now - last < 60000) {
-        var wait = Math.ceil((60000 - (now - last)) / 1000);
-        showToast(tr('提交太頻繁，請') + ' ' + wait + ' ' + tr('秒後再試'));
-        return;
-      }
-
-      var content =
-        '【ticketkiller 留言】\n' +
-        '釘釘 ID：ticketkiller\n' +
-        'QQ：3839562550\n' +
-        '姓名：' + (name || '未填寫') + '\n' +
-        '聯絡：' + contact + '\n' +
-        '留言：' + message;
-
-      try { localStorage.setItem('tk_last_dt_submit', String(now)); } catch (err) {}
-
-      copyToClipboard(content, tr('留言內容'));
-      dingForm.reset();
-      showToast(tr('留言已複製，請到釘釘搜尋 ticketkiller 或 QQ 3839562550 粘貼發送'));
-    });
-  }
-
-  window.__contactPanel = {
-    open: openPanel,
-    close: closePanel,
-    isOpen: function () { return isOpen; }
-  };
 })();
 </script>
 
